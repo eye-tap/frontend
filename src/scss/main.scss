@@ -1,0 +1,45 @@
+@forward '@/scss/_theme.scss';
+@forward '@/scss/rwd/_mixins.scss';
+@forward '@/scss/rwd/_variables.scss';
+@forward '@/scss/util/_app-setup.scss';
+@forward '@/scss/util/_buttons.scss';
+@forward '@/scss/util/_inputs.scss';
+@use '@/scss/util/css-loader.css';
+
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+  background-color: var(--theme-bg-1);
+  color: var(--theme-foreground-text);
+  font-family: 'Manrope', sans-serif;
+
+  &.init-complete {
+    transition: background-color 0.5s, color 0.5s;
+  }
+}
+
+body {
+  transition: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--theme-interactable-text);
+}
+
+.info {
+  font-style: italic;
+}
+
+.small-divider {
+  width: 10vw;
+}
+
+.divider {
+  width: 20vw;
+}

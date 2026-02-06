@@ -1,0 +1,116 @@
+@use '@/scss/util/_effects.scss' as *;
+@use '@/scss/_theme.scss' as *;
+
+.button {
+  text-decoration: none;
+  color: var(--theme-foreground-text);
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  transition: background-color, 0.2s;
+  transition: color, 0.2s;
+
+  &.secondary {
+    color: var(--theme-bg-4);
+
+    &:hover {
+      color: var(--theme-bg-4-30);
+    }
+
+    &.theme-button {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 5px;
+      width: 7vw;
+    }
+  }
+
+  &.primary {
+    background-color: var(--theme-bg-4);
+
+    &.alternative {
+      background-color: var(--theme-bg-3);
+
+      &:hover {
+        background-color: var(--theme-bg-3-20);
+      }
+    }
+
+    &.disabled {
+      background-color: var(--theme-bg-2-shade);
+      color: var(--theme-bg-3);
+      cursor: default;
+
+      &:hover {
+        background-color: var(--theme-bg-2-shade);
+      }
+    }
+
+    &.theme-button {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: 7vw;
+    }
+
+    box-shadow: var(--theme-bg-1) 5px 5px 5px;
+
+    &.has-icon {
+      padding-left: 10px;
+      padding-right: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 8rem;
+    }
+
+    &:hover {
+      background-color: var(--theme-bg-4-20);
+    }
+  }
+
+  &.inactive {
+    cursor: not-allowed;
+  }
+
+  &.long-action {
+    position: relative;
+
+    >div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--theme-overlay);
+      cursor: progress;
+      border-radius: 5px;
+
+      >.material-symbols-outlined {
+        pointer-events: none;
+        rotate: 45deg;
+        animation: spin 2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}

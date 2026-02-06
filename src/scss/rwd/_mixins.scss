@@ -1,0 +1,20 @@
+@use "variables" as *;
+@use "sass:map";
+
+@mixin rwd-ratio($ratio-min, $ratio-max, $density-key: null) {
+  $min-ratio: map.get($ratios, $ratio-min);
+  $max-ratio: map.get($ratios, $ratio-max);
+  $density: if($density-key != null, map.get($pixel-densities, $density-key), null);
+
+  $media-query: "(min-aspect-ratio: #{$min-ratio}) and (max-aspect-ratio: #{$max-ratio})";
+
+  @if $density != null {
+    $media-query: "#{$media-query} and (min-resolution: #{($density * 96)}dpi)";
+    // For Safari and legacy WebKit:
+    $media-query: "#{$media-query}, only screen and (-webkit-min-device-pixel-ratio: #{$density})";
+  }
+
+  @media #{$media-query} {
+    @content;
+  }
+}

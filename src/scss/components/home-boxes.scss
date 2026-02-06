@@ -1,0 +1,19 @@
+@mixin home-boxes($pos: left) {
+  padding: 5vh;
+  background-color: var(--theme-bg-2);
+  display: block;
+  width: 35vw;
+  text-align: left;
+
+  @if $pos ==left {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  @else {
+    margin-right: auto;
+    margin-left: 10px;
+  }
+
+  margin-bottom: 15px;
+}
