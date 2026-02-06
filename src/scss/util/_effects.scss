@@ -1,0 +1,51 @@
+/*
+              ╭─────────────────────────────────────────────────╮
+              │          Collection of various effects          │
+              ╰─────────────────────────────────────────────────╯
+ */
+@mixin background-gradient($col1: rgb(0, 33, 139), $col2: rgb(151, 0, 0), $angle: 45deg, $opacity: 1) {
+  background: linear-gradient(45deg, rgba($col1, $opacity), rgba($col2, $opacity));
+  background-size: 150%;
+}
+
+/* radius change effect (radius goes up or down when hovered) */
+@mixin radius-change-effect($normal: 20px, $hover: 5px, $duration: 0.5s) {
+  border: none;
+  border-radius: $normal;
+  transition: border-radius $duration;
+
+  &:hover {
+    border-radius: $hover;
+  }
+}
+
+/* element scales and actually changes size */
+@mixin scale-outside-effect($intensity: 10%, $duration: 0.5s) {}
+
+/* element content scales, but the element itself stays the same size */
+@mixin scale-inside-effect($intensity: 10%, $duration: 0.5s) {}
+
+@mixin shift-effect($intensity: 50%, $duration: 0.5s) {
+  transition: background-position $duration;
+  background-position: 0;
+
+  &:hover {
+    background-position: 50%;
+  }
+}
+
+@mixin radius-change-shift-effect($intensity: 10%, $normal: 20px, $hover: 5px, $duration: 0.5s) {
+  background-position: 0;
+
+  border: none;
+  border-radius: $normal;
+  transition: border-radius $duration;
+
+  &:hover {
+    background-position: 50%;
+    border-radius: $hover;
+  }
+
+  transition: background-position $duration,
+  border-radius $duration;
+}

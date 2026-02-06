@@ -1,0 +1,84 @@
+@use 'sass:color';
+
+$theme-red: (
+  foreground-text: #FFBDBD,
+  interactable-text: #FF5252,
+  background-text: #783A24,
+  bg-1: #310505,
+  bg-2: #3C0F0D,
+  bg-3: #783A24,
+  bg-4: #FF5252,
+  bg-5: #FFBDBD,
+  warning: red,
+  success: green,
+  information: yellow,
+  hover: #00457a,
+  overlay: rgba(0, 0, 0, 0.7),
+);
+
+// text colors identical to bg-colors
+$theme-blue: (
+  foreground-text: #EBF4FF,
+  interactable-text: #529EFF,
+  background-text: #244B78,
+  bg-1: #041527,
+  bg-2: #0E1E3C,
+  bg-3: #244B78,
+  bg-4: #529EFF,
+  bg-5: #EBF4FF,
+  warning: #EA7373,
+  success: #65F28A,
+  information: #E2E256,
+  hover: #00457a,
+  overlay: rgba(0, 0, 0, 0.7),
+);
+
+$theme-purple: (
+  foreground-text: #FED5FF,
+  interactable-text: #E730EA,
+  background-text: #9E539F,
+  bg-1: #120527,
+  bg-2: #440E45,
+  bg-3: #9E539F,
+  bg-4: #E730EA,
+  bg-5: #FED5FF,
+  warning: red,
+  success: green,
+  information: yellow,
+  hover: #00457a,
+  overlay: rgba(0, 0, 0, 0.7),
+);
+
+$theme-black: (
+  foreground-text: #FFFFFF,
+  interactable-text: #696969,
+  background-text: #484848,
+  bg-1: #0C0C0C,
+  bg-2: #141414,
+  bg-3: #484848,
+  bg-4: #696969,
+  bg-5: #FFFFFF,
+  warning: red,
+  success: green,
+  information: yellow,
+  hover: #00457a,
+  overlay: rgba(0, 0, 0, 0.7),
+);
+
+$PI: 3.14159265358979;
+
+
+@mixin gen-theme ($selector, $theme) {
+  #{$selector} {
+    @each $var, $value in $theme {
+      --theme-#{$var}: #{$value};
+      --theme-#{$var}-20: #{color.scale($value, $lightness: 20%)};
+      --theme-#{$var}-30: #{color.scale($value, $lightness: 30%)};
+      --theme-#{$var}-shade: #{color.scale($value, $lightness: -20%)};
+    }
+
+    --slider-connect-bg: var(--theme-hover);
+    --slider-tooltip-bg: var(--theme-hover);
+    --slider-bg: var(--theme-bg-4);
+  }
+}

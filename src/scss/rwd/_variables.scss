@@ -1,0 +1,17 @@
+$ratios: (
+  "max": 20,
+  "extrawide": calc(32/9),
+  "ultrawide": calc(25/9),
+  "wide": calc(16/9),
+  "standard": calc(4/3),
+  "square": calc(1/1),
+  "high": calc(3/4),
+  "vertical": calc(9/16),
+  "mobile": calc(9/21),
+  "tall": calc(9/30)
+);
+
+$pixel-densities: (
+  "retina": 2,
+  "hdpi": 1.5
+);

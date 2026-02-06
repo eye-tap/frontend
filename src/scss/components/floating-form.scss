@@ -1,0 +1,132 @@
+@use '@/scss/rwd/_mixins.scss' as *;
+
+.floating-form {
+  >.wrapper {
+    & {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    >.applet {
+      & {
+        background-color: var(--theme-bg-2);
+        width: 90vw;
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 2%;
+        border-radius: 20px;
+        box-shadow: 10px 10px 10px var(--theme-bg-1-shade);
+
+        @include rwd-ratio("mobile", "vertical") {
+          width: 80vw;
+          height: 70vh;
+        }
+
+        @include rwd-ratio("vertical", "high") {
+          width: 70vw;
+          height: 65vh;
+        }
+
+        @include rwd-ratio("high", "standard") {
+          width: 50vw;
+          height: 60vh;
+        }
+
+        @include rwd-ratio("standard", "wide") {
+          width: 35w;
+          height: 60vh;
+        }
+
+        @include rwd-ratio("wide", "ultrawide") {
+          width: 25vw;
+          height: 60vh;
+        }
+
+        @include rwd-ratio("ultrawide", "extrawide") {
+          width: 27vw;
+          height: 70vh;
+        }
+
+        @include rwd-ratio("extraultrawide", "max") {
+          width: 22vw;
+          height: 70vh;
+        }
+      }
+
+
+      >.logo-bar {
+        height: 5rem;
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+        padding-top: 3rem;
+
+        >img {
+          height: 100%;
+          margin-right: auto;
+        }
+      }
+
+      >.inputs {
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 80%;
+
+        >h1,
+        >p {
+          text-align: start;
+        }
+
+        >h1 {
+          font-family: 'Kode Mono', monospace;
+        }
+
+        .input {
+          background-color: var(--theme-bg-3);
+          margin-bottom: 10px;
+          margin-top: 15px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          padding-left: 20px;
+
+          &.error {
+            border-bottom: var(--theme-warning) 1px solid;
+          }
+        }
+
+        >.pw-rating {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          flex-grow: 1;
+
+          >p {
+            margin: 0;
+            margin-left: auto;
+            width: unset;
+          }
+        }
+
+        >.other-actions {
+          margin-top: 15px;
+
+          p {
+            margin: 5px;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
