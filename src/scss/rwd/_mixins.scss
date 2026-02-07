@@ -4,7 +4,7 @@
 @mixin rwd-ratio($ratio-min, $ratio-max, $density-key: null) {
   $min-ratio: map.get($ratios, $ratio-min);
   $max-ratio: map.get($ratios, $ratio-max);
-  $density: if($density-key != null, map.get($pixel-densities, $density-key), null);
+  $density: if(sass($density-key != null): map.get($pixel-densities, $density-key); else: null);
 
   $media-query: "(min-aspect-ratio: #{$min-ratio}) and (max-aspect-ratio: #{$max-ratio})";
 
