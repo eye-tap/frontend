@@ -21,7 +21,7 @@
     const loader = useTestingEditorLoading( editor!.redraw );
     const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
 
-    if ( status ) {
+    if ( status.devMode ) {
         loader.loadBBoxCSV();
     }
 </script>

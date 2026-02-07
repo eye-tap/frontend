@@ -1,4 +1,4 @@
-character,center_x,center_y,bbox_x1,bbox_y1,bbox_x2,bbox_y2,line_break,idx,text_id,language
+character,center_x,center_y,x1,y1,x2,y2,line_break,idx,text_id,language
 I,107,99,101,111,113,87,0,0,1,en
 n,122,101,116,113,128,89,0,1,1,en
 a,153,101,147,113,159,89,0,3,1,en
