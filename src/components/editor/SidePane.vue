@@ -9,19 +9,13 @@
     } from '@/scripts/editor/history/history';
     import ExportOptions from './ExportOptions.vue';
     import OptionsPane from './OptionsPane.vue';
-    import TourElement from '../tour/TourElement.vue';
-    import {
-        assignTourClasses
-    } from '@/scripts/tour';
     import {
         ref
     } from 'vue';
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
-    import {
-        useTourStore
-    } from '@/stores/tourStore';
+    import tour from '@/scripts/tour';
 
     const isSideBarCollapsed = ref( false );
 
@@ -29,14 +23,7 @@
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
     };
 
-    const tour = useTourStore();
-    const historyBar = assignTourClasses( 0, 'options-bar' );
-
-    tour.setTourItemTotal( 1 );
-
-    setTimeout( () => {
-        tour.startTour();
-    } );
+    const historyBar = tour.assignTourClasses( 0, 'options-bar' );
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
@@ -62,14 +49,6 @@
                     <i class="fa-lg fa-solid fa-bars"></i>
                 </span>
             </div>
-            <TourElement
-                :tour-id="0"
-                position-x="right"
-                position-y="center"
-                title="Basic controls"
-                description="You may also use the common shortcuts Ctrl + Z for undo
-                and Ctrl + Shift + Z or Ctrl + Y for redo and Ctrl + S for saving"
-            />
         </div>
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
