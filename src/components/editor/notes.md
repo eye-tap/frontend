@@ -27,3 +27,20 @@ The code for the editor is now in `src/scripts/editor`
 
 ## Main page
 - Upload function
+
+
+# Improvement ideas
+- nicer default colours
+- bounding box stroke width smaller and lighter colour
+- index colour should become more legible when hovered or generally
+- Bug testing (I can't recall the issues we had previously)
+- Completely rewrite history tracking (as it is quite broken currently)
+- "fireworks" or the like when annotation is completed
+- Remove some of the options (or hide them better)
+- Do we need the export feature still?
+- General usability improvements
+- Update theme colours (currently primarily the blue and black themes look good)
+- Fix animation for sidebar collapse
+- Fix top bar showing the name of the text when returning
+- Better error handling for backend errors (i.e. better notifications)
+- Bounding box parsing improvements

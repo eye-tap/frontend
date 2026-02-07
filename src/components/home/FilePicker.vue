@@ -9,7 +9,6 @@
     import type {
         AnnotationSet
     } from '@/definitions/files';
-    import FileUpload from './FileUpload.vue';
     import {
         formatDateTime
     } from '@/scripts/util/date';
@@ -90,13 +89,6 @@
     const reloadFromServer = () => {
         emits( 'reloadFiles' );
     };
-
-    const isInPickerMode = ref( true );
-
-    watch( isInPickerMode, () => {
-        if ( isInPickerMode.value ) reloadFromServer();
-    } );
-
 </script>
 
 <template>
@@ -108,21 +100,10 @@
                 <i v-if="$props.loading" class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
             </span>
             <div>
-                <i v-if="isInPickerMode" class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="reloadFromServer()"></i>
-                <div class="file-picker-mode">
-                    <label class="left" :class="isInPickerMode ? 'selected' : ''">
-                        <input v-model="isInPickerMode" type="radio" :value="true">
-                        <p>Server</p>
-                    </label>
-                    <label class="right" :class="!isInPickerMode ? 'selected' : ''">
-                        <input v-model="isInPickerMode" type="radio" :value="false">
-                        <p>Upload</p>
-                    </label>
-                </div>
+                <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="reloadFromServer()"></i>
             </div>
         </div>
-        <FileUpload v-if="!isInPickerMode" />
-        <div v-else class="table-wrapper">
+        <div class="table-wrapper">
             <table v-if="sortedList.length > 0">
                 <thead>
                     <tr>
