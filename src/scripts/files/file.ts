@@ -8,8 +8,8 @@ import request from '@/scripts/request';
  */
 export async function listAnnotationSets (): Promise<AnnotationSet[]> {
     try {
-        const res = await request.get( '/annotation-sets/' );
-
+        const res = await request.get( '/annotation/session' );
+        console.log(await JSON.parse(res));
         return JSON.parse( res ) as AnnotationSet[];
     } catch ( err ) {
         console.error( 'Failed to fetch annotation sets', err );
