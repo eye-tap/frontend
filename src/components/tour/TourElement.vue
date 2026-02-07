@@ -4,18 +4,20 @@
     } from '@/stores/tourStore';
 
     const props = defineProps<{
-        'id': number,
+        'tourId': number,
         'title': string,
         'description': string,
         'positionX': 'left' | 'center' | 'right',
         'positionY': 'top' | 'center' | 'bottom',
     }>();
     const tourStore = useTourStore();
+
+    // TODO: Use JS instead (it makes it more flexible)
 </script>
 
 <template>
     <div
-        v-if="props.id === tourStore.getCurrentIndex && tourStore.getShown"
+        v-if="props.tourId === tourStore.getCurrentIndex && tourStore.getShown"
         :class="[ 'page-tour-box', props.positionX + '-x', props.positionY ]"
     >
         <h3>{{ props.title }}</h3>
@@ -27,6 +29,9 @@
 .page-tour-box {
     position: absolute;
     background-color: white;
+    color: black;
+    z-index: 1000;
+    width: 200px;
 
     /* TODO: Add little arrows */
     &.left-x {
@@ -38,7 +43,7 @@
     }
 
     &.right-x {
-        left: 0;
+        left: 100%;
     }
 
     &.top {
@@ -46,7 +51,7 @@
     }
 
     &.center {
-        top: 0;
+        top: 50%;
     }
 
     &.bottom {

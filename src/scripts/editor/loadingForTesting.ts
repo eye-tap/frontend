@@ -59,7 +59,6 @@ const useTestingEditorLoading = ( redraw: () => void ) => {
             const text = await res.text();
 
             boxes.boxes = parseBBoxCSV( text );
-            console.log( boxes.boxes );
             redraw();
         } catch ( err ) {
             console.error( 'Failed to load bounding boxes CSV:', err );

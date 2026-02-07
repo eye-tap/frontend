@@ -7,12 +7,12 @@ import {
 
 const tourStore = useTourStore();
 
-export const assignTourClasses = ( id: number ) => {
+export const assignTourClasses = ( id: number, extraClasses: string ) => {
     return computed( () => {
         if ( id === tourStore.getCurrentIndex && tourStore.getShown ) {
-            return 'page-tour shown';
+            return 'page-tour shown' + ( extraClasses !== '' ? ' ' + extraClasses : '' );
         } else {
-            return 'page-tour';
+            return 'page-tour' + ( extraClasses !== '' ? ' ' + extraClasses : '' );
         }
     } );
 };

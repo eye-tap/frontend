@@ -1,14 +1,3 @@
-<!--
-    *
-    *                      oauth - App.vue
-    *
-    *    Created by Janis Hutz 07/10/2025, Licensed under the GPL V3 License
-    *           https://janishutz.com, development@janishutz.com
-    *
-    *
-    *
--->
-
 <template>
     <!-- <div @contextmenu="e => e.preventDefault()"> -->
     <div>

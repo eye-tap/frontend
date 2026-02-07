@@ -21,6 +21,7 @@ export const useTourStore = defineStore( 'tour', {
     'actions': {
         startTour () {
             this.isShown = true;
+            this.currentIndex = 0;
         },
         nextTourElement () {
             this.currentIndex += this.currentIndex < this.tourItemTotal - 1 ? 1 : 0;

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-    import RefactoredEditor from '@/components/editor/RefactoredEditor.vue';
+    import EditorView from '@/components/editor/EditorView.vue';
     import SidePane from '@/components/editor/SidePane.vue';
 </script>
 
 <template>
     <div class="editor">
         <SidePane />
-        <RefactoredEditor />
+        <EditorView />
     </div>
 </template>
 

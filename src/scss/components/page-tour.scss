@@ -1,7 +1,8 @@
 .page-tour {
-  display: relative;
+  position: relative;
   .shown {
     /* TODO: Style this */
-    border: white 2px;
+    border: white 2px !important;
+    color: red;
   }
 }

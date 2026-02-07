@@ -9,25 +9,41 @@
     } from '@/scripts/editor/history/history';
     import ExportOptions from './ExportOptions.vue';
     import OptionsPane from './OptionsPane.vue';
+    import TourElement from '../tour/TourElement.vue';
+    import {
+        assignTourClasses
+    } from '@/scripts/tour';
     import {
         ref
     } from 'vue';
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
+    import {
+        useTourStore
+    } from '@/stores/tourStore';
 
     const isSideBarCollapsed = ref( false );
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
     };
+
+    const tour = useTourStore();
+    const historyBar = assignTourClasses( 0, 'options-bar' );
+
+    tour.setTourItemTotal( 1 );
+
+    setTimeout( () => {
+        tour.startTour();
+    } );
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
 <template>
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
-        <div class="options-bar">
+        <div :class="historyBar">
             <div v-if="!isSideBarCollapsed" class="options-bar-left">
                 <span class="clickable-icon" @click="undo">
                     <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
@@ -46,6 +62,14 @@
                     <i class="fa-lg fa-solid fa-bars"></i>
                 </span>
             </div>
+            <TourElement
+                :tour-id="0"
+                position-x="right"
+                position-y="center"
+                title="Basic controls"
+                description="You may also use the common shortcuts Ctrl + Z for undo
+                and Ctrl + Shift + Z or Ctrl + Y for redo and Ctrl + S for saving"
+            />
         </div>
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
@@ -87,6 +111,8 @@
 
 
 <style lang="scss" scoped>
+@use '@/scss/components/page-tour.scss';
+
 .side-pane {
     width: 22vw;
     min-width: 400px;
