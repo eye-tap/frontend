@@ -15,16 +15,24 @@
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
+    import PreferencesPane from './PreferencesPane.vue';
 
     const isSideBarCollapsed = ref( false );
+    const showPreferences = ref( false );
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
     };
+
+    const togglePreferences = () => {
+        showPreferences.value = true;
+    };
+
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
 <template>
+    <PreferencesPane v-model="showPreferences" />
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
@@ -43,7 +51,7 @@
             </div>
             <div class="options-bar-right">
                 <span class="clickable-icon" @click="toggleCollapse()">
-                    <i class="fa-lg fa-solid fa-bars"></i>
+                    <i class="fa-xl fa-solid fa-bars"></i>
                 </span>
             </div>
         </div>
@@ -67,7 +75,12 @@
         </div>
         <!-- Content -->
         <div v-if="!isSideBarCollapsed">
-            <h2>Options</h2>
+            <div class="options-bar-sm">
+                <h2>Options</h2>
+                <span class="clickable-icon" @click="togglePreferences()">
+                    <i class="fa-lg fa-solid fa-gear"></i>
+                </span>
+            </div>
             <OptionsPane />
         </div>
         <div v-if="!isSideBarCollapsed">
@@ -103,6 +116,21 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .options-bar-sm {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .clickable-icon {
+            cursor: pointer;
+        }
+
+        >h2 {
+            margin: 0px;
+        }
     }
 
     .options-bar {

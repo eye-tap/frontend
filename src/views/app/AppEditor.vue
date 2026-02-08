@@ -25,7 +25,6 @@
         }
     ];
     const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
-
     // TODO: Use the start method for the tour
 </script>
 

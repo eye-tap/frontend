@@ -1,33 +1,17 @@
 <script setup lang="ts">
     import {
-        annotationLineColor,
-        annotationPointColor,
-        boundingBoxColor,
-        boundingBoxOnHoverRadius,
-        boundingBoxStrokeWidth,
         filterReader,
-        lineWidth,
-        pointRadius,
-        showAdvancedOptions,
         showBoundingBoxes,
-        showBoxesOnHover,
         showGazePoints,
-        showHoveredBoundingBox,
         showLines,
-        showNearbyBoundingBoxes,
-        showOnlyPreviousPoints,
         showPointIndex
     } from '@/scripts/editor/data/config';
-    import ColorOption from './ColorOption.vue';
-    import Slider from '@vueform/slider';
     import SwitchOption from './SwitchOption.vue';
 </script>
 
 <template>
     <div class="options-pane">
         <div class="options-container">
-            <!-- These could be made collapsible, if options pane gets too crowded -->
-            <!-- Basic Options -->
             <div class="options-section">
                 <p> Display </p>
                 <SwitchOption v-model="showGazePoints" text="Show Points" />
@@ -43,84 +27,6 @@
                     type="text"
                     placeholder="Filter reader"
                 >
-            </div>
-
-            <div class="options-section advanced-toggle">
-                <button class="advanced-button button secondary" @click="showAdvancedOptions = !showAdvancedOptions">
-                    Advanced options
-                    <span>{{ showAdvancedOptions ? '▲' : '▼' }}</span>
-                </button>
-            </div>
-            <!-- Advanced Options -->
-            <div v-if="showAdvancedOptions" class="options-section">
-                <p> Advanced </p>
-                <SwitchOption v-model="showNearbyBoundingBoxes" text="Show nearby boxes" />
-                <SwitchOption v-model="showHoveredBoundingBox" text="Highlight hovered box" />
-                <SwitchOption v-model="showBoxesOnHover" text="Show Boxes only on hover" />
-                <SwitchOption v-model="showOnlyPreviousPoints" text="Show Only Previous Points" />
-
-                <div class="options-section">
-                    <p> Nearby Box Distance </p>
-                    <input
-                        v-model.number="boundingBoxOnHoverRadius"
-                        type="text"
-                        placeholder="Distance"
-                        min="0"
-                        step="10"
-                    >
-                </div>
-                <div class="options-section">
-                    <p>Colours</p>
-
-                    <ColorOption
-                        v-model="annotationLineColor"
-                        text="Line color"
-                    />
-
-                    <ColorOption
-                        v-model="boundingBoxColor"
-                        text="Box color"
-                    />
-
-                    <ColorOption
-                        v-model="annotationPointColor"
-                        text="Point color"
-                    />
-                </div>
-
-                <div class="options-section">
-                    <p>Further display</p>
-
-                    <div class="slider-option">
-                        <p>Line width</p>
-                        <Slider
-                            v-model="lineWidth"
-                            show-tooltip="drag"
-                            :min="1"
-                            :max="5"
-                        />
-                    </div>
-
-                    <div class="slider-option">
-                        <p>Box stroke</p>
-                        <Slider
-                            v-model="boundingBoxStrokeWidth"
-                            show-tooltip="drag"
-                            :min="1"
-                            :max="5"
-                        />
-                    </div>
-
-                    <div class="slider-option">
-                        <p>Point radius</p>
-                        <Slider
-                            v-model="pointRadius"
-                            show-tooltip="drag"
-                            :min="1"
-                            :max="10"
-                        />
-                    </div>
-                </div>
             </div>
         </div>
     </div>
