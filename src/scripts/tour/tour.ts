@@ -1,10 +1,14 @@
 import {
     computed
 } from 'vue';
+import {
+    tourConfig
+} from './tourBackend';
 
 let currentIndex = 0;
 let isTourShown = false;
 let tourElements: HTMLElement[] = [];
+
 
 const assignTourClasses = ( id: number, extraClasses: string ) => {
     return computed( () => {
@@ -36,16 +40,39 @@ const startTour = () => {
     tourElements.sort( ( el1, el2 ) => {
         return parseInt( el1.dataset[ 'tour-index' ]! ) - parseInt( el2.dataset[ 'tour-index' ]! );
     } );
+
+    positionToolTipForElement( tourElements[ currentIndex ]! );
+};
+
+const goToNextTourElement = () => {
+
+};
+
+const goToPreviousTourElement = () => {
+
 };
 
 
-const positionElement = () => {
+const positionToolTipForElement = ( el: HTMLElement ) => {
+    // TODO: Block scrolling
     const pos = tourElements[ currentIndex ]!.getBoundingClientRect();
+    const posX = pos.left > 230;
+    const posY = 0;
+
     // Might need to consider scroll position when setting the position
+    tourConfig.value = {
+        'shown': true,
+        'x': posX,
+        'y': posY,
+        'title': el.dataset[ 'page-tour-title' ]!,
+        'desc': el.dataset[ 'page-tour-description' ]!
+    };
 };
 
 
 export default {
     assignTourClasses,
-    startTour
+    startTour,
+    goToNextTourElement,
+    goToPreviousTourElement
 };

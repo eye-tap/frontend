@@ -15,7 +15,7 @@
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
-    import tour from '@/scripts/tour';
+    import tour from '@/scripts/tour/tour';
 
     const isSideBarCollapsed = ref( false );
 
