@@ -27,6 +27,19 @@
 - Improve animations (e.g. of the account slideover)
 
 
+## Call notes
+- Create admin panel (single page, at `/admin` in the frontend) where people can upload annotation sets and create the studies
+- Automatically generated study accounts (or we could also generate a group token that the user has to enter during signup to join a group)
+- We want to do the parsing of the CSV files on the frontend as we already have the code. I will be making that code a bit more flexible
+and I will be creating the UI (minus design for it)
+- The parsed CSVs will then be sent as JSON to the backend according to the schema Paul has sent in the image.
+- Deployment will still need to be discussed, but I will handle all the implications (i.e. I will do the full CD pipeline including possibly helm charts, etc)
+- The docker containers for both the frontend and backend now build successfully.
+- I have provided a docker-compose file in the eyetap repo (the monorepo) that will build the latest backend.
+The frontend has to be run on your local machine (using `npm run dev` in the frontend folder / repo.
+Do make sure to recursively clone the repo. (You run the backend with `docker compose up` and stop it with `docker compose down`)
+- We will likely use [this](https://github.com/marketplace/actions/helm-chart-releaser) to do the helm charts and that will end up in the `helm-chart` repo.
+
 
 # Notes
 These notes are from my initial gloss over back in December
