@@ -4,7 +4,7 @@
   >.wrapper {
     & {
       position: fixed;
-      top: 0;
+      top: 2vh;
       left: 0;
       width: 100vw;
       height: 100vh;
@@ -16,7 +16,8 @@
     >.applet {
       & {
         background-color: var(--theme-bg-2);
-        width: 90vw;
+        overflow-y: scroll;
+        width: 95vw;
         height: 80vh;
         display: flex;
         justify-content: center;
@@ -25,38 +26,52 @@
         padding: 2%;
         border-radius: 20px;
         box-shadow: 10px 10px 10px var(--theme-bg-1-shade);
+        /* border: 2px solid white; */
 
         @include rwd-ratio("mobile", "vertical") {
-          width: 80vw;
-          height: 70vh;
+          /* border-color: purple; */
+          width: 90vw;
+          height: 80vh;
         }
 
         @include rwd-ratio("vertical", "high") {
-          width: 70vw;
-          height: 65vh;
+          /* border-color: lightblue; */
+          width: 75vw;
+          height: 70vh;
         }
 
-        @include rwd-ratio("high", "standard") {
-          width: 50vw;
-          height: 60vh;
+        @include rwd-ratio("high", "square") {
+          /* border-color: blue; */
+          width: 60vw;
+          height: 70vh;
+        }
+
+        @include rwd-ratio("square", "standard") {
+          /* border-color: green; */
+          width: 55vw;
+          height: 55vh;
         }
 
         @include rwd-ratio("standard", "wide") {
-          width: 35w;
+          /* border-color: lightcoral; */
+          width: 35vw;
           height: 60vh;
         }
 
         @include rwd-ratio("wide", "ultrawide") {
+          /* border-color: yellow; */
           width: 25vw;
           height: 60vh;
         }
 
         @include rwd-ratio("ultrawide", "extrawide") {
+          /* border-color: orange; */
           width: 27vw;
           height: 70vh;
         }
 
-        @include rwd-ratio("extraultrawide", "max") {
+        @include rwd-ratio("extrawide", "max") {
+          /* border-color: red; */
           width: 22vw;
           height: 70vh;
         }
@@ -117,13 +132,17 @@
             width: unset;
           }
         }
+      }
 
-        >.other-actions {
-          margin-top: 15px;
+      >.buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-          p {
-            margin: 5px;
-            font-size: 0.8rem;
+        .button {
+          @include rwd-ratio("min", "vertical") {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
           }
         }
       }
