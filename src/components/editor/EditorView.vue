@@ -12,6 +12,7 @@
     import {
         useTestingEditorLoading
     } from '@/scripts/editor/loadingForTesting';
+    import PropertyPane from './PropertyPane.vue';
 
     const canvas: Ref<HTMLCanvasElement | null> = ref( null );
     const editor = useEditor(
@@ -31,6 +32,16 @@
             Image: <input type="file" accept="image/*" @change="e => loader.loadImage( e as InputEvent )">
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">
         </div>
+        <PropertyPane 
+            :show-property-pane="true"
+            :point-selected="true"
+            :metadata="{
+                'assignedBy': 'User1',
+                'entropy': 10,
+                'pointID': 10,
+                'readerID': 10
+            }"
+        />
         <div class="canvas-wrapper">
             <canvas id="canvas" ref="canvas" tabindex="0"></canvas>
         </div>
