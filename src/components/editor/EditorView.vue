@@ -1,8 +1,8 @@
 <script setup lang="ts">
+    import '@globalhive/vuejs-tour/dist/style.css';
     import {
         type Ref, ref
     } from 'vue';
-    import PageTour from '../tour/PageTour.vue';
     import {
         useEditor
     } from '@/scripts/editor';
@@ -19,7 +19,6 @@
     );
     const status = useStatusStore();
     const loader = useTestingEditorLoading( editor!.redraw );
-    const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
 
     if ( status.devMode ) {
         loader.loadBBoxCSV();
@@ -28,7 +27,6 @@
 
 <template>
     <div>
-        <PageTour v-model="showWelcomeTour" />
         <div v-if="status.devMode">
             Image: <input type="file" accept="image/*" @change="e => loader.loadImage( e as InputEvent )">
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">

@@ -28,6 +28,7 @@
                     </div>
                     <span>Note:</span> if you press Backspace or Delete, your last annotation will be deleted.
                 </div>
+                <!-- TODO: Add button to start detailed tour -->
             </div>
         </div>
     </div>

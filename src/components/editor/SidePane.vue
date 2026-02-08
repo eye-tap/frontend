@@ -15,22 +15,19 @@
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
-    import tour from '@/scripts/tour/tour';
 
     const isSideBarCollapsed = ref( false );
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
     };
-
-    const historyBar = tour.assignTourClasses( 0, 'options-bar' );
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
 <template>
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
-        <div :class="historyBar">
+        <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" class="options-bar-left">
                 <span class="clickable-icon" @click="undo">
                     <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
@@ -90,8 +87,6 @@
 
 
 <style lang="scss" scoped>
-@use '@/scss/components/page-tour.scss';
-
 .side-pane {
     width: 22vw;
     min-width: 400px;
