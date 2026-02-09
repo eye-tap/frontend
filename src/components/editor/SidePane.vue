@@ -9,13 +9,13 @@
     } from '@/scripts/editor/history/history';
     import ExportOptions from './ExportOptions.vue';
     import OptionsPane from './OptionsPane.vue';
+    import PreferencesPane from './PreferencesPane.vue';
     import {
         ref
     } from 'vue';
     import {
         saveEditorChanges
     } from '@/scripts/editor/data/save';
-    import PreferencesPane from './PreferencesPane.vue';
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );

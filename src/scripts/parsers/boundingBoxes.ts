@@ -1,8 +1,11 @@
 import type {
     BoundingBoxes
 } from '@/definitions/editor';
+import {
+    nearbyBoxesDistanceThreshold
+} from '../editor/data/config';
 
-const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
+export const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
