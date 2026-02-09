@@ -8,7 +8,7 @@ import {
 } from './file';
 import type {
     ExportOptions
-} from '@/ts/files';
+} from '@/ts/types/files';
 import JSZip from 'jszip';
 import {
     allPoints

@@ -1,6 +1,9 @@
 import type {
     User
 } from '../user';
+import type {
+    Annotation
+} from './fixations';
 
 export interface AnnotationSession {
     'user': User;
@@ -8,4 +11,5 @@ export interface AnnotationSession {
     'annotatedPoints': number;
     'totalPoints': number;
     'wordCount': number;
+    'annotations': Annotation[];
 }

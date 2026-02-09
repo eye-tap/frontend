@@ -1,6 +1,6 @@
 import type {
     ExportOptions
-} from '@/ts/files';
+} from '@/ts/types/files';
 import {
     createZipArchive
 } from './files/zip';

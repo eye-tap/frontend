@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import type {
         AnnotationSet
-    } from '@/ts/files';
+    } from '@/ts/types/files';
     import auth from '@/ts/auth/auth';
     import {
         computed

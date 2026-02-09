@@ -8,7 +8,7 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/ts/files';
+    } from '@/ts/types/files';
     import {
         formatDateTime
     } from '@/ts/util/date';

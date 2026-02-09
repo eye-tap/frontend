@@ -5,6 +5,7 @@ import type {
     User
 } from './user';
 
+// TODO: Not sure I got everything covered
 export interface Survey {
     'users': User[];
     'id': number;

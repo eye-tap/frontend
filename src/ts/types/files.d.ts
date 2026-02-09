@@ -1,3 +1,5 @@
+// NOTE: Replaced with definitions in the editor/types directory for saving
+// and in upload.d.ts file for uploads
 export interface UploadedFile {
     'id': number;
     'filename': string;
