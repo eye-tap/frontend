@@ -1,0 +1,25 @@
+name: Create and publish container
+on:
+  release:
+    types: [published]
+env:
+  IMAGE_NAME: eyetap/frontend
+jobs:
+  build_container:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+      - name: Build image
+        run: docker buildx build . --tag $IMAGE_NAME
+      - name: Login to registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Publish to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME

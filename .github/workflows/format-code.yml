@@ -1,0 +1,19 @@
+name: Lint code using eslint on push
+on:
+  push
+jobs:
+  run_eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+      - name: Install packages
+        run: npm install
+      - name: Run eslint
+        run: npm run lint-fix
+      - name: Push changes back to repository
+        uses: stefanzweifel/git-auto-commit-action@v7 # or actions/ for my gitea
+        with:
+          commit_message: "[skip ci] Run Eslint on push"
