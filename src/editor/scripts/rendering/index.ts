@@ -20,7 +20,7 @@ import {
     showLines,
     showNearbyBoundingBoxes,
     showPointIndex
-} from '../data/config';
+} from '../../config';
 import {
     drawLines
 } from './lines';
@@ -29,7 +29,7 @@ import {
 } from './points';
 import {
     renderData as rd
-} from '../data/internal-data';
+} from '../internal-data';
 
 const useRenderer = ( canvas: Ref<HTMLCanvasElement | null> ) => {
     const redraw = () => {

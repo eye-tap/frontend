@@ -2,16 +2,16 @@ import {
     allPoints,
     boxes,
     renderData as rd
-} from './data/internal-data';
+} from './scripts/internal-data';
 import {
     parseBBoxCSV, parsePointsCSVSingleSet
-} from './parser';
+} from './scripts/util/parser';
 import {
     convertAnnotationsToCSV
-} from '../files/annotationSave';
+} from '@/ts/files/annotationSave';
 import {
     loadGazePoints
-} from '../files/import';
+} from '@/ts/files/import';
 
 const useTestingEditorLoading = ( redraw: () => void ) => {
     const loadImage = async ( e: InputEvent ) => {

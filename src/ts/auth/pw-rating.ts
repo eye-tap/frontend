@@ -1,12 +1,3 @@
-/*
- *                      oauth - pw-rating.ts
- *
- *    Created by Janis Hutz 08/22/2025, Licensed under the GPL V3 License
- *           https://janishutz.com, development@janishutz.com
- *
- *
-*/
-
 import {
     type Options, owaspSymbols, passwordStrength
 } from 'check-password-strength';

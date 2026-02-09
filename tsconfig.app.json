@@ -15,7 +15,7 @@
                 "./src/*"
             ],
             "*": [
-                "./src/definitions/globals/*"
+                "./src/ts/globals/*"
             ]
         }
     }

@@ -2,13 +2,13 @@ import {
     annotationLineColor,
     cursorLineColor,
     lineWidth
-} from '../data/config';
+} from '../../config';
 import {
     boxes,
     cursorLine,
     filteredPoints,
     renderData as rd
-} from '../data/internal-data';
+} from '../internal-data';
 import {
     scale
 } from './scaling';

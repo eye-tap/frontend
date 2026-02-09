@@ -6,13 +6,13 @@
     import PropertyPane from './PropertyPane.vue';
     import {
         useEditor
-    } from '@/scripts/editor';
+    } from '@/editor';
     import {
         useStatusStore
-    } from '@/stores/status';
+    } from '@/ts/stores/status';
     import {
         useTestingEditorLoading
-    } from '@/scripts/editor/loadingForTesting';
+    } from '../loadingForTesting';
 
     const canvas: Ref<HTMLCanvasElement | null> = ref( null );
     const editor = useEditor(
@@ -53,6 +53,8 @@
         background-color: white;
         width: 75vw;
         height: min-content;
+        max-height: 100%;
+        overflow-y: scroll;
 
         >canvas {
             border: 1px solid #333;

@@ -2,16 +2,16 @@ import {
     boundingBoxColor, boundingBoxOnHoverRadius, boundingBoxStrokeWidth, hightlightedBoxColor,
     proximityBoxColor,
     showBoxesOnHover
-} from '../data/config';
+} from '../../config';
 import {
     boxes,
     highlightedBoxIndex,
     mousePosition,
     renderData as rd
-} from '../data/internal-data';
+} from '../internal-data';
 import type {
     Boxes
-} from '@/definitions/editor';
+} from '../../types/editor';
 import {
     scale
 } from './scaling';

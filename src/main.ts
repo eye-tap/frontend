@@ -8,10 +8,10 @@ import {
 import {
     createPinia
 } from 'pinia';
-import router from './router';
+import router from './ts/router';
 import {
     useStatusStore
-} from './stores/status';
+} from './ts/stores/status';
 
 const app = createApp( App );
 

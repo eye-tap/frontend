@@ -6,10 +6,10 @@
     import {
         selectedTheme,
         themes
-    } from '@/scripts/util/theme';
+    } from '@/ts/util/theme';
     import LogoRenderer from './LogoRenderer.vue';
-    import auth from '@/scripts/auth/auth';
-    import router from '@/router';
+    import auth from '@/ts/auth/auth';
+    import router from '@/ts/router';
 
     const showUserMenu = ref( false );
     const showThemePickerMenu = ref( false );

@@ -5,13 +5,13 @@
     import PageTour from '../tour/PageTour.vue';
     import {
         useEditor
-    } from '@/scripts/editor';
+    } from '..';
     import {
         useStatusStore
-    } from '@/stores/status';
+    } from '@/ts/stores/status';
     import {
         useTestingEditorLoading
-    } from '@/scripts/editor/loadingForTesting';
+    } from '../loadingForTesting';
 
     const canvas: Ref<HTMLCanvasElement | null> = ref( null );
     const editor = useEditor(

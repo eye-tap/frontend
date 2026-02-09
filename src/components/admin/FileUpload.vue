@@ -7,17 +7,17 @@
     import {
         convertAnnotationsToCSV,
         convertBoundingBoxesToCSV
-    } from '@/scripts/files/annotationSave.ts';
+    } from '@/ts/files/annotationSave.ts';
     import {
         createAnnotationSet, uploadFile
-    } from '@/scripts/files/file';
+    } from '@/ts/files/file';
     import {
         loadBoundingBoxes,
         loadGazePoints
-    } from '@/scripts/files/import.ts';
+    } from '@/ts/files/import.ts';
     import {
         loadFileFromDisk
-    } from '@/scripts/util/loadFileFromDisk';
+    } from '@/ts/util/loadFileFromDisk';
     import {
         useNotification
     } from '@kyvg/vue3-notification';

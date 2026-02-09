@@ -1,7 +1,7 @@
 import type {
     BoundingBoxes,
     RawPoint
-} from '@/definitions/editor';
+} from '../../types/editor';
 
 /**
  * @param p - The point calculate the distance from

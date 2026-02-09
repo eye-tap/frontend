@@ -5,12 +5,12 @@ import {
     selectedPointColor,
     showOnlyPreviousPoints,
     showPointIndex
-} from '../data/config';
+} from '../../config';
 import {
     filteredPoints,
     renderData as rd,
     selectedPoint
-} from '../data/internal-data';
+} from '../internal-data';
 import {
     scale
 } from './scaling';

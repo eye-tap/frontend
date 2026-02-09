@@ -1,10 +1,10 @@
-import router from '@/router';
+import router from '@/ts/router';
 import {
     useNotification
 } from '@kyvg/vue3-notification';
 import {
     useStatusStore
-} from '@/stores/status';
+} from '@/ts/stores/status';
 
 /**
  * @param url - only the path (like /auth)

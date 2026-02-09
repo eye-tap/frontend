@@ -1,16 +1,15 @@
-
 import {
     onMounted,
     ref
 } from 'vue';
-import request from '@/scripts/request.ts';
-import router from '@/router';
+import request from '@/ts/request.ts';
+import router from '@/ts/router';
 import {
     useNotification
 } from '@kyvg/vue3-notification';
 import {
     useStatusStore
-} from '@/stores/status';
+} from '@/ts/stores/status';
 
 const loggingIn = ref( false );
 const errMsg = ref( '' );

@@ -4,13 +4,13 @@
     } from 'vue-router';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import auth from '@/scripts/auth/auth';
+    import auth from '@/ts/auth/auth';
     import {
         ref
     } from 'vue';
     import {
         useStatusStore
-    } from '@/stores/status';
+    } from '@/ts/stores/status';
 
     const router = useRouter();
     const status = useStatusStore();

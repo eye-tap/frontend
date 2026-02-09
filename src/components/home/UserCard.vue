@@ -1,15 +1,15 @@
 <script setup lang="ts">
     import type {
         AnnotationSet
-    } from '@/definitions/files';
-    import auth from '@/scripts/auth/auth';
+    } from '@/ts/files';
+    import auth from '@/ts/auth/auth';
     import {
         computed
     } from 'vue';
-    import router from '@/router';
+    import router from '@/ts/router';
     import {
         useStatusStore
-    } from '@/stores/status';
+    } from '@/ts/stores/status';
 
     const status = useStatusStore();
     const props = defineProps<{

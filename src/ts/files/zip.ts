@@ -2,23 +2,23 @@ import {
     bbKey,
     gazePointsKey,
     imageKey
-} from '../editor/data/config';
+} from '@/editor/config';
 import {
     downloadFile, downloadFileAsBlob
 } from './file';
 import type {
     ExportOptions
-} from '@/definitions/files';
+} from '@/ts/files';
 import JSZip from 'jszip';
 import {
     allPoints
-} from '../editor/data/internal-data';
+} from '@/editor/scripts/internal-data';
 import {
     convertAnnotationsToCSV
 } from './annotationSave';
 import {
     useActiveFileStore
-} from '@/stores/activeFileStore';
+} from '@/ts/stores/activeFileStore';
 import {
     useNotification
 } from '@kyvg/vue3-notification';

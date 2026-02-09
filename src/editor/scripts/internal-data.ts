@@ -2,14 +2,14 @@ import type {
     BoundingBoxes,
     EditorPoint,
     RawLine
-} from '@/definitions/editor';
+} from '../types/editor';
 import {
     type Ref,
     computed, ref
 } from 'vue';
 import {
     filterReader
-} from './config';
+} from '../config';
 
 const allPoints: Ref<EditorPoint[]> = ref( [] );
 const filteredPoints = computed( () => {

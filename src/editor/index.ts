@@ -7,45 +7,45 @@ import {
 import {
     allPoints,
     filteredPoints
-} from './data/internal-data';
+} from './scripts/internal-data';
 import {
     gazePointsKey,
     useWatcher
-} from './data/config';
+} from './config';
 import {
     redo,
     undo
-} from './history/history';
+} from './scripts/util/history-backend';
 import {
     revision,
     savedRevision
-} from './data/save';
+} from '@/editor/save';
 import {
     saveAnnotationProgress,
     uploadFile
-} from '../files/file';
+} from '../ts/files/file';
 import {
     convertAnnotationsToCSV
-} from '../files/annotationSave';
-import router from '@/router';
+} from '../ts/files/annotationSave';
+import router from '@/ts/router';
 import {
     useActiveFileStore
-} from '@/stores/activeFileStore';
+} from '@/ts/stores/activeFileStore';
 import {
     useEditorIO
-} from './io';
+} from './scripts/util/io';
 import {
     useEditorLoading
-} from './loading';
+} from './scripts/util/loading';
 import {
     useNotification
 } from '@kyvg/vue3-notification';
 import {
     useRenderer
-} from './rendering';
+} from './scripts/rendering';
 import {
     useStatusStore
-} from '@/stores/status';
+} from '@/ts/stores/status';
 
 const notifications = useNotification();
 

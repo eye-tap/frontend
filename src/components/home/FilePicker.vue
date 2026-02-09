@@ -8,13 +8,13 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/definitions/files';
+    } from '@/ts/files';
     import {
         formatDateTime
-    } from '@/scripts/util/date';
+    } from '@/ts/util/date';
     import {
         useActiveFileStore
-    } from '@/stores/activeFileStore';
+    } from '@/ts/stores/activeFileStore';
 
     type sortColumns = 'none' | 'baseName' | 'modified' | 'wordCount';
 

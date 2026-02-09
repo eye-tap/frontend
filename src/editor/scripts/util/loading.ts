@@ -2,19 +2,19 @@ import {
     allPoints,
     boxes,
     renderData as rd
-} from './data/internal-data';
+} from '../internal-data';
 import {
     bbKey, gazePointsKey, imageKey
-} from './data/config';
+} from '@/editor/config';
 import {
     downloadFile, downloadFileAsBlob
-} from '../files/file';
+} from '@/ts/files/file';
 import {
     parseBBoxCSV, parsePointsCSVSingleSet
 } from './parser';
 import {
     useActiveFileStore
-} from '@/stores/activeFileStore';
+} from '@/ts/stores/activeFileStore';
 
 const useEditorLoading = ( redraw: () => void ) => {
     const activeFile = useActiveFileStore();

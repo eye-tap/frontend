@@ -1,45 +1,56 @@
-import type {
-    BoundingBoxes
-} from '@/definitions/editor';
 import {
-    nearbyBoxesDistanceThreshold
-} from '../editor/data/config';
+    InvalidIndexNameError,
+    MultipleTextIDsWithoutSpecifiedTextIDError
+} from './errors';
+import type {
+    CharacterBoundingBox
+} from '@/editor/types/boxes';
 
-export const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
+export const parseBoundingBoxesCSV = (
+    text: string,
+    textId?: string,
+    xMinName: string = 'x1',
+    xMaxName: string = 'x2',
+    yMinName: string = 'y1',
+    yMaxName: string = 'y2',
+    charName: string = 'character',
+    textName: string = 'text_id'
+): CharacterBoundingBox[] => {
+    let index = -1;
+
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
-    const x1Index = header.indexOf( 'x1' );
-    const x2Index = header.indexOf( 'x2' );
-    const y1Index = header.indexOf( 'y1' );
-    const y2Index = header.indexOf( 'y2' );
-    const charIndex = header.indexOf( 'character' );
-    const boxes: BoundingBoxes[] = lines.map( line => {
-        const cols = line.split( ',' );
+    const xMinIndex = header.indexOf( xMinName );
+    const xMaxIndex = header.indexOf( xMaxName );
+    const yMinIndex = header.indexOf( yMinName );
+    const yMaxIndex = header.indexOf( yMaxName );
+    const charIndex = header.indexOf( charName );
+    const textIndex = header.indexOf( textName );
 
-        return {
-            'x1': Number( cols[x1Index] ),
-            'x2': Number( cols[x2Index] ),
-            'y1': Number( cols[y1Index] ),
-            'y2': Number( cols[y2Index] ),
-            'centerX': ( Number( cols[x1Index] ) + Number( cols[x2Index] ) ) / 2,
-            'centerY': ( Number( cols[y1Index] ) + Number( cols[y2Index] ) ) / 2,
-            'nearbyPoints': [],
-            'character': String( cols[charIndex] )
-        };
-    } );
+    if ( xMinIndex < 0 || xMaxIndex < 0 || yMinIndex < 0 || yMaxIndex < 0 || charIndex < 0 || textIndex < 0 )
+        throw new InvalidIndexNameError();
 
-    for ( let i = 0; i < boxes.length; i++ ) {
-        for ( let j = i + 1; j < boxes.length; j++ ) {
-            const boxA = boxes[i]!;
-            const boxB = boxes[j]!;
-            const distance = Math.sqrt( Math.pow( boxA.centerX - boxB.centerX, 2 ) + Math.pow( boxA.centerY - boxB.centerY, 2 ) );
+    const boxes: CharacterBoundingBox[] = [];
+    const firstCols = lines[0]!.split( ',' );
+    const firstEncounteredTextID = firstCols[ textIndex ];
 
-            if ( distance < nearbyBoxesDistanceThreshold.value ) {
-                boxA.nearbyPoints.push( j );
-                boxB.nearbyPoints.push( i );
-            }
+    for ( let i = 0; i < lines.length; i++ ) {
+        const cols = lines[i]!.split( ',' );
+
+        if ( firstEncounteredTextID !== cols[ textIndex ] ) {
+            throw new MultipleTextIDsWithoutSpecifiedTextIDError();
         }
+
+        if ( textId !== undefined || cols[textIndex] === textId )
+            boxes.push( {
+                'xMin': Number( cols[xMinIndex] ),
+                'xMax': Number( cols[xMaxIndex] ),
+                'yMin': Number( cols[yMinIndex] ),
+                'yMax': Number( cols[yMaxIndex] ),
+                'character': String( cols[charIndex] ),
+                'id': index++
+            } );
     }
 
     return boxes;

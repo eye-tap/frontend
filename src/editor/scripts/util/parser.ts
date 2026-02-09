@@ -1,16 +1,16 @@
 import type {
     BoundingBoxes,
     EditorPoint
-} from '@/definitions/editor';
+} from '../../types/editor';
 import {
     boxes, pointSelected, selectedPoint
-} from './data/internal-data';
+} from '../internal-data';
 import {
     boxIndex
 } from './util';
 import {
     nearbyBoxesDistanceThreshold
-} from './data/config';
+} from '../../config';
 
 const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );

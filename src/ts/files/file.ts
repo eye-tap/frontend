@@ -1,7 +1,7 @@
 import type {
     AnnotationProgress, AnnotationSet, UploadedFile
 } from '@/definitions/files';
-import request from '@/scripts/request';
+import request from '../request';
 
 /**
  * List all annotation sets for the authenticated user

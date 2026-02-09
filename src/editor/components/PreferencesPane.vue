@@ -11,7 +11,7 @@
         showHoveredBoundingBox,
         showNearbyBoundingBoxes,
         showOnlyPreviousPoints
-    } from '@/scripts/editor/data/config';
+    } from '../config';
     import ColorOption from './ColorOption.vue';
     import Slider from '@vueform/slider';
     import SwitchOption from './SwitchOption.vue';

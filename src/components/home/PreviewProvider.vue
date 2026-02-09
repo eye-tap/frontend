@@ -7,16 +7,16 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/definitions/files';
+    } from '@/ts/files';
     import {
         downloadFileAsBlob
-    } from '@/scripts/files/file';
+    } from '@/ts/files/file';
     import {
         formatDate
-    } from '@/scripts/util/date';
+    } from '@/ts/util/date';
     import {
         useActiveFileStore
-    } from '@/stores/activeFileStore';
+    } from '@/ts/stores/activeFileStore';
 
     const props = defineProps<{
         'file': AnnotationSet

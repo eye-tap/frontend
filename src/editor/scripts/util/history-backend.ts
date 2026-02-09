@@ -1,15 +1,14 @@
 import {
     type Ref,
-    computed,
     ref
 } from 'vue';
 import {
     filteredPoints,
     selectedPoint
-} from '../data/internal-data';
+} from '../internal-data';
 import {
     revision
-} from '../data/save';
+} from '@/editor/save';
 
 interface RedoHistoryEntry {
     'index': number;
@@ -17,14 +16,9 @@ interface RedoHistoryEntry {
     'currentIndex': number;
 }
 
-const redoHistory: Ref<RedoHistoryEntry[]> = ref( [] );
-const redoAvailable = computed( () => {
-    return redoHistory.value.length > 0;
-} );
-const undoHistory: Ref<number[]> = ref( [] );
-const undoAvailable = computed( () => {
-    return undoHistory.value.length > 0;
-} );
+export const redoHistory: Ref<RedoHistoryEntry[]> = ref( [] );
+
+export const undoHistory: Ref<number[]> = ref( [] );
 
 const clearRedo = () => {
     redoHistory.value = [];
@@ -85,8 +79,6 @@ const undo = ( redraw: () => void ) => {
 
 
 export {
-    redoAvailable,
-    undoAvailable,
     clearRedo,
     redo,
     undo,

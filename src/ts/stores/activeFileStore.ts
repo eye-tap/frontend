@@ -1,6 +1,6 @@
 import type {
     AnnotationSet
-} from '@/definitions/files';
+} from '@/ts/files';
 import {
     defineStore
 } from 'pinia';

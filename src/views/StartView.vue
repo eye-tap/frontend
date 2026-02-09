@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import router from '@/router';
+    import router from '@/ts/router';
 
     const login = () => {
         router.push( '/login' );

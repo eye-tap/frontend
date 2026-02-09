@@ -4,7 +4,7 @@
     } from 'vue';
     import {
         startExport
-    } from '@/scripts/export';
+    } from '@/ts/export';
 
     const exportImage = ref( false );
     const exportBoxes = ref( false );

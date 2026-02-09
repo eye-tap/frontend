@@ -5,20 +5,20 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/definitions/files';
+    } from '@/ts/files';
     import FilePicker from '@/components/home/FilePicker.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
     import UserCard from '@/components/home/UserCard.vue';
     import {
         listAnnotationSets
-    } from '@/scripts/files/file';
-    import router from '@/router';
+    } from '@/ts/files/file';
+    import router from '@/ts/router';
     import {
         startExport
-    } from '@/scripts/export';
+    } from '@/ts/export';
     import {
         useActiveFileStore
-    } from '@/stores/activeFileStore';
+    } from '@/ts/stores/activeFileStore';
     import {
         useNotification
     } from '@kyvg/vue3-notification';

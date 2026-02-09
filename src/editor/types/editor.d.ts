@@ -1,9 +1,8 @@
 export interface Boxes {
-    'xMin': number;
-    'xMax': number;
-    'yMin': number;
-    'yMax': number;
-    'id': number;
+    'x1': number;
+    'x2': number;
+    'y1': number;
+    'y2': number;
 }
 
 export interface LoadedBoxes extends Boxes {

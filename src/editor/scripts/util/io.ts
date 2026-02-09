@@ -6,7 +6,7 @@ import {
     addToHistory,
     redo,
     undo
-} from './history/history';
+} from './history-backend';
 import {
     boxIndex,
     isCharacterKey,
@@ -22,13 +22,13 @@ import {
     mousePosition,
     pointSelected,
     selectedPoint
-} from './data/internal-data';
+} from '../internal-data';
 import type {
     EditorPoint
-} from '@/definitions/editor';
+} from '../../types/editor';
 import {
     scaleInverse
-} from './rendering/scaling';
+} from '../rendering/scaling';
 
 const useEditorIO = (
     canvas: Ref<HTMLCanvasElement | null>,

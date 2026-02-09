@@ -1,4 +1,4 @@
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/StartView.vue';
 
 export const routes = [
     {
@@ -31,7 +31,7 @@ export const routes = [
     {
         'path': '/app',
         'name': 'app',
-        'component': () => import( '@/views/AppView.vue' ),
+        'component': () => import( '@/views/AppMainView.vue' ),
         'children': [
             {
                 'path': '',

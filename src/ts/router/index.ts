@@ -7,10 +7,10 @@ import {
 } from './routes';
 import {
     useActiveFileStore
-} from '@/stores/activeFileStore';
+} from '@/ts/stores/activeFileStore';
 import {
     useStatusStore
-} from '@/stores/status';
+} from '@/ts/stores/status';
 
 NProgress.configure( {} );
 

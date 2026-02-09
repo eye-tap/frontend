@@ -5,7 +5,7 @@
         showGazePoints,
         showLines,
         showPointIndex
-    } from '@/scripts/editor/data/config';
+    } from '../config';
     import SwitchOption from './SwitchOption.vue';
 </script>
 

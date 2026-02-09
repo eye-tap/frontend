@@ -7,11 +7,11 @@
     } from 'vue-router';
     import pwRating, {
         PWStrength
-    } from '@/scripts/auth/pw-rating';
+    } from '@/ts/auth/pw-rating';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import auth from '@/scripts/auth/auth';
-    import emailCheck from '@/scripts/auth/email-check';
+    import auth from '@/ts/auth/auth';
+    import emailCheck from '@/ts/auth/email-check';
     import {
         useNotification
     } from '@kyvg/vue3-notification';

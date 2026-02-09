@@ -1,12 +1,10 @@
 <script setup lang="ts">
     import {
         redo,
-        undo
-    } from '@/scripts/editor/history/integratableUndoRedo';
-    import {
         redoAvailable,
+        undo,
         undoAvailable
-    } from '@/scripts/editor/history/history';
+    } from '@/editor/history';
     import ExportOptions from './ExportOptions.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
@@ -15,7 +13,7 @@
     } from 'vue';
     import {
         saveEditorChanges
-    } from '@/scripts/editor/data/save';
+    } from '@/editor/save';
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );

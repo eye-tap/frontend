@@ -2,6 +2,7 @@ export interface Fixation {
     'id': number;
     'x': number;
     'y': number;
+    'reader': number;
 }
 
 export enum AnnotationType {
