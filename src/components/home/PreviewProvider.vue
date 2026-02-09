@@ -51,7 +51,6 @@
 
 <template>
     <div class="preview-provider">
-        <!-- TODO: Load image (probably need to load it manually and then set as blob src) -->
         <span :style="`background-color: white; background-image: url('${ imageURL ? imageURL : '' }');`" alt="Preview of text"></span>
         <h1 v-if="activeFile.fileSelected">
             {{ $props.file.baseName }}

@@ -33,7 +33,7 @@
         <PageTour v-model="showWelcomeTour" />
         <SidePane />
         <EditorView id="tour-editor" />
-        <VTour :steps="steps" auto-start />
+        <VTour :steps="steps" />
     </div>
 </template>
 
