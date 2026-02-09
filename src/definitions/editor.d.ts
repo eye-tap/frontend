@@ -1,8 +1,13 @@
 export interface Boxes {
-    'x1': number;
-    'x2': number;
-    'y1': number;
-    'y2': number;
+    'xMin': number;
+    'xMax': number;
+    'yMin': number;
+    'yMax': number;
+    'id': number;
+}
+
+export interface LoadedBoxes extends Boxes {
+    'character': string;
 }
 
 export interface BoundingBoxes extends Boxes {
@@ -29,8 +34,4 @@ export interface EditorPoint {
     'x': number;
     'y': number;
     'annotedbox': null | number | string
-}
-
-export interface LoadedBoxes extends Boxes {
-    'character': string;
 }

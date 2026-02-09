@@ -25,16 +25,20 @@ const isCharacterKey = ( key: string ) => {
 };
 
 /**
- *
  * @param event - keys that were pressed
- * @returns True if it's Ctrl + z for undo or Ctrl + y for redo
+ * @returns True if it's Ctrl + z
  */
 const isUndoCmd = ( event: KeyboardEvent ) => {
     return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'z';
 };
 
+/**
+ * @param event - keys that were pressed
+ * @returns True if it's Ctrl + y or Ctrl + Shift + z
+ */
 const isRedoCmd = ( event: KeyboardEvent ) => {
-    return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'y';
+    return ( ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'y' )
+        || ( ( event.ctrlKey || event.metaKey ) && event.shiftKey && event.key.toLowerCase() === 'z' );
 };
 
 /**

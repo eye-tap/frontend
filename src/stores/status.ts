@@ -5,6 +5,7 @@ import {
 interface Status {
     'isAuth': boolean;
     'username': string;
+    'role': 'user' | 'admin';
     'devMode': boolean;
 }
 
@@ -12,6 +13,7 @@ export const useStatusStore = defineStore( 'user', {
     'state': (): Status => ( {
         'isAuth': false,
         'username': '',
+        'role': 'user',
         'devMode': false
     } ),
     'getters': {
@@ -23,6 +25,9 @@ export const useStatusStore = defineStore( 'user', {
         },
         setUsername ( username: string ) {
             this.username = username;
+        },
+        setRole ( role: 'user' | 'admin' ) {
+            this.role = role;
         },
         setDevMode ( status: boolean ) {
             this.devMode = status;
