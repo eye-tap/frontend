@@ -16,6 +16,7 @@ The following environment variables are available:
 ```bash
 VITE_OVERRIDE_PROD=true # Makes the app use the prod backend, even if you are running dev server
 VITE_BACKEND_URL=<your URL> # Specify your own backend URL (highest priority)
+VITE_DISABLE_LOGIN_CHECK=true # Allows you to develop the frontend without a backend
 ```
 
 To compile and typecheck the app, run
