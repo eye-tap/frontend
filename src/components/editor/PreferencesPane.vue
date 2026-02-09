@@ -10,7 +10,7 @@
         showBoxesOnHover,
         showHoveredBoundingBox,
         showNearbyBoundingBoxes,
-        showOnlyPreviousPoints,
+        showOnlyPreviousPoints
     } from '@/scripts/editor/data/config';
     import ColorOption from './ColorOption.vue';
     import Slider from '@vueform/slider';
@@ -21,6 +21,7 @@
     };
 
     const show = defineModel<boolean>();
+    // TODO: Think about which options should go where
 </script>
 
 <template>

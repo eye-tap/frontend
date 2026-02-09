@@ -65,6 +65,7 @@
             } )
             .catch( e => {
                 console.error( e );
+                loading.value = false;
                 notifications.notify( {
                     'text': 'Failed to retrieve annotation sets from the backend',
                     'type': 'error',

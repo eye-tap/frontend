@@ -28,7 +28,7 @@ if ( import.meta.env.VITE_BACKEND_URL ) {
     localStorage.setItem( 'url', 'https://api.group-p23.webdev-25.ivia.isginf.ch' );
 } else {
     console.warn( 'Running against local backend' );
-    localStorage.setItem( 'url', 'http://localhost:3000' );
+    localStorage.setItem( 'url', 'http://localhost:8080' );
 }
 
 if ( import.meta.env.VITE_DISABLE_LOGIN_CHECK ) {

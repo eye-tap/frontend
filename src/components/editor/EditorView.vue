@@ -3,6 +3,7 @@
     import {
         type Ref, ref
     } from 'vue';
+    import PropertyPane from './PropertyPane.vue';
     import {
         useEditor
     } from '@/scripts/editor';
@@ -12,7 +13,6 @@
     import {
         useTestingEditorLoading
     } from '@/scripts/editor/loadingForTesting';
-    import PropertyPane from './PropertyPane.vue';
 
     const canvas: Ref<HTMLCanvasElement | null> = ref( null );
     const editor = useEditor(
@@ -32,7 +32,7 @@
             Image: <input type="file" accept="image/*" @change="e => loader.loadImage( e as InputEvent )">
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">
         </div>
-        <PropertyPane 
+        <PropertyPane
             :show-property-pane="true"
             :point-selected="true"
             :metadata="{

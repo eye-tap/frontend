@@ -13,11 +13,13 @@
     const entropyThresholds = {
         'high': 50,
         'mid': 25
-    }
+    };
+
+    // TODO: Make movable
 </script>
 
 <template>
-    <div class="propertyPane" :class="[!showPropertyPane ? 'hidden' : undefined ]">
+    <div class="property-pane" :class="[ !showPropertyPane ? 'hidden' : undefined ]">
         <h2>Properties</h2>
 
         <table v-if="pointSelected">
@@ -28,7 +30,7 @@
                             Assigned by
                         </p>
                         <p class="content">
-                            {{ $props.metadata.assignedBy }}
+                            {{ props.metadata.assignedBy }}
                         </p>
                     </td>
                     <td>
@@ -36,7 +38,7 @@
                             Point number
                         </p>
                         <p class="content">
-                            {{ $props.metadata.pointID }}
+                            {{ props.metadata.pointID }}
                         </p>
                     </td>
                 </tr>
@@ -45,8 +47,8 @@
                         <p class="title">
                             Entropy
                         </p>
-                        <p 
-                            class="content" 
+                        <p
+                            class="content"
                             :class="[
                                 metadata.entropy > entropyThresholds.mid ?
                                     metadata.entropy > entropyThresholds.high ?
@@ -61,13 +63,13 @@
                             Reader
                         </p>
                         <p class="content">
-                            {{ $props.metadata.readerID }}
+                            {{ props.metadata.readerID }}
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="placeholder" v-else>
+        <div v-else class="placeholder">
             <p> Please select a Gaze Point</p>
         </div>
     </div>
@@ -87,7 +89,7 @@
     padding: 10px;
 }
 
-.propertyPane {
+.property-pane {
     position: absolute;
     bottom: 2rem;
     right: 2rem;

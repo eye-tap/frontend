@@ -12,6 +12,12 @@
     document.addEventListener( 'eyetap:fileload', e => {
         pageTitle.value = e.detail.baseName;
     } );
+
+    document.addEventListener( 'eyetap:fileunload', () => {
+        pageTitle.value = '';
+    } );
+
+    // TODO: Link to admin panel for users that have the permissions
 </script>
 
 <template>

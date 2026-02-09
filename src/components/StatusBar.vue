@@ -49,10 +49,10 @@
         <LogoRenderer
             :kind="'eye'"
             class="logo"
-            :class="[ logoRedirectable ? 'clickable' : undefined, $props.pageTitle ? 'page-title-visible' : undefined ]"
+            :class="[ logoRedirectable ? 'clickable' : undefined, props.pageTitle ? 'page-title-visible' : undefined ]"
             @click="logoClick"
         />
-        <div v-if="$props.pageTitle" class="page-title">
+        <div v-if="props.pageTitle" class="page-title">
             {{ $props.pageTitle }}
         </div>
 
@@ -83,7 +83,7 @@
                 <!-- For user-made themes, color pickers etc. could be added here -->
             </div>
         </div>
-        <div v-if="$props.showAccount" class="user-menu-wrapper">
+        <div v-if="props.showAccount" class="user-menu-wrapper">
             <button class="user-button" @click="toggleMenu()">
                 <i v-if="showUserMenu" class="fa-xl fa-solid fa-user"></i>
                 <i v-else class="fa-xl fa-regular fa-user"></i>

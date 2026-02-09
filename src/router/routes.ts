@@ -54,6 +54,16 @@ export const routes = [
         ]
     },
     {
+        'path': '/admin',
+        'name': 'admin',
+        'component': () => import( '@/views/admin/AdminHome.vue' ),
+        'meta': {
+            'title': 'Admin Panel',
+            'authRequired': true,
+            'requiredRole': 'admin'
+        }
+    },
+    {
         'path': '/:pathMatch(.*)*',
         'name': 'NotFound',
         'component': () => import( '@/views/404View.vue' ),

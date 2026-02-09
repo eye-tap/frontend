@@ -164,6 +164,8 @@ const useEditor = (
         } catch ( e ) {
             console.debug( 'Failed to remove event listener', e );
         }
+
+        document.dispatchEvent( new CustomEvent( 'eyetap:fileunload' ) );
     } );
 
     useEditorIO(
