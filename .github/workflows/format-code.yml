@@ -29,4 +29,4 @@ jobs:
       - name: Push changes back to repository
         uses: stefanzweifel/git-auto-commit-action@v7 # or actions/ for my gitea
         with:
-          commit_message: "[skip ci] Run Eslint on push"
+          commit_message: "[skip ci] Eslint ${{ github.event.head_commit.message }}"
