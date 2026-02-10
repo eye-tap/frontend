@@ -20,11 +20,10 @@ export const importText = async (
     const boundingBoxes = await importBoundingBoxes( boundingBoxesCSV, textId );
 
     return {
-        'id': Number( textId ),
         'title': textName,
         'backgroundImage': uint8ArrayToBase64( await ( await loadFileFromDisk( image ) ).bytes() ),
         'characterBoundingBoxes': boundingBoxes.characters,
         'wordBoundingBoxes': boundingBoxes.words,
-        'foreignId': 0
+        'foreignId': Number( textId )
     };
 };
