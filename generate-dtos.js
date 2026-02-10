@@ -74,7 +74,7 @@ function schemaToInterface(name, schema) {
 
         for (const [name, schema] of Object.entries(spec.components.schemas)) {
             const tsInterface = schemaToInterface(name, schema);
-            await fs.writeFile(path.join(outputDir, `${name}.ts`), tsInterface + '\n', 'utf8');
+            await fs.writeFile(path.join(outputDir, `${name}.d.ts`), tsInterface + '\n', 'utf8');
         }
 
         console.log(`✅ DTOs with type-only imports generated in ${outputDir}`);

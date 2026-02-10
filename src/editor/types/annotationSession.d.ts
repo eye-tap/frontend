@@ -1,9 +1,9 @@
 import type {
-    User
-} from '../user';
-import type {
     Annotation
 } from './fixations';
+import type {
+    User
+} from '../user';
 
 export interface AnnotationSession {
     'user': User;
