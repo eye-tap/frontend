@@ -1,3 +1,3 @@
 export interface EditAnnotationsDto {
-  annotations?: Record<string, any>;
+  annotations?: Record<string, unknown>;
 }
