@@ -1,6 +1,8 @@
-import type { SurveyDto } from "@/editor/types/dtos/SurveyDto.ts";
+import type {
+    SurveyDto
+} from '@/editor/types/dtos/SurveyDto.ts';
 
 export interface SurveyCreatedDto {
-  surveyDto?: SurveyDto;
-  users?: Record<string, unknown>;
+    'surveyDto'?: SurveyDto;
+    'users'?: Record<string, unknown>;
 }
