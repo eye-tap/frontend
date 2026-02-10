@@ -4,51 +4,50 @@
         computed,
         ref
     } from 'vue';
+    import AdvancedFileUploadOptions from './AdvancedFileUploadOptions.vue';
     import {
-        convertAnnotationsToCSV,
-        convertBoundingBoxesToCSV
-    } from '@/ts/files/annotationSave.ts';
-    import {
-        createAnnotationSet, uploadFile
-    } from '@/ts/files/file';
-    import {
-        loadBoundingBoxes,
-        loadGazePoints
-    } from '@/ts/files/import.ts';
-    import {
-        loadFileFromDisk
-    } from '@/ts/util/loadFileFromDisk';
+        importDatasetFromCSV
+    } from '@/ts/dataImport';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import {
+        InvalidIndexNameError,
+        MultipleTextIDsWithoutSpecifiedTextIDError
+    } from '@/ts/dataImport/parsers/errors';
 
 
     const baseName = ref( '' );
     const boundingBoxesInput: Ref<HTMLInputElement | null> = ref( null );
-    const gazePointsInput: Ref<HTMLInputElement | null> = ref( null );
+    const fixationsInput: Ref<HTMLInputElement | null> = ref( null );
     const imageInput: Ref<HTMLInputElement | null> = ref( null );
     const index = ref( 0 );
-    const textID = ref( null );
+    const textID = ref( '' );
     const showError = ref( false );
     const errorMessage = ref( '' );
     const notifications = useNotification();
     const inputsValid = computed( () => {
         const bb = !!boundingBoxesInput.value && boundingBoxesInput.value.files && boundingBoxesInput.value.files.length !== 0;
-        const gp = !!gazePointsInput.value && gazePointsInput.value.files && gazePointsInput.value.files.length !== 0;
+        const gp = !!fixationsInput.value && fixationsInput.value.files && fixationsInput.value.files.length !== 0;
         const img = !!imageInput.value && imageInput.value.files && imageInput.value.files.length !== 0;
         const test = index.value * 2;
 
-        return bb && gp && img && textID.value !== null && test >= 0;
+        return bb && gp && img && textID.value !== '' && test >= 0;
     } );
+    const showOpts = ref( false );
 
+    const toggleOpts = () => {
+        showOpts.value = !showOpts.value;
+    };
 
     const displayError = ( msg: string ) => {
         showError.value = true;
         errorMessage.value = msg;
     };
 
-    // TODO: Make parsers more flexible
     const submit = async () => {
+        if ( !inputsValid.value || baseName.value === '' ) return;
+
         if ( !baseName.value ) {
             displayError( 'Please set a name.' );
 
@@ -62,56 +61,46 @@
         }
 
         if ( !boundingBoxesInput.value || !boundingBoxesInput.value.files
-            || !gazePointsInput.value || !gazePointsInput.value.files
+            || !fixationsInput.value || !fixationsInput.value.files
             || !imageInput.value || !imageInput.value.files || !textID.value ) {
             displayError( 'Some files are missing.' );
 
             return;
         }
 
-        const gazePointContent = await loadFileFromDisk( gazePointsInput.value );
-        const loadedGazePoints = loadGazePoints( gazePointContent, Number( textID.value ) );
-        const boundingBoxesContent = await loadFileFromDisk( boundingBoxesInput.value );
-        const boxDetails = loadBoundingBoxes( boundingBoxesContent!, Number( textID.value ) );
-        const annotationSet = await createAnnotationSet( baseName.value, boxDetails.wordCount, loadedGazePoints.gazePointCount );
+        try {
+            await importDatasetFromCSV( boundingBoxesInput.value, fixationsInput.value, imageInput.value, textID.value );
+        } catch ( error ) {
+            console.log( 'error caught in caller' );
 
-        if ( !annotationSet ) return;
+            if ( error instanceof InvalidIndexNameError )
+                notifications.notify( {
+                    'text': 'Text ID is invalid',
+                    'type': 'error',
+                    'title': 'Annotation set creation'
+                } );
+            else if ( error instanceof MultipleTextIDsWithoutSpecifiedTextIDError )
+                notifications.notify( {
+                    'text': 'No Text ID specified, but multiple text IDs in given data',
+                    'type': 'error',
+                    'title': 'Annotation set creation'
+                } );
+            else console.log( error );
 
-        if ( !annotationSet ) return;
-
-        const id = annotationSet.id;
-
-        await uploadFile( imageInput.value.files[ 0 ]!, id, 'text_image' );
-
-        // Upload Bounding Boxes
-        const bbFile = convertBoundingBoxesToCSV( boxDetails.boxes );
-        const boundingBoxesFile = new File( [ bbFile ], 'boundinboxes.csv', {
-            'type': 'text/csv'
-        } );
-
-        await uploadFile( boundingBoxesFile, id, 'bounding_boxes' );
-
-        // Upload Gaze points
-        const fileContent = convertAnnotationsToCSV( loadedGazePoints.points );
-        const file = new File( [ fileContent ], 'annotations.csv', {
-            'type': 'text/csv'
-        } );
-
-        await uploadFile( file, id, 'gaze_points' );
-
-        console.log( 'Created annotationSet', id );
+            return;
+        }
 
         notifications.notify( {
-            'text': 'Created Annotation Set with ID ' + id,
+            'text': 'Created Annotation Set',
             'type': 'success',
             'title': 'Annotation set creation'
         } );
 
-        textID.value = null;
-        baseName.value = '';
-        boundingBoxesInput.value.value = '';
-        gazePointsInput.value.value = '';
-        imageInput.value.value = '';
+        // textID.value = '';
+        // baseName.value = '';
+        // boundingBoxesInput.value.value = '';
+        // fixationsInput.value.value = '';
+        // imageInput.value.value = '';
     };
 
     const fileLoadTrigger = () => {
@@ -126,7 +115,7 @@
         <label class="metadata">
             <input v-model="baseName" placeholder="Annotation set name" type="text">
             <input
-                v-model.number="textID"
+                v-model="textID"
                 placeholder="Text ID in file"
                 type="text"
                 class="short"
@@ -134,6 +123,9 @@
         </label>
 
         <p>Files</p>
+        <span class="clickable-icon" @click="toggleOpts()">
+            <i class="fa-lg fa-solid fa-gear"></i>
+        </span>
 
         <label>
             <span>Bounding boxes</span>
@@ -148,7 +140,7 @@
         <label>
             <span>Gaze points</span>
             <input
-                ref="gazePointsInput"
+                ref="fixationsInput"
                 type="file"
                 accept="text/csv"
                 @change="fileLoadTrigger"
@@ -177,6 +169,8 @@
 
             <p :class="showError ? 'show' : undefined"> {{ errorMessage }}</p>
         </label>
+
+        <AdvancedFileUploadOptions v-model="showOpts" />
     </div>
 </template>
 

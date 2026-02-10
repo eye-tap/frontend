@@ -1,0 +1,50 @@
+import {
+    importConfigBBCharacterCSVName,
+    importConfigBBHasMultipleTexts,
+    importConfigBBTextIDCSVName,
+    importConfigBBXmaxCoordCSVName,
+    importConfigBBXminCoordCSVName,
+    importConfigBBYmaxCoordCSVName,
+    importConfigBBYminCoordCSVName,
+    importConfigFixationHasMultipleTexts,
+    importConfigFixationReaderCSVName,
+    importConfigFixationTextIDCSVName,
+    importConfigFixationXCoordCSVName,
+    importConfigFixationYCoordCSVName
+} from './util/config';
+import {
+    importReadingSession
+} from './importers/readingSessions';
+import {
+    importText
+} from './importers/text';
+import request from '../util/request';
+
+export const importDatasetFromCSV = async (
+    boundingBoxesCSVInputElement: HTMLInputElement,
+    fixationsCSVInputElement: HTMLInputElement,
+    imageInputElement: HTMLInputElement,
+    textId: string
+): Promise<void> => {
+    const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId );
+    const readingSession = await importReadingSession( fixationsCSVInputElement, textId );
+
+    await request.post( '/import/text', text );
+    await request.post( '/import/reading-session', readingSession );
+};
+
+export default {
+    importConfigBBXminCoordCSVName,
+    importConfigBBXmaxCoordCSVName,
+    importConfigBBYminCoordCSVName,
+    importConfigBBYmaxCoordCSVName,
+    importConfigBBCharacterCSVName,
+    importConfigBBTextIDCSVName,
+    importConfigBBHasMultipleTexts,
+    importConfigFixationXCoordCSVName,
+    importConfigFixationYCoordCSVName,
+    importConfigFixationReaderCSVName,
+    importConfigFixationTextIDCSVName,
+    importConfigFixationHasMultipleTexts,
+    importDatasetFromCSV
+};

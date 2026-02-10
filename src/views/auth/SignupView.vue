@@ -15,8 +15,25 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
-    auth.verifyAndRedirect( true );
+    const status = useStatusStore();
+
+    auth.verify()
+        .then( () => {
+            if ( status.isAuth ) {
+                const redir = '/app';
+
+                router.push( redir );
+
+                return;
+            }
+        } )
+        .catch( () => {
+            loggingIn.value = false; // user not logged in
+        } );
 
     const router = useRouter();
     const notification = useNotification();

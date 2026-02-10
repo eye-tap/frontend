@@ -1,5 +1,7 @@
 <script setup lang="ts">
+    import FileUpload from '@/components/admin/FileUpload.vue';
     import StatusBar from '@/components/StatusBar.vue';
+    import StudyList from '@/components/admin/StudyList.vue';
 </script>
 
 <template>
@@ -13,6 +15,8 @@
         />
         <div class="admin-wrapper">
             <h1>Admin Panel</h1>
+            <FileUpload />
+            <StudyList />
         </div>
     </div>
 </template>

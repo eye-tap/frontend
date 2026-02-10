@@ -7,7 +7,7 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/ts/types/files';
+    } from '@/types/files';
     import {
         downloadFileAsBlob
     } from '@/ts/files/file';

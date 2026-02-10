@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import type {
         AnnotationSet
-    } from '@/ts/types/files';
+    } from '@/types/files';
     import auth from '@/ts/auth/auth';
     import {
         computed
@@ -31,6 +31,10 @@
 
     const logout = () => {
         auth.logout();
+    };
+
+    const admin = () => {
+        router.push( '/admin' );
     };
 
 
@@ -73,6 +77,9 @@
             </button>
             <button class="button secondary" @click="logout">
                 Log out
+            </button>
+            <button @click="admin">
+                To admin panel
             </button>
         </div>
     </div>

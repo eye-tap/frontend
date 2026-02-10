@@ -51,7 +51,6 @@
     };
 
     // Auto-redirect if already logged in
-    // auth.verifyAndRedirect(); // Alternatively this, if we don't need the loggingIn status
     auth.verify()
         .then( () => {
             if ( status.isAuth ) {

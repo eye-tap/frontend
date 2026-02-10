@@ -8,7 +8,8 @@ import path from 'path';
 const __filename = fileURLToPath( import.meta.url );
 const __dirname = path.dirname( __filename );
 const inputSpec = path.resolve( __dirname, './openapi.json' );
-const outputDir = path.resolve( __dirname, './src/editor/types/dtos' );
+const relDir = 'types/dtos/';
+const outputDir = path.resolve( __dirname, './src/', relDir );
 
 // Convert JSON Schema type to TypeScript type
 function schemaTypeToTs ( propSchema ) {
@@ -67,7 +68,7 @@ function schemaToInterface ( name, schema ) {
         .filter( r => r !== name )
         .sort(); // avoid self-import and sort
     const importLines = refs
-        .map( r => `import type { ${ r } } from "@/editor/types/dtos/${ r }.ts";` )
+        .map( r => `import type { ${ r } } from "@/${ relDir }${ r }.ts";` )
         .join( '\n' );
     const lines = [ '{' ];
 

@@ -1,9 +1,7 @@
 import {
-    onMounted,
     ref
 } from 'vue';
-import request from '@/ts/request.ts';
-import router from '@/ts/router';
+import router from '../router';
 import {
     useNotification
 } from '@kyvg/vue3-notification';
@@ -63,7 +61,7 @@ const login = async ( id: string, password: string ): Promise<void> => {
             } );
             await router.push( '/app' )
                 .catch( e => console.error( 'Router push failed:', e ) );
-        } else if ( res.status === 400 || res.status === 401 ) {
+        } else if ( res.status === 400 || res.status === 401 || res.status === 403 ) {
             errMsg.value = 'Email / Username or password incorrect.';
             loggingIn.value = false;
         } else {
@@ -92,83 +90,47 @@ const decodeJwt = ( token: string ): object | null => {
     return JSON.parse( decoded );
 };
 
-const verify = ( noRedirect = false ): Promise<void> => {
+const verify = async (): Promise<void> => {
     const status = useStatusStore();
 
-    return new Promise( ( resolve, reject ) => {
-        try {
-            const token = localStorage.getItem( 'jwt' );
+    try {
+        const token = localStorage.getItem( 'jwt' );
 
-            if ( !token ) {
-                status.setAuth( false );
-                status.setUsername( '' );
-
-                return reject( 'No token present' );
-            }
-
-            // 1. Decode JWT locally
-            const jwtData: {
-                'id'?: number;
-                'email'?: string;
-                'username'?: string;
-                'exp'?: number;
-            } | null = decodeJwt( token );
-
-            if ( !jwtData ) {
-                status.setAuth( false );
-                status.setUsername( '' );
-
-                localStorage.removeItem( 'jwt' );
-
-                return reject( 'Unable to decode token' );
-            }
-
-            // 3. Ask backend ONLY if token is valid
-            return request.get( '/auth/verify', noRedirect )
-                .then( () => {
-                    status.setAuth( true );
-                    status.setUsername( jwtData.username! );
-
-                    return resolve();
-                } )
-                .catch( e => {
-                    status.setAuth( false );
-                    status.setUsername( '' );
-                    localStorage.removeItem( 'jwt' );
-                    reject( e );
-                } );
-        } catch ( e ) {
-            console.error( 'verify failed:', e );
+        if ( !token ) {
             status.setAuth( false );
             status.setUsername( '' );
+
+            return Promise.reject( 'No token present' );
+        }
+
+        // 1. Decode JWT locally
+        const jwtData: {
+            'id'?: number;
+            'email'?: string;
+            'username'?: string;
+            'exp'?: number;
+        } | null = decodeJwt( token );
+
+        // Check if valid
+        if ( !jwtData ) {
+            status.setAuth( false );
+            status.setUsername( '' );
+
             localStorage.removeItem( 'jwt' );
-            reject( e );
-        }
-    } );
-};
 
-/** Redirects the user to the app page if logged in */
-const verifyAndRedirect = ( noLoginRedirect = false ) => {
-    onMounted( () => {
-        const status = useStatusStore();
-
-        if ( !status.isAuth ) {
-            verify( noLoginRedirect )
-                .then( () => {
-                    if ( status.isAuth ) {
-                        const redir = '/app';
-
-                        router.push( redir );
-
-                        return;
-                    }
-                } )
-                .catch( () => {
-                } );
+            return Promise.reject( 'Unable to decode token' );
         } else {
-            router.push( '/app' );
+            status.setAuth( true );
+            status.setUsername( jwtData.username! );
+            Promise.resolve();
         }
-    } );
+    } catch ( e ) {
+        console.error( 'verify failed:', e );
+        status.setAuth( false );
+        status.setUsername( '' );
+        localStorage.removeItem( 'jwt' );
+        Promise.reject( e );
+    }
 };
 
 const logout = (): void => {
@@ -207,7 +169,8 @@ const signup = ( username: string, email: string, pw: string ): Promise<boolean>
             'credentials': 'include'
         } )
             .then( async res => {
-                if ( res.status === 201 ) {
+                if ( res.status === 201 || res.status === 200 ) {
+                    // TODO: Backend: Update to use 201 status code again (makes more sense here)
                     // User created successfully
                     resolve( true );
                 } else if ( res.status === 400 ) {
@@ -240,7 +203,6 @@ export default {
     verify,
     logout,
     signup,
-    verifyAndRedirect,
     loggingIn,
     errMsg
 };

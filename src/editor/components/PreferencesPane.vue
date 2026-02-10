@@ -12,9 +12,9 @@
         showNearbyBoundingBoxes,
         showOnlyPreviousPoints
     } from '../config';
-    import ColorOption from './ColorOption.vue';
+    import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
-    import SwitchOption from './SwitchOption.vue';
+    import SwitchOption from '@/components/settings/SwitchOption.vue';
 
     const dismiss = () => {
         show.value = false;

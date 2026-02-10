@@ -1,16 +1,8 @@
-export interface BoundingBox {
-    'xMax': number;
-    'xMin': number;
-    'yMax': number;
-    'yMin': number;
-}
+import type {
+    CharacterBoundingBoxDto
+} from './dtos/CharacterBoundingBoxDto';
 
-export interface CharacterBoundingBox extends BoundingBox {
-    'character': string;
-    'id': number;
-}
-
-export interface EditorCharacterBoundingBox extends CharacterBoundingBox {
+export interface EditorCharacterBoundingBox extends CharacterBoundingBoxDto {
     'centerX': number;
     'centerY': number;
     'nearbyPoints': number[];
