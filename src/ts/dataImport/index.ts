@@ -31,7 +31,7 @@ export const importDatasetFromCSV = async (
     const readingSession = await importReadingSession( fixationsCSVInputElement, textId );
 
     await request.post( '/import/text', text );
-    await request.post( '/import/reading-session', readingSession );
+    await request.post( '/import/reading-sessions', readingSession );
 };
 
 export default {

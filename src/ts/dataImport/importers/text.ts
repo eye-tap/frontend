@@ -1,6 +1,3 @@
-import type {
-    TextDto
-} from '@/types/dtos/TextDto';
 import {
     importBoundingBoxes
 } from './boundingBoxes';
@@ -10,13 +7,14 @@ import {
 import {
     uint8ArrayToBase64
 } from '../util/converter';
+import type {ImportTextDto} from "@/types/dtos/ImportTextDto";
 
 export const importText = async (
     image: HTMLInputElement,
     boundingBoxesCSV: HTMLInputElement,
     textId: string,
     textName: string
-): Promise<TextDto> => {
+): Promise<ImportTextDto> => {
     const boundingBoxes = await importBoundingBoxes( boundingBoxesCSV, textId );
 
     return {

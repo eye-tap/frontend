@@ -5,6 +5,7 @@ import {
 import type {
     CharacterBoundingBoxDto
 } from '@/types/dtos/CharacterBoundingBoxDto';
+import type {ImportCharacterBoundingBoxDto} from "@/types/dtos/ImportCharacterBoundingBoxDto";
 
 export const parseCharacterBoundingBoxesCSV = (
     text: string,
@@ -15,7 +16,7 @@ export const parseCharacterBoundingBoxesCSV = (
     yMaxName: string = 'y2',
     charName: string = 'character',
     textName: string = 'text_id'
-): CharacterBoundingBoxDto[] => {
+): ImportCharacterBoundingBoxDto[] => {
     let index = 0;
 
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
@@ -41,7 +42,7 @@ export const parseCharacterBoundingBoxesCSV = (
     else if ( textIndex < 0 )
         throw new InvalidIndexNameError( 'text ID' );
 
-    const boxes: CharacterBoundingBoxDto[] = [];
+    const boxes: ImportCharacterBoundingBoxDto[] = [];
     const firstCols = lines[0]!.split( ',' );
     const firstEncounteredTextID = firstCols[ textIndex ];
 
@@ -59,7 +60,7 @@ export const parseCharacterBoundingBoxesCSV = (
                 'yMin': Number( cols[yMinIndex] ),
                 'yMax': Number( cols[yMaxIndex] ),
                 'character': String( cols[charIndex] ),
-                'id': index++
+                'foreignId': index++
             } );
     }
 

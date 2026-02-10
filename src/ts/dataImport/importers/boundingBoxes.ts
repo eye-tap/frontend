@@ -11,8 +11,8 @@ import type {
     CharacterBoundingBoxDto
 } from '@/types/dtos/CharacterBoundingBoxDto';
 import type {
-    WordBoundingBoxDto
-} from '@/types/dtos/WordBoundingBoxDto';
+    ImportWordBoundingBoxDto
+} from '@/types/dtos/ImportWordBoundingBoxDto';
 import {
     generateWordBoxesFromCharacterBoxes
 } from '../parsers/wordBoxes';
@@ -22,12 +22,13 @@ import {
 import {
     parseCharacterBoundingBoxesCSV
 } from '../parsers/characterBoxes';
+import type {ImportCharacterBoundingBoxDto} from "@/types/dtos/ImportCharacterBoundingBoxDto";
 
-export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputElement, textId: string ): Promise<{
-    'characters': CharacterBoundingBoxDto[],
-    'words': WordBoundingBoxDto[]
+export const importBoundingBoxes = async (boundingBoxesCSVElement: HTMLInputElement, textId: string): Promise<{
+    'characters': ImportCharacterBoundingBoxDto[],
+    'words': ImportWordBoundingBoxDto[]
 }> => {
-    const bbCSV = await loadFileFromDiskAsString( boundingBoxesCSVElement );
+    const bbCSV = await loadFileFromDiskAsString(boundingBoxesCSVElement);
     const cbb = parseCharacterBoundingBoxesCSV(
         bbCSV,
         importConfigBBHasMultipleTexts.value ? textId : undefined,
@@ -41,6 +42,6 @@ export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputEle
 
     return {
         'characters': cbb,
-        'words': generateWordBoxesFromCharacterBoxes( cbb )
+        'words': generateWordBoxesFromCharacterBoxes(cbb)
     };
 };
