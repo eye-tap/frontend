@@ -1,9 +1,6 @@
 import type {
-    CharacterBoundingBoxDto
-} from '@/types/dtos/CharacterBoundingBoxDto';
-import type {
-    WordBoundingBoxDto
-} from '@/types/dtos/WordBoundingBoxDto';
+    TextDto
+} from '@/types/dtos/TextDto';
 import {
     importBoundingBoxes
 } from './boundingBoxes';
@@ -14,34 +11,20 @@ import {
     uint8ArrayToBase64
 } from '../util/converter';
 
-export const importText = (
+export const importText = async (
     image: HTMLInputElement,
     boundingBoxesCSV: HTMLInputElement,
-    textId: string
-): Promise<{
-    'backgroundImage': string,
-    'charBB': CharacterBoundingBoxDto[],
-    'wordBB': WordBoundingBoxDto[]
-}> => {
-    return new Promise( ( resolve, reject ) => {
-        try {
-            importBoundingBoxes( boundingBoxesCSV, textId )
-                .then( boundingBoxes => {
-                    loadFileFromDisk( image ).then( img => img.bytes()
-                        .then( bgImg => {
-                            resolve( {
-                                'backgroundImage': uint8ArrayToBase64( bgImg ),
-                                'charBB': boundingBoxes.characters,
-                                'wordBB': boundingBoxes.words
-                            } );
-                        } ) )
-                        .catch( reject );
-                } )
-                .catch( reject );
-        } catch ( e ) {
-            console.log( 'error caught in importText' );
+    textId: string,
+    textName: string
+): Promise<TextDto> => {
+    const boundingBoxes = await importBoundingBoxes( boundingBoxesCSV, textId );
 
-            return Promise.reject( e );
-        }
-    } );
+    return {
+        'id': Number( textId ),
+        'title': textName,
+        'backgroundImage': uint8ArrayToBase64( await ( await loadFileFromDisk( image ) ).bytes() ),
+        'characterBoundingBoxes': boundingBoxes.characters,
+        'wordBoundingBoxes': boundingBoxes.words,
+        'foreignId': 0
+    };
 };

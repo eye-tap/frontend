@@ -1,9 +1,10 @@
+import {
+    InvalidIndexNameError,
+    MultipleTextIDsWithoutSpecifiedTextIDError
+} from './errors';
 import type {
     ImportReadingSessionDto
 } from '@/types/dtos/ImportReadingSessionDto';
-import {
-    MultipleTextIDsWithoutSpecifiedTextIDError
-} from './errors';
 
 export const parseFixationsCSV = (
     text: string,
@@ -21,6 +22,16 @@ export const parseFixationsCSV = (
     const textIndex = header.indexOf( textName );
     const xIndex = header.indexOf( xName );
     const yIndex = header.indexOf( yName );
+
+    if ( xIndex < 0 )
+        throw new InvalidIndexNameError( 'X coordinate' );
+    else if ( yIndex < 0 )
+        throw new InvalidIndexNameError( 'Y coordinate' );
+    else if ( readerIndex < 0 )
+        throw new InvalidIndexNameError( 'reader ID' );
+    else if ( textIndex < 0 )
+        throw new InvalidIndexNameError( 'text ID' );
+
     const indices: {
         [key: string]: number
     } = {};

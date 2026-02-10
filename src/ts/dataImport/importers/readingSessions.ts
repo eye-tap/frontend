@@ -14,23 +14,15 @@ import {
     parseFixationsCSV
 } from '../parsers/fixations';
 
-export const importReadingSession = ( fixationsCSVElement: HTMLInputElement, textId: string ): Promise<ImportReadingSessionDto[]> => {
-    return new Promise( ( resolve, reject ) => {
-        loadFileFromDiskAsString( fixationsCSVElement )
-            .then( pCSV => {
-                try {
-                    resolve( parseFixationsCSV(
-                        pCSV,
-                        importConfigFixationHasMultipleTexts.value ? textId : undefined,
-                        100,
-                        importConfigFixationXCoordCSVName.value,
-                        importConfigFixationYCoordCSVName.value,
-                        importConfigFixationTextIDCSVName.value
-                    ) );
-                } catch ( e ) {
-                    reject( e );
-                }
-            } )
-            .catch( reject );
-    } );
+export const importReadingSession = async ( fixationsCSVElement: HTMLInputElement, textId: string ): Promise<ImportReadingSessionDto[]> => {
+    const pCSV = await loadFileFromDiskAsString( fixationsCSVElement );
+
+    return parseFixationsCSV(
+        pCSV,
+        importConfigFixationHasMultipleTexts.value ? textId : undefined,
+        100,
+        importConfigFixationXCoordCSVName.value,
+        importConfigFixationYCoordCSVName.value,
+        importConfigFixationTextIDCSVName.value
+    );
 };

@@ -16,7 +16,7 @@ export const parseCharacterBoundingBoxesCSV = (
     charName: string = 'character',
     textName: string = 'text_id'
 ): CharacterBoundingBoxDto[] => {
-    let index = -1;
+    let index = 0;
 
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
@@ -28,8 +28,18 @@ export const parseCharacterBoundingBoxesCSV = (
     const charIndex = header.indexOf( charName );
     const textIndex = header.indexOf( textName );
 
-    if ( xMinIndex < 0 || xMaxIndex < 0 || yMinIndex < 0 || yMaxIndex < 0 || charIndex < 0 || textIndex < 0 )
-        throw new InvalidIndexNameError();
+    if ( xMinIndex < 0 )
+        throw new InvalidIndexNameError( 'smaller X coordinate' );
+    else if ( xMaxIndex < 0 )
+        throw new InvalidIndexNameError( 'larger X coordinate' );
+    else if ( yMinIndex < 0 )
+        throw new InvalidIndexNameError( 'smaller Y coordinate' );
+    else if ( yMaxIndex < 0 )
+        throw new InvalidIndexNameError( 'larger Y coordinate' );
+    else if ( charIndex < 0 )
+        throw new InvalidIndexNameError( 'character' );
+    else if ( textIndex < 0 )
+        throw new InvalidIndexNameError( 'text ID' );
 
     const boxes: CharacterBoundingBoxDto[] = [];
     const firstCols = lines[0]!.split( ',' );
@@ -42,7 +52,7 @@ export const parseCharacterBoundingBoxesCSV = (
             throw new MultipleTextIDsWithoutSpecifiedTextIDError();
         }
 
-        if ( textId !== undefined || cols[textIndex] === textId )
+        if ( textId === undefined || cols[textIndex] === textId )
             boxes.push( {
                 'xMin': Number( cols[xMinIndex] ),
                 'xMax': Number( cols[xMaxIndex] ),

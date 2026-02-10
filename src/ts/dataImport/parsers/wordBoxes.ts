@@ -34,7 +34,7 @@ export const generateWordBoxesFromCharacterBoxes = ( characterBoundingBoxes: Cha
     for ( let i = 0; i < characterBoundingBoxes.length; i++ ) {
         const cbb = characterBoundingBoxes[ i ]!;
 
-        if ( cbb.character === ' ' ) {
+        if ( cbb.character === ' ' || cbb.character === '' ) {
             boxes.push( {
                 ...currentWord,
                 'id': index
@@ -56,5 +56,5 @@ export const generateWordBoxesFromCharacterBoxes = ( characterBoundingBoxes: Cha
         }
     }
 
-    return [];
+    return boxes;
 };

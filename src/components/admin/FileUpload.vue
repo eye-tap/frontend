@@ -75,7 +75,7 @@
 
             if ( error instanceof InvalidIndexNameError )
                 notifications.notify( {
-                    'text': 'Text ID is invalid',
+                    'text': `CSV Column name for ${ error.message } is invalid`,
                     'type': 'error',
                     'title': 'Annotation set creation'
                 } );

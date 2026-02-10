@@ -86,7 +86,7 @@ const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): 
 
 
     return new Promise( ( resolve, reject ) => {
-        fetch( localStorage.getItem( 'url' ) + url, {
+        fetch( baseUrl + url, {
             ...opts,
             'headers': {
                 ...opts.headers || {},
@@ -98,9 +98,11 @@ const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): 
                     resolve( res );
                 } else if ( res.status === 429 ) {
                     reject( 'RATE_LIMIT' );
-                } else if ( res.status === 401 ) {
-                    if ( !status.devMode )
+                } else if ( res.status === 401 || res.status === 403 ) {
+                    if ( !status.devMode ) {
                         status.isAuth = false;
+                        localStorage.removeItem( 'jwt' );
+                    }
 
                     if ( !status.devMode && !noRedirect ) {
                         notifications.notify( {
@@ -113,15 +115,6 @@ const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): 
                     } else {
                         reject( 'NO_AUTH' );
                     }
-                } else if ( res.status === 403 ) {
-                    status.isAuth = false;
-                    notifications.notify( {
-                        'text': 'Unauthorized. Please log in',
-                        'type': 'error',
-                        'title': 'Authentication'
-                    } );
-
-                    reject( 'BAD_AUTH' );
                 } else if ( res.status === 500 ) {
                     res.text()
                         .then( text => {

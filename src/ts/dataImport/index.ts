@@ -24,9 +24,10 @@ export const importDatasetFromCSV = async (
     boundingBoxesCSVInputElement: HTMLInputElement,
     fixationsCSVInputElement: HTMLInputElement,
     imageInputElement: HTMLInputElement,
-    textId: string
+    textId: string,
+    textName: string
 ): Promise<void> => {
-    const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId );
+    const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName );
     const readingSession = await importReadingSession( fixationsCSVInputElement, textId );
 
     await request.post( '/import/text', text );
