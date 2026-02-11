@@ -13,7 +13,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint ./src",
-    "lint-fix": "eslint ./src --fix"
+    "lint-fix": "eslint ./src --fix",
+    "update-dtos": "node generate-dtos fetch && npm run lint-fix",
+    "gen-dtos": "node generate-dtos && npm run lint-fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",

@@ -5,6 +5,17 @@ import {
 import fs from 'fs-extra';
 import path from 'path';
 
+if ( process.argv[2] === 'fetch' ) {
+    console.log( 'Fetching new DTOs from backend' );
+    fetch( 'http://localhost:8080/v3/api-docs' ).then( res => {
+        if ( res.status === 200 ) {
+            res.text().then( str => {
+                fs.writeFileSync( './openapi.json', str );
+            } );
+        }
+    } );
+}
+
 const __filename = fileURLToPath( import.meta.url );
 const __dirname = path.dirname( __filename );
 const inputSpec = path.resolve( __dirname, './openapi.json' );
