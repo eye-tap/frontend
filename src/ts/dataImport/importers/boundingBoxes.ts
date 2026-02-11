@@ -8,8 +8,8 @@ import {
     importConfigBBYminCoordCSVName
 } from '../util/config';
 import type {
-    CharacterBoundingBoxDto
-} from '@/types/dtos/CharacterBoundingBoxDto';
+    ImportCharacterBoundingBoxDto
+} from '@/types/dtos/ImportCharacterBoundingBoxDto';
 import type {
     ImportWordBoundingBoxDto
 } from '@/types/dtos/ImportWordBoundingBoxDto';
@@ -22,13 +22,12 @@ import {
 import {
     parseCharacterBoundingBoxesCSV
 } from '../parsers/characterBoxes';
-import type {ImportCharacterBoundingBoxDto} from "@/types/dtos/ImportCharacterBoundingBoxDto";
 
-export const importBoundingBoxes = async (boundingBoxesCSVElement: HTMLInputElement, textId: string): Promise<{
+export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputElement, textId: string ): Promise<{
     'characters': ImportCharacterBoundingBoxDto[],
     'words': ImportWordBoundingBoxDto[]
 }> => {
-    const bbCSV = await loadFileFromDiskAsString(boundingBoxesCSVElement);
+    const bbCSV = await loadFileFromDiskAsString( boundingBoxesCSVElement );
     const cbb = parseCharacterBoundingBoxesCSV(
         bbCSV,
         importConfigBBHasMultipleTexts.value ? textId : undefined,
@@ -42,6 +41,6 @@ export const importBoundingBoxes = async (boundingBoxesCSVElement: HTMLInputElem
 
     return {
         'characters': cbb,
-        'words': generateWordBoxesFromCharacterBoxes(cbb)
+        'words': generateWordBoxesFromCharacterBoxes( cbb )
     };
 };

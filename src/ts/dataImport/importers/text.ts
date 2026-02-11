@@ -1,3 +1,6 @@
+import type {
+    ImportTextDto
+} from '@/types/dtos/ImportTextDto';
 import {
     importBoundingBoxes
 } from './boundingBoxes';
@@ -7,7 +10,6 @@ import {
 import {
     uint8ArrayToBase64
 } from '../util/converter';
-import type {ImportTextDto} from "@/types/dtos/ImportTextDto";
 
 export const importText = async (
     image: HTMLInputElement,

@@ -1,5 +1,9 @@
 <script setup lang="ts">
     import {
+        InvalidIndexNameError,
+        MultipleTextIDsWithoutSpecifiedTextIDError
+    } from '@/ts/dataImport/parsers/errors';
+    import {
         type Ref,
         computed,
         ref
@@ -11,10 +15,6 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import {
-        InvalidIndexNameError,
-        MultipleTextIDsWithoutSpecifiedTextIDError
-    } from '@/ts/dataImport/parsers/errors';
 
 
     const baseName = ref( '' );
@@ -69,7 +69,7 @@
         }
 
         try {
-            await importDatasetFromCSV( boundingBoxesInput.value, fixationsInput.value, imageInput.value, textID.value );
+            await importDatasetFromCSV( boundingBoxesInput.value, fixationsInput.value, imageInput.value, textID.value, baseName.value );
         } catch ( error ) {
             console.log( 'error caught in caller' );
 

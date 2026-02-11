@@ -3,9 +3,8 @@ import {
     MultipleTextIDsWithoutSpecifiedTextIDError
 } from './errors';
 import type {
-    CharacterBoundingBoxDto
-} from '@/types/dtos/CharacterBoundingBoxDto';
-import type {ImportCharacterBoundingBoxDto} from "@/types/dtos/ImportCharacterBoundingBoxDto";
+    ImportCharacterBoundingBoxDto
+} from '@/types/dtos/ImportCharacterBoundingBoxDto';
 
 export const parseCharacterBoundingBoxesCSV = (
     text: string,
