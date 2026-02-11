@@ -7,8 +7,10 @@ import {
 } from '@/ts/stores/status';
 
 /**
+ * GET data from backend, authentication and rejected authentication
+ * are handled automatically. Results in string
  * @param url - only the path (like /auth)
- * @returns A promise resolving to the response parsed as text
+ * @returns A promise resolving to the response parsed as string
  */
 const get = ( url: string, noRedirect = false ): Promise<string> => {
     return new Promise( ( resolve, reject ) => {
@@ -21,18 +23,21 @@ const get = ( url: string, noRedirect = false ): Promise<string> => {
 };
 
 /**
+ * GET data from backend, authentication and rejected authentication
+ * are handled automatically.
  * @param url - only the path (like /auth)
- * @returns A promise resolving to the response parsed as text
+ * @returns A promise resolving to the raw response object if accepting status
  */
 const getRequest = ( url: string, noRedirect = false ): Promise<Response> => {
     return requestWithOpts( url, {}, noRedirect );
 };
 
 /**
- *
+ * Send data to backend, authentication and rejected authentication
+ * are handled automatically
  * @param url - only the path (like /auth)
  * @param data - The data to send
- * @returns A promise resolving to the response parsed as text
+ * @returns A promise resolving to the response object
  */
 const post = ( url: string, data: object, noRedirect = false ): Promise<Response> => {
     const fetchOptions: RequestInit = {
@@ -47,6 +52,13 @@ const post = ( url: string, data: object, noRedirect = false ): Promise<Response
     return requestWithOpts( url, fetchOptions, noRedirect );
 };
 
+/**
+ * Send data to backend, authentication and rejected authentication
+ * are handled automatically, but formdata is the data type
+ * @param url - only the path (like /auth)
+ * @param data - The data to send
+ * @returns A promise resolving to the response parsed as text
+ */
 const postFormData = ( url: string, data: FormData, noRedirect = false ): Promise<Response> => {
     const fetchOptions: RequestInit = {
         'method': 'post',
@@ -56,6 +68,13 @@ const postFormData = ( url: string, data: FormData, noRedirect = false ): Promis
     return requestWithOpts( url, fetchOptions, noRedirect );
 };
 
+/**
+ * Usually should not be used directly, use a wrapper from this file.
+ * Automatically handles authentication and rejection thereof
+ * @param url - only the path (like /auth)
+ * @param data - The data to send
+ * @returns A promise resolving to the response parsed as text
+ */
 const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): Promise<Response> => {
     const token = localStorage.getItem( 'jwt' );
     const status = useStatusStore();

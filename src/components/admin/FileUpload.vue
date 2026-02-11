@@ -35,6 +35,7 @@
         return bb && gp && img && textID.value !== '' && test >= 0;
     } );
     const showOpts = ref( false );
+    const uploading = ref( false );
 
     const toggleOpts = () => {
         showOpts.value = !showOpts.value;
@@ -68,6 +69,8 @@
             return;
         }
 
+        uploading.value = true;
+
         try {
             await importDatasetFromCSV( boundingBoxesInput.value, fixationsInput.value, imageInput.value, textID.value, baseName.value );
         } catch ( error ) {
@@ -77,13 +80,13 @@
                 notifications.notify( {
                     'text': `CSV Column name for ${ error.message } is invalid`,
                     'type': 'error',
-                    'title': 'Annotation set creation'
+                    'title': 'File Upload'
                 } );
             else if ( error instanceof MultipleTextIDsWithoutSpecifiedTextIDError )
                 notifications.notify( {
                     'text': 'No Text ID specified, but multiple text IDs in given data',
                     'type': 'error',
-                    'title': 'Annotation set creation'
+                    'title': 'File Upload'
                 } );
             else console.log( error );
 
@@ -93,14 +96,15 @@
         notifications.notify( {
             'text': 'Created Annotation Set',
             'type': 'success',
-            'title': 'Annotation set creation'
+            'title': 'File Upload'
         } );
 
-        // textID.value = '';
-        // baseName.value = '';
-        // boundingBoxesInput.value.value = '';
-        // fixationsInput.value.value = '';
-        // imageInput.value.value = '';
+        textID.value = '';
+        baseName.value = '';
+        boundingBoxesInput.value.value = '';
+        fixationsInput.value.value = '';
+        imageInput.value.value = '';
+        uploading.value = false;
     };
 
     const fileLoadTrigger = () => {
@@ -159,12 +163,15 @@
 
         <label class="submit-label">
             <button
-                class="button primary"
+                class="button primary long-action"
                 :class="!inputsValid || baseName === '' ? 'disabled' : undefined"
                 @click="submit"
             >
                 <i class="fa-solid fa-file-arrow-up"></i>
                 Create annotation set
+                <div v-if="uploading">
+                    <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                </div>
             </button>
 
             <p :class="showError ? 'show' : undefined"> {{ errorMessage }}</p>

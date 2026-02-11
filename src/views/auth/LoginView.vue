@@ -125,6 +125,9 @@
                 <div class="buttons">
                     <button class="button primary" @click="login">
                         Log in
+                        <div v-if="loggingIn">
+                            <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                        </div>
                     </button>
                     <RouterLink to="/signup">
                         <button class="button secondary">

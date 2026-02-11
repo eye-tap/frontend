@@ -96,7 +96,7 @@
       cursor: progress;
       border-radius: 5px;
 
-      >.material-symbols-outlined {
+      >i {
         pointer-events: none;
         rotate: 45deg;
         animation: spin 2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);

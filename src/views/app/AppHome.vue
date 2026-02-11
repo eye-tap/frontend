@@ -5,7 +5,7 @@
     } from 'vue';
     import type {
         AnnotationSet
-    } from '@/ts/types/files';
+    } from '@/types/files';
     import FilePicker from '@/components/home/FilePicker.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
     import UserCard from '@/components/home/UserCard.vue';
