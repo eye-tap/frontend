@@ -100,14 +100,14 @@ const useEditorIO = (
             }
 
             if ( closestBoxIdx !== null ) {
-                
                 const pointIndex = filteredPoints.value.indexOf( selectedPoint.value! );
-                
+
                 if ( pointIndex !== -1 ) {
                     addToHistory( pointIndex, pointIndex );
                 }
+
                 selectedPoint.value!.annotedbox = closestBoxIdx;
-                
+
                 selectedPoint.value = selectPoint( selectedPoint.value!, 1 ) || null;
                 redraw();
             }
@@ -178,12 +178,12 @@ const useEditorIO = (
     const onMouseUp = () => {
         if ( isDragging && selectedPoint.value ) {
             const pointIdx = filteredPoints.value.indexOf( selectedPoint.value );
+
             if ( highlightedBoxIndex.value != null ) {
-                
                 if ( !annotatedPoints.has( pointIdx ) ) {
                     annotatedPoints.add( pointIdx );
                 }
-                
+
                 addToHistory( pointIdx, pointIdx );
                 selectedPoint.value.annotedbox = highlightedBoxIndex.value;
                 highlightedBoxIndex.value = 0;

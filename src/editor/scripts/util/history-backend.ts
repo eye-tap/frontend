@@ -48,8 +48,7 @@ const redo = ( redraw: () => void ) => {
     }
 };
 
-const addToHistory = ( index: number,selectedPointindex: number ) => {
-
+const addToHistory = ( index: number, selectedPointindex: number ) => {
     revision.value++;
 
 
@@ -70,19 +69,21 @@ const undo = ( redraw: () => void ) => {
 
     const currentPoint = filteredPoints.value[last.pointindex];
 
-    redoHistory.value.push({
-        pointindex: last.pointindex,
-        annotatedBox: currentPoint?.annotedbox ?? null,
-        selectedPointIndex: selectedPoint.value ? filteredPoints.value.indexOf( selectedPoint.value ) : -1
-    });
+    redoHistory.value.push( {
+        'pointindex': last.pointindex,
+        'annotatedBox': currentPoint?.annotedbox ?? null,
+        'selectedPointIndex': selectedPoint.value ? filteredPoints.value.indexOf( selectedPoint.value ) : -1
+    } );
 
 
     selectedPoint.value = filteredPoints.value[last.selectedPointIndex]!;
 
     const point = filteredPoints.value[last.pointindex];
-    if (point) {
+
+    if ( point ) {
         point.annotedbox = last.annotatedBox;
     }
+
     redraw();
 };
 
