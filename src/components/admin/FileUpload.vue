@@ -114,52 +114,61 @@
 
 <template>
     <div class="file-upload">
-        <p>Metadata</p>
+        <div class="file-upload-bar">
+            <div>
+                <i class="fa-xl fa-solid fa-file"></i>
+                <p>Upload Annotation Set</p>
+            </div>
+            <span class="clickable-icon" @click="toggleOpts()">
+                <i class="fa-lg fa-solid fa-gear"></i>
+            </span>
+        </div>
 
-        <label class="metadata">
-            <input v-model="baseName" placeholder="Annotation set name" type="text">
-            <input
-                v-model="textID"
-                placeholder="Text ID in file"
-                type="text"
-                class="short"
-            >
-        </label>
+        <div class="file-upload-container">
+            <p>Metadata</p>
 
-        <p>Files</p>
-        <span class="clickable-icon" @click="toggleOpts()">
-            <i class="fa-lg fa-solid fa-gear"></i>
-        </span>
+            <label class="metadata">
+                <input v-model="baseName" placeholder="Set Name" type="text">
+                <input
+                    v-model="textID"
+                    placeholder="Text ID"
+                    type="text"
+                    class="short"
+                >
+            </label>
 
-        <label>
-            <span>Bounding boxes</span>
-            <input
-                ref="boundingBoxesInput"
-                type="file"
-                accept="text/csv"
-                @change="fileLoadTrigger"
-            >
-        </label>
+            <p>Files</p>
 
-        <label>
-            <span>Gaze points</span>
-            <input
-                ref="fixationsInput"
-                type="file"
-                accept="text/csv"
-                @change="fileLoadTrigger"
-            >
-        </label>
+            <label>
+                <span>Bounding boxes</span>
+                <input
+                    ref="boundingBoxesInput"
+                    type="file"
+                    accept="text/csv"
+                    @change="fileLoadTrigger"
+                >
+            </label>
 
-        <label>
-            <span>Text image</span>
-            <input
-                ref="imageInput"
-                type="file"
-                accept="image/*"
-                @change="fileLoadTrigger"
-            >
-        </label>
+            <label>
+                <span>Gaze points</span>
+                <input
+                    ref="fixationsInput"
+                    type="file"
+                    accept="text/csv"
+                    @change="fileLoadTrigger"
+                >
+            </label>
+
+            <label>
+                <span>Text image</span>
+                <input
+                    ref="imageInput"
+                    type="file"
+                    accept="image/*"
+                    @change="fileLoadTrigger"
+                >
+            </label>
+        </div>
 
         <label class="submit-label">
             <button
@@ -176,28 +185,136 @@
 
             <p :class="showError ? 'show' : undefined"> {{ errorMessage }}</p>
         </label>
-
         <AdvancedFileUploadOptions v-model="showOpts" />
     </div>
 </template>
 
 <style lang="scss" scoped>
 .file-upload {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-direction: column;
     margin-top: 2rem;
     margin-right: 2rem;
     margin-left: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
-    background-color: var(--theme-bg-1);
+    background-color: var(--theme-bg-2);
+    border-radius: 20px;
+
+    .file-upload-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 2rem;
+        margin-right: 2rem;
+
+        >div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            >p {
+                font-size: 1.25rem;
+                margin-left: 1rem;
+            }
+        }
+
+        >span {
+            color: var(--theme-bg-4);
+            cursor: pointer;
+
+            >i {
+                transition: rotate 0.1s;
+            }
+            >i:hover {
+                rotate: 45deg;
+                color: var(--theme-bg-4-20);
+            }
+        }
+    }
+
+    .file-upload-container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        flex-direction: column;
+        margin-right: 2rem;
+        margin-left: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
+        background-color: var(--theme-bg-1); 
+
+         >p {
+            color: var(--theme-background-text);
+            margin: 0px;
+            margin-bottom: 15px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+
+        >label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            margin-left: 1rem;
+            cursor: pointer;
+
+            &.metadata {
+                justify-content: left;
+            }
+
+            >span {
+                color: var(--theme-background-text-20);
+            }
+
+            >input[type=text] {
+                all: unset;
+                background-color: var(--theme-bg-3);
+                width: 12.5rem;
+                padding: 5px;
+                padding-left: 10px;
+                margin-right: 1rem;
+                border-style: none;
+                cursor: pointer;
+                &.short {
+                    width: 6rem;
+                }
+            }
+
+            >input[type=file] {
+                all: unset;
+                width: 13rem;
+                font-size: small;
+                color: var(--theme-background-text-20);
+
+                &::file-selector-button {
+                    text-decoration: none;
+                    color: var(--theme-foreground-text);
+                    background-color: var(--theme-bg-4);
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    border: none;
+                    border-radius: 10px;
+                    transition: background-color, 0.2s;
+                    transition: color, 0.2s;
+
+                    &:hover {
+                        background-color: var(--theme-bg-4-20);
+                    }
+                }
+            }
+        }
+    }
 
     .submit-label {
-        margin-top: 2rem;
-        margin-left: 0px;
+        margin: 1rem;
+        margin-left: 2rem;
         display: flex;
         justify-content: left;
 
@@ -217,72 +334,6 @@
             margin-top: 0px;
             margin-bottom: 0px;
             color: var(--theme-warning);
-        }
-    }
-
-    >p {
-        color: var(--theme-background-text);
-        margin: 0px;
-        margin-bottom: 15px;
-        margin-top: 15px;
-        font-size: 0.8rem;
-    }
-
-    >label {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
-        margin-left: 1rem;
-        cursor: pointer;
-
-        &.metadata {
-            justify-content: left;
-        }
-
-        >span {
-            color: var(--theme-background-text-20);
-        }
-
-        >input[type=text] {
-            all: unset;
-            background-color: var(--theme-bg-3);
-            width: 12.5rem;
-            padding: 5px;
-            margin-right: 1rem;
-            border-style: none;
-            cursor: pointer;
-            &.short {
-                width: 6rem;
-            }
-        }
-
-        >input[type=file] {
-            all: unset;
-            width: 13rem;
-            font-size: small;
-            color: var(--theme-background-text-20);
-
-            &::file-selector-button {
-                text-decoration: none;
-                color: var(--theme-foreground-text);
-                background-color: var(--theme-bg-4);
-                padding-top: 5px;
-                padding-bottom: 5px;
-                padding-left: 20px;
-                padding-right: 20px;
-                font-size: 1rem;
-                cursor: pointer;
-                border: none;
-                border-radius: 10px;
-                transition: background-color, 0.2s;
-                transition: color, 0.2s;
-
-                &:hover {
-                    background-color: var(--theme-bg-4-20);
-                }
-            }
         }
     }
 }

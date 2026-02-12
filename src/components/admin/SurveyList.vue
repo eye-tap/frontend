@@ -108,7 +108,8 @@
     user-select: none;
     background-color: var(--theme-bg-2);
     padding-top: 0.5rem;
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 20px;
+    margin: 0px;
 
     .survey-picker-title {
         background-color: var(--theme-bg-2);

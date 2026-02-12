@@ -98,6 +98,14 @@
     z-index: 1;     // To properly black out all of the Editor
 
     >.preferences-box {
+
+        width: max(40vw, 380px);
+        height: max-content;
+        padding: 1px 1.5rem 1.5rem 1.5rem;
+        position: relative;
+        background-color: var( --theme-bg-2 );
+        border-radius: 20px;
+
         >.top-bar {
             display: flex;
             flex-direction: row;
@@ -115,18 +123,10 @@
 
         }
 
-        width: 30rem;
-        height: max-content;
-        padding: 1px 1.5rem 1.5rem 1.5rem;
-        position: relative;
-        background-color: var( --theme-bg-2 );
-        border-radius: 20px;
-
         .options-container {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            height: 30rem;
+            height: max(60vh, 400px);
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;

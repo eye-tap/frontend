@@ -14,7 +14,6 @@
             logo-click-target="/app"
         />
         <div class="admin-wrapper">
-            <h1>Admin Panel</h1>
             <FileUpload />
             <SurveyList />
         </div>
@@ -42,9 +41,9 @@
 
         >.admin-wrapper {
             display: flex;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
-            flex-direction: row;
             height: 90vh;
             margin-top: 10vh;
             width: 100vw;
