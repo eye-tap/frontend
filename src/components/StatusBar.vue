@@ -10,6 +10,9 @@
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth/auth';
     import router from '@/ts/router';
+    import { useStatusStore } from '@/ts/stores/status';
+
+    const status = useStatusStore();
 
     const showUserMenu = ref( false );
     const showThemePickerMenu = ref( false );
@@ -56,20 +59,10 @@
             {{ $props.pageTitle }}
         </div>
 
-        <div v-if="$props.showThemePicker" class="user-menu-wrapper">
-            <button
-                v-if="$props.showThemePicker"
-                id="theme-select"
-                class="user-button"
-                title="Change Theme"
-                @click="setThemePickerMenu( 'toggle' )"
-            >
-                <i v-if="!showThemePickerMenu" class="fa-2xl fa-regular fa-moon theme-icon"></i>
-                <i v-else class="fa-2xl fa-solid fa-moon theme-icon"></i>
-            </button>
-            <div :class="[ 'theme-menu', showThemePickerMenu ? 'shown' : undefined , props.showAccount ? 'theme-menu-alt' : 'theme-menu' ]">
-                <h2>Themes</h2>
-                <p>Select a Theme</p>
+        <div :class="[ 'theme-menu', showThemePickerMenu ? 'shown' : undefined , props.showAccount ? 'theme-menu-alt' : 'theme-menu' ]">
+            <h2>Themes</h2>
+            <p>Select a Theme</p>
+            <div class="theme-buttons">
                 <button
                     v-for="theme, idx in themes"
                     :key="idx"
@@ -79,23 +72,39 @@
                 >
                     {{ theme }}
                 </button>
-
-                <!-- For user-made themes, color pickers etc. could be added here -->
             </div>
+            <!-- For user-made themes, color pickers etc. could be added here -->
+        </div>
+        <div :class="[ 'user-menu', showUserMenu ? 'shown' : undefined ]">
+            <h2 v-if="status.username">
+                {{ status.username }}
+            </h2>
+            <h2 v-else> 
+                Dev Build
+            </h2>
+            <p>Logged in</p>
+            <button class="button primary" @click="auth.logout">
+                Log out
+            </button>
+        </div>
+
+        <div v-if="$props.showThemePicker" class="user-menu-wrapper">
+            <button
+                v-if="$props.showThemePicker"
+                id="theme-select"
+                class="user-button"
+                title="Change Theme"
+                @click="setThemePickerMenu( 'toggle' )"
+            >
+                <i v-if="!showThemePickerMenu" class="fa-xl fa-regular fa-moon theme-icon"></i>
+                <i v-else class="fa-xl fa-solid fa-moon theme-icon"></i>
+            </button>
         </div>
         <div v-if="props.showAccount" class="user-menu-wrapper">
             <button class="user-button" @click="toggleMenu()">
                 <i v-if="showUserMenu" class="fa-xl fa-solid fa-user"></i>
                 <i v-else class="fa-xl fa-regular fa-user"></i>
             </button>
-
-            <div :class="[ 'user-menu', showUserMenu ? 'shown' : undefined ]">
-                <h2>Username</h2>
-                <p>Logged in</p>
-                <button class="button primary" @click="auth.logout">
-                    Log out
-                </button>
-            </div>
         </div>
     </div>
 </template>
@@ -120,7 +129,7 @@
         &.page-title-visible {
             margin-right: 20px;
             padding-right: 20px;
-            border-right: 1px solid var( --theme-foreground-text );
+            border-right: 2px solid var( --theme-background-text );
         }
     }
 
@@ -129,6 +138,91 @@
         font-weight: bold;
         font-size: 1.3rem;
     }
+
+     >.theme-menu {
+            position: absolute;
+            top: 10vh;
+            right: 0px;
+            padding-top: 1rem;
+            padding-bottom: 20px;
+            padding-left: 25px;
+            padding-right: 25px;
+            display: hidden;
+            height: full;
+            background-color: var( --theme-bg-2 );
+            z-index: -1;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 5px 5px 20px var(--theme-bg-1);
+
+            transform: translateX(14vw);
+            transform-origin: top right;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+
+            &.shown {
+                display: block;
+                transform: translateX(0);
+            }
+
+            .theme-buttons { 
+                display: flex;
+                flex-direction: column;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 300;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+
+            p {
+                color: var(--theme-bg-3-20);
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+        }
+
+        >.user-menu {
+            position: absolute;
+            top: 10vh;
+            right: 0px;
+            padding-top: 1rem;
+            padding-bottom: 10px;
+            padding-left: 25px;
+            display: hidden;
+            width: 12vw;
+            height: 135px;
+            background-color: var( --theme-bg-2 );
+            z-index: -1;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 5px 5px 20px var(--theme-bg-1);
+
+            transform: translateX(14vw);
+            transform-origin: top right;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+
+            &.shown {
+                display: block;
+                transform: translateX(0vw);
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 300;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+
+            p {
+                color: var(--theme-bg-3-20);
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+        }
 
     >.user-menu-wrapper {
         display: flex;
@@ -149,90 +243,6 @@
             font-size: 1rem;
             border: none;
             cursor: pointer;
-        }
-
-        >.theme-menu {
-            position: absolute;
-            top: 6vh;
-            right: 0vw;
-            padding-top: 1rem;
-            padding-bottom: 20px;
-            padding-left: 25px;
-            padding-right: 10px;
-            display: block;
-            width: 150px;
-            height: full;
-            background-color: var( --theme-bg-2 );
-            z-index: -1;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            box-shadow: 5px 5px 20px var(--theme-bg-1);
-
-            transform: translateX(60vw);
-            transform-origin: top right;
-            transition: transform 0.25s linear;
-            overflow: hidden;
-
-            &.theme-menu-alt {
-                right: -3vw;
-            }
-
-            &.shown {
-                transform: translateX(0);
-            }
-
-            h2 {
-                font-size: 1.5rem;
-                font-weight: 300;
-                margin-top: 0px;
-                margin-bottom: 0px;
-            }
-
-            p {
-                color: var(--theme-bg-3-20);
-                margin-top: 0px;
-                margin-bottom: 20px;
-            }
-        }
-
-        >.user-menu {
-            position: absolute;
-            top: 6vh;
-            right: 0px;
-            padding-top: 1rem;
-            padding-bottom: 10px;
-            padding-left: 25px;
-            padding-right: 10px;
-            display: block;
-            width: 200px;
-            height: 135px;
-            background-color: var( --theme-bg-2 );
-            z-index: -1;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            box-shadow: 5px 5px 20px var(--theme-bg-1);
-
-            transform: translateX(60vw);
-            transform-origin: top right;
-            transition: transform 0.25s linear;
-            overflow: hidden;
-
-            &.shown {
-                transform: translateX(0);
-            }
-
-            h2 {
-                font-size: 1.5rem;
-                font-weight: 300;
-                margin-top: 0px;
-                margin-bottom: 0px;
-            }
-
-            p {
-                color: var(--theme-bg-3-20);
-                margin-top: 0px;
-                margin-bottom: 20px;
-            }
         }
     }
 
