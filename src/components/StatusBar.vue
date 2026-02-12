@@ -169,6 +169,10 @@
             .theme-buttons {
                 display: flex;
                 flex-direction: column;
+
+                >button {
+                    width: 120px;
+                }
             }
 
             h2 {
@@ -192,8 +196,8 @@
             padding-top: 1rem;
             padding-bottom: 10px;
             padding-left: 25px;
+            padding-right: 25px;
             display: hidden;
-            width: 12vw;
             height: 135px;
             background-color: var( --theme-bg-2 );
             z-index: -1;

@@ -17,6 +17,7 @@
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
+    const showExportOptions = ref( false );
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
@@ -81,7 +82,7 @@
             </div>
             <OptionsPane />
         </div>
-        <div v-if="!isSideBarCollapsed">
+        <div v-if="!isSideBarCollapsed && showExportOptions">
             <h2>Export</h2>
             <ExportOptions />
         </div>
@@ -99,12 +100,12 @@
 
 <style lang="scss" scoped>
 .side-pane {
-    width: 22vw;
+    width: 400px;       // Hardcoded, scalable sidebar (that looks good) is much work
     min-width: 400px;
     max-width: 22vw;
     display: block;
     overflow-x: hidden;
-    transition: width 0.5s, min-width 0.5s;
+    transition: width 0.25s, min-width 0.25s;
 
     .export-button {
         margin-top: 1rem;
@@ -159,7 +160,7 @@
     }
 
     &.collapsed {
-        width: 5vw;
+        width: 100px;
         min-width: 0;
     }
 
