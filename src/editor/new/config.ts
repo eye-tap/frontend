@@ -49,8 +49,7 @@ export const referenceCanvasSize = {
 export const unfocusedTextColor = ref( {
     'r': 255,
     'g': 0,
-    'b': 0,
-    'a': 255
+    'b': 0
 } );
 
 export const boundingBoxesOpacity = ref( 1 );

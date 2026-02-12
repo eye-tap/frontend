@@ -31,24 +31,21 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
             const imgData = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height );
             const color = unfocusedTextColor.value;
             const data = imgData.data;
-            const bgCol = {
-                'r': data[0]!,
-                'g': data[1]!,
-                'b': data[2]!,
-                'a': data[3]!
-            };
+            const bgReferencePoint = ( 10 * imgData.width ) + ( 10 * 4 );
+            const bgAmbiance = data[ bgReferencePoint + 3 ];
+            const bgLuminance = ( data[ bgReferencePoint ]! + data[ bgReferencePoint + 1 ]! + data[ bgReferencePoint + 2 ]! ) / 3;
 
-            // TODO: Think of good filter to apply, because this is bad
+            console.log( bgLuminance );
+
             for ( let i = 0; i < data.length; i += 4 ) {
-                if ( data[i]! !== bgCol[ 'r' ]
-                    || data[i + 1] !== bgCol[ 'g' ]
-                    || data[i + 2] !== bgCol[ 'b' ]
-                    || data[i + 3] !== bgCol[ 'a' ]
-                ) {
-                    data[i] = color.r;
-                    data[i + 1] = color.g;
-                    data[i + 2] = color.b;
-                    data[i + 3] = color.a;
+                const luminance = ( data[i]! + data[i + 1]! + data[i + 2]! ) / 3;
+
+                if ( luminance !== bgLuminance || data[i + 3] !== bgAmbiance ) {
+                    const l = luminance > 0 ? luminance : 0;
+
+                    data[i] = Math.round( color.r / l );
+                    data[i + 1] = Math.round( color.g / l );
+                    data[i + 2] = Math.round( color.b / l );
                 }
             }
 
