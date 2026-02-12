@@ -13,14 +13,14 @@ const gazePointsKey = 'gaze_points';
 const nearbyBoxesDistanceThreshold = ref( 20 );
 const filterReader: Ref<number | null> = ref( null );
 // Colors
-const annotationLineColor = ref( 'red' );
-const cursorLineColor = ref( 'black' );
-const annotationPointColor = ref( 'red' );
-const hightlightedBoxColor = ref( 'red' );
-const proximityBoxColor = ref( 'blue' );
-const selectedPointColor = ref( 'blue' );
-const assignedPointColor = ref( 'green' );
-const boundingBoxColor = ref( 'grey' );
+const annotationLineColor = ref( 'rgba(245, 158, 11, 0.4)' );
+const cursorLineColor = ref( 'rgba(245, 158, 11, 0.8)' );
+const annotationPointColor = ref( '#718096' );
+const hightlightedBoxColor = ref( '#2563EB' );
+const proximityBoxColor = ref( '#93C5FD' );
+const selectedPointColor = ref( '#2B6CB0' );
+const assignedPointColor = ref( '#38A169' );
+const boundingBoxColor = ref( '#CBD5E1' );
 // Stroke width
 const boundingBoxStrokeWidth = ref( 2 );
 const pointRadius = ref( 4 );

@@ -11,14 +11,20 @@ import {
 } from '@/editor/save';
 
 interface RedoHistoryEntry {
-    'index': number;
+    'pointindex': number;
     'annotatedBox': string | number | null;
-    'currentIndex': number;
+    'selectedPointIndex': number;
+}
+interface UndoHistoryEntry {
+    'pointindex': number;
+    'annotatedBox': string | number | null;
+    'selectedPointIndex': number;
 }
 
 export const redoHistory: Ref<RedoHistoryEntry[]> = ref( [] );
 
-export const undoHistory: Ref<number[]> = ref( [] );
+export const undoHistory: Ref<UndoHistoryEntry[]> = ref( [] );
+
 
 const clearRedo = () => {
     redoHistory.value = [];
@@ -29,13 +35,12 @@ const redo = ( redraw: () => void ) => {
 
     const last = redoHistory.value.pop()!;
 
-    undoHistory.value.push( last.index );
 
     revision.value++;
 
-    const point = filteredPoints.value[ last.index ];
+    const point = filteredPoints.value[ last.pointindex ];
 
-    selectedPoint.value = filteredPoints.value[ last.currentIndex ]!;
+    selectedPoint.value = filteredPoints.value[ last.selectedPointIndex ]!;
 
     if ( point ) {
         point.annotedbox = last.annotatedBox;
@@ -43,14 +48,16 @@ const redo = ( redraw: () => void ) => {
     }
 };
 
-const addToHistory = ( index: number ) => {
-    const existing = undoHistory.value.indexOf( index );
+const addToHistory = ( index: number,selectedPointindex: number ) => {
 
     revision.value++;
 
-    if ( existing !== -1 ) undoHistory.value.splice( existing, 1 );
 
-    undoHistory.value.push( index );
+    undoHistory.value.push( {
+        'pointindex': index,
+        'annotatedBox': filteredPoints.value[index]?.annotedbox ?? null,
+        'selectedPointIndex': selectedPointindex
+    } );
     clearRedo();
 };
 
@@ -58,23 +65,25 @@ const undo = ( redraw: () => void ) => {
     if ( undoHistory.value.length === 0 ) return;
 
     const last = undoHistory.value.pop()!;
-    const point = filteredPoints.value[last];
-    const pointIdx = filteredPoints.value.indexOf( selectedPoint.value! );
 
     revision.value--;
 
-    redoHistory.value.push( {
-        'index': last,
-        'annotatedBox': point!.annotedbox,
-        'currentIndex': pointIdx
-    } );
+    const currentPoint = filteredPoints.value[last.pointindex];
 
-    selectedPoint.value = point!;
+    redoHistory.value.push({
+        pointindex: last.pointindex,
+        annotatedBox: currentPoint?.annotedbox ?? null,
+        selectedPointIndex: selectedPoint.value ? filteredPoints.value.indexOf( selectedPoint.value ) : -1
+    });
 
-    if ( point ) {
-        point.annotedbox = null;
-        redraw();
+
+    selectedPoint.value = filteredPoints.value[last.selectedPointIndex]!;
+
+    const point = filteredPoints.value[last.pointindex];
+    if (point) {
+        point.annotedbox = last.annotatedBox;
     }
+    redraw();
 };
 
 

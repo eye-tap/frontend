@@ -100,14 +100,14 @@ const useEditorIO = (
             }
 
             if ( closestBoxIdx !== null ) {
-                selectedPoint.value!.annotedbox = closestBoxIdx;
-
+                
                 const pointIndex = filteredPoints.value.indexOf( selectedPoint.value! );
-
+                
                 if ( pointIndex !== -1 ) {
-                    addToHistory( pointIndex );
+                    addToHistory( pointIndex, pointIndex );
                 }
-
+                selectedPoint.value!.annotedbox = closestBoxIdx;
+                
                 selectedPoint.value = selectPoint( selectedPoint.value!, 1 ) || null;
                 redraw();
             }
@@ -131,7 +131,7 @@ const useEditorIO = (
                 annotatedPoints.add( pointIdx );
             }
 
-            addToHistory( pointIdx );
+            addToHistory( pointIdx, pointIdx );
             selectedPoint.value!.annotedbox = highlightedBoxIndex.value;
             selectedPoint.value = selectPoint( selectedPoint.value!, 1 ) || null;
             redraw();
@@ -177,18 +177,19 @@ const useEditorIO = (
 
     const onMouseUp = () => {
         if ( isDragging && selectedPoint.value ) {
+            const pointIdx = filteredPoints.value.indexOf( selectedPoint.value );
             if ( highlightedBoxIndex.value != null ) {
-                selectedPoint.value.annotedbox = highlightedBoxIndex.value;
-                const pointIdx = filteredPoints.value.indexOf( selectedPoint.value );
-
+                
                 if ( !annotatedPoints.has( pointIdx ) ) {
                     annotatedPoints.add( pointIdx );
                 }
-
-                addToHistory( pointIdx );
+                
+                addToHistory( pointIdx, pointIdx );
+                selectedPoint.value.annotedbox = highlightedBoxIndex.value;
                 highlightedBoxIndex.value = 0;
                 selectedPoint.value = selectPoint( selectedPoint.value, 1 ) || null;
             } else {
+                addToHistory( pointIdx, pointIdx );
                 selectedPoint.value.annotedbox = null;
             }
 
