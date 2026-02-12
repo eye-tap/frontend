@@ -6,7 +6,7 @@
         showLines,
         showPointIndex
     } from '../config';
-    import SwitchOption from './SwitchOption.vue';
+    import SwitchOption from '@/components/settings/SwitchOption.vue';
 </script>
 
 <template>

@@ -5,13 +5,13 @@ import {
 } from '../internal-data';
 import {
     bbKey, gazePointsKey, imageKey
-} from '@/editor/config';
+} from '../../config';
 import {
     downloadFile, downloadFileAsBlob
 } from '@/ts/files/file';
 import {
     parseBBoxCSV, parsePointsCSVSingleSet
-} from './parser';
+} from '../util/parser';
 import {
     useActiveFileStore
 } from '@/ts/stores/activeFileStore';
@@ -20,6 +20,7 @@ const useEditorLoading = ( redraw: () => void ) => {
     const activeFile = useActiveFileStore();
     // TODO: Editor autosave
     // TODO: Save selected file to sessionStorage when setting in file store (persistance)
+    // This should be managed by the activeFileStore though
 
     const loadImageFromBackend = async () => {
         try {

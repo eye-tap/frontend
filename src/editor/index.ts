@@ -36,7 +36,7 @@ import {
 } from './scripts/util/io';
 import {
     useEditorLoading
-} from './scripts/util/loading';
+} from './scripts/loading';
 import {
     useNotification
 } from '@kyvg/vue3-notification';

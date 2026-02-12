@@ -57,6 +57,8 @@ const useRenderer = ( canvas: Ref<HTMLCanvasElement | null> ) => {
 
         if ( showLines.value ) drawLines();
 
+        // TODO: Consider making this more flexible (i.e. use a dropdown instead of toggles)
+        // Options could be: always, hover or none (and the showNearby one is independent)
         if ( showBoundingBoxes.value ) {
             drawBoxes();
 

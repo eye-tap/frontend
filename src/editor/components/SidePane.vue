@@ -34,16 +34,16 @@
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
-            <div v-if="!isSideBarCollapsed" class="options-bar-left">
+            <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
                 <span class="clickable-icon" @click="undo">
                     <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
                 </span>
-                <span class="clickable-icon" @click="redo">
+                <span class="clickable-icon" title="Redo your last undone action" @click="redo">
                     <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
-                <span class="clickable-icon" @click="saveEditorChanges">
+                <span class="clickable-icon" title="Save" @click="saveEditorChanges">
                     <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
             </div>
@@ -55,19 +55,19 @@
         </div>
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" @click="undo">
+            <span class="clickable-icon" title="Undo your last action" @click="undo">
                 <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" @click="redo">
+            <span class="clickable-icon" title="Redo you last undone action" @click="redo">
                 <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" @click="saveEditorChanges">
+            <span class="clickable-icon" title="Save" @click="saveEditorChanges">
                 <i class="fa-xl fa-solid fa-floppy-disk"></i>
             </span>
         </div>
@@ -75,7 +75,7 @@
         <div v-if="!isSideBarCollapsed">
             <div class="options-bar-sm">
                 <h2>Options</h2>
-                <span class="clickable-icon" @click="togglePreferences()">
+                <span class="clickable-icon" title="Advanced options" @click="togglePreferences()">
                     <i class="fa-lg fa-solid fa-gear"></i>
                 </span>
             </div>
