@@ -125,6 +125,14 @@
 
         .clickable-icon {
             cursor: pointer;
+            height: 20px;
+            i{
+                transition: rotate 0.1s;
+            }
+            i:hover {
+                rotate: 40deg;
+                color: var(--theme-bg-4-20);
+            }
         }
 
         >h2 {
@@ -139,6 +147,10 @@
 
         .clickable-icon {
             cursor: pointer;
+
+            :hover {
+                color: var(--theme-bg-4-20);
+            }
         }
 
         .unavailable {

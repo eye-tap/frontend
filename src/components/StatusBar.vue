@@ -248,6 +248,11 @@
             font-size: 1rem;
             border: none;
             cursor: pointer;
+
+            transition: color 0.5s;
+            :hover {
+                color: var( --theme-bg-4-20 );
+            }
         }
     }
 

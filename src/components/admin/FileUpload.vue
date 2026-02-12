@@ -194,6 +194,7 @@
     margin-top: 2rem;
     margin-right: 2rem;
     margin-left: 2rem;
+    padding-top: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
@@ -219,7 +220,8 @@
         }
 
         >span {
-            color: var(--theme-bg-4);
+            color: var(--theme-foreground-text);
+            height: 20px;
             cursor: pointer;
 
             >i {

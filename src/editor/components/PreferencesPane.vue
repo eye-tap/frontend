@@ -129,9 +129,14 @@
             justify-content: space-between;
             align-items: center;
 
-            >.fa-solid {
+            >i {
+                color: var(--theme-foreground-text);
                 font-size: 1.5rem;
                 cursor: pointer;
+            }
+
+            >i:hover {
+                color: var(--theme-bg-4-20);
             }
 
             >h1 {
@@ -140,7 +145,7 @@
 
         }
 
-        width: 30rem;
+        width: 40vw;
         height: max-content;
         padding: 1px 1.5rem 1.5rem 1.5rem;
         position: relative;
@@ -150,8 +155,8 @@
         .options-container {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            height: 30rem;
+            flex-wrap: wrap;
+            height: 60vh;
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;
