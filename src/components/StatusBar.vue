@@ -10,10 +10,11 @@
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth/auth';
     import router from '@/ts/router';
-    import { useStatusStore } from '@/ts/stores/status';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
     const status = useStatusStore();
-
     const showUserMenu = ref( false );
     const showThemePickerMenu = ref( false );
 
@@ -79,7 +80,7 @@
             <h2 v-if="status.username">
                 {{ status.username }}
             </h2>
-            <h2 v-else> 
+            <h2 v-else>
                 Dev Build
             </h2>
             <p>Logged in</p>
@@ -165,7 +166,7 @@
                 transform: translateX(0);
             }
 
-            .theme-buttons { 
+            .theme-buttons {
                 display: flex;
                 flex-direction: column;
             }
