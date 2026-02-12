@@ -1,4 +1,5 @@
 import type {
+    AnnotationDoneEvent,
     AnnotationSet
 } from '../files';
 
@@ -9,5 +10,6 @@ declare global {
         'eyetap:save': CustomEvent<void>
         'eyetap:undo': CustomEvent<void>
         'eyetap:redo': CustomEvent<void>
+        'eyetap:annotation-done': CustomEvent<AnnotationDoneEvent>
     }
 }

@@ -9,22 +9,37 @@
 - Remove some of the options (or hide them better)
 - Fix animation for sidebar collapse
 - Reader selection using dropdown instead of number input field (we can filter out the readers without a point)
-- Move advanced options into a popover instead of the sidebar
+- Move advanced options into a popover instead of the sidebar -- done
 - Change default rendering size of the editor
 - Improve next item selection
 - Make options not depend on each other except when they are a dropdown
 (i.e. we need to make a dropdown e.g. for "show boxes" as options we could have "always", "on hover" and "never")
 - Heatmap (i.e. points are coloured based on the entropy), or shown as a small overlay somewhere sensible
+- Word boxes rendering
 
 
 ## General
-- Do we need the export feature still?
+- Do we need the export feature still? -> Into admin panel
 - General usability improvements
 - Update theme colours (currently primarily the blue and black themes look good)
-- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor)
+- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- done
 - Better error handling for backend errors (i.e. better notifications)
 - RWD fixes
 - Improve animations (e.g. of the account slideover)
+
+
+## User login
+- Magic link with password and username base64 or so encoded
+
+## Home
+- Basically only have the file select
+
+
+## Admin
+- Upload pre-assigned points with multi-file select button on Text creation
+- Design
+- Bug testing
+- New Survey options
 
 
 ## Call notes

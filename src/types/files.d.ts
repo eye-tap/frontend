@@ -15,6 +15,11 @@ export interface AnnotationProgress {
     'modified': number;
 }
 
+export interface AnnotationDoneEvent {
+    'next': string;
+    'current': string;
+}
+
 export interface AnnotationSet {
     'id': number;
     'baseName': string;
