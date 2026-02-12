@@ -35,8 +35,6 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
             const bgAmbiance = data[ bgReferencePoint + 3 ];
             const bgLuminance = ( data[ bgReferencePoint ]! + data[ bgReferencePoint + 1 ]! + data[ bgReferencePoint + 2 ]! ) / 3;
 
-            console.log( bgLuminance );
-
             for ( let i = 0; i < data.length; i += 4 ) {
                 const luminance = ( data[i]! + data[i + 1]! + data[i + 2]! ) / 3;
 

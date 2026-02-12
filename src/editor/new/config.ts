@@ -19,7 +19,7 @@ export const cursorLineColor = ref( 'black' );
 
 export const boundingBoxColor = ref( 'grey' );
 
-export const hightlightedBoundingBoxColor = ref( 'red' );
+export const highlightedBoundingBoxColor = ref( 'red' );
 
 export const proximityBoundingBoxColor = ref( 'blue' );
 
@@ -76,7 +76,7 @@ export const boundingBoxOnHoverRadius = ref( 100 );
 export const useWatcher = ( renderer: Renderer ) => {
     watch( [
         nearbyBoxesDistanceThreshold,
-        hightlightedBoundingBoxColor,
+        highlightedBoundingBoxColor,
         proximityBoundingBoxColor,
         boundingBoxColor,
         boundingBoxStrokeWidth,

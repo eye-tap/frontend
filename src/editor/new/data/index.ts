@@ -20,6 +20,8 @@ export const annotations: Ref<EditorAnnotation[]> = ref( [] );
 
 export const selectedFixation = ref( -1 );
 
+
+// Zoom utilities
 export const canvasPosition = ref( {
     'x': 0,
     'y': 0

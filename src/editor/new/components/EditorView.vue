@@ -75,6 +75,8 @@
             border: 1px solid #333;
             margin: 0;
             position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .canvas-layer {
