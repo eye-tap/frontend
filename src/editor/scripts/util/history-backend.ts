@@ -40,6 +40,11 @@ const redo = ( redraw: () => void ) => {
 
     const point = filteredPoints.value[ last.pointindex ];
 
+    undoHistory.value.push( {
+        'pointindex': last.pointindex,
+        'annotatedBox': point?.annotedbox ?? null,
+        'selectedPointIndex': selectedPoint.value ? filteredPoints.value.indexOf( selectedPoint.value ) : -1
+    } );
     selectedPoint.value = filteredPoints.value[ last.selectedPointIndex ]!;
 
     if ( point ) {
