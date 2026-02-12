@@ -50,6 +50,15 @@ export const routes = [
                     'title': 'Editor',
                     'authRequired': true
                 }
+            },
+            {
+                'path': 'new-editor',
+                'name': 'new-editor',
+                'component': () => import( '@/views/app/NewEditor.vue' ),
+                'meta': {
+                    'title': 'New Editor',
+                    'authRequired': true
+                }
             }
         ]
     },
