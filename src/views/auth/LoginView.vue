@@ -110,8 +110,12 @@
                             @keyup="keyHandler"
                         >
                         <div class="password-toggle" @click="togglePW">
-                            <span v-if="showPW" class="material-symbols-outlined hidden">visibility_off</span>
-                            <span v-else class="material-symbols-outlined">visibility</span>
+                            <span v-if="showPW">
+                                <i class="fa-solid fa-eye fa-lg"></i>
+                            </span>
+                            <span v-else>
+                                <i class="fa-regular fa-eye fa-lg"></i>
+                            </span>
                         </div>
                     </div>
                     <div class="errWrapper">
@@ -150,6 +154,16 @@
     .logo {
         height: 100px;
         width: auto;
+    }
+
+    .password-toggle {
+
+        >span {
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .errWrapper {

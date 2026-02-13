@@ -191,8 +191,12 @@
                             @keyup="key => handlePW( key )"
                         >
                         <div class="password-toggle" @click="togglePW()">
-                            <span v-if="showPW" class="material-symbols-outlined hidden">visibility_off</span>
-                            <span v-else class="material-symbols-outlined">visibility</span>
+                            <span v-if="showPW">
+                                <i class="fa-solid fa-eye fa-lg"></i>
+                            </span>
+                            <span v-else>
+                                <i class="fa-regular fa-eye fa-lg"></i>
+                            </span>
                         </div>
                     </div>
                     <div v-if="passwordRating" class="pw-rating">
@@ -232,6 +236,15 @@
         color: var( --theme-warning );
         text-align: center !important;
         width: 100%;
+    }
+
+    .password-toggle {
+        >span {
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .top-bar {
