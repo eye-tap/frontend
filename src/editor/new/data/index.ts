@@ -11,6 +11,9 @@ import type {
 import type {
     EditorFixation
 } from '../types/fixations';
+import {
+    referenceCanvasSize
+} from '../config';
 
 export const fixations: Ref<EditorFixation[]> = ref( [] );
 
@@ -30,6 +33,5 @@ export const canvasPosition = ref( {
 export const zoomFactor = ref( 1 );
 
 export const canvasSize = ref( {
-    'height': 0,
-    'width': 0
+    ...referenceCanvasSize
 } );

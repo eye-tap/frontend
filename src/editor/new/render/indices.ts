@@ -1,6 +1,7 @@
 import {
     type Ref,
-    onMounted
+    onMounted,
+    watch
 } from 'vue';
 import {
     assignedFixationColor,
@@ -57,6 +58,13 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
             scale( fixation.y! ) - scale( fixationRadius.value )
         );
     };
+
+    watch( [
+        fixationIndexDisplay,
+        selectedFixationColor,
+        unassignedFixationColor,
+        machineAssignedFixationColor
+    ], render );
 
     onMounted( () => {
         ctx = indicesCanvas.value!.getContext( '2d' )!;

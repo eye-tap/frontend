@@ -51,6 +51,12 @@ export const unfocusedTextColor = ref( {
     'b': 0
 } );
 
+export const hoveredTextColor = ref( {
+    'r': 0,
+    'g': 255,
+    'b': 0
+} );
+
 export const boundingBoxesOpacity = ref( 1 );
 
 export const fixationsOpacity = ref( 1 );

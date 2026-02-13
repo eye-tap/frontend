@@ -9,12 +9,17 @@ import {
     boundingBoxesOpacity,
     boxesDisplay,
     highlightedBoundingBoxColor,
+    hoveredTextColor,
     proximityBoundingBoxColor
 } from '../config';
 import {
     boundingBoxes,
     canvasSize
 } from '../data';
+import {
+    imgDataToImageObject,
+    setImageTextColour
+} from './image-magic';
 import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
@@ -90,18 +95,24 @@ const drawBox = ( col: string, bb: EditorCharacterBoundingBox, ctx: CanvasRender
 const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageElement ) => {
     return ( bb: EditorCharacterBoundingBox ) => {
         if ( bb.highlightClass === 'hovered' ) {
-            // Highlight hovered box
-            ctx.drawImage(
-                image,
-                bb.xMin!,
-                bb.yMin!,
-                Math.abs( bb.xMax! - bb.xMin! ),
-                Math.abs( bb.yMax! - bb.yMin! ),
-                scale( bb.xMin! ),
-                scale( bb.yMin! ),
-                scale( Math.abs( bb.xMax! - bb.xMin! ) ),
-                scale( Math.abs( bb.yMax! - bb.yMin! ) )
-            );
+            const w = Math.abs( bb.xMax! - bb.xMin! );
+            const h = Math.abs( bb.yMax! - bb.yMin! );
+            const imgData = setImageTextColour( image, hoveredTextColor.value, {
+                'x': bb.xMin!,
+                'y': bb.yMin!,
+                'width': w,
+                'height': h,
+                'scale': true
+            } );
+
+
+            ( async () => {
+                const img = await imgDataToImageObject( imgData, w, h );
+
+                ctx.fillStyle = 'white';
+                ctx.fillRect( scale( bb.xMin! ), scale( bb.yMin! ), scale( w ), scale( h ) );
+                ctx.drawImage( img!, scale( bb.xMin! ), scale( bb.yMin! ) );
+            } )();
         } else if ( bb.highlightClass === 'highlight' ) {
             // Always draws an outline
             return;

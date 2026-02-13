@@ -62,7 +62,7 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
         else
             computeScaleFactor( referenceCanvasSize.width, target.clientWidth, referenceCanvasSize.height / referenceCanvasSize.width );
 
-        renderer.renderAll( true );
+        renderer.renderAll();
     };
 
     onMounted( () => {
