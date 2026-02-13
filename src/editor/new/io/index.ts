@@ -1,7 +1,10 @@
 import type {
     Ref
 } from 'vue';
+import {
+    mouseHandler
+} from './mouse';
 
-export const ioHandler = ( clickTarget: Ref<HTMLDivElement | null> ) => {
-    console.log( clickTarget );
+export const ioHandler = ( clickTarget: Ref<HTMLElement | null> ) => {
+    mouseHandler( clickTarget );
 };

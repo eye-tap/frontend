@@ -1,11 +1,7 @@
 import {
     type Ref,
-    ref,
-    watch
+    ref
 } from 'vue';
-import type {
-    Renderer
-} from './types/renderer';
 
 
 // Essentials
@@ -23,11 +19,14 @@ export const highlightedBoundingBoxColor = ref( 'red' );
 
 export const proximityBoundingBoxColor = ref( 'blue' );
 
-export const unassignedFixationColor = ref( 'red' );
-
 export const selectedFixationColor = ref( 'blue' );
 
 export const assignedFixationColor = ref( 'green' );
+
+export const unassignedFixationColor = ref( 'red' );
+
+export const machineAssignedFixationColor = ref( 'red' );
+// TODO: Fixation index colours?
 
 
 // Stroke width
@@ -60,48 +59,51 @@ export const linesOpacity = ref( 1 );
 
 export const indicesOpacity = ref( 1 );
 
-// Settings
-export const fixationDisplay: Ref<'all' | 'assigned' | 'unassigned' | 'previous' | 'none'> = ref( 'all' );
 
+// Settings
 export const boxesDisplay: Ref<'always' | 'proximity' | 'hovered' | 'letters' | 'never'> = ref( 'letters' );
 
 export const linesDisplay: Ref<'all' | 'previous' | 'none'> = ref( 'previous' );
 
-export const fixationIndexDisplay: Ref<'always' | 'next' | 'surrounding' | 'previous' | 'none'> = ref( 'previous' ); // Always will include current unless none
+export const fixationDisplay: Ref<'all' | 'assigned' | 'unassigned' | 'surrounding' | 'none'> = ref( 'all' );
+
+export const fixationIndexDisplay: Ref<'always' | 'surrounding' | 'none'> = ref( 'surrounding' ); // Always will include current unless none
 
 export const boundingBoxOnHoverRadius = ref( 100 );
 
+/** Disables the keyboard handler until this is again set to false */
+export const disableKeyHandler = ref( false );
 
-// Watcher
-export const useWatcher = ( renderer: Renderer ) => {
-    watch( [
-        nearbyBoxesDistanceThreshold,
-        highlightedBoundingBoxColor,
-        proximityBoundingBoxColor,
-        boundingBoxColor,
-        boundingBoxStrokeWidth,
-        boundingBoxOnHoverRadius,
-        boundingBoxesOpacity,
-        unfocusedTextColor,
-        boxesDisplay
-    ], renderer.renderBoxes.render );
-    watch( [
-        unassignedFixationColor,
-        selectedFixationColor,
-        assignedFixationColor,
-        fixationRadius,
-        fixationsOpacity,
-        indicesOpacity,
-        fixationDisplay,
-        fixationIndexDisplay
-    ], renderer.renderFixations.render );
-    watch( [
-        assignedLineColor,
-        cursorLineColor,
-        lineWidth,
-        linesOpacity,
-        linesDisplay
-    ], renderer.renderLines.render );
-    watch( [ unfocusedTextColor ], renderer.renderText.render );
-    watch( [ referenceCanvasSize ], renderer.renderAll );
-};
+// // Watcher
+// export const useWatcher = ( renderer: Renderer ) => {
+//     watch( [
+//         nearbyBoxesDistanceThreshold,
+//         highlightedBoundingBoxColor,
+//         proximityBoundingBoxColor,
+//         boundingBoxColor,
+//         boundingBoxStrokeWidth,
+//         boundingBoxOnHoverRadius,
+//         boundingBoxesOpacity,
+//         unfocusedTextColor,
+//         boxesDisplay
+//     ], renderer.renderBoxes.render );
+//     watch( [
+//         unassignedFixationColor,
+//         selectedFixationColor,
+//         assignedFixationColor,
+//         fixationRadius,
+//         fixationsOpacity,
+//         indicesOpacity,
+//         fixationDisplay,
+//         fixationIndexDisplay
+//     ], renderer.renderFixations.render );
+//     watch( [
+//         assignedLineColor,
+//         cursorLineColor,
+//         lineWidth,
+//         linesOpacity,
+//         linesDisplay
+//     ], renderer.renderLines.render );
+//     watch( [ unfocusedTextColor ], renderer.renderText.render );
+//     watch( [ referenceCanvasSize ], renderer.renderAll );
+// };

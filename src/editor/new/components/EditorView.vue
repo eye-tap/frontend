@@ -16,12 +16,14 @@
     const boxesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const linesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const fixationsCanvas: Ref<HTMLCanvasElement | null> = ref( null );
-    const clickTarget: Ref<HTMLDivElement | null> = ref( null );
+    const indicesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
+    const clickTarget: Ref<HTMLCanvasElement | null> = ref( null );
     const editorInstance = editor.start(
         textCanvas,
         boxesCanvas,
         linesCanvas,
         fixationsCanvas,
+        indicesCanvas,
         clickTarget
     );
     const status = useStatusStore();
@@ -48,11 +50,13 @@
                 'readerID': 10
             }"
         />
-        <div ref="clickTarget" class="canvas-wrapper">
+        <div class="canvas-wrapper">
             <canvas id="text" ref="textCanvas"></canvas>
             <canvas id="boxes" ref="boxesCanvas" class="canvas-layer"></canvas>
             <canvas id="lines" ref="linesCanvas" class="canvas-layer"></canvas>
             <canvas id="fixations" ref="fixationsCanvas" class="canvas-layer"></canvas>
+            <canvas id="indices" ref="indicesCanvas" class="canvas-layer"></canvas>
+            <canvas id="click" ref="clickTarget" class="canvas-layer"></canvas>
         </div>
     </div>
 </template>

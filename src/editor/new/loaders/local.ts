@@ -17,10 +17,6 @@ export const editorDataLoadingLocal = ( image: HTMLImageElement, redraw: () => v
             const url = URL.createObjectURL( file );
 
             image.src = url;
-
-            image.onload = () => {
-                redraw();
-            };
         } catch ( e ) {
             Promise.reject( e );
         }
@@ -30,6 +26,8 @@ export const editorDataLoadingLocal = ( image: HTMLImageElement, redraw: () => v
         const data = await loadFileFromDiskAsString( e.target! as HTMLInputElement );
 
         fixations.value = testingParser.parsePointsCSVSingleSet( data );
+
+        redraw();
     };
 
     const loadBBoxCSV = async () => {

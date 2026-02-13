@@ -7,6 +7,9 @@ import {
     undoHistory
 } from './util/history';
 import {
+    editorSessionManager
+} from './manager';
+import {
     ioHandler
 } from './io';
 import {
@@ -39,10 +42,13 @@ const start = (
     boxesCanvas: Ref<HTMLCanvasElement | null>,
     linesCanvas: Ref<HTMLCanvasElement | null>,
     fixationsCanvas: Ref<HTMLCanvasElement | null>,
-    clickTarget: Ref<HTMLDivElement | null>
+    indicesCanvas: Ref<HTMLCanvasElement | null>,
+    clickTarget: Ref<HTMLCanvasElement | null>
 ) => {
-    const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas );
+    const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
     const io = ioHandler( clickTarget );
+
+    editorSessionManager( draw );
 
     return {
         'renderer': draw,

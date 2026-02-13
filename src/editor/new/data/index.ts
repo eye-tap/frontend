@@ -9,10 +9,10 @@ import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
 import type {
-    FixationDto
-} from '@/types/dtos/FixationDto';
+    EditorFixation
+} from '../types/fixations';
 
-export const fixations: Ref<FixationDto[]> = ref( [] );
+export const fixations: Ref<EditorFixation[]> = ref( [] );
 
 export const boundingBoxes: Ref<EditorCharacterBoundingBox[]> = ref( [] );
 

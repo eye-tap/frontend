@@ -5,6 +5,8 @@ import {
 } from 'vue';
 import {
     boundingBoxColor,
+    boundingBoxStrokeWidth,
+    boundingBoxesOpacity,
     boxesDisplay,
     highlightedBoundingBoxColor,
     proximityBoundingBoxColor
@@ -18,7 +20,7 @@ import type {
 } from '../types/boxes';
 import {
     scale
-} from '../util/scaling';
+} from './scaling';
 
 export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
     // TODO: For each renderer, determine if redraw is needed and only redraw the needed parts (if possible)
@@ -31,7 +33,8 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
         ctx.canvas.height = canvasSize.value.height;
-        // TODO: Add note somewhere that Canvas might look odd, simply tell user to allow usage of canvas in browser
+        ctx.lineWidth = scale( boundingBoxStrokeWidth.value );
+        ctx.globalAlpha = boundingBoxesOpacity.value;
 
         if ( boxesDisplay.value === 'always' ) {
             boundingBoxes.value.forEach( normalModeRendering( ctx ) );
@@ -43,10 +46,10 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
             boundingBoxes.value.forEach( bb => {
                 if ( bb.highlightClass === 'hovered' ) {
                     // Draw box
-                    return;
+                    drawBox( highlightedBoundingBoxColor.value, bb, ctx! );
                 } else if ( bb.highlightClass === 'highlight' ) {
                     // Draw box in highlight colors
-                    return;
+                    drawBox( highlightedBoundingBoxColor.value, bb, ctx! );
                 }
             } );
         } else if ( boxesDisplay.value === 'never' ) {
@@ -54,7 +57,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
             boundingBoxes.value.forEach( bb => {
                 if ( bb.highlightClass === 'hovered' ) {
                     // Draw box
-                    return;
+                    drawBox( highlightedBoundingBoxColor.value, bb, ctx! );
                 }
             } );
         }
@@ -65,7 +68,14 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         render();
     } );
 
-    watch( boundingBoxes, render );
+    watch( [
+        highlightedBoundingBoxColor,
+        proximityBoundingBoxColor,
+        boundingBoxColor,
+        boundingBoxStrokeWidth,
+        boundingBoxesOpacity,
+        boxesDisplay
+    ], render );
 
     return {
         render
@@ -81,7 +91,17 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
     return ( bb: EditorCharacterBoundingBox ) => {
         if ( bb.highlightClass === 'hovered' ) {
             // Highlight hovered box
-            ctx.drawImage( image, scale( bb.xMin! ), scale( bb.yMin! ), scale( bb.xMax! - bb.xMin! ), scale( bb.yMax! - bb.yMin! ) );
+            ctx.drawImage(
+                image,
+                bb.xMin!,
+                bb.yMin!,
+                Math.abs( bb.xMax! - bb.xMin! ),
+                Math.abs( bb.yMax! - bb.yMin! ),
+                scale( bb.xMin! ),
+                scale( bb.yMin! ),
+                scale( Math.abs( bb.xMax! - bb.xMin! ) ),
+                scale( Math.abs( bb.yMax! - bb.yMin! ) )
+            );
         } else if ( bb.highlightClass === 'highlight' ) {
             // Always draws an outline
             return;

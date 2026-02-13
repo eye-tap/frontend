@@ -1,13 +1,11 @@
 import {
     type Ref,
-    onMounted
+    onMounted,
+    watch
 } from 'vue';
 import {
     canvasSize
 } from '../data';
-import {
-    computeScaleFactor
-} from '../util/scaling';
 import {
     unfocusedTextColor
 } from '../config';
@@ -18,13 +16,11 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
     const render = async () => {
         if ( !ctx ) return;
 
-        const target = textCanvas.value!.parentElement!;
-
         // Reset canvas
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+        // TODO: Add note somewhere that Canvas might look odd, simply tell user to allow usage of canvas in browser
 
         if ( image.complete && image.src !== '' ) {
-            computeScaleFactor( image.width, target.clientWidth, image.height / image.width );
             ctx.canvas.width = canvasSize.value.width;
             ctx.canvas.height = canvasSize.value.height;
             ctx.drawImage( image, 0, 0, ctx.canvas.width, ctx.canvas.height );
@@ -59,6 +55,8 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
         ctx = textCanvas.value!.getContext( '2d' )!;
         render();
     } );
+
+    watch( unfocusedTextColor, render );
 
     return {
         render

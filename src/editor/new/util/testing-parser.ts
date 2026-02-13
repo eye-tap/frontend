@@ -2,8 +2,8 @@ import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
 import type {
-    FixationDto
-} from '@/types/dtos/FixationDto';
+    EditorFixation
+} from '../types/fixations';
 import {
     nearbyBoxesDistanceThreshold
 } from '../../config';
@@ -26,8 +26,8 @@ const parseBBoxCSV = ( text: string ): EditorCharacterBoundingBox[] => {
         return {
             'xMin': Number( cols[x1Index] ),
             'xMax': Number( cols[x2Index] ),
-            'yMin': Number( cols[y1Index] ),
-            'yMax': Number( cols[y2Index] ),
+            'yMax': Number( cols[y1Index] ),
+            'yMin': Number( cols[y2Index] ),
             'centerX': ( Number( cols[x1Index] ) + Number( cols[x2Index] ) ) / 2,
             'centerY': ( Number( cols[y1Index] ) + Number( cols[y2Index] ) ) / 2,
             'nearbyPoints': [],
@@ -57,7 +57,7 @@ const parseBBoxCSV = ( text: string ): EditorCharacterBoundingBox[] => {
  * @param text - The CSV file
  * @returns Parsed points
  */
-const parsePointsCSVSingleSet = ( text: string ): FixationDto[] => {
+const parsePointsCSVSingleSet = ( text: string ): EditorFixation[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
@@ -69,7 +69,7 @@ const parsePointsCSVSingleSet = ( text: string ): FixationDto[] => {
     lines.shift();
     let index = 0;
 
-    const points: FixationDto[] = lines.map( line => {
+    const points: EditorFixation[] = lines.map( line => {
         const cols = line.split( ',' );
 
         return {
@@ -84,8 +84,9 @@ const parsePointsCSVSingleSet = ( text: string ): FixationDto[] => {
         .map( val => {
             return {
                 'id': val.reader,
-                'x': val.x,
-                'y': val.y
+                'x': val.x * 100,
+                'y': val.y * 100,
+                'highlightClass': 'unassigned'
             };
         } );
 
