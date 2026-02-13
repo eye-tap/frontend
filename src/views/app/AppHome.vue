@@ -86,6 +86,11 @@
         const list: AnnotationSet[] = testData.list;
 
         files.value = list!;
+        notifications.notify( {
+            'text': 'Populated file list using testing data for frontend dev.',
+            'type': 'warn',
+            'title': 'Loaded Testing Data'
+        } );
         loading.value = false;
     };
 

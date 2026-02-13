@@ -16,7 +16,7 @@
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
 
-    type sortColumns = 'none' | 'baseName' | 'modified' | 'wordCount';
+    type sortColumns = 'none' | 'baseName' | 'gazepoints' | 'assigned' | 'wordCount';
 
     const props = defineProps<{
         'files': AnnotationSet[],
@@ -58,7 +58,7 @@
     const compareFunc = ( a: AnnotationSet, b: AnnotationSet ) => {
         if ( sortColumn.value === 'none' ) return 1;
 
-        if ( sortColumn.value === 'modified' || sortColumn.value === 'wordCount' ) {
+        if ( sortColumn.value === 'gazepoints' || sortColumn.value === 'wordCount' || sortColumn.value === 'assigned') {
             if ( !a.progress && b.progress ) return sortPredicate( !ascendingSort.value );
 
             if ( a.progress && !b.progress ) return sortPredicate( ascendingSort.value );
@@ -118,11 +118,20 @@
                                 >arrow_drop_down</span>
                             </div>
                         </th>
-                        <th class="file-modified" @click="setSorting( 'modified' )">
+                        <th class="gazepoints" @click="setSorting( 'gazepoints' )">
                             <div>
-                                Date modified
+                                Fixations
                                 <span
-                                    v-if="sortColumn === 'modified'"
+                                    v-if="sortColumn === 'gazepoints'"
+                                    :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
+                                >arrow_drop_down</span>
+                            </div>
+                        </th>
+                        <th class="assigned" @click="setSorting( 'assigned' )">
+                            <div>
+                                Assigned
+                                <span
+                                    v-if="sortColumn === 'assigned'"
                                     :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
                                 >arrow_drop_down</span>
                             </div>
@@ -148,8 +157,11 @@
                         <td class="file-name">
                             {{ file.baseName }} {{ lastLogin < file.progress!.uploaded ? '(New)' : '' }}
                         </td>
-                        <td class="file-modified">
-                            {{ file.progress ? formatDateTime( new Date( file.progress.modified ) ) : 'Not modified' }}
+                        <td class="gazepoints">
+                            {{ file.progress ? file.progress.gazePoints : 'Not modified' }}
+                        </td>
+                        <td class="assigned">
+                            {{ file.progress ? file.progress.assigned : 'Not modified' }}
                         </td>
                         <td class="file-size">
                             {{ file.progress ? file.progress.wordCount : 'N/A' }}
@@ -284,6 +296,9 @@
         padding-left: 20px;
         padding-right: 20px;
         width: 95%;
+        height: 70vh;
+        overflow-y: scroll;
+        scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
 
         >div {
             display: flex;
@@ -334,8 +349,6 @@
             }
 
             >tbody {
-                overflow: scroll;
-                scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
                 >tr {
                     &:hover {
                         >td {
@@ -353,21 +366,34 @@
 
                     >td {
                         padding: 15px 0;
-                        width: max-content;
                         background-color: var( --theme-bg-2 );
                         color: var(--theme-background-text-20);
                         margin-top: 5px;
                         cursor: pointer;
                     }
 
+                    >.gazepoints {
+                        width: 13%;
+                        text-align: right;
+                        padding-right: 1rem;
+                    }
+
+                    >.assigned {
+                        width: 13%;
+                        text-align: right;
+                        padding-right: 1rem;
+                    }
+
                     >.file-name {
-                        width: 70%;
+                        width: 60%;
                         padding-left: 15px;
                         color: var(--theme-interactable-text);
                     }
 
                     >.file-size {
-                        padding-right: 15px;
+                        width: 10%;
+                        text-align: right;
+                        padding-right: 2rem;
                     }
                 }
             }

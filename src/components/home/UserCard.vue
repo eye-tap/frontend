@@ -2,6 +2,7 @@
     import type {
         AnnotationSet
     } from '@/types/files';
+
     import {
         computed
     } from 'vue';

@@ -123,6 +123,8 @@
 .preview-provider {
     @include home-boxes($pos: 'right');
     box-shadow: var(--theme-bg-1-shade) 10px 10px 10px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 
     >div {
         display: flex;
@@ -144,7 +146,6 @@
     }
 
     >table {
-        margin-top: 20px;
         width: 100%;
         background-color: var( --theme-bg-1 );
         padding: 15px;
