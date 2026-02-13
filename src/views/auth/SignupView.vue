@@ -256,27 +256,5 @@
         background-color: var( --theme-bg-2 );
         box-shadow: 10px 10px 30px var( --theme-bg-1-shade );
     }
-
-    >.bottom-bar {
-        position: fixed;
-        width: 100vw;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        font-size: 0.8rem;
-        display: flex;
-        justify-content: flex-end;
-        bottom: 0;
-        background-color: var( --theme-bg-accent );
-
-        >a {
-            padding-right: 10px;
-            padding-left: 10px;
-            color: var( --theme-primary );
-
-            &#tos {
-                border-right: var( --theme-primary ) 1px solid;
-            }
-        }
-    }
 }
 </style>

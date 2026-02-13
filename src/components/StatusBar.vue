@@ -156,7 +156,7 @@
             border-bottom-left-radius: 10px;
             box-shadow: 5px 5px 20px var(--theme-bg-1);
 
-            transform: translateX(14vw);
+            transform: translateX(250px);
             transform-origin: top right;
             transition: transform 0.3s ease-in-out;
             overflow: hidden;
@@ -205,7 +205,7 @@
             border-bottom-left-radius: 10px;
             box-shadow: 5px 5px 20px var(--theme-bg-1);
 
-            transform: translateX(14vw);
+            transform: translateX(250px);
             transform-origin: top right;
             transition: transform 0.3s ease-in-out;
             overflow: hidden;
