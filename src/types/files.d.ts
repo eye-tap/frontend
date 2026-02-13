@@ -20,6 +20,9 @@ export interface AnnotationDoneEvent {
     'current': string;
 }
 
+/**
+ * @deprecated Will be removed shortly. Use types/dtos/AnnotationSessionDto instead
+ */
 export interface AnnotationSet {
     'id': number;
     'baseName': string;

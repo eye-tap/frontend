@@ -20,7 +20,6 @@ import {
 
 export const mouseMoveHandler = ( renderer: Renderer ) => {
     const b = boxHighlightHandler( renderer );
-    const f = fixationHighlightHandler( renderer );
 
     const moveHandler = ( pos: EditorPoint ) => {
         if ( isMouseDragging.value ) {
@@ -30,7 +29,7 @@ export const mouseMoveHandler = ( renderer: Renderer ) => {
             renderer.renderIO.render();
         } else {
             // Points have priority over boxes
-            b( pos, f( pos ) );
+            b( pos, fixationHighlightHandler( pos ) );
         }
     };
 

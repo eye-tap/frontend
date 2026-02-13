@@ -34,6 +34,10 @@ export const boundingBoxStrokeWidth = ref( 2 );
 
 export const fixationRadius = ref( 4 );
 
+export const hoveredFixationRadius = ref( 8 );
+
+export const selectedFixationRadius = ref( 6 );
+
 export const lineWidth = ref( 1 );
 
 

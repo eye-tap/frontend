@@ -16,13 +16,13 @@
     import {
         startExport
     } from '@/ts/export';
+    import testData from '@/ts/dev/test-data.json';
     import {
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import testData from '@/ts/dev/test-data.json';
 
     const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
     const file: Ref<AnnotationSet> = ref( {

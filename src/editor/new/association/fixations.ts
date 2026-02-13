@@ -5,14 +5,14 @@ import {
     fixations
 } from '../data';
 import {
-    pointRadius
-} from '@/editor/config';
+    hoveredFixationRadius
+} from '../config';
 
 export const getFixationIdByCoodianate = ( pos: EditorPoint ): number => {
     for ( let i = 0; i < fixations.value.length; i++ ) {
         const fix = fixations.value[i]!;
 
-        if ( Math.sqrt( Math.pow( fix.x! - pos.x, 2 ) + Math.pow( fix.y! - pos.y, 2 ) ) < 2 * pointRadius.value ) {
+        if ( Math.sqrt( Math.pow( fix.x! - pos.x, 2 ) + Math.pow( fix.y! - pos.y, 2 ) ) < hoveredFixationRadius.value ) {
             return i;
         }
     }

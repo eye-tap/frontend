@@ -9,6 +9,13 @@ import {
 export const keyboardHandler = () => {
     const handler = ( ev: KeyboardEvent ) => {
         if ( !disableKeyHandler.value ) {
+            if ( isCharacterKey( ev.key ) ) {
+                // Character key
+            } else if ( isUndoCmd( ev ) ) {
+                // Dispatch undo event
+            } else if ( isRedoCmd( ev ) ) {
+                // Dispatch redo event
+            }
         }
     };
 

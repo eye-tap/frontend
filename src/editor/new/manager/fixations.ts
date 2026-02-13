@@ -1,23 +1,22 @@
 import type {
     EditorPoint
 } from '../types/annotation';
-import type {
-    Renderer
-} from '../types/renderer';
 import {
     getFixationIdByCoodianate
 } from '../association/fixations';
+import {
+    hoveredFixation
+} from '../data';
 
-export const fixationHighlightHandler = ( renderer: Renderer ) => {
-    return ( pos: EditorPoint ): boolean => {
-        const idx = getFixationIdByCoodianate( pos );
+export const fixationHighlightHandler = ( pos: EditorPoint ): boolean => {
+    const idx = getFixationIdByCoodianate( pos );
 
-        if ( idx === -1 ) return true;
+    if ( idx === -1 ) return true;
 
-        return false;
-    };
+    hoveredFixation.value = idx;
+
+    return false;
 };
 
 
 // TODO: On load, got to assign the highlightClasses and assigned status
-

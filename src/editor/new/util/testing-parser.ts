@@ -86,7 +86,6 @@ const parsePointsCSVSingleSet = ( text: string ): EditorFixation[] => {
                 'id': val.reader,
                 'x': val.x * 100,
                 'y': val.y * 100,
-                'highlightClass': 'default',
                 'assigned': 'unassigned'
             };
         } );
