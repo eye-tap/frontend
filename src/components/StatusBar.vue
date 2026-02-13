@@ -49,7 +49,7 @@
 
     const admin = () => {
         router.push( '/admin' );
-    }
+    };
 </script>
 
 <template>

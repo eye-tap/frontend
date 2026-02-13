@@ -22,7 +22,9 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import testData from '@/ts/dev/test-data.json';
 
+    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
     const file: Ref<AnnotationSet> = ref( {
         'id': 0,
         'baseName': 'No file selected',
@@ -45,6 +47,8 @@
     const notifications = useNotification();
 
     const reloadFromServer = () => {
+        if ( devMode ) return useTestData();
+
         loading.value = true;
         listAnnotationSets()
             .then( list => {
@@ -72,6 +76,17 @@
                     'title': 'Annotation set listing'
                 } );
             } );
+    };
+
+    /**
+     * Use dummy data to populate files. Doesn't link to any actual files.
+     */
+    const useTestData = () => {
+        loading.value = true;
+        const list: AnnotationSet[] = testData.list;
+
+        files.value = list!;
+        loading.value = false;
     };
 
     reloadFromServer();

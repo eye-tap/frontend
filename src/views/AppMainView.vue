@@ -27,7 +27,6 @@
             page-title="Eye-TAP"
             :show-account="true"
             :show-theme-picker="true"
-            :page-title="pageTitle"
             logo-click-target="/app"
         />
         <router-view v-slot="{ Component, route }">

@@ -1,0 +1,160 @@
+{
+    "list": [
+        {
+            "id": 18,
+            "baseName": "Exceptional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Average Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 45,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Lacking Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 0,
+                "modified": 300
+            }
+        },
+                {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        },
+        {
+            "id": 18,
+            "baseName": "Additional Annotations",
+            "files": null, 
+            "progress": {
+                "id": 17,
+                "uploaded": 300,
+                "wordCount": 297,
+                "gazePoints": 89,
+                "assigned": 89,
+                "modified": 300
+            }
+        }
+    ]
+}
