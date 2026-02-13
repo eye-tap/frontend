@@ -18,7 +18,7 @@ import {
 let previousIdx = -1;
 
 export const boxHighlightHandler = ( renderer: Renderer ) => {
-    return ( pos: EditorPoint, highlightCurrent: boolean = true ) => {
+    return ( pos: EditorPoint, highlightCurrent: boolean ) => {
         const idx = getBoxIdFromCoordinate( pos );
 
         let needToRedraw = false;
@@ -39,14 +39,13 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
                 boundingBoxes.value[ idx ]!.highlightClass = 'hovered';
             }
 
-            if ( !highlightCurrent === false ) {
-                console.log( 'Not highlighting current' );
+            if ( highlightCurrent === false ) {
                 needToRedraw = true;
                 boundingBoxes.value[ idx ]!.highlightClass = 'none';
             }
 
             if ( boxesDisplay.value === 'proximity' ) {
-            // Compute proximity
+                // Compute proximity
                 const current = boundingBoxes.value[ idx ]!;
 
                 for ( let i = 0; i < boundingBoxes.value.length; i++ ) {
@@ -73,3 +72,5 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
         }
     };
 };
+
+// TODO: Highlighted setting

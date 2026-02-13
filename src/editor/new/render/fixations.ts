@@ -14,7 +14,8 @@ import {
 } from '../config';
 import {
     canvasSize,
-    fixations
+    fixations,
+    selectedFixation
 } from '../data';
 import type {
     EditorFixation
@@ -45,8 +46,8 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         } else if ( fixationDisplay.value === 'none' ) {
             const draw = drawPoint( ctx );
 
-            fixations.value.forEach( fix => {
-                if ( fix.highlightClass === 'selected' )
+            fixations.value.forEach( ( fix, idx ) => {
+                if ( idx === selectedFixation.value )
                     draw( fix, selectedFixationColor.value );
             } );
         }
@@ -61,7 +62,8 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         fixationDisplay,
         fixationRadius,
         fixationsOpacity,
-        fixationRadius
+        fixationRadius,
+        selectedFixation
     ], render );
 
     return {
@@ -81,15 +83,17 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
 const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
 
-    return ( fix: EditorFixation ) => {
-        if ( fix.highlightClass === 'selected' ) {
+    return ( fix: EditorFixation, idx: number ) => {
+        if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value );
-        } else if ( fix.highlightClass === 'unassigned' ) {
-            draw( fix, unassignedFixationColor.value );
-        } else if ( fix.highlightClass === 'assigned' ) {
-            draw( fix, assignedFixationColor.value );
-        } else if ( fix.highlightClass === 'machine' ) {
-            draw( fix, machineAssignedFixationColor.value );
+        } else {
+            if ( fix.assigned === 'assigned' ) {
+                draw( fix, assignedFixationColor.value );
+            } else if ( fix.assigned === 'unassigned' ) {
+                draw( fix, unassignedFixationColor.value );
+            } else if ( fix.assigned === 'machine' ) {
+                draw( fix, machineAssignedFixationColor.value );
+            }
         }
     };
 };
@@ -97,13 +101,15 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
 
-    return ( fix: EditorFixation ) => {
-        if ( fix.highlightClass === 'selected' ) {
+    return ( fix: EditorFixation, idx: number ) => {
+        if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value );
-        } else if ( fix.highlightClass === 'assigned' ) {
-            draw( fix, assignedFixationColor.value );
-        } else if ( fix.highlightClass === 'machine' ) {
-            draw( fix, machineAssignedFixationColor.value );
+        } else {
+            if ( fix.assigned === 'assigned' ) {
+                draw( fix, assignedFixationColor.value );
+            } else if ( fix.assigned === 'machine' ) {
+                draw( fix, machineAssignedFixationColor.value );
+            }
         }
     };
 };
@@ -111,10 +117,10 @@ const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 const unassignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
 
-    return ( fix: EditorFixation ) => {
-        if ( fix.highlightClass === 'selected' ) {
+    return ( fix: EditorFixation, idx: number ) => {
+        if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value );
-        } else if ( fix.highlightClass === 'assigned' ) {
+        } else if ( fix.assigned === 'unassigned' ) {
             draw( fix, unassignedFixationColor.value );
         }
     };

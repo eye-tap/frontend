@@ -23,3 +23,8 @@ export const mouseDragEnd: Ref<EditorPoint> = ref( {
     'x': -1,
     'y': -1
 } );
+
+export const lineStart: Ref<EditorPoint> = ref( {
+    'x': -1,
+    'y': -1
+} );

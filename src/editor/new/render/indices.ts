@@ -13,7 +13,8 @@ import {
 } from '../config';
 import {
     canvasSize,
-    fixations
+    fixations,
+    selectedFixation
 } from '../data';
 import type {
     EditorFixation
@@ -36,14 +37,16 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         // Render points
         if ( fixationIndexDisplay.value === 'always' || fixationIndexDisplay.value === 'surrounding' ) {
             fixations.value.forEach( ( fix, idx ) => {
-                if ( fix.highlightClass === 'selected' ) {
+                if ( idx === selectedFixation.value ) {
                     draw( fix, idx, selectedFixationColor.value );
-                } else if ( fix.highlightClass === 'unassigned' ) {
-                    draw( fix, idx, unassignedFixationColor.value );
-                } else if ( fix.highlightClass === 'assigned' ) {
-                    draw( fix, idx, assignedFixationColor.value );
-                } else if ( fix.highlightClass === 'machine' ) {
-                    draw( fix, idx, machineAssignedFixationColor.value );
+                } else {
+                    if ( fix.assigned === 'assigned' ) {
+                        draw( fix, idx, assignedFixationColor.value );
+                    } else if ( fix.assigned === 'unassigned' ) {
+                        draw( fix, idx, unassignedFixationColor.value );
+                    } else if ( fix.assigned === 'machine' ) {
+                        draw( fix, idx, machineAssignedFixationColor.value );
+                    }
                 }
             } );
         }

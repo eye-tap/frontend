@@ -65,6 +65,8 @@ export const linesOpacity = ref( 1 );
 
 export const indicesOpacity = ref( 1 );
 
+// TODO: Resize offset recomputation doesn't work yet
+
 
 // Settings
 export const boxesDisplay: Ref<'always' | 'proximity' | 'hovered' | 'letters' | 'never'> = ref( 'letters' );
@@ -80,36 +82,4 @@ export const boundingBoxOnHoverRadius = ref( 100 );
 /** Disables the keyboard handler until this is again set to false */
 export const disableKeyHandler = ref( false );
 
-// // Watcher
-// export const useWatcher = ( renderer: Renderer ) => {
-//     watch( [
-//         nearbyBoxesDistanceThreshold,
-//         highlightedBoundingBoxColor,
-//         proximityBoundingBoxColor,
-//         boundingBoxColor,
-//         boundingBoxStrokeWidth,
-//         boundingBoxOnHoverRadius,
-//         boundingBoxesOpacity,
-//         unfocusedTextColor,
-//         boxesDisplay
-//     ], renderer.renderBoxes.render );
-//     watch( [
-//         unassignedFixationColor,
-//         selectedFixationColor,
-//         assignedFixationColor,
-//         fixationRadius,
-//         fixationsOpacity,
-//         indicesOpacity,
-//         fixationDisplay,
-//         fixationIndexDisplay
-//     ], renderer.renderFixations.render );
-//     watch( [
-//         assignedLineColor,
-//         cursorLineColor,
-//         lineWidth,
-//         linesOpacity,
-//         linesDisplay
-//     ], renderer.renderLines.render );
-//     watch( [ unfocusedTextColor ], renderer.renderText.render );
-//     watch( [ referenceCanvasSize ], renderer.renderAll );
-// };
+export const moveThresholdForDrag = 3;

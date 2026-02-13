@@ -110,11 +110,13 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
                 const img = await imgDataToImageObject( imgData, w, h );
 
                 ctx.fillStyle = 'white';
-                ctx.fillRect( scale( bb.xMin! ), scale( bb.yMin! ), scale( w ), scale( h ) );
+                ctx.fillRect( scale( bb.xMin! - 2 ), scale( bb.yMin! - 2 ), scale( w + 4 ), scale( h + 4 ) );
                 ctx.drawImage( img!, scale( bb.xMin! ), scale( bb.yMin! ) );
             } )();
         } else if ( bb.highlightClass === 'highlight' ) {
             // Always draws an outline
+            drawBox( highlightedBoundingBoxColor.value, bb, ctx );
+
             return;
         }
     };

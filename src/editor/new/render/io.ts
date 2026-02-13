@@ -4,12 +4,13 @@ import {
     watch
 } from 'vue';
 import {
-    assignedLineColor,
-    lineWidth
+    cursorLineColor,
+    lineWidth,
+    moveThresholdForDrag
 } from '../config';
 import {
     isMouseDragging,
-    mouseClickPos,
+    lineStart,
     mousePos
 } from '../data/io';
 import {
@@ -28,16 +29,18 @@ export const ioRenderer = ( ioCanvas: Ref<HTMLCanvasElement | null> ) => {
         // Reset canvas
         clearCanvas();
         ctx.lineWidth = lineWidth.value;
-        ctx.strokeStyle = assignedLineColor.value;
+        ctx.strokeStyle = cursorLineColor.value;
 
         // Render
-        if ( ( Math.abs( mouseClickPos.value.x - mousePos.value.x ) < 10 && Math.abs( mouseClickPos.value.y - mousePos.value.y ) < 10 )
-            || ( mouseClickPos.value.x < 0 || mouseClickPos.value.y < 0 || mousePos.value.x < 0 || mousePos.value.y < 0 )
+        if ( ( Math.abs( lineStart.value.x - mousePos.value.x ) < moveThresholdForDrag
+            && Math.abs( lineStart.value.y - mousePos.value.y ) < moveThresholdForDrag )
+        || ( lineStart.value.x < 0 || lineStart.value.y < 0 || mousePos.value.x < 0 || mousePos.value.y < 0 )
+        || !isMouseDragging.value
         )
             return;
 
         ctx!.beginPath();
-        ctx!.moveTo( scale( mouseClickPos.value.x ), scale( mouseClickPos.value.y ) );
+        ctx!.moveTo( scale( lineStart.value.x ), scale( lineStart.value.y ) );
         ctx!.lineTo( scale( mousePos.value.x ), scale( mousePos.value.y ) );
         ctx!.stroke();
     };

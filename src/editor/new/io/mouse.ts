@@ -21,19 +21,23 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
 
     const mouseDownHandler = ( ev: MouseEvent ) => {
-        isMouseDragging.value = true;
-        mouseClickPos.value = {
-            'x': scaleInverse( ev.x - rect.left ),
-            'y': scaleInverse( ev.y - rect.top )
-        };
+        if ( ev.button === 0 ) {
+            isMouseDragging.value = true;
+            mouseClickPos.value = {
+                'x': scaleInverse( ev.x - rect.left ),
+                'y': scaleInverse( ev.y - rect.top )
+            };
+        }
     };
 
     const mouseUpHandler = ( ev: MouseEvent ) => {
-        isMouseDragging.value = false;
-        mouseDragEnd.value = {
-            'x': scaleInverse( ev.x - rect.left ),
-            'y': scaleInverse( ev.y - rect.top )
-        };
+        if ( ev.button === 0 ) {
+            isMouseDragging.value = false;
+            mouseDragEnd.value = {
+                'x': scaleInverse( ev.x - rect.left ),
+                'y': scaleInverse( ev.y - rect.top )
+            };
+        }
     };
 
     const mouseMoveHandler = ( ev: MouseEvent ) => {
