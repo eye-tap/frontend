@@ -19,8 +19,11 @@
     const selectedSurveyIndex = ref( -1 );
     const isShowingAddSurvey = ref( false );
     const notifications = useNotification();
+    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
 
     const reloadFromServer = async () => {
+        if ( devMode ) return useTestData();
+
         loading.value = true;
 
         try {
@@ -34,6 +37,20 @@
             } );
         }
 
+        loading.value = false;
+    };
+
+    /**
+     * Use dummy data to populate the files list. Doesn't link to any real files.
+     * Intended for frontend development.
+     */
+    const useTestData = () => {
+        loading.value = true;
+        notifications.notify( {
+            'text': 'Populated file list using testing data for frontend dev.',
+            'type': 'warn',
+            'title': 'Loaded Testing Data'
+        } );
         loading.value = false;
     };
 
@@ -57,8 +74,12 @@
                 <i v-if="loading" class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
             </span>
             <div>
-                <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="reloadFromServer"></i>
-                <i class="fa-lg fa-solid fa-plus refresh-icon" @click="addSurvey"></i>
+                <span>
+                    <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="reloadFromServer"></i>
+                </span>
+                <span>
+                    <i class="fa-lg fa-solid fa-plus add-icon" @click="addSurvey"></i>
+                </span>
             </div>
         </div>
         <div class="table-wrapper">
@@ -91,7 +112,8 @@
             </table>
             <div v-else style="flex-direction: column;">
                 <p>No surveys available yet</p>
-                <button @click="addSurvey">
+                <button class="button primary" @click="addSurvey">
+                    <i class="fa-solid fa-plus"></i>
                     Add survey
                 </button>
             </div>
@@ -145,18 +167,41 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 4rem;
+
+            >span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 40px;
+                width: 40px;
+                margin-right: 10px;
+            }
 
             .refresh-icon {
-                margin-right: 10px;
                 cursor: pointer;
-                color: var(--theme-bg-4);
+                color: var(--theme-foreground-text);
+                transition: rotate 0.2s;
 
                 &:hover {
                     color: var(--theme-bg-4-20);
+                    rotate: 135deg;
                 }
 
                 &:focus {
                     animation: rotating 1s linear 1;
+                }
+            }
+
+            .add-icon {
+                margin-right: 10px;
+                cursor: pointer;
+                color: var(--theme-foreground-text);
+                transition: scale 0.2s;
+
+                &:hover {
+                    color: var(--theme-bg-4-20);
+                    scale: 1.2;
                 }
             }
         }

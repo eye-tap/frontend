@@ -40,7 +40,7 @@
             'modified': new Date().getTime()
         }
     } );
-    const activeFile = useActiveFileStore();
+const activeFile = useActiveFileStore();
     const files: Ref<AnnotationSet[]> = ref( [] );
     const loading = ref( true );
     const lastLogin = ref( new Date().getTime() - 10000 );

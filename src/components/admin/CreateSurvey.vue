@@ -137,30 +137,37 @@
             <div class="top-bar">
                 <h1>Create Survey</h1>
                 <div>
-                    <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="loadTexts()"></i>
+                    <span>
+                        <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="loadTexts()"></i>
+                    </span>
+                    <span>
+                        <i class="fa-lg fa-solid fa-close close-icon" @click="dismiss"></i>
+                    </span>
                 </div>
-                <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
             <div>
                 <div class="options-container">
                     <div class="options-section">
                         <p>General</p>
-                        <input
-                            v-model="title"
-                            type="text"
-                            placeholder="Survey Title"
-                        >
+                        <div>
+                            <input
+                                v-model="title"
+                                type="text"
+                                placeholder="Survey Title"
+                            >
+                            <input
+                                v-model.number="userCount"
+                                type="text"
+                                placeholder="Number of users"
+                                @keydown="inputFilter.numeric()"
+                            >
+                        </div>
                         <textarea
                             v-model="desc"
                             type="text"
                             placeholder="Description"
+                            rows="4"
                         ></textarea>
-                        <input
-                            v-model.number="userCount"
-                            type="text"
-                            placeholder="Number of users"
-                            @keydown="inputFilter.numeric()"
-                        >
                     </div>
 
                     <div class="options-section">
@@ -214,6 +221,30 @@
     width: 100vw;
     z-index: 1;     // To properly black out all of the Editor
 
+    textarea {
+        resize: none;
+        display: block;
+
+        all: unset;
+        background-color: var(--theme-bg-3);
+        width: 30rem;
+        padding: 8px;
+        margin-bottom: 0.5rem;
+        margin-left: 1rem;
+        border-style: none;
+        overflow: hidden;
+    }
+
+    input[type=text] {
+        all: unset;
+        background-color: var(--theme-bg-3);
+        width: 14rem;
+        padding: 8px;
+        margin-bottom: 0.5rem;
+        margin-left: 1rem;
+        border-style: none;
+    }
+
     >.create-survey-box {
         >.top-bar {
             display: flex;
@@ -221,9 +252,33 @@
             justify-content: space-between;
             align-items: center;
 
-            >.fa-solid {
-                font-size: 1.5rem;
-                cursor: pointer;
+            >div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                >span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 10px;
+                    width: 30px;
+                    height: 30px;
+
+                    >i {
+                        cursor: pointer;
+                    }
+                    >i:hover {
+                        color: var(--theme-bg-4-20);
+                    }
+                    .refresh-icon {
+                        transition: rotate 0.2s;
+                    }
+                    .refresh-icon:hover {
+                        rotate: 135deg;
+                    }
+                }
+
             }
 
             >h1 {
@@ -232,7 +287,7 @@
 
         }
 
-        width: 30rem;
+        width: 35vw;
         height: max-content;
         padding: 1px 1.5rem 1.5rem 1.5rem;
         position: relative;
@@ -267,16 +322,6 @@
                     font-size: 1rem;
                     margin-top: 10px;
                     margin-bottom: 10px;
-                }
-
-                >input[type=text] {
-                    all: unset;
-                    background-color: var(--theme-bg-3);
-                    width: 15rem;
-                    padding: 8px;
-                    margin-bottom: 0.5rem;
-                    margin-left: 1rem;
-                    border-style: none;
                 }
             }
         }
