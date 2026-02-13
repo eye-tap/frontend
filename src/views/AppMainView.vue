@@ -24,6 +24,7 @@
     <div class="app-main">
         <StatusBar
             class="top-bar"
+            page-title="Eye-TAP"
             :show-account="true"
             :show-theme-picker="true"
             :page-title="pageTitle"

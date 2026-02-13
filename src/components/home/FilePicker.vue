@@ -92,7 +92,7 @@
 </script>
 
 <template>
-    <div class="file-picker">
+    <div class="file-browser">
         <div class="file-picker-title">
             <span>
                 <i class="fa-xl fa-solid fa-file"></i>
@@ -100,7 +100,9 @@
                 <i v-if="$props.loading" class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
             </span>
             <div>
-                <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="reloadFromServer()"></i>
+                <span class="refresh-icon">
+                    <i class="fa-lg fa-solid fa-arrows-rotate" @click="reloadFromServer()"></i>
+                </span>
             </div>
         </div>
         <div class="table-wrapper">
@@ -165,12 +167,14 @@
 <style lang="scss" scoped>
 @use '@/scss/components/home-boxes.scss' as *;
 
-.file-picker {
+.file-browser {
     @include home-boxes();
     user-select: none;
     background-color: var(--theme-bg-2);
     padding-top: 0.5rem;
-    border-radius: 0px 0px 20px 20px;
+    margin-left: 1rem;
+    border-radius: 20px;
+    width: 45vw;
 
     .file-picker-title {
         background-color: var(--theme-bg-2);
@@ -208,16 +212,27 @@
             justify-content: space-between;
 
             .refresh-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 margin-right: 10px;
+                height: 30px;
+                width: 30px;
                 cursor: pointer;
-                color: var(--theme-bg-4);
 
-                &:hover {
-                    color: var(--theme-bg-4-20);
-                }
+                >i {
+                    transition: rotate 0.2s;
+                    color: var(--theme-foreground-text);
 
-                &:focus {
-                    animation: rotating 1s linear 1;
+                    &:hover {
+                        color: var(--theme-bg-4-20);
+                        rotate: 135deg;
+                    }
+
+                    &:focus {
+                        color: var(--theme-bg-4-20);
+                        animation: rotating 1s linear 1;
+                    }
                 }
             }
         }

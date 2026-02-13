@@ -101,7 +101,6 @@
     <div class="app-home">
         <div class="app-home-main">
             <div>
-                <UserCard class="user-card" :files="files" :last-login="lastLogin" />
                 <FilePicker
                     class="file-picker"
                     :files="files"
@@ -112,6 +111,7 @@
                 />
             </div>
             <div class="right">
+                <UserCard class="user-card" :files="files" :last-login="lastLogin" />
                 <PreviewProvider class="preview-provider" :file="file" />
                 <div class="file-actions">
                     <button
@@ -149,7 +149,7 @@
     >.app-home-main {
         display: grid;
         grid-template-areas: "left right";
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1.25fr 1fr;
 
         >.left {
             grid-area: left;

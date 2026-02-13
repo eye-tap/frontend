@@ -46,6 +46,10 @@
         'pageTitle': string,
         'logoClickTarget': string,
     }>();
+
+    const admin = () => {
+        router.push( '/admin' );
+    }
 </script>
 
 <template>
@@ -84,9 +88,14 @@
                 Dev Build
             </h2>
             <p>Logged in</p>
-            <button class="button primary" @click="auth.logout">
-                Log out
-            </button>
+            <div class="user-buttons">
+                <button class="button primary" @click="auth.logout">
+                    Log out
+                </button>
+                <button class="button primary" @click="admin">
+                    Admin
+                </button>
+            </div>
         </div>
 
         <div v-if="$props.showThemePicker" class="user-menu-wrapper">
@@ -198,7 +207,7 @@
             padding-left: 25px;
             padding-right: 25px;
             display: hidden;
-            height: 135px;
+            height: max-content;
             background-color: var( --theme-bg-2 );
             z-index: -1;
             border-top-left-radius: 10px;
@@ -226,6 +235,16 @@
                 color: var(--theme-bg-3-20);
                 margin-top: 0px;
                 margin-bottom: 20px;
+            }
+
+            .user-buttons {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                >button {
+                    margin-bottom: 0.5rem;
+                }
             }
         }
 

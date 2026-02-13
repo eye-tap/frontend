@@ -51,14 +51,6 @@
 
 <template>
     <div class="preview-provider">
-        <span :style="`background-color: white; background-image: url('${ imageURL ? imageURL : '' }');`" alt="Preview of text"></span>
-        <h1 v-if="activeFile.fileSelected">
-            {{ $props.file.baseName }}
-        </h1>
-        <h1 v-else>
-            No file selected
-        </h1>
-
         <table v-if="activeFile.fileSelected">
             <tbody>
                 <tr>
@@ -130,8 +122,6 @@
 
 .preview-provider {
     @include home-boxes($pos: 'right');
-    padding-top: 3rem;
-    border-radius: 20px 20px 0px 0px;
     box-shadow: var(--theme-bg-1-shade) 10px 10px 10px;
 
     >div {
