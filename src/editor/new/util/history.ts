@@ -1,14 +1,31 @@
 import {
-    type Ref,
-    ref
+    redoHistory,
+    undoHistory
+} from '../manager/history-backend';
+
+
+import {
+    computed
 } from 'vue';
 
-interface RedoHistoryEntry {
-    'index': number;
-    'annotatedBox': string | number | null;
-    'currentIndex': number;
-}
+const redoAvailable = computed( () => {
+    return redoHistory.value.length > 0;
+} );
+const undoAvailable = computed( () => {
+    return undoHistory.value.length > 0;
+} );
 
-export const redoHistory: Ref<RedoHistoryEntry[]> = ref( [] );
+const redo = () => {
+    document.dispatchEvent( new CustomEvent( 'eyetap:redo' ) );
+};
 
-export const undoHistory: Ref<number[]> = ref( [] );
+const undo = () => {
+    document.dispatchEvent( new CustomEvent( 'eyetap:undo' ) );
+};
+
+export {
+    undo,
+    redo,
+    redoAvailable,
+    undoAvailable
+};
