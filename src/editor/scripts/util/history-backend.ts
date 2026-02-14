@@ -67,6 +67,8 @@ const addToHistory = ( index: number, selectedPointindex: number ) => {
 
 const undo = ( redraw: () => void ) => {
     if ( undoHistory.value.length === 0 ) return;
+    
+    console.log('Undoing, history length:', undoHistory.value.length);
 
     const last = undoHistory.value.pop()!;
 

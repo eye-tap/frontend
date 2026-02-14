@@ -27,7 +27,7 @@ const clearRedo = () => {
     redoHistory.value = [];
 };
 
-const redo = ( redraw: () => void ) => {
+const redo = () => {
     if ( redoHistory.value.length === 0 ) return;
 
     const last = redoHistory.value.pop()!;
@@ -45,7 +45,6 @@ const redo = ( redraw: () => void ) => {
     } else {
         fixations.value[ last.annotation.fixationId ]!.assigned = 'unassigned';
     }
-    redraw();
 
 
 };
@@ -53,15 +52,15 @@ const redo = ( redraw: () => void ) => {
 const addToHistory = ( annotation: EditorAnnotation, selectedFixation: number ) => {
     revision.value++;
 
-
+    console.log('Adding to history:',selectedFixation);
     undoHistory.value.push( {
-        'annotation': annotation,
+        'annotation': { ...annotation },
         'selectedFixation': selectedFixation,
     } );
     clearRedo();
 };
 
-const undo = ( redraw: () => void ) => {
+const undo = () => {
     if ( undoHistory.value.length === 0 ) return;
 
     const last = undoHistory.value.pop()!;
@@ -83,7 +82,7 @@ const undo = ( redraw: () => void ) => {
 
     selectedFixation.value = last.selectedFixation;
 
-    redraw();
+    
 };
 
 

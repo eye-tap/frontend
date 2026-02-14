@@ -5,7 +5,7 @@ import {
 import {
     redoHistory,
     undoHistory
-} from './util/history';
+} from './manager/history-backend'; 
 import {
     editorSessionManager
 } from './manager';

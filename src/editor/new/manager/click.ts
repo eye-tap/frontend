@@ -25,11 +25,29 @@ import {
 import {
     watch
 } from 'vue';
+import { addToHistory } from './history-backend';
 
 export const mouseClickHandler = ( renderer: Renderer ) => {
     let selectedNewFixation = false;
 
     const clickHandler = ( state: boolean ) => {
+
+        // TEMPORARY to test history
+        if (selectedFixation.value >= 0) {
+            if (annotations.value[selectedFixation.value]!==undefined) {
+                addToHistory( annotations.value[selectedFixation.value]!, selectedFixation.value );
+            }
+            else {
+                annotations.value.push( {
+                    'fixationId': selectedFixation.value,
+                    'boxId': -1
+                } );
+                addToHistory( annotations.value[annotations.value.length-1]!, selectedFixation.value );
+
+            }
+        }
+        // END TEMPORARY
+
         if ( state ) {
             if ( selectedFixation.value < 0 ) {
                 selectedFixation.value = getClosestFixationIdByCoordinate( mousePos.value );

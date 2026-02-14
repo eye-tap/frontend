@@ -1,6 +1,7 @@
 import {
     redoHistory,
-    undoHistory
+    undoHistory,
+
 } from '../manager/history-backend';
 
 
@@ -22,6 +23,8 @@ const redo = () => {
 const undo = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:undo' ) );
 };
+
+
 
 export {
     undo,

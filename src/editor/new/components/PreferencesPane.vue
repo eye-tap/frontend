@@ -14,10 +14,6 @@
         selectedFixationRadius,
         boundingBoxStrokeWidth,
         lineWidth,
-
-    } from '../config';
-    
-    import {
         boxesDisplay,
         boxesDisplayOptions,
         linesDisplay,
