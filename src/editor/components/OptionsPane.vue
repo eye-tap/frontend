@@ -24,9 +24,9 @@ import SliderOptions from '@/components/settings/SliderOptions.vue';
                     text="Boxes"
                 />
                 <SliderOptions
-                     v-model="linesDisplay"
-                     :options="linesDisplayOptions"
-                     text="Lines"
+                    v-model="linesDisplay"
+                    :options="linesDisplayOptions"
+                    text="Lines"
                 />
                 <SliderOptions
                     v-model="fixationDisplay"
