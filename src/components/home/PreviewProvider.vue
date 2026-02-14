@@ -1,16 +1,7 @@
 <script setup lang="ts">
-    import {
-        type Ref,
-        onMounted,
-        ref,
-        watch
-    } from 'vue';
     import type {
-        AnnotationSet
-    } from '@/types/files';
-    import {
-        downloadFileAsBlob
-    } from '@/ts/files/file';
+        ShallowAnnotationSessionDto
+    } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
         formatDate
     } from '@/ts/util/date';
@@ -19,39 +10,14 @@
     } from '@/ts/stores/activeFileStore';
 
     const props = defineProps<{
-        'file': AnnotationSet
+        'session': ShallowAnnotationSessionDto
     }>();
-    const imageURL: Ref<string> = ref( '/assets/favicon-logo.jpg' );
     const activeFile = useActiveFileStore();
-
-    watch( props, () => {
-        getImage();
-    } );
-
-    const getImage = async () => {
-        if ( !props.file.files[ 'text_image' ] ) return;
-
-        try {
-            const imgBlob = await downloadFileAsBlob( props.file.files[ 'text_image' ]!.id );
-
-            if ( !imgBlob ) return;
-
-            imageURL.value = URL.createObjectURL( imgBlob );
-        } catch ( e ) {
-            imageURL.value = '/assets/favicon-logo.jpg';
-
-            console.error( 'failed to load image with error', e );
-        }
-    };
-
-    onMounted( () => {
-        getImage();
-    } );
 </script>
 
 <template>
     <div class="preview-provider">
-        <table v-if="activeFile.fileSelected">
+        <table v-if="activeFile.selected">
             <tbody>
                 <tr>
                     <td>
@@ -59,7 +25,7 @@
                             Uploaded on
                         </p>
                         <p class="content">
-                            {{ $props.file.progress ? formatDate( new Date( $props.file.progress.uploaded ) ) : 'N/A' }}
+                            {{ props.session.progress ? formatDate( new Date( $props.session.progress.uploaded ) ) : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -67,7 +33,7 @@
                             Word count
                         </p>
                         <p class="content">
-                            {{ $props.file.progress ? $props.file.progress.wordCount : 'N/A' }}
+                            {{ props.session.progress ? $props.session.progress.wordCount : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -75,7 +41,7 @@
                             Gaze points
                         </p>
                         <p class="content">
-                            {{ $props.file.progress ? $props.file.progress.gazePoints : 'N/A' }}
+                            {{ props.session.progress ? $props.session.progress.gazePoints : 'N/A' }}
                         </p>
                     </td>
                 </tr>
@@ -85,7 +51,7 @@
                             Last modified on
                         </p>
                         <p class="content">
-                            {{ $props.file.progress ? formatDate( new Date( $props.file.progress.modified ) ) : 'N/A' }}
+                            {{ $props.session.progress ? formatDate( new Date( $props.session.progress.modified ) ) : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -93,7 +59,7 @@
                             Assigned
                         </p>
                         <p class="content">
-                            {{ $props.file.progress ? $props.file.progress.assigned : 'N/A' }}
+                            {{ props.session.progress ? $props.session.progress.assigned : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -105,7 +71,7 @@
                         <p
                             class="content information"
                         >
-                            {{ $props.file.progress ? $props.file.progress.gazePoints - $props.file.progress.assigned : 'N/A' }}
+                            {{ $props.session.progress ? $props.session.progress.gazePoints - $props.session.progress.assigned : 'N/A' }}
                         </p>
                     </td>
                 </tr>

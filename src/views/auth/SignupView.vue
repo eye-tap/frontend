@@ -10,7 +10,7 @@
     } from '@/ts/auth/pw-rating';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import auth from '@/ts/auth/auth';
+    import auth from '@/ts/auth';
     import emailCheck from '@/ts/auth/email-check';
     import {
         useNotification

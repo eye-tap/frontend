@@ -3,15 +3,13 @@
         type Ref,
         ref
     } from 'vue';
-    import type {
-        AnnotationSet
-    } from '@/types/files';
     import FilePicker from '@/components/home/FilePicker.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
+    import type {
+        ShallowAnnotationSessionDto
+    } from '@/types/dtos/ShallowAnnotationSessionDto';
     import UserCard from '@/components/home/UserCard.vue';
-    import {
-        listAnnotationSets
-    } from '@/ts/files/file';
+    import annotations from '@/ts/annotations';
     import router from '@/ts/router';
     import {
         startExport
@@ -25,23 +23,11 @@
     } from '@kyvg/vue3-notification';
 
     const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
-    const file: Ref<AnnotationSet> = ref( {
-        'id': 0,
-        'baseName': 'No file selected',
-        'files': {},
-        'size': 0,
-        'uploader': 'N/A',
-        'progress': {
-            'uploaded': new Date().getTime(),
-            'id': 0,
-            'assigned': 100,
-            'wordCount': 200,
-            'gazePoints': 175,
-            'modified': new Date().getTime()
-        }
+    const session: Ref<ShallowAnnotationSessionDto> = ref( {
+        'id': 0
     } );
     const activeFile = useActiveFileStore();
-    const files: Ref<AnnotationSet[]> = ref( [] );
+    const sessions: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
     const loading = ref( true );
     const lastLogin = ref( new Date().getTime() - 10000 );
     const notifications = useNotification();
@@ -50,17 +36,17 @@
         if ( devMode ) return useTestData();
 
         loading.value = true;
-        listAnnotationSets()
+        annotations.list()
             .then( list => {
-                files.value = list;
+                sessions.value = list;
                 let last = 0;
 
                 // Determine last login date
-                for ( let i = 0; i < files.value.length; i++ ) {
-                    const file = files.value[ i ]!;
+                for ( let i = 0; i < sessions.value.length; i++ ) {
+                    const session = sessions.value[ i ]!;
 
-                    if ( file.progress && file.progress.modified > last )
-                        last = file.progress.modified;
+                    if ( session.progress && session.progress.modified > last )
+                        last = session.progress.modified;
                 }
 
                 lastLogin.value = last;
@@ -83,9 +69,9 @@
      */
     const useTestData = () => {
         loading.value = true;
-        const list: AnnotationSet[] = testData.list;
+        const list: ShallowAnnotationSessionDto[] = testData.list;
 
-        files.value = list!;
+        sessions.value = list!;
         notifications.notify( {
             'text': 'Populated file list using testing data for frontend dev.',
             'type': 'warn',
@@ -96,18 +82,18 @@
 
     reloadFromServer();
 
-    const fileSelect = ( selectedFile: AnnotationSet ) => {
-        file.value = selectedFile;
+    const fileSelect = ( selectedFile: ShallowAnnotationSessionDto ) => {
+        session.value = selectedFile;
         activeFile.setActiveFile( selectedFile );
     };
 
     const editFile = () => {
-        if ( activeFile.fileSelected )
+        if ( activeFile.selected )
             router.push( '/app/editor' );
     };
 
     const exportFile = () => {
-        if ( activeFile.fileSelected )
+        if ( activeFile.selected )
             startExport( {
                 'image': true,
                 'boundingBoxes': true,
@@ -123,7 +109,7 @@
             <div>
                 <FilePicker
                     class="file-picker"
-                    :files="files"
+                    :files="sessions"
                     :loading="loading"
                     :last-login="lastLogin"
                     @file-select="file => fileSelect( file )"
@@ -131,11 +117,11 @@
                 />
             </div>
             <div class="right">
-                <UserCard class="user-card" :files="files" :last-login="lastLogin" />
-                <PreviewProvider class="preview-provider" :file="file" />
+                <UserCard class="user-card" :files="sessions" :last-login="lastLogin" />
+                <PreviewProvider class="preview-provider" :session="session" />
                 <div class="file-actions">
                     <button
-                        :class="activeFile.fileSelected ? undefined : 'disabled' "
+                        :class="activeFile.selected ? undefined : 'disabled' "
                         class="button primary has-icon edit-button"
                         @click="editFile()"
                     >
@@ -143,7 +129,7 @@
                         Edit
                     </button>
                     <button
-                        :class="activeFile.fileSelected ? undefined : 'disabled' "
+                        :class="activeFile.selected ? undefined : 'disabled' "
                         class="button primary has-icon"
                         @click="exportFile()"
                     >

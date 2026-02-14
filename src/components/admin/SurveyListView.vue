@@ -140,7 +140,7 @@
                     <tr
                         v-for="file, index in sortedList"
                         :key="file.id"
-                        :class="index === selectedFileIndex && activeFile.fileSelected ? 'selected' : ''"
+                        :class="index === selectedFileIndex && activeFile.selected ? 'selected' : ''"
                         @click="selectFile( index )"
                     >
                         <td class="file-name">

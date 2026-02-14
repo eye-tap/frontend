@@ -8,7 +8,7 @@
         themes
     } from '@/ts/util/theme';
     import LogoRenderer from './LogoRenderer.vue';
-    import auth from '@/ts/auth/auth';
+    import auth from '@/ts/auth';
     import router from '@/ts/router';
     import {
         useStatusStore

@@ -1,39 +1,29 @@
 import type {
-    AnnotationSet
-} from '@/types/files';
+    ShallowAnnotationSessionDto
+} from '@/types/dtos/ShallowAnnotationSessionDto';
 import {
     defineStore
 } from 'pinia';
 
 interface ActiveFile {
-    'file': AnnotationSet;
-    'fileSelected': boolean
+    'session': ShallowAnnotationSessionDto;
+    'selected': boolean
 }
 
 export const useActiveFileStore = defineStore( 'file', {
     'state': (): ActiveFile => ( {
-        'file': {
-            'id': 0,
-            'baseName': 'Test',
-            'files': {},
-            'progress': {
-                'uploaded': new Date().getTime() - 100,
-                'id': 0,
-                'assigned': 100,
-                'wordCount': 200,
-                'gazePoints': 175,
-                'modified': new Date().getTime()
-            }
+        'session': {
+            'id': 0
         },
-        'fileSelected': false
+        'selected': false
     } ),
     'getters': {
-        'getFile': state => state.file
+        'getFile': state => state.session
     },
     'actions': {
-        setActiveFile ( file: AnnotationSet ) {
-            this.file = file;
-            this.fileSelected = true;
+        setActiveFile ( file: ShallowAnnotationSessionDto ) {
+            this.session = file;
+            this.selected = true;
         }
     }
 } );

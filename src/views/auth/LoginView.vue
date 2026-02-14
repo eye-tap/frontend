@@ -4,7 +4,7 @@
     } from 'vue-router';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import auth from '@/ts/auth/auth';
+    import auth from '@/ts/auth';
     import {
         ref
     } from 'vue';

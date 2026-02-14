@@ -42,7 +42,7 @@ router.beforeEach( to => {
     } else if ( to.name === 'app-editor' ) {
         const file = useActiveFileStore();
 
-        if ( !file.fileSelected && !store.devMode ) {
+        if ( !file.selected && !store.devMode ) {
             return {
                 'name': 'app-home'
             };

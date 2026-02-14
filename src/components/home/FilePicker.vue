@@ -7,8 +7,8 @@
         watch
     } from 'vue';
     import type {
-        AnnotationSet
-    } from '@/types/files';
+        ShallowAnnotationSessionDto
+    } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
         formatDateTime
     } from '@/ts/util/date';
@@ -19,19 +19,19 @@
     type sortColumns = 'none' | 'baseName' | 'gazepoints' | 'assigned' | 'wordCount';
 
     const props = defineProps<{
-        'files': AnnotationSet[],
+        'files': ShallowAnnotationSessionDto[],
         'loading': boolean,
         'lastLogin': number
     }>();
     const emits = defineEmits<{
-        ( e: 'fileSelect', file: AnnotationSet ): void
+        ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void
         ( e: 'reloadFiles' ): void
     }>();
     const ascendingSort = ref( true );
     const sortColumn: Ref<sortColumns> = ref( 'none' );
     const selectedFileIndex = ref( 0 );
     const activeFile = useActiveFileStore();
-    const sortedList: ComputedRef<AnnotationSet[]> = computed( () => {
+    const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
         if ( sortColumn.value === 'none' ) {
             return props.files;
         }
@@ -55,10 +55,10 @@
         }
     };
 
-    const compareFunc = ( a: AnnotationSet, b: AnnotationSet ) => {
+    const compareFunc = ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
         if ( sortColumn.value === 'none' ) return 1;
 
-        if ( sortColumn.value === 'gazepoints' || sortColumn.value === 'wordCount' || sortColumn.value === 'assigned') {
+        if ( sortColumn.value === 'gazepoints' || sortColumn.value === 'wordCount' || sortColumn.value === 'assigned' ) {
             if ( !a.progress && b.progress ) return sortPredicate( !ascendingSort.value );
 
             if ( a.progress && !b.progress ) return sortPredicate( ascendingSort.value );
@@ -151,7 +151,7 @@
                     <tr
                         v-for="file, index in sortedList"
                         :key="file.id"
-                        :class="index === selectedFileIndex && activeFile.fileSelected ? 'selected' : ''"
+                        :class="index === selectedFileIndex && activeFile.selected ? 'selected' : ''"
                         @click="selectFile( index )"
                     >
                         <td class="file-name">

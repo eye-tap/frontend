@@ -1,37 +1,9 @@
 <script setup lang="ts">
-    import type {
-        AnnotationSet
-    } from '@/types/files';
-
-    import {
-        computed
-    } from 'vue';
     import {
         useStatusStore
     } from '@/ts/stores/status';
 
     const status = useStatusStore();
-    const props = defineProps<{
-        'files': AnnotationSet[],
-        'lastLogin': number
-    }>();
-    const numberOfNewFilesAvailable = computed( () => {
-        try {
-            let count = 0;
-
-            for ( let i = 0; i < props.files.length; i++ ) {
-                if ( props.files[i]!.progress!.uploaded > props.lastLogin ) {
-                    count++;
-                }
-            }
-
-            return count;
-        } catch ( error ) {
-            console.warn( 'Error whilst computing number of new available files', error );
-
-            return 0;
-        }
-    } );
 </script>
 
 <template>
@@ -42,12 +14,6 @@
                 {{ status.username !== '' ? status.username : 'Unknown User' }}
             </div>
         </h1>
-        <p v-if="numberOfNewFilesAvailable === 0" class="welcome-new-files">
-            No files are currently available for annotation
-        </p>
-        <p v-else class="welcome-new-files">
-            {{ numberOfNewFilesAvailable }} files are currently available for annotation
-        </p>
     </div>
 </template>
 
