@@ -47,7 +47,7 @@ const start = (
     clickTarget: Ref<HTMLCanvasElement | null>
 ) => {
     const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
-    const io = ioHandler( clickTarget );
+    const io = ioHandler( clickTarget, draw );
 
     editorSessionManager( draw );
 

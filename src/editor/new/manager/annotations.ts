@@ -26,8 +26,6 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         if (
             boundingBoxIndex > -1 && fixationIndex > -1
         ) {
-            console.log( 'Creating annotation for bb', boundingBoxIndex, 'and fixation', fixationIndex );
-
             const annotation: EditorAnnotation = {
                 'fixationId': fixationIndex,
                 'boxId': boundingBoxIndex

@@ -88,7 +88,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
             fixations.value[ last.annotation.fixationId ]!.assigned = 'unassigned';
         }
 
-        selectedFixation.value = last.selectedFixation;
+        selectedFixation.value = last.selectedFixation + 1;
 
         renderer.renderLines.render();
     };

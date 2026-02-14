@@ -3,18 +3,39 @@ import {
     onUnmounted
 } from 'vue';
 import {
+    redo,
+    undo
+} from '..';
+import type {
+    Renderer
+} from '../types/renderer';
+import {
+    annotationManager
+} from '../manager/annotations';
+import {
     disableKeyHandler
 } from '../config';
+import {
+    getClosestBoxIdByCharacterAndFixId
+} from '../association/boxes';
+import {
+    selectedFixation
+} from '../data';
 
-export const keyboardHandler = () => {
+export const keyboardHandler = ( renderer: Renderer ) => {
+    const annotation = annotationManager( renderer );
+
     const handler = ( ev: KeyboardEvent ) => {
         if ( !disableKeyHandler.value ) {
-            if ( isCharacterKey( ev.key ) ) {
-                // Character key
-            } else if ( isUndoCmd( ev ) ) {
-                // Dispatch undo event
+            if ( isCharacterKey( ev.key ) && !ev.ctrlKey && !ev.metaKey && !ev.altKey ) {
+                ev.preventDefault();
+                annotation.create( getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key ), selectedFixation.value );
+            } else if ( isUndoCmd( ev ) || ev.key === 'Backspace' || ev.key === 'Delete' ) {
+                ev.preventDefault();
+                undo();
             } else if ( isRedoCmd( ev ) ) {
-                // Dispatch redo event
+                ev.preventDefault();
+                redo();
             }
         }
     };
