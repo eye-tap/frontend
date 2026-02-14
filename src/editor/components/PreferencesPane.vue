@@ -1,20 +1,32 @@
 <script setup lang="ts">
     import {
-        annotationLineColor,
-        annotationPointColor,
+        assignedLineColor,
+        cursorLineColor,
         boundingBoxColor,
-        boundingBoxOnHoverRadius,
+        highlightedBoundingBoxColor,
+        proximityBoundingBoxColor,
+        selectedFixationColor,
+        assignedFixationColor,
+        unassignedFixationColor,
+        machineAssignedFixationColor,
+        fixationRadius,
+        hoveredFixationRadius,
+        selectedFixationRadius,
         boundingBoxStrokeWidth,
         lineWidth,
-        pointRadius,
-        showBoxesOnHover,
-        showHoveredBoundingBox,
-        showNearbyBoundingBoxes,
-        showOnlyPreviousPoints
+        boxesDisplay,
+        boxesDisplayOptions,
+        linesDisplay,
+        linesDisplayOptions,
+        fixationDisplay,
+        fixationDisplayOptions,
+        fixationIndexDisplay,
+        fixationIndexDisplayOptions,
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
+    import SliderOptions from '@/components/settings/SliderOptions.vue';
 
     const dismiss = () => {
         show.value = false;
@@ -35,16 +47,32 @@
                 <div class="options-container">
                     <div class="options-section">
                         <p>Advanced</p>
-                        <SwitchOption v-model="showNearbyBoundingBoxes" text="Show nearby boxes" />
-                        <SwitchOption v-model="showHoveredBoundingBox" text="Highlight hovered box" />
-                        <SwitchOption v-model="showBoxesOnHover" text="Show Boxes only on hover" />
-                        <SwitchOption v-model="showOnlyPreviousPoints" text="Show Only Previous Points" />
+                        <SliderOptions
+                    v-model="boxesDisplay"
+                    :options="boxesDisplayOptions"
+                    text="Boxes"
+                />
+                <SliderOptions
+                     v-model="linesDisplay"
+                     :options="linesDisplayOptions"
+                     text="Lines"
+                />
+                <SliderOptions
+                    v-model="fixationDisplay"
+                    :options="fixationDisplayOptions"
+                    text="Fixation"
+                />
+                <SliderOptions
+                    v-model="fixationIndexDisplay"
+                    :options="fixationIndexDisplayOptions"
+                    text="Fixation Index"
+                />
                     </div>
 
                     <div class="options-section">
                         <p> Nearby Box Distance </p>
                         <input
-                            v-model.number="boundingBoxOnHoverRadius"
+                            v-model.number="hoveredFixationRadius"
                             type="text"
                             placeholder="Distance"
                             min="0"
@@ -55,7 +83,7 @@
                         <p>Colours</p>
 
                         <ColorOption
-                            v-model="annotationLineColor"
+                            v-model="assignedLineColor"
                             text="Line color"
                         />
 
@@ -65,7 +93,7 @@
                         />
 
                         <ColorOption
-                            v-model="annotationPointColor"
+                            v-model="unassignedFixationColor"
                             text="Point color"
                         />
                     </div>
@@ -96,7 +124,7 @@
                         <div class="slider-option">
                             <p>Point radius</p>
                             <Slider
-                                v-model="pointRadius"
+                                v-model="fixationRadius"
                                 show-tooltip="drag"
                                 :min="1"
                                 :max="10"

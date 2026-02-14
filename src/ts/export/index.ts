@@ -3,7 +3,7 @@ import type {
 } from '@/types/files';
 import {
     createZipArchive
-} from '../files/zip';
+} from './zip';
 import {
     useNotification
 } from '@kyvg/vue3-notification';

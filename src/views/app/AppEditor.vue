@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import EditorComponent from '@/editor/EditorComponent.vue';
-
 </script>
 
 <template>

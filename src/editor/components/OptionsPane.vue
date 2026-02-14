@@ -1,12 +1,16 @@
 <script setup lang="ts">
-    import {
-        filterReader,
-        showBoundingBoxes,
-        showGazePoints,
-        showLines,
-        showPointIndex
+
+import {
+        boxesDisplay,
+        boxesDisplayOptions,
+        linesDisplay,
+        linesDisplayOptions,
+        fixationDisplay,
+        fixationDisplayOptions,
+        fixationIndexDisplay,
+        fixationIndexDisplayOptions,
     } from '../config';
-    import SwitchOption from '@/components/settings/SwitchOption.vue';
+import SliderOptions from '@/components/settings/SliderOptions.vue';
 </script>
 
 <template>
@@ -14,19 +18,26 @@
         <div class="options-container">
             <div class="options-section">
                 <p> Display </p>
-                <SwitchOption v-model="showGazePoints" text="Show Points" />
-                <SwitchOption v-model="showPointIndex" text="Show Point Index" />
-                <SwitchOption v-model="showLines" text="Show Lines" />
-                <SwitchOption v-model="showBoundingBoxes" text="Show Boxes" />
-            </div>
-
-            <div class="options-section">
-                <p>Filtering</p>
-                <input
-                    v-model.number="filterReader"
-                    type="text"
-                    placeholder="Filter reader"
-                >
+                <SliderOptions
+                    v-model="boxesDisplay"
+                    :options="boxesDisplayOptions"
+                    text="Boxes"
+                />
+                <SliderOptions
+                     v-model="linesDisplay"
+                     :options="linesDisplayOptions"
+                     text="Lines"
+                />
+                <SliderOptions
+                    v-model="fixationDisplay"
+                    :options="fixationDisplayOptions"
+                    text="Fixation"
+                />
+                <SliderOptions
+                    v-model="fixationIndexDisplay"
+                    :options="fixationIndexDisplayOptions"
+                    text="Fixation Index"
+                />
             </div>
         </div>
     </div>
