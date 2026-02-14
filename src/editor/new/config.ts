@@ -73,13 +73,53 @@ export const indicesOpacity = ref( 1 );
 
 
 // Settings
-export const boxesDisplay: Ref<'always' | 'proximity' | 'hovered' | 'letters' | 'never'> = ref( 'letters' );
+export const boxesDisplayOptions = [
+  'always',
+  'proximity',
+  'hovered',
+  'letters',
+  'never'
+] as const
 
-export const linesDisplay: Ref<'all' | 'previous' | 'none'> = ref( 'previous' );
+export type BoxesDisplay = typeof boxesDisplayOptions[number]
 
-export const fixationDisplay: Ref<'all' | 'assigned' | 'unassigned' | 'surrounding' | 'none'> = ref( 'all' );
+export const boxesDisplay = ref<BoxesDisplay>('letters')
 
-export const fixationIndexDisplay: Ref<'always' | 'surrounding' | 'none'> = ref( 'surrounding' ); // Always will include current unless none
+
+export const linesDisplayOptions = [
+  'all',
+  'previous',
+  'none'
+] as const
+
+export type LinesDisplay = typeof linesDisplayOptions[number]
+export const linesDisplay = ref<LinesDisplay>('previous')
+
+
+export const fixationDisplayOptions = [
+  'all',
+  'assigned',
+  'unassigned',
+  'surrounding',
+  'none'
+] as const
+
+export type FixationDisplay = typeof fixationDisplayOptions[number]
+export const fixationDisplay = ref<FixationDisplay>('all')
+
+
+export const fixationIndexDisplayOptions = [
+  'always',
+  'surrounding',
+  'none'
+] as const
+
+export type FixationIndexDisplay =
+  typeof fixationIndexDisplayOptions[number]
+
+export const fixationIndexDisplay =
+  ref<FixationIndexDisplay>('surrounding')
+// Always will include current unless none
 
 export const boundingBoxOnHoverRadius = ref( 100 );
 

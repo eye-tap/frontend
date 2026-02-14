@@ -6,7 +6,7 @@
         undoAvailable
     } from '@/editor/history';
     import ExportOptions from './ExportOptions.vue';
-    import OptionsPane from './OptionsPane.vue';
+    import OptionsPane from '../new/components/OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
         ref
