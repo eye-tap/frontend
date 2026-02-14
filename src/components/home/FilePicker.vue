@@ -16,7 +16,7 @@
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
 
-    type sortColumns = 'none' | 'baseName' | 'gazepoints' | 'assigned' | 'wordCount';
+    type sortColumns = 'none' | 'total' | 'done';
 
     const props = defineProps<{
         'files': ShallowAnnotationSessionDto[],
@@ -55,20 +55,21 @@
         }
     };
 
+    // Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
     const compareFunc = ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
         if ( sortColumn.value === 'none' ) return 1;
 
-        if ( sortColumn.value === 'gazepoints' || sortColumn.value === 'wordCount' || sortColumn.value === 'assigned' ) {
-            if ( !a.progress && b.progress ) return sortPredicate( !ascendingSort.value );
+        if ( sortColumn.value === 'total' || sortColumn.value === 'done' ) {
+            if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
 
-            if ( a.progress && !b.progress ) return sortPredicate( ascendingSort.value );
+            if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort.value );
 
-            if ( !a.progress && !b.progress ) return sortPredicate( !ascendingSort.value );
+            if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
 
             if ( !ascendingSort.value )
-                return sortPredicate( a[ 'progress' ]![ sortColumn.value ] < b[ 'progress' ]![ sortColumn.value ] );
+                return sortPredicate( a[ 'annotationsMetaData' ]![ sortColumn.value ]! < b[ 'annotationsMetaData' ]![ sortColumn.value ]! );
             else
-                return sortPredicate( b[ 'progress' ]![ sortColumn.value ] < a[ 'progress' ]![ sortColumn.value ] );
+                return sortPredicate( b[ 'annotationsMetaData' ]![ sortColumn.value ]! < a[ 'annotationsMetaData' ]![ sortColumn.value ]! );
         } else {
             if ( !ascendingSort.value )
                 return a[ sortColumn.value ] < b[ sortColumn.value ] ? 1 : -1;
@@ -109,38 +110,25 @@
             <table v-if="sortedList.length > 0">
                 <thead>
                     <tr>
-                        <th class="file-name" @click="setSorting( 'baseName' )">
+                        <th class="file-name">
                             <div>
                                 Name
-                                <span
-                                    v-if="sortColumn === 'baseName'"
-                                    :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
-                                >arrow_drop_down</span>
                             </div>
                         </th>
-                        <th class="gazepoints" @click="setSorting( 'gazepoints' )">
+                        <th class="gazepoints clickable" @click="setSorting( 'total' )">
                             <div>
                                 Fixations
                                 <span
-                                    v-if="sortColumn === 'gazepoints'"
+                                    v-if="sortColumn === 'total'"
                                     :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
                                 >arrow_drop_down</span>
                             </div>
                         </th>
-                        <th class="assigned" @click="setSorting( 'assigned' )">
+                        <th class="assigned clickable" @click="setSorting( 'done' )">
                             <div>
                                 Assigned
                                 <span
-                                    v-if="sortColumn === 'assigned'"
-                                    :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
-                                >arrow_drop_down</span>
-                            </div>
-                        </th>
-                        <th class="file-size" @click="setSorting( 'wordCount' )">
-                            <div>
-                                Words
-                                <span
-                                    v-if="sortColumn === 'wordCount'"
+                                    v-if="sortColumn === 'done'"
                                     :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
                                 >arrow_drop_down</span>
                             </div>
@@ -155,16 +143,13 @@
                         @click="selectFile( index )"
                     >
                         <td class="file-name">
-                            {{ file.baseName }} {{ lastLogin < file.progress!.uploaded ? '(New)' : '' }}
+                            {{ file.readingSession?.textTitle }}
                         </td>
                         <td class="gazepoints">
-                            {{ file.progress ? file.progress.gazePoints : 'Not modified' }}
+                            {{ file.annotationsMetaData?.total ? file.annotationsMetaData.total : 'Not modified' }}
                         </td>
                         <td class="assigned">
-                            {{ file.progress ? file.progress.assigned : 'Not modified' }}
-                        </td>
-                        <td class="file-size">
-                            {{ file.progress ? file.progress.wordCount : 'N/A' }}
+                            {{ file.annotationsMetaData?.done ? file.annotationsMetaData.done : 'Not modified' }}
                         </td>
                     </tr>
                 </tbody>
@@ -300,6 +285,10 @@
         overflow-y: scroll;
         scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
 
+        .clickable {
+            cursor: pointer;
+        }
+
         >div {
             display: flex;
             align-items: center;
@@ -322,7 +311,6 @@
 
                 >tr {
                     >th {
-                        cursor: pointer;
                         color: var(--theme-bg-3);
 
                         >div {

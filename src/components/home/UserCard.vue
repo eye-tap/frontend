@@ -25,31 +25,14 @@
     border-radius: 20px 20px 0px 0px;
     margin-left: 10px;
 
-    .welcome-new-files {
-        color: var(--theme-background-text-20);
-    }
-
     >h1 {
-        margin-top: 0;
-        margin-bottom: 10px;
+        margin: 0px;
         color: var( --theme-foreground-text );
         display: flex;
 
         >.welcome-user {
             color: var( --theme-interactable-text );
             margin-left: 0.5rem;
-        }
-    }
-
-    >p {
-        margin-top: 0;
-        color: var( --theme-bg-3 );
-    }
-
-    >div {
-        .button.primary {
-            padding-left: 30px;
-            padding-right: 30px;
         }
     }
 }
