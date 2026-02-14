@@ -10,6 +10,7 @@ import type {
 import type {
     SurveyDto
 } from '@/types/dtos/SurveyDto';
+import magicLinks from '../auth/magic-links';
 import request from '../util/request';
 
 
@@ -26,13 +27,19 @@ export const createSurvey = async (
     title: string,
     description: string,
     readingSessionIds: number[]
-): Promise<SurveyCreatedDto> => {
+): Promise<string[]> => {
     const config: CreateSurveyDto = {
         'users': userCount,
         'title': title,
         'description': description,
         'readingSessionIds': readingSessionIds
     };
+    const surveyUsers = ( await ( await request.post( '/survey', config ) ).json() as SurveyCreatedDto ).users!;
+    const links: string[] = [];
 
-    return await ( await request.post( '/survey', config ) ).json();
+    for ( const username in surveyUsers ) {
+        links.push( magicLinks.generate( username, surveyUsers[ username ] as string ) );
+    }
+
+    return links;
 };
