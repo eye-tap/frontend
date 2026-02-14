@@ -1,28 +1,24 @@
-import type {
-    ShallowAnnotationSessionDto
-} from '@/types/dtos/ShallowAnnotationSessionDto';
 import {
     defineStore
 } from 'pinia';
 
 interface ActiveFile {
-    'session': ShallowAnnotationSessionDto;
-    'selected': boolean
+    'sessionId': number;
+    'selected': boolean;
 }
 
 export const useActiveFileStore = defineStore( 'file', {
     'state': (): ActiveFile => ( {
-        'session': {
-            'id': 0
-        },
+        'sessionId': 0,
         'selected': false
     } ),
     'getters': {
-        'getFile': state => state.session
+        'getSessionId': state => state.sessionId,
+        'getIsSelected': state => state.selected
     },
     'actions': {
-        setActiveFile ( file: ShallowAnnotationSessionDto ) {
-            this.session = file;
+        setActiveFile ( sessionId: number ) {
+            this.sessionId = sessionId;
             this.selected = true;
         }
     }
