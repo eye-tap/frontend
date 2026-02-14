@@ -9,11 +9,9 @@ import {
 } from '../data';
 
 export const fixationHighlightHandler = ( pos: EditorPoint ): boolean => {
-    const idx = getFixationIdByCoodianate( pos );
+    hoveredFixation.value = getFixationIdByCoodianate( pos );
 
-    if ( idx === -1 ) return true;
-
-    hoveredFixation.value = idx;
+    if ( hoveredFixation.value === -1 ) return true;
 
     return false;
 };

@@ -68,7 +68,6 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     } );
 
     watch( [
-        annotations,
         lineWidth,
         assignedLineColor,
         selectedFixation

@@ -1,5 +1,4 @@
 import {
-    annotations,
     fixations,
     selectedFixation
 } from '../data';
@@ -10,57 +9,41 @@ import {
 import {
     isMouseDragging,
     lineStart,
-    mouseClickPos,
     mousePos
 } from '../data/io';
 import type {
     Renderer
 } from '../types/renderer';
 import {
+    annotationManager
+} from './annotations';
+import {
     getBoxIdFromCoordinate
 } from '../association/boxes';
 import {
-    moveThresholdForDrag
-} from '../config';
-import {
     watch
 } from 'vue';
-import { addToHistory } from './history-backend';
 
 export const mouseClickHandler = ( renderer: Renderer ) => {
-    let selectedNewFixation = false;
+    const annotation = annotationManager( renderer );
 
     const clickHandler = ( state: boolean ) => {
-
-        // TEMPORARY to test history
-        if (selectedFixation.value >= 0) {
-            if (annotations.value[selectedFixation.value]!==undefined) {
-                addToHistory( annotations.value[selectedFixation.value]!, selectedFixation.value );
-            }
-            else {
-                annotations.value.push( {
-                    'fixationId': selectedFixation.value,
-                    'boxId': -1
-                } );
-                addToHistory( annotations.value[annotations.value.length-1]!, selectedFixation.value );
-
-            }
-        }
-        // END TEMPORARY
+        if ( fixations.value.length <= 0 ) return;
 
         if ( state ) {
+            // If no fixation was selected, select one
             if ( selectedFixation.value < 0 ) {
                 selectedFixation.value = getClosestFixationIdByCoordinate( mousePos.value );
-                selectedNewFixation = true;
             }
 
+            // Check if clicked a fixation directly
             const idx = getFixationIdByCoodianate( mousePos.value );
 
             if ( idx > -1 ) {
                 selectedFixation.value = idx;
-                selectedNewFixation = true;
             }
 
+            // Set line start for the line rendering to work
             lineStart.value = {
                 'x': fixations.value[ selectedFixation.value ]!.x!,
                 'y': fixations.value[ selectedFixation.value ]!.y!
@@ -68,42 +51,15 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
 
             renderer.renderIO.render();
         } else {
+            // Get bounding box that was hovered at mouseUp
             const bb = getBoxIdFromCoordinate( mousePos.value );
 
-            deleteAnnotation( selectedFixation.value );
+            // Try to delete the annotation if it was present
+            annotation.deleteByFixID( selectedFixation.value );
 
-            if (
-                bb > -1
-                && ( Math.sqrt( Math.pow( mouseClickPos.value.x, 2 ) + Math.pow( mouseClickPos.value.y, 2 ) ) < moveThresholdForDrag * 2
-                    || selectedNewFixation )
-            ) {
-                annotations.value.push( {
-                    'fixationId': selectedFixation.value,
-                    'boxId': bb
-                } );
-
-                // TODO: History here, auto-advance
-                fixations.value[ selectedFixation.value ]!.assigned = 'assigned';
-
-                renderer.renderLines.render();
-            }
+            annotation.create( bb, selectedFixation.value );
         }
     };
 
     watch( isMouseDragging, clickHandler );
-};
-
-const deleteAnnotation = ( fixationId: number ) => {
-    let idx = -1;
-
-    for ( let i = 0; i < annotations.value.length; i++ ) {
-        if ( annotations.value[ i ]!.fixationId === fixationId ) {
-            idx = i;
-            break;
-        }
-    }
-
-    if ( idx > -1 ) {
-        annotations.value.splice( idx, 1 );
-    }
 };

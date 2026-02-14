@@ -61,7 +61,7 @@
             @click="logoClick"
         />
         <div v-if="props.pageTitle" class="page-title">
-            {{ $props.pageTitle }}
+            {{ props.pageTitle }}
         </div>
 
         <div :class="[ 'theme-menu', showThemePickerMenu ? 'shown' : undefined , props.showAccount ? 'theme-menu-alt' : 'theme-menu' ]">

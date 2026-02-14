@@ -25,6 +25,8 @@ export const assignedFixationColor = ref( 'green' );
 
 export const unassignedFixationColor = ref( 'red' );
 
+export const hoveredFixationColor = ref( 'red' );
+
 export const machineAssignedFixationColor = ref( 'red' );
 // TODO: Fixation index colours?
 

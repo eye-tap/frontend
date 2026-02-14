@@ -8,6 +8,7 @@ import {
     fixationDisplay,
     fixationRadius,
     fixationsOpacity,
+    hoveredFixationColor,
     hoveredFixationRadius,
     machineAssignedFixationColor,
     selectedFixationColor,
@@ -51,7 +52,7 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
 
             fixations.value.forEach( ( fix, idx ) => {
                 if ( idx === selectedFixation.value )
-                    draw( fix, selectedFixationColor.value );
+                    draw( fix, selectedFixationColor.value, selectedFixationRadius.value );
             } );
         }
     };
@@ -66,7 +67,8 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         fixationRadius,
         fixationsOpacity,
         fixationRadius,
-        selectedFixation
+        selectedFixation,
+        hoveredFixation
     ], render );
 
     return {
@@ -90,7 +92,7 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
         if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value, selectedFixationRadius.value );
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, assignedFixationColor.value, hoveredFixationRadius.value );
+            draw( fix, hoveredFixationColor.value, hoveredFixationRadius.value );
         } else {
             if ( fix.assigned === 'assigned' ) {
                 draw( fix, assignedFixationColor.value, fixationRadius.value );
@@ -110,7 +112,7 @@ const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
         if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value, selectedFixationRadius.value );
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, assignedFixationColor.value, hoveredFixationRadius.value );
+            draw( fix, hoveredFixationColor.value, hoveredFixationRadius.value );
         } else {
             if ( fix.assigned === 'assigned' ) {
                 draw( fix, assignedFixationColor.value, fixationRadius.value );
@@ -128,7 +130,7 @@ const unassignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
         if ( idx === selectedFixation.value ) {
             draw( fix, selectedFixationColor.value, fixationRadius.value );
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, assignedFixationColor.value, hoveredFixationRadius.value );
+            draw( fix, hoveredFixationColor.value, hoveredFixationRadius.value );
         } else if ( fix.assigned === 'unassigned' ) {
             draw( fix, unassignedFixationColor.value, fixationRadius.value );
         }

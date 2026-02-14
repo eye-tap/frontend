@@ -1,12 +1,10 @@
 <script setup lang="ts">
     import {
+        redo,
         redoAvailable,
-        undoAvailable
-    } from '../util/history';
-    import {
         undo,
-        redo
-    } from '../manager/history-backend';
+        undoAvailable
+    } from '..';
     import ExportOptions from './ExportOptions.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';

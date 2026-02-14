@@ -5,7 +5,7 @@ import {
 import {
     redoHistory,
     undoHistory
-} from './manager/history-backend'; 
+} from './manager/history';
 import {
     editorSessionManager
 } from './manager';
@@ -16,24 +16,25 @@ import {
     renderer
 } from './render';
 
-const save = () => {
+export const save = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );
 };
 
-const redoAvailable = computed( () => {
+export const redoAvailable = computed( () => {
     return redoHistory.value.length > 0;
 } );
-const undoAvailable = computed( () => {
+
+export const undoAvailable = computed( () => {
     return undoHistory.value.length > 0;
 } );
 
 /** Redo an operation */
-const redo = () => {
+export const redo = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:redo' ) );
 };
 
 /** Undo an operation */
-const undo = () => {
+export const undo = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:undo' ) );
 };
 
