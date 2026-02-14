@@ -38,7 +38,18 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
                 history.add( annotation, fixationIndex );
 
             // Advance to next element
-            selectedFixation.value++;
+            const length = fixations.value.length;
+            const nextIndex = fixationIndex;
+            for (let i = 1; i < length; i++) {
+                let nextIndex = (fixationIndex + i) % length;
+
+                if (fixations.value[nextIndex]!.assigned !== 'assigned') {
+                    selectedFixation.value = nextIndex;
+                    //TODO: trigger end of annotation 
+                    break; 
+                }
+            }   
+
 
             fixations.value[ fixationIndex ]!.assigned = 'assigned';
 
