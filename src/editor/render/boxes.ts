@@ -28,7 +28,6 @@ import {
 } from './scaling';
 
 export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
-    // TODO: For each renderer, determine if redraw is needed and only redraw the needed parts (if possible)
     let ctx: CanvasRenderingContext2D | null = null;
 
     const render = () => {

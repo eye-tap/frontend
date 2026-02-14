@@ -2,8 +2,8 @@ import type {
     CharacterBoundingBoxDto
 } from '@/types/dtos/CharacterBoundingBoxDto';
 import type {
-    WordBoundingBoxDto
-} from '@/types/dtos/WordBoundingBoxDto';
+    ImportWordBoundingBoxDto
+} from '@/types/dtos/ImportWordBoundingBoxDto';
 
 
 interface WordParserStore {
@@ -23,8 +23,8 @@ const wordStoreTemplate: WordParserStore = {
 };
 
 
-export const generateWordBoxesFromCharacterBoxes = ( characterBoundingBoxes: CharacterBoundingBoxDto[] ): WordBoundingBoxDto[] => {
-    const boxes: WordBoundingBoxDto[] = [];
+export const generateWordBoxesFromCharacterBoxes = ( characterBoundingBoxes: CharacterBoundingBoxDto[] ): ImportWordBoundingBoxDto[] => {
+    const boxes: ImportWordBoundingBoxDto[] = [];
 
     let index = 0;
     let currentWord = {
@@ -37,7 +37,7 @@ export const generateWordBoxesFromCharacterBoxes = ( characterBoundingBoxes: Cha
         if ( cbb.character === ' ' || cbb.character === '' ) {
             boxes.push( {
                 ...currentWord,
-                'id': index
+                'foreignId': index
             } );
             index++;
             currentWord = {

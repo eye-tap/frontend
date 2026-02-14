@@ -1,5 +1,4 @@
 import {
-    type Ref,
     ref
 } from 'vue';
 
@@ -76,51 +75,53 @@ export const indicesOpacity = ref( 1 );
 
 // Settings
 export const boxesDisplayOptions = [
-  'always',
-  'proximity',
-  'hovered',
-  'letters',
-  'never'
-] as const
+    'always',
+    'proximity',
+    'hovered',
+    'letters',
+    'never'
+] as const;
 
-export type BoxesDisplay = typeof boxesDisplayOptions[number]
+export type BoxesDisplay = typeof boxesDisplayOptions[number];
 
-export const boxesDisplay = ref<BoxesDisplay>('letters')
+export const boxesDisplay = ref<BoxesDisplay>( 'letters' );
 
 
 export const linesDisplayOptions = [
-  'all',
-  'previous',
-  'none'
-] as const
+    'all',
+    'previous',
+    'none'
+] as const;
 
-export type LinesDisplay = typeof linesDisplayOptions[number]
-export const linesDisplay = ref<LinesDisplay>('previous')
+export type LinesDisplay = typeof linesDisplayOptions[number];
+
+export const linesDisplay = ref<LinesDisplay>( 'previous' );
 
 
 export const fixationDisplayOptions = [
-  'all',
-  'assigned',
-  'unassigned',
-  'surrounding',
-  'none'
-] as const
+    'all',
+    'assigned',
+    'unassigned',
+    'surrounding',
+    'none'
+] as const;
 
-export type FixationDisplay = typeof fixationDisplayOptions[number]
-export const fixationDisplay = ref<FixationDisplay>('all')
+export type FixationDisplay = typeof fixationDisplayOptions[number];
+
+export const fixationDisplay = ref<FixationDisplay>( 'all' );
 
 
 export const fixationIndexDisplayOptions = [
-  'always',
-  'surrounding',
-  'none'
-] as const
+    'always',
+    'surrounding',
+    'none'
+] as const;
 
-export type FixationIndexDisplay =
-  typeof fixationIndexDisplayOptions[number]
+export type FixationIndexDisplay
+    = typeof fixationIndexDisplayOptions[number];
 
-export const fixationIndexDisplay =
-  ref<FixationIndexDisplay>('surrounding')
+export const fixationIndexDisplay
+    = ref<FixationIndexDisplay>( 'surrounding' );
 // Always will include current unless none
 
 export const boundingBoxOnHoverRadius = ref( 100 );

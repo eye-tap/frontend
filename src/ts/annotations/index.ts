@@ -24,10 +24,10 @@ const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
  * @param sessionId - The annotation sessionId to retrieve
  * @returns The parsed annotation session
  */
-const getSessionById = async ( sessionId: number ): Promise<AnnotationSessionDto[]> => {
+const getSessionById = async ( sessionId: number ): Promise<AnnotationSessionDto> => {
     const data = await request.get( '/annotation/session/' + sessionId );
 
-    return JSON.parse( data ) as AnnotationSessionDto[];
+    return JSON.parse( data ) as AnnotationSessionDto;
 };
 
 /**

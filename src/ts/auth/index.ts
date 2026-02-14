@@ -168,7 +168,6 @@ const signup = ( username: string, email: string, pw: string ): Promise<boolean>
         } )
             .then( async res => {
                 if ( res.status === 201 || res.status === 200 ) {
-                    // TODO: Backend: Update to use 201 status code again (makes more sense here)
                     // User created successfully
                     resolve( true );
                 } else if ( res.status === 400 ) {

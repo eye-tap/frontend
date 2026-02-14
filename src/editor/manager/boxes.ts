@@ -24,11 +24,11 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
         let needToRedraw = false;
 
         if ( idx < 0 ) {
-            if ( previousIdx < 0 ) return;
+            if ( previousIdx > -1 ) {
+                needToRedraw = true;
 
-            needToRedraw = true;
-
-            boundingBoxes.value[ previousIdx ]!.highlightClass = 'none';
+                boundingBoxes.value[ previousIdx ]!.highlightClass = 'none';
+            }
         } else {
             if ( idx !== previousIdx ) {
                 needToRedraw = true;
@@ -43,24 +43,29 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
                 needToRedraw = true;
                 boundingBoxes.value[ idx ]!.highlightClass = 'none';
             }
+        }
 
-            if ( boxesDisplay.value === 'proximity' ) {
-                // Compute proximity
-                const current = boundingBoxes.value[ idx ]!;
+        // TODO: Update to be relative to cursor instead of box center
+        if ( boxesDisplay.value === 'proximity' ) {
+            // Compute proximity
+            for ( let i = 0; i < boundingBoxes.value.length; i++ ) {
+                const bb = boundingBoxes.value[ i ]!;
 
-                for ( let i = 0; i < boundingBoxes.value.length; i++ ) {
-                    const bb = boundingBoxes.value[ i ]!;
+                // if inside radius
+                if ( i !== idx
+                    && ( Math.sqrt( Math.pow( bb.centerX - pos.x, 2 )
+                        + Math.pow( bb.centerY - pos.y, 2 ) ) < boundingBoxOnHoverRadius.value )
+                ) {
+                    if ( bb.highlightClass !== 'proximity' ) {
+                        bb.highlightClass = 'proximity';
 
-                    // if inside radius
-                    if ( i !== idx
-                        && ( Math.sqrt( Math.pow( bb.centerX - current.centerX, 2 )
-                            + Math.pow( bb.centerY - current.centerY, 2 ) ) < boundingBoxOnHoverRadius.value )
-                    ) {
-                        if ( bb.highlightClass !== 'proximity' ) {
-                            bb.highlightClass = 'proximity';
+                        needToRedraw = true;
+                    }
+                } else {
+                    if ( bb.highlightClass === 'proximity' ) {
+                        bb.highlightClass = 'none';
 
-                            needToRedraw = true;
-                        }
+                        needToRedraw = true;
                     }
                 }
             }

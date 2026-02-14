@@ -59,7 +59,6 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     onMounted( () => {
         updateRect();
-        // TODO: See if this somehow interferes with interface elements
         target.value!.addEventListener( 'mousedown', mouseDownHandler );
         target.value!.addEventListener( 'mouseup', mouseUpHandler );
         target.value!.addEventListener( 'mousemove', mouseMoveHandler );
