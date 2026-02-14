@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import type Slider from '@vueform/slider/src/Slider.js';
+
 import {
         boxesDisplay,
         boxesDisplayOptions,

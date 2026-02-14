@@ -3,7 +3,7 @@
     import {
         type Ref, ref
     } from 'vue';
-    import PropertyPane from '@/editor/components/PropertyPane.vue';
+    import PropertyPane from './PropertyPane.vue';
     import editor from '@/editor/new';
     import {
         editorDataLoadingLocal
