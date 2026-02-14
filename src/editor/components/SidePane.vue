@@ -1,19 +1,16 @@
 <script setup lang="ts">
-    import {
+    import editor, {
         redo,
         redoAvailable,
         undo,
         undoAvailable
-    } from '@/editor/history';
+    } from '..';
     import ExportOptions from './ExportOptions.vue';
-    import OptionsPane from '../new/components/OptionsPane.vue';
+    import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
         ref
     } from 'vue';
-    import {
-        saveEditorChanges
-    } from '@/editor/save';
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
@@ -44,7 +41,7 @@
                     <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
-                <span class="clickable-icon" title="Save" @click="saveEditorChanges">
+                <span class="clickable-icon" title="Save" @click="editor.save">
                     <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
             </div>
@@ -68,7 +65,7 @@
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Save" @click="saveEditorChanges">
+            <span class="clickable-icon" title="Save" @click="editor.save">
                 <i class="fa-xl fa-solid fa-floppy-disk"></i>
             </span>
         </div>
@@ -87,7 +84,7 @@
             <ExportOptions />
         </div>
         <div v-if="!isSideBarCollapsed" class="bottom-buttons">
-            <button class="button primary" @click="saveEditorChanges">
+            <button class="button primary" @click="editor.save">
                 Save
             </button>
             <RouterLink to="/app" class="button secondary">

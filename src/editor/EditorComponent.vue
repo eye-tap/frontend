@@ -2,9 +2,9 @@
     import {
         type ITourStep, VTour
     } from '@globalhive/vuejs-tour';
-    import EditorView from '@/editor/components/EditorView.vue';
-    import PageTour from '@/editor/tour/PageTour.vue';
-    import SidePane from '@/editor/components/SidePane.vue';
+    import EditorView from './components/EditorView.vue';
+    import PageTour from '@/editor/tour/PageTour.vue'; // TODO: Update to relative imports later
+    import SidePane from './components/SidePane.vue';
     import {
         ref
     } from 'vue';

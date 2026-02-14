@@ -1,18 +1,17 @@
 import type {
-    BoundingBoxes,
-    EditorPoint
-} from '../../types/editor';
-import {
-    boxes, pointSelected, selectedPoint
-} from '../internal-data';
-import {
-    boxIndex
-} from './util';
+    EditorCharacterBoundingBox
+} from '../types/boxes';
+import type {
+    EditorFixation
+} from '../types/fixations';
 import {
     nearbyBoxesDistanceThreshold
-} from '../../config';
+} from '../config';
+import {
+    selectedFixation
+} from '../data';
 
-const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
+const parseBBoxCSV = ( text: string ): EditorCharacterBoundingBox[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
@@ -21,18 +20,19 @@ const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
     const y1Index = header.indexOf( 'y1' );
     const y2Index = header.indexOf( 'y2' );
     const charIndex = header.indexOf( 'character' );
-    const boxes: BoundingBoxes[] = lines.map( line => {
+    const boxes: EditorCharacterBoundingBox[] = lines.map( line => {
         const cols = line.split( ',' );
 
         return {
-            'x1': Number( cols[x1Index] ),
-            'x2': Number( cols[x2Index] ),
-            'y1': Number( cols[y1Index] ),
-            'y2': Number( cols[y2Index] ),
+            'xMin': Number( cols[x1Index] ),
+            'xMax': Number( cols[x2Index] ),
+            'yMax': Number( cols[y1Index] ),
+            'yMin': Number( cols[y2Index] ),
             'centerX': ( Number( cols[x1Index] ) + Number( cols[x2Index] ) ) / 2,
             'centerY': ( Number( cols[y1Index] ) + Number( cols[y2Index] ) ) / 2,
             'nearbyPoints': [],
-            'character': String( cols[charIndex] )
+            'character': String( cols[charIndex] ),
+            'highlightClass': 'none'
         };
     } );
 
@@ -57,45 +57,46 @@ const parseBBoxCSV = ( text: string ): BoundingBoxes[] => {
  * @param text - The CSV file
  * @returns Parsed points
  */
-const parsePointsCSVSingleSet = ( text: string ): EditorPoint[] => {
+const parsePointsCSVSingleSet = ( text: string ): EditorFixation[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
-    const readerIndex = 0;
-    const xIndex = 1;
-    const yIndex = 2;
-    const annotatedIndex = 3;
+    const header = lines.shift()!.split( ',' )
+        .map( h => h.trim() );
+    const readerIndex = header.indexOf( 'reader' );
+    const textIndex = header.indexOf( 'text' );
+    const xIndex = header.indexOf( 'x' );
+    const yIndex = header.indexOf( 'y' );
 
     lines.shift();
-    const points: EditorPoint[] = lines.map( line => {
+    let index = 0;
+
+    const points: EditorFixation[] = lines.map( line => {
         const cols = line.split( ',' );
-        const tempx = Number( cols[xIndex] );
-        const tempy = Number( cols[yIndex] );
-        const rawAnnotation = cols[annotatedIndex]?.trim();
-
-        let annotatedValue = null;
-
-        if ( rawAnnotation !== '' && rawAnnotation !== undefined ) {
-            annotatedValue = isNaN( Number( rawAnnotation ) ) ? rawAnnotation : Number( rawAnnotation );
-        }
 
         return {
             'reader': Number( cols[readerIndex] ),
-            'x': tempx,
-            'y': tempy,
-            'annotedbox': annotatedValue !== null ? annotatedValue : boxIndex( tempx, tempy, boxes.boxes )
+            'x': Number( cols[xIndex] ),
+            'y': Number( cols[yIndex] ),
+            'id': index++,
+            'text': Number( cols[ textIndex ] )
         };
-    } );
-    const firstPointSelected = points.find( p => p.annotedbox === null );
+    } )
+        .filter( val => val.text === 1 && val.reader === 3 )
+        .map( val => {
+            return {
+                'id': val.reader,
+                'x': val.x * 100,
+                'y': val.y * 100,
+                'assigned': 'unassigned'
+            };
+        } );
 
-    if ( firstPointSelected ) {
-        selectedPoint.value = firstPointSelected;
-        pointSelected.isTrue = true;
-    }
+    selectedFixation.value = 0;
 
     return points;
 };
 
 
-export {
+export default {
     parseBBoxCSV,
     parsePointsCSVSingleSet
 };
