@@ -41,8 +41,10 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         ctx.globalAlpha = fixationsOpacity.value;
 
         // Render points
-        if ( fixationDisplay.value === 'all' || fixationDisplay.value === 'surrounding' ) {
+        if ( fixationDisplay.value === 'all' ) {
             fixations.value.forEach( allFixationsRenderer( ctx ) );
+        } else if ( fixationDisplay.value === 'surrounding' ) {
+            fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
         } else if ( fixationDisplay.value === 'assigned' ) {
             fixations.value.forEach( assignedFixationsRenderer( ctx ) );
         } else if ( fixationDisplay.value === 'unassigned' ) {
@@ -77,11 +79,31 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
 };
 
 const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
-    return ( fixation: EditorFixation, col: string, radius: number ) => {
-        ctx.fillStyle = col;
+    return ( fixation: EditorFixation, color: string, radius: number ) => {
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.arc( scale( fixation.x! ), scale( fixation.y! ), scale( radius ), 0, Math.PI * 2 );
         ctx.fill();
+    };
+};
+
+const surroundingFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
+    const draw = drawPoint( ctx );
+
+    return ( fix: EditorFixation, idx: number ) => {
+        if ( idx === selectedFixation.value ) {
+            draw( fix, selectedFixationColor.value, selectedFixationRadius.value );
+        } else if ( idx === selectedFixation.value - 1 || idx === selectedFixation.value + 1 ) {
+            if ( fix.assigned === 'assigned' ) {
+                draw( fix, assignedFixationColor.value, fixationRadius.value );
+            } else if ( fix.assigned === 'unassigned' ) {
+                draw( fix, unassignedFixationColor.value, fixationRadius.value );
+            } else if ( fix.assigned === 'machine' ) {
+                draw( fix, machineAssignedFixationColor.value, fixationRadius.value );
+            }
+        } else if ( hoveredFixation.value === idx ) {
+            draw( fix, hoveredFixationColor.value, hoveredFixationRadius.value );
+        }
     };
 };
 

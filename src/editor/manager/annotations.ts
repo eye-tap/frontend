@@ -15,8 +15,13 @@ import type {
 import {
     startHistoryTracker
 } from './history';
+import {
+    useActiveFileStore
+} from '@/ts/stores/activeFileStore';
 
 export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
+    const session = useActiveFileStore();
+
     /**
      * Create an annotation. Automatically starts a redraw
      * @param boundingBoxIndex - The index of the bounding box
@@ -39,16 +44,25 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
 
             // Advance to next element
             const length = fixations.value.length;
-            const nextIndex = fixationIndex;
-            for (let i = 1; i < length; i++) {
-                let nextIndex = (fixationIndex + i) % length;
 
-                if (fixations.value[nextIndex]!.assigned !== 'assigned') {
+            // TODO: Highlight box that is annotated,
+            // then set timeout to un-highlight it
+            // Same for delete
+
+            for ( let i = 1; i < length; i++ ) {
+                const nextIndex = ( fixationIndex + i ) % length;
+
+                if ( fixations.value[nextIndex]!.assigned !== 'assigned' ) {
                     selectedFixation.value = nextIndex;
-                    //TODO: trigger end of annotation 
-                    break; 
+                    document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
+                        'detail': {
+                            'current': session.sessionIds[ session.sessionIdx ],
+                            'next': session.sessionIds[ session.sessionIdx + 1 ]
+                        }
+                    } ) );
+                    break;
                 }
-            }   
+            }
 
 
             fixations.value[ fixationIndex ]!.assigned = 'assigned';

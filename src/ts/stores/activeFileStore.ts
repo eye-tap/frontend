@@ -3,22 +3,27 @@ import {
 } from 'pinia';
 
 interface ActiveFile {
-    'sessionId': number;
+    'sessionIdx': number;
+    'sessionIds': number[];
     'selected': boolean;
 }
 
 export const useActiveFileStore = defineStore( 'file', {
     'state': (): ActiveFile => ( {
-        'sessionId': 0,
+        'sessionIdx': 0,
+        'sessionIds': [],
         'selected': false
     } ),
     'getters': {
-        'getSessionId': state => state.sessionId,
+        'getSessionIds': state => state.sessionIds,
         'getIsSelected': state => state.selected
     },
     'actions': {
-        setActiveFile ( sessionId: number ) {
-            this.sessionId = sessionId;
+        setIds ( sessionIds: number[] ) {
+            this.sessionIds = sessionIds;
+        },
+        setActive ( idx: number ) {
+            this.sessionIdx = idx;
             this.selected = true;
         }
     }

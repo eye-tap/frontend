@@ -57,6 +57,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         rect = target.value!.getBoundingClientRect();
     };
 
+    // TODO: Mouseleave handler
+
     onMounted( () => {
         updateRect();
         target.value!.addEventListener( 'mousedown', mouseDownHandler );

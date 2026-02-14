@@ -1,11 +1,13 @@
 import type {
-    AnnotationDoneEvent,
-    AnnotationSet
-} from '../files';
+    AnnotationDoneEvent
+} from '../eyetap-event';
 
 declare global {
     interface GlobalEventHandlersEventMap {
-        'eyetap:fileload': CustomEvent<AnnotationSet>;
+        'eyetap:fileload': CustomEvent<{
+            'idx': number;
+            'title': string;
+        }>;
         'eyetap:fileunload': CustomEvent<void>;
         'eyetap:save': CustomEvent<void>;
         'eyetap:undo': CustomEvent<void>;

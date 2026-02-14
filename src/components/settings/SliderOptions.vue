@@ -3,55 +3,60 @@
   lang="ts"
   generic="T extends readonly string[]"
 >
-import { computed } from 'vue'
+    import {
+        computed
+    } from 'vue';
 
-const props = defineProps<{
-  text: string
-  options: T
-}>()
+    const props = defineProps<{
+        'text': string
+        'options': T
+    }>();
+    const state = defineModel<T[number]>( {
+        'required': true
+    } ); // Maps the current state value to the slider index
+    const sliderValue = computed( {
+        'get': () => props.options.indexOf( state.value ),
+        'set': ( i: number ) => {
+            state.value = props.options[i]!;
+        }
+    } );
 
-const state = defineModel<T[number]>({ required: true })
-
-// Maps the current state value to the slider index
-const sliderValue = computed({
-  get: () => props.options.indexOf(state.value),
-  set: (i: number) => {
-    state.value = props.options[i]!
-  }
-})
-
-const capitalize = (text: string) => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
+    const capitalize = ( text: string ) => {
+        return text.charAt( 0 ).toUpperCase() + text.slice( 1 );
+    };
 </script>
 
 <template>
-  <div class="slider-option">
-    <div class="option-text">
-      <p class="option-label"> {{ capitalize(props.text) }} </p>
-      <p class="option-state"> {{ capitalize(state) }} </p>
-    </div>
-    
-    <!-- Slider input -->
-    <input
-      type="range"
-      :min="0"
-      :max="props.options.length - 1"
-      step="1"
-      v-model="sliderValue"
-    />
+    <div class="slider-option">
+        <div class="option-text">
+            <p class="option-label">
+                {{ capitalize(props.text) }}
+            </p>
+            <p class="option-state">
+                {{ capitalize(state) }}
+            </p>
+        </div>
 
-    <!-- Labels below the slider -->
-    <div class="slider-labels">
-      <span
-        v-for="(option, index) in props.options"
-        :key="index"
-        :class="{ active: option === state }"
-      >
-        {{ capitalize(option) }}
-      </span>
+        <!-- Slider input -->
+        <input
+            v-model="sliderValue"
+            type="range"
+            :min="0"
+            :max="props.options.length - 1"
+            step="1"
+        >
+
+        <!-- Labels below the slider -->
+        <div class="slider-labels">
+            <span
+                v-for="(option, index) in props.options"
+                :key="index"
+                :class="{ active: option === state }"
+            >
+                {{ capitalize(option) }}
+            </span>
+        </div>
     </div>
-  </div>
 </template>
 
 <style scoped lang="scss">

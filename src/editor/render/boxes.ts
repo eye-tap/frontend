@@ -59,7 +59,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         } else if ( boxesDisplay.value === 'never' ) {
             // If 'never', obviously don't render anything, except for highlightClass 'highlight'
             boundingBoxes.value.forEach( bb => {
-                if ( bb.highlightClass === 'hovered' ) {
+                if ( bb.highlightClass === 'highlight' ) {
                     // Draw box
                     drawBox( highlightedBoundingBoxColor.value, bb, ctx! );
                 }

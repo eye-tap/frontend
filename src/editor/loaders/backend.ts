@@ -5,7 +5,7 @@ import {
 
 const loadEditorDataFromBackend = async () => {
     const session = useActiveFileStore();
-    const data = await annotations.getSessionById( session.sessionId );
+    const data = await annotations.getSessionById( session.sessionIds[ session.sessionIdx ]! );
     // TODO: Load image into image object (do NOT modify onload!!)
     // TODO: Get annotations into EditorAnnotation[] format
     // TODO: Get bounding boxes into EditorCharacterBoundingBoxes[] format
