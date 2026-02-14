@@ -16,6 +16,7 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import SwitchOption from '../settings/SwitchOption.vue';
     import testData from "@/ts/dev/TextTestData.json"
 
     const dismiss = () => {
@@ -38,7 +39,12 @@
     const desc = ref( '' );
     const userCount = ref( null );
     const notifications = useNotification();
+    const selectedTextIndex = ref( -1 );
     const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
+
+    const selectText = (index: number) => {
+        selectedTextIndex.value = index;
+    }
 
     const isSelectOrUnselectAll = ( textIdx: number ) => {
         return computed( () => {
@@ -187,31 +193,66 @@
 
                     <div class="options-section">
                         <p>Texts to include</p>
-                        <table v-if="texts.length > 0">
-                            <thead>
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Include?</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="text, index in texts" :key="index">
-                                    <td>{{ text.title }}</td>
-                                    <td>
-                                        <!-- TODO: Make this look good. My idea would be to make it collapsible -->
-                                        <button @click="toggleSelectAllForText( index )">
-                                            {{ isSelectOrUnselectAll( index ) }}
-                                        </button>
-                                        <div v-for="session, idx in text.sessions" :key="idx">
-                                            <input v-model="text.selected[ idx ]" type="checkbox">
-                                            {{ session.reader }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div v-else>
-                            <p>No texts available</p>
+
+                        <div class="multi-table-wrapper">
+                            <div class="left-table-wrapper">
+                                <table v-if="texts.length > 0">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th class="left-th">
+                                                Select All
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="text, index in texts"
+                                            :key="index"
+                                            :class="index === selectedTextIndex ? 'selected' : ''"
+                                            @click="selectText( index )"
+                                        >
+                                            <td class="text-name">
+                                                {{ text.title }}
+                                            </td>
+                                            <td class="select-all">
+                                                <div @Click="toggleSelectAllForText(index)">
+                                                    <SwitchOption text="" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div v-if="selectedTextIndex !== -1" class="right-table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Reader</th>
+                                            <th>Selected</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="session, index in texts[selectedTextIndex]?.sessions"
+                                            :key="index"
+                                        >
+                                            <td>
+                                                {{ session.reader }}
+                                            </td>
+                                            <td class="select-all">
+                                                <div>
+                                                    <SwitchOption v-model="texts[selectedTextIndex]!.selected[index]" text="" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div v-else class="placeholder">
+                                <p>Please select a text</p>
+                            </div>
                         </div>
                         <button class="button primary" @click="save">
                             Save
@@ -275,6 +316,132 @@
         background-color: var(--theme-bg-3-20);
     }
 
+    .multi-table-wrapper {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        .left-table-wrapper {
+            overflow-y: scroll;
+            max-height: 50vh;
+            margin-right: 1rem;
+            padding: 0px 1rem;
+        }
+
+        .right-table-wrapper {
+            overflow-y: scroll;
+            max-height: 50vh;
+            padding: 0px 1rem;
+        }
+
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--theme-background-text-20);
+        }
+    }
+
+    table {
+        width: 100%;
+        table-layout: auto;
+        border-spacing: 0 15px;
+
+        >thead {
+            border-spacing: 0;
+
+            >tr {
+                >th {
+                    color: var(--theme-bg-3);
+
+                    >div {
+                        display: flex;
+                        justify-content: start;
+                        align-items: center;
+
+                        .sort {
+                            rotate: 0deg;
+                            transition: rotate 0.25s linear;
+                            height: 1.25rem;
+                            width: 1.25rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            &.ascending {
+                                rotate: 180deg;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        >tbody {
+            >tr {
+                &:hover {
+                    >td {
+                        background-color: var( --theme-bg-3-shade );
+                        color: var(--theme-interactable-text);
+                    }
+                    >.select-all>div {
+                        background-color: var(--theme-bg-2-shade);
+                    }
+                }
+
+                &.selected {
+                    >td {
+                        background-color: var( --theme-bg-3);
+                        color: var(--theme-foreground-text);
+                    }
+
+                    >.select-all>div {
+                        background-color: var(--theme-bg-2-shade);
+                    }
+                }
+
+                >td {
+                    padding: 15px 0;
+                    padding-left: 10px;
+                    width: max-content;
+                    background-color: var( --theme-bg-2 );
+                    color: var(--theme-background-text-20);
+                    margin-top: 5px;
+                    cursor: pointer;
+
+                    >p {
+                        font-size: 0.85rem;
+                        color: var(--theme-bg-4-20);
+                        padding-right: 2rem;
+                    }
+                }
+
+                >.text-name {
+                    width: 70%;
+                    padding-left: 15px;
+                    color: var(--theme-interactable-text);
+                }
+
+                >.select-all {
+                    width: 20%;
+                    text-align: right;
+                    padding: 8px;
+
+                    >div {
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        background-color: var(--theme-bg-1);
+                        border-radius: 10px;
+                        margin-right: 10px;
+
+                        >label {
+                            margin-left: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     >.create-survey-box {
         >.top-bar {
@@ -333,6 +500,7 @@
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;
+            scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
 
             .options-section {
 
