@@ -5,6 +5,7 @@
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
     import auth from '@/ts/auth';
+    import magicLinks from '@/ts/auth/magic-links';
     import {
         ref
     } from 'vue';
@@ -59,6 +60,14 @@
                 router.push( redir );
 
                 return;
+            } else {
+                // login using magic link
+                const user = magicLinks.getDecoded();
+
+                id.value = user.username;
+                password.value = user.password;
+
+                login();
             }
         } )
         .catch( () => {
