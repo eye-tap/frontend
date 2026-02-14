@@ -13,6 +13,7 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import testData from "@/ts/dev/SurveyTesData.json"
 
     const loading = ref( false );
     const surveys: Ref<SurveyDto[]> = ref( [] );
@@ -46,6 +47,7 @@
      */
     const useTestData = () => {
         loading.value = true;
+        surveys.value = testData.list;
         notifications.notify( {
             'text': 'Populated file list using testing data for frontend dev.',
             'type': 'warn',
@@ -102,7 +104,12 @@
                         @click="selectSurvey( index )"
                     >
                         <td class="survey-name">
-                            {{ survey.title }}
+                            <span>
+                                {{ survey.title }}
+                            </span>
+                            <p v-if="index === selectedSurveyIndex">
+                                {{ survey.description }}
+                            </p>
                         </td>
                         <td class="survey-user-count">
                             {{ survey.userIds?.length }}
@@ -254,6 +261,10 @@
         padding-right: 20px;
         width: 95%;
 
+        max-height: 60vh;
+        overflow-y: scroll;
+        scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
+
         >div {
             display: flex;
             align-items: center;
@@ -276,7 +287,6 @@
 
                 >tr {
                     >th {
-                        cursor: pointer;
                         color: var(--theme-bg-3);
 
                         >div {
@@ -303,8 +313,6 @@
             }
 
             >tbody {
-                overflow: scroll;
-                scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
                 >tr {
                     &:hover {
                         >td {
@@ -327,10 +335,16 @@
                         color: var(--theme-background-text-20);
                         margin-top: 5px;
                         cursor: pointer;
+
+                        >p {
+                            font-size: 0.85rem;
+                            color: var(--theme-bg-4-20);
+                            padding-right: 2rem;
+                        }
                     }
 
                     >.survey-name {
-                        width: 70%;
+                        width: 80%;
                         padding-left: 15px;
                         color: var(--theme-interactable-text);
                     }

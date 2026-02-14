@@ -285,6 +285,14 @@
                 }
             }
 
+            >input[type=text]:hover {
+                background-color: var(--theme-bg-3-20);
+            }
+
+            >input[type=text]:focus {
+                background-color: var(--theme-bg-3-20);
+            }
+
             >input[type=file] {
                 all: unset;
                 width: 13rem;

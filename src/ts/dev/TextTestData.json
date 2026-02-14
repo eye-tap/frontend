@@ -1,0 +1,85 @@
+{
+    "list": [
+        {
+            "sessions": [
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                }
+            ],
+            "id": 1,
+            "title": "Text Title 1",
+            "selected": [
+                true, false
+            ]
+        },
+                {
+            "sessions": [
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                }
+            ],
+            "id": 1,
+            "title": "Text Title 2",
+            "selected": [
+                true, false
+            ]
+        },
+                {
+            "sessions": [
+                {
+                    "id": 1,
+                    "reader": 1,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 2,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                },
+                {
+                    "id": 1,
+                    "reader": 3,
+                    "textId": 1,
+                    "textTitle": "Text Title (sess.)"
+                }
+            ],
+            "id": 1,
+            "title": "Text Title 3",
+            "selected": [
+                true, false
+            ]
+        }
+    ]
+}

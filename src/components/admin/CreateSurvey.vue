@@ -16,6 +16,7 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import testData from "@/ts/dev/TextTestData.json"
 
     const dismiss = () => {
         show.value = false;
@@ -37,6 +38,7 @@
     const desc = ref( '' );
     const userCount = ref( null );
     const notifications = useNotification();
+    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
 
     const isSelectOrUnselectAll = ( textIdx: number ) => {
         return computed( () => {
@@ -45,6 +47,8 @@
     };
 
     const loadTexts = async () => {
+        if ( devMode ) return useTestData();
+
         const sessions = await listReadingSessions();
         const t: {
             [key: number]: Text
@@ -78,6 +82,17 @@
 
         texts.value = data;
     };
+
+    const useTestData = () => {
+        const list: Text[] = testData.list;
+
+        texts.value = list!;
+        notifications.notify( {
+            'text': 'Populated file list using testing data for frontend dev.',
+            'type': 'warn',
+            'title': 'Loaded Testing Data'
+        } );
+    }
 
     const toggleSelectAllForText = ( textIdx: number ) => {
         const text = texts.value[ textIdx ]!;
@@ -234,6 +249,13 @@
         border-style: none;
         overflow: hidden;
     }
+    textarea:hover {
+        background-color: var(--theme-bg-3-20);
+    }
+
+    textarea:focus {
+        background-color: var(--theme-bg-3-20);
+    }
 
     input[type=text] {
         all: unset;
@@ -244,6 +266,15 @@
         margin-left: 1rem;
         border-style: none;
     }
+
+    input[type=text]:hover {
+        background-color: var(--theme-bg-3-20);
+    }
+
+    input[type=text]:focus {
+        background-color: var(--theme-bg-3-20);
+    }
+
 
     >.create-survey-box {
         >.top-bar {
@@ -287,8 +318,8 @@
 
         }
 
-        width: 35vw;
-        height: max-content;
+        width: 50vw;
+        height: 75vh;
         padding: 1px 1.5rem 1.5rem 1.5rem;
         position: relative;
         background-color: var( --theme-bg-2 );
@@ -298,7 +329,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 30rem;
+            height: 62vh;
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;

@@ -117,6 +117,10 @@
                 cursor: pointer;
             }
 
+            >.fa-solid:hover {
+                color: var(--theme-bg-4-20);
+            }
+
             >h1 {
                 font-size: 2rem;
             }
@@ -160,6 +164,14 @@
                     margin-bottom: 0.5rem;
                     margin-left: 1rem;
                     border-style: none;
+                }
+
+                >input[type=text]:hover {
+                    background-color: var(--theme-bg-3-20);
+                }
+
+                >input[type=text]:focus {
+                    background-color: var(--theme-bg-3-20);
                 }
             }
         }

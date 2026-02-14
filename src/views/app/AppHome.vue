@@ -14,7 +14,7 @@
     import {
         startExport
     } from '@/ts/export';
-    import testData from '@/ts/dev/test-data.json';
+    import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
     import {
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
