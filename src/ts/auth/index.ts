@@ -1,6 +1,3 @@
-import type {
-    UserRoles
-} from '@/types/UserData';
 import {
     ref
 } from 'vue';
@@ -11,6 +8,9 @@ import {
 import {
     useStatusStore
 } from '@/ts/stores/status';
+import type {
+    JWT
+} from '@/types/jwt';
 
 const loggingIn = ref( false );
 const errMsg = ref( '' );
@@ -39,13 +39,7 @@ const login = async ( id: string, password: string ): Promise<void> => {
 
             localStorage.setItem( 'jwt', data.token );
 
-            const jwtData: {
-                'id'?: number;
-                'email'?: string;
-                'username'?: string;
-                'exp'?: number;
-                'roles'?: UserRoles[];
-            } | null = decodeJwt( data.token );
+            const jwtData: JWT | null = decodeJwt( data.token );
 
             status.setAuth( true );
             loggingIn.value = false;
@@ -111,12 +105,7 @@ const verify = async (): Promise<void> => {
         }
 
         // 1. Decode JWT locally
-        const jwtData: {
-            'id'?: number;
-            'email'?: string;
-            'username'?: string;
-            'exp'?: number;
-        } | null = decodeJwt( token );
+        const jwtData: JWT | null = decodeJwt( token );
 
         if ( !jwtData ) {
             status.setAuth( false );
@@ -126,6 +115,10 @@ const verify = async (): Promise<void> => {
 
             return Promise.reject( 'Unable to decode token' );
         } else {
+            if ( jwtData.roles! ) {
+                status.setRoles( jwtData.roles! );
+            }
+
             status.setAuth( true );
             status.setUsername( jwtData.username! );
             Promise.resolve();
@@ -170,7 +163,8 @@ const signup = ( username: string, email: string, pw: string ): Promise<boolean>
             'body': JSON.stringify( {
                 'id': username,
                 'email': email,
-                'password': pw
+                'password': pw,
+                'accountType': 'SURVEY_ADMIN' // TODO: Update this
             } ),
             'credentials': 'include'
         } )

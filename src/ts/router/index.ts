@@ -41,7 +41,8 @@ router.beforeEach( ( to, from ) => {
             'name': 'app-home'
         };
     } else if ( to.meta.allowedRoles && !store.devMode ) {
-        if ( !store.roles.reduce( ( prev, role ) => prev || ( to.meta.allowedRoles as string[] ).includes( role ) ) ) {
+        if ( store.roles.length === 0
+            || !store.roles.reduce( ( prev, role ) => prev || ( to.meta.allowedRoles as string[] ).includes( role ) ) ) {
             return {
                 'name': from.name
             };
