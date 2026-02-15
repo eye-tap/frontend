@@ -2,6 +2,9 @@ name: Create and publish container
 on:
   release:
     types: [published]
+  push:
+    paths:
+      - package.json
 env:
   IMAGE_NAME: eyetap/frontend
 jobs:
