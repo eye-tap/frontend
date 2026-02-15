@@ -32,9 +32,6 @@
             <p class="option-label">
                 {{ capitalize(props.text) }}
             </p>
-            <p class="option-state">
-                {{ capitalize(state) }}
-            </p>
         </div>
 
         <!-- Slider input -->
@@ -51,7 +48,7 @@
             <span
                 v-for="(option, index) in props.options"
                 :key="index"
-                :class="{ active: option === state }"
+                :class="option === state ? 'active' : undefined"
             >
                 {{ capitalize(option) }}
             </span>
@@ -74,10 +71,6 @@
     .option-label {
       font-size: 0.9rem;
       color: var(--theme-bg-3-20);
-      margin: 0px;
-    }
-
-    .option-state {
       margin: 0px;
     }
   }
@@ -147,7 +140,7 @@
       color: var(--theme-bg-3-20);
       &.active {
         font-weight: 600;
-        color: var(--theme-bg-1);
+        color: var(--theme-bg-4);
       }
     }
   }
