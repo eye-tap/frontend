@@ -29,7 +29,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
 
-    renderer.textImage.src = img;
+    renderer.textImage.src = 'data:image/jpg;base64,' + img;
 
     // Load annotations
     const fixIds: number[] = [];
