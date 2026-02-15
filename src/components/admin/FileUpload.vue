@@ -21,6 +21,7 @@
     const boundingBoxesInput: Ref<HTMLInputElement | null> = ref( null );
     const fixationsInput: Ref<HTMLInputElement | null> = ref( null );
     const imageInput: Ref<HTMLInputElement | null> = ref( null );
+    const annotationsInput: Ref<HTMLInputElement | null> = ref( null );
     const index = ref( 0 );
     const textID = ref( '' );
     const showError = ref( false );
@@ -110,6 +111,15 @@
     const fileLoadTrigger = () => {
         index.value++;
     };
+
+    const annotationsLoadTrigger = () => {
+        // TODO import 
+        notifications.notify( {
+            'text': 'Machine generated annotations successfuly imported.',
+            'type': 'success',
+            'title': 'Annotations imported'
+        } );
+    }
 </script>
 
 <template>
@@ -166,6 +176,19 @@
                     type="file"
                     accept="image/*"
                     @change="fileLoadTrigger"
+                >
+            </label>
+
+            <p>Optional</p>
+
+            <label>
+                <span>Annotations</span>
+                <input
+                    ref="annotationsInput"
+                    type="file"
+                    accept="text/csv"
+                    multiple
+                    @change="annotationsLoadTrigger"
                 >
             </label>
         </div>
