@@ -1,5 +1,5 @@
 export interface ImportFixationDto {
-    'foreignId'?: number;
-    'x'?: number;
-    'y'?: number;
+  foreignId?: number;
+  x?: number;
+  y?: number;
 }
