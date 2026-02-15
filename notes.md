@@ -1,7 +1,7 @@
 # Improvement ideas
 ## Editor
 - nicer default colours
-- bounding box stroke width smaller and lighter colour
+- bounding box stroke width smaller and lighter colour -- done (as options)
 - index colour should become more legible when hovered or generally
 - Bug testing (I can't recall the issues we had previously)
 - Completely rewrite history tracking (as it is quite broken currently, e.g. clicking a new point is a history entry) -- done
@@ -17,7 +17,8 @@
 - Heatmap (i.e. points are coloured based on the entropy), or shown as a small overlay somewhere sensible
 - Word boxes rendering
 - Tour
-- Zoom
+- Zoom APIs -- done
+- Integrate zoom
 
 
 ## General
@@ -32,7 +33,7 @@
 
 
 ## User login
-- Magic link with password and username base64 or so encoded
+- Magic link with password and username base64 or so encoded -- done
 
 
 ## Home
@@ -44,16 +45,17 @@
 - Design
 - Bug testing
 - New Survey options
+- Select all button for add survey
 
 
 ## Call notes
-- Create admin panel (single page, at `/admin` in the frontend) where people can upload annotation sets and create the studies
-- Automatically generated study accounts (or we could also generate a group token that the user has to enter during signup to join a group)
+- Create admin panel (single page, at `/admin` in the frontend) where people can upload annotation sets and create the studies -- done
+- Automatically generated study accounts (or we could also generate a group token that the user has to enter during signup to join a group) -- done
 - We want to do the parsing of the CSV files on the frontend as we already have the code. I will be making that code a bit more flexible
-and I will be creating the UI (minus design for it)
-- The parsed CSVs will then be sent as JSON to the backend according to the schema Paul has sent in the image.
+and I will be creating the UI (minus design for it) -- done
+- The parsed CSVs will then be sent as JSON to the backend according to the schema Paul has sent in the image. -- done
 - Deployment will still need to be discussed, but I will handle all the implications (i.e. I will do the full CD pipeline including possibly helm charts, etc)
-- The docker containers for both the frontend and backend now build successfully.
+- The docker containers for both the frontend and backend now build successfully. -- done
 - I have provided a docker-compose file in the eyetap repo (the monorepo) that will build the latest backend.
 The frontend has to be run on your local machine (using `npm run dev` in the frontend folder / repo.
 Do make sure to recursively clone the repo. (You run the backend with `docker compose up` and stop it with `docker compose down`)
