@@ -22,7 +22,7 @@ import {
     selectedFixation
 } from '../data';
 import {
-    computeOffset,
+    originalToCanvasCoordinates,
     scale
 } from './scaling';
 import type {
@@ -84,8 +84,8 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
         ctx.fillStyle = color;
         ctx.beginPath();
         ctx.arc(
-            scale( fixation.x! - computeOffset( 'x' ) ),
-            scale( fixation.y! - computeOffset( 'y' ) ),
+            scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),
+            scale( originalToCanvasCoordinates( fixation.y!, 'y' ) ),
             scale( radius ),
             0,
             Math.PI * 2

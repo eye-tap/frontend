@@ -1,5 +1,5 @@
 import {
-    computeOffset,
+    canvasToOriginalCoordinates,
     scale
 } from './scaling';
 import type {
@@ -14,20 +14,19 @@ const canvas = document.createElement( 'canvas' );
 export const setImageTextColour = ( image: HTMLImageElement, col: Color, slice: ImageSlice ): ImageData => {
     const ctx = canvas.getContext( '2d' )!;
 
-
     if ( slice.scale ) {
         canvas.width = scale( slice.width );
         canvas.height = scale( slice.height );
         ctx.drawImage(
             image,
-            computeOffset( 'x' ) + slice.x,
-            computeOffset( 'y' ) + slice.y,
+            canvasToOriginalCoordinates( slice.x, 'x' ),
+            canvasToOriginalCoordinates( slice.y, 'y' ),
             slice.width,
             slice.height,
             0,
             0,
-            scale( slice.width ),
-            scale( slice.height )
+            canvas.width,
+            canvas.height
         );
     } else {
         canvas.width = slice.width;

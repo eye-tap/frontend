@@ -8,7 +8,7 @@ import {
     unfocusedTextColor
 } from '../config';
 import {
-    computeOffset,
+    canvasToOriginalCoordinates,
     scale
 } from './scaling';
 import {
@@ -45,8 +45,8 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
             } else {
                 ctx.drawImage(
                     image,
-                    computeOffset( 'x' ),
-                    computeOffset( 'y' ),
+                    canvasToOriginalCoordinates( 0, 'x' ),
+                    canvasToOriginalCoordinates( 0, 'y' ),
                     image.width,
                     image.height,
                     0,

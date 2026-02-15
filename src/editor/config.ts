@@ -50,6 +50,7 @@ export const referenceCanvasSize = {
     'height': 1080
 };
 
+export const zoomScrollWheelDivideFactor = ref( 100 );
 
 // Opacity
 export const unfocusedTextColor = ref( {

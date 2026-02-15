@@ -14,18 +14,17 @@ import {
 } from '../config';
 import {
     boundingBoxes,
-    canvasSize,
-    zoomFactor
+    canvasSize
 } from '../data';
-import {
-    computeOffset,
-    scale,
-    scalingFactor
-} from './scaling';
 import {
     imgDataToImageObject,
     setImageTextColour
 } from './image-magic';
+import {
+    originalToCanvasCoordinates,
+    scale,
+    scalingFactor
+} from './scaling';
 import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
@@ -82,8 +81,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boundingBoxStrokeWidth,
         boundingBoxesOpacity,
         boxesDisplay,
-        scalingFactor,
-        zoomFactor
+        scalingFactor
     ], render );
 
     return {
@@ -94,8 +92,8 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 const drawBox = ( col: string, bb: EditorCharacterBoundingBox, ctx: CanvasRenderingContext2D ) => {
     ctx.strokeStyle = col;
     ctx.strokeRect(
-        scale( bb.xMin! - computeOffset( 'x' ) ),
-        scale( bb.yMin! - computeOffset( 'y' ) ),
+        scale( originalToCanvasCoordinates( bb.xMin!, 'x' ) ),
+        scale( originalToCanvasCoordinates( bb.yMin!, 'y' ) ),
         scale( bb.xMax! - bb.xMin! ),
         scale( bb.yMax! - bb.yMin! )
     );
@@ -106,9 +104,10 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
         if ( bb.highlightClass === 'hovered' ) {
             const w = Math.abs( bb.xMax! - bb.xMin! );
             const h = Math.abs( bb.yMax! - bb.yMin! );
+            // Not working fully yet (only this)
             const imgData = setImageTextColour( image, hoveredTextColor.value, {
-                'x': bb.xMin! - computeOffset( 'x' ),
-                'y': bb.yMin! - computeOffset( 'y' ),
+                'x': originalToCanvasCoordinates( bb.xMin!, 'x' ),
+                'y': originalToCanvasCoordinates( bb.yMin!, 'y' ),
                 'width': w,
                 'height': h,
                 'scale': true
@@ -116,19 +115,19 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
 
 
             ( async () => {
-                const img = await imgDataToImageObject( imgData, w, h );
+                const img = await imgDataToImageObject( imgData, scale( w ), scale( h ) );
 
                 ctx.fillStyle = 'white';
                 ctx.fillRect(
-                    scale( bb.xMin! - 2 - computeOffset( 'x' ) ),
-                    scale( bb.yMin! - 2 - computeOffset( 'y' ) ),
+                    scale( originalToCanvasCoordinates( bb.xMin! - 2, 'x' ) ),
+                    scale( originalToCanvasCoordinates( bb.yMin! - 2, 'y' ) ),
                     scale( w + 4 ),
                     scale( h + 4 )
                 );
                 ctx.drawImage(
                     img!,
-                    scale( bb.xMin! - computeOffset( 'x' ) ),
-                    scale( bb.yMin! - computeOffset( 'y' ) )
+                    scale( originalToCanvasCoordinates( bb.xMin!, 'x' ) ),
+                    scale( originalToCanvasCoordinates( bb.yMin!, 'y' ) )
                 );
             } )();
         } else if ( bb.highlightClass === 'highlight' ) {

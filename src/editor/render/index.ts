@@ -53,6 +53,8 @@ export const renderer = (
         lines.render();
     };
 
+    io.render();
+
     const renderer: Renderer = {
         'renderText': text,
         'renderFixations': fix,

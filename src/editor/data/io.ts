@@ -8,6 +8,7 @@ import type {
 
 export const isMouseDragging = ref( false );
 
+
 export const mousePos: Ref<EditorPoint> = ref( {
     'x': 0,
     'y': 0
@@ -28,3 +29,5 @@ export const lineStart: Ref<EditorPoint> = ref( {
     'x': -1,
     'y': -1
 } );
+
+export const isZoomDragging = ref( false );

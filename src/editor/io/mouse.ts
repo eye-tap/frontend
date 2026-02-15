@@ -5,31 +5,42 @@ import {
     watch
 } from 'vue';
 import {
-    computeOffset,
+    canvasToOriginalCoordinates,
     scaleInverse
 } from '../render/scaling';
 import {
     isMouseDragging,
+    isZoomDragging,
     mouseClickPos,
     mouseDragEnd,
     mousePos
 } from '../data/io';
+import {
+    moveHandler,
+    zoomPanStartHandler
+} from './zoom';
 import {
     canvasSize
 } from '../data';
 import {
     resetAllBoxes
 } from '../manager/boxes';
+import zoom from '../manager/zoom';
+import {
+    zoomScrollWheelDivideFactor
+} from '../config';
 
 export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
 
     const mouseDownHandler = ( ev: MouseEvent ) => {
-        if ( ev.button === 0 ) {
+        if ( ev.ctrlKey )
+            zoomPanStartHandler( ev );
+        else if ( ev.button === 0 ) {
             isMouseDragging.value = true;
             mouseClickPos.value = {
-                'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
-                'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
+                'x': canvasToOriginalCoordinates( scaleInverse( ev.x - rect.left ), 'x' ),
+                'y': canvasToOriginalCoordinates( scaleInverse( ev.y - rect.top ), 'y' )
             };
         }
     };
@@ -37,24 +48,39 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     const mouseUpHandler = ( ev: MouseEvent ) => {
         if ( ev.button === 0 ) {
             isMouseDragging.value = false;
+            isZoomDragging.value = false;
             mouseDragEnd.value = {
-                'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
-                'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
+                'x': canvasToOriginalCoordinates( scaleInverse( ev.x - rect.left ), 'x' ),
+                'y': canvasToOriginalCoordinates( scaleInverse( ev.y - rect.top ), 'y' )
             };
         }
     };
 
     const mouseMoveHandler = ( ev: MouseEvent ) => {
-        if ( ev.x < 0 || ev.y < 0 ) {
-            isMouseDragging.value = false;
+        if ( ev.ctrlKey && ev.buttons === 1 ) {
+            moveHandler( ev );
+        } else {
+            isZoomDragging.value = false;
 
-            return;
+            if ( ev.x < 0 || ev.y < 0 ) {
+                isMouseDragging.value = false;
+                isZoomDragging.value = false;
+
+                return;
+            }
+
+            mousePos.value = {
+                'x': canvasToOriginalCoordinates( scaleInverse( ev.x - rect.left ), 'x' ),
+                'y': canvasToOriginalCoordinates( scaleInverse( ev.y - rect.top ), 'y' )
+            };
         }
+    };
 
-        mousePos.value = {
-            'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
-            'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
-        };
+    const scrollHandler = ( ev: WheelEvent ) => {
+        if ( ev.ctrlKey ) {
+            ev.preventDefault();
+            zoom.zoom( ev.deltaY / zoomScrollWheelDivideFactor.value, 'add' );
+        }
     };
 
     const updateRect = () => {
@@ -64,6 +90,7 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     const mouseLeaveHandler = () => {
         resetAllBoxes();
         isMouseDragging.value = false;
+        isZoomDragging.value = false;
     };
 
     onMounted( () => {
@@ -72,6 +99,7 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         target.value!.addEventListener( 'mouseup', mouseUpHandler );
         target.value!.addEventListener( 'mousemove', mouseMoveHandler );
         target.value!.addEventListener( 'mouseleave', mouseLeaveHandler );
+        target.value!.addEventListener( 'wheel', scrollHandler );
         window.addEventListener( 'resize', updateRect );
     } );
 
@@ -90,6 +118,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
         try {
             target.value!.removeEventListener( 'mouseleave', mouseLeaveHandler );
+        } catch { /* empty */ }
+
+        try {
+            target.value!.removeEventListener( 'wheel', scrollHandler );
         } catch { /* empty */ }
 
         try {

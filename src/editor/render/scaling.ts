@@ -41,7 +41,15 @@ export const computeScaleFactor = ( original: number, target: number, aspect: nu
  * @returns The computed offset (subtract for going from original to scaled, add for opposite)
  */
 export const computeOffset = ( coordinate: 'x' | 'y' ) => {
-    return canvasPosition.value[ coordinate ] * originalSize.value[ coordinate === 'x' ? 'width' : 'height' ];
+    return Math.round( canvasPosition.value[ coordinate ] * originalSize.value[ coordinate === 'x' ? 'width' : 'height' ] );
+};
+
+export const canvasToOriginalCoordinates = ( val: number, coordinate: 'x' | 'y' ) => {
+    return val + computeOffset( coordinate );
+};
+
+export const originalToCanvasCoordinates = ( val: number, coordinate: 'x' | 'y' ) => {
+    return val - computeOffset( coordinate );
 };
 
 /**
@@ -82,7 +90,10 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
         renderer.renderAll();
     };
 
-    watch( zoomFactor, renderer.renderAll );
+    watch( [
+        zoomFactor,
+        canvasPosition
+    ], renderer.renderAll );
 
     onMounted( () => {
         window.addEventListener( 'resize', scaler );

@@ -18,7 +18,7 @@ import {
     selectedFixation
 } from '../data';
 import {
-    computeOffset,
+    originalToCanvasCoordinates,
     scale
 } from './scaling';
 import type {
@@ -73,8 +73,8 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         // TODO: Positioning?
         ctx!.fillText(
             ( idx + 1 ).toString(),
-            scale( fixation.x! + fixationRadius.value - computeOffset( 'x' ) ),
-            scale( fixation.y! - fixationRadius.value - computeOffset( 'y' ) )
+            scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),
+            scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
         );
     };
 

@@ -16,7 +16,7 @@ import {
     linesDisplay
 } from '../config';
 import {
-    computeOffset,
+    originalToCanvasCoordinates,
     scale
 } from './scaling';
 import type {
@@ -59,12 +59,12 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
 
         ctx!.beginPath();
         ctx!.moveTo(
-            scale( fix.x! - computeOffset( 'x' ) ),
-            scale( fix.y! - computeOffset( 'y' ) )
+            scale( originalToCanvasCoordinates( fix.x!, 'x' ) ),
+            scale( originalToCanvasCoordinates( fix.y!, 'y' ) )
         );
         ctx!.lineTo(
-            scale( box.centerX! - computeOffset( 'x' ) ),
-            scale( box.centerY! - computeOffset( 'y' ) )
+            scale( originalToCanvasCoordinates( box.centerX!, 'x' ) ),
+            scale( originalToCanvasCoordinates( box.centerY!, 'y' ) )
         );
         ctx!.stroke();
     };

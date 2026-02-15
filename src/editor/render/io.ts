@@ -4,10 +4,6 @@ import {
     watch
 } from 'vue';
 import {
-    computeOffset,
-    scale
-} from './scaling';
-import {
     cursorLineColor,
     lineWidth,
     moveThresholdForDrag
@@ -17,6 +13,10 @@ import {
     lineStart,
     mousePos
 } from '../data/io';
+import {
+    originalToCanvasCoordinates,
+    scale
+} from './scaling';
 import {
     canvasSize
 } from '../data';
@@ -42,12 +42,12 @@ export const ioRenderer = ( ioCanvas: Ref<HTMLCanvasElement | null> ) => {
 
         ctx!.beginPath();
         ctx!.moveTo(
-            scale( lineStart.value.x - computeOffset( 'x' ) ),
-            scale( lineStart.value.y - computeOffset( 'y' ) )
+            scale( originalToCanvasCoordinates( lineStart.value.x, 'x' ) ),
+            scale( originalToCanvasCoordinates( lineStart.value.y, 'y' ) )
         );
         ctx!.lineTo(
-            scale( mousePos.value.x - computeOffset( 'x' ) ),
-            scale( mousePos.value.y - computeOffset( 'y' ) )
+            scale( originalToCanvasCoordinates( mousePos.value.x, 'x' ) ),
+            scale( originalToCanvasCoordinates( mousePos.value.y, 'y' ) )
         );
         ctx!.stroke();
     };
