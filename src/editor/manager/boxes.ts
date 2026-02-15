@@ -81,6 +81,41 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
 };
 
 // TODO: Marking boxes as highlighted
+const prev: {
+    [key: number]: string
+} = {};
+
+export const setPreviosHighlightClassForBoxIndex = ( idx: number, previous: string ) => {
+    prev[ idx ] = previous;
+};
+
+/**
+ * Set a box to highlighted (always draws an outline)
+ * @param pos - The position at which to highlight the box
+ * @param duration - Time in millis. Set to -1 to not automatically remove highlight
+ */
+export const highlightBox = ( pos: EditorPoint, duration: number ) => {
+    const idx = getBoxIdFromCoordinate( pos );
+
+    if ( idx < 0 ) return;
+
+    const renderer = getRenderer();
+
+    prev[ idx ] = boundingBoxes.value[ idx ]!.highlightClass;
+    boundingBoxes.value[ idx ]!.highlightClass = 'highlight';
+
+    renderer.renderBoxes.render();
+
+    if ( duration > -1 ) {
+        setTimeout( () => {
+            if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
+                boundingBoxes.value[ idx ]!.highlightClass = 'none';
+
+                renderer.renderBoxes.render();
+            }
+        }, duration );
+    }
+};
 
 export const resetAllBoxes = () => {
     const renderer = getRenderer();

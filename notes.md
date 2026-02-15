@@ -18,11 +18,13 @@
 - Word boxes rendering -- TODO: Do we really need this? (again, editor technically supports it, but handling code is missing)
 - Tour
 - Zoom APIs -- done
-- Integrate zoom
+- Integrate zoom -- done
+- Keybind improvements
+- Indices rendering outside box if possible?
 
 
 ## General
-- Do we need the export feature still? -> Into admin panel
+- Do we need the export feature still? -> Into admin panel -- done
 - General usability improvements
 - Update theme colours (currently primarily the blue and black themes look good)
 - Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- ~~done~~ someone broke it again
@@ -30,6 +32,7 @@
 - RWD fixes -- done
 - Block if device is too small (also touch devices don't work!)
 - Improve animations (e.g. of the account slideover)
+- Take care of all TODOs in the code
 
 
 ## User login
@@ -46,6 +49,7 @@
 - Bug testing
 - New Survey options
 - Select all button for add survey
+
 
 
 ## Call notes

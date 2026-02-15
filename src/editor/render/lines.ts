@@ -33,7 +33,7 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
         ctx.canvas.height = canvasSize.value.height;
-        ctx.lineWidth = lineWidth.value;
+        ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
 
         // Render

@@ -8,6 +8,8 @@ import {
     fixationDisplay,
     fixationIndexDisplay,
     fixationRadius,
+    indicesFontFamily,
+    indicesFontSize,
     machineAssignedFixationColor,
     selectedFixationColor,
     unassignedFixationColor
@@ -70,7 +72,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
 
     const draw = ( fixation: EditorFixation, idx: number, col: string ) => {
         ctx!.fillStyle = col;
-        // TODO: Positioning?
+        ctx!.font = scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
         ctx!.fillText(
             ( idx + 1 ).toString(),
             scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),

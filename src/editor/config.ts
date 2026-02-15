@@ -29,8 +29,6 @@ export const unassignedFixationColor = ref( 'red' );
 export const hoveredFixationColor = ref( 'red' );
 
 export const machineAssignedFixationColor = ref( 'red' );
-// TODO: Fixation index colours?
-
 
 // Stroke width
 export const boundingBoxStrokeWidth = ref( 2 );
@@ -42,6 +40,10 @@ export const hoveredFixationRadius = ref( 8 );
 export const selectedFixationRadius = ref( 6 );
 
 export const lineWidth = ref( 1 );
+
+export const indicesFontSize = ref( 12 );
+
+export const indicesFontFamily = ref( 'serif' );
 
 
 // Scaling and Zoom
@@ -72,8 +74,6 @@ export const fixationsOpacity = ref( 1 );
 export const linesOpacity = ref( 1 );
 
 export const indicesOpacity = ref( 1 );
-
-// TODO: Resize offset recomputation doesn't work yet
 
 
 // Settings

@@ -4,6 +4,7 @@
         ref
     } from 'vue';
     import FilePicker from '@/components/home/FilePicker.vue';
+    import IncompatibleDeviceNotice from '@/components/IncompatibleDeviceNotice.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
     import type {
         ShallowAnnotationSessionDto
@@ -123,6 +124,7 @@
                 </div>
             </div>
         </div>
+        <IncompatibleDeviceNotice />
     </div>
 </template>
 
