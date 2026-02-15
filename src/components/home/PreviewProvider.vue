@@ -1,10 +1,11 @@
 <script setup lang="ts">
+    import {
+        formatDate,
+        formatDateTime
+    } from '@/ts/util/date';
     import type {
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
-    import {
-        formatDate, formatDateTime
-    } from '@/ts/util/date';
     import {
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
@@ -25,7 +26,8 @@
                             Uploaded on
                         </p>
                         <p class="content">
-                            {{ props.session.readingSession?.uploadedAt ? formatDate(new Date($props.session.readingSession?.uploadedAt!)) : 'N/A' }}
+                            {{ props.session.readingSession?.uploadedAt
+                                ? formatDate(new Date($props.session.readingSession?.uploadedAt!)) : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -71,9 +73,8 @@
                         <p
                             class="content information"
                         >
-                            {{
-                                $props.session.annotationsMetaData ? $props.session.annotationsMetaData.total! - $props.session.annotationsMetaData.done! : 'N/A'
-                            }}
+                            {{ $props.session.annotationsMetaData
+                                ? $props.session.annotationsMetaData.total! - $props.session.annotationsMetaData.done! : 'N/A' }}
                         </p>
                     </td>
                 </tr>

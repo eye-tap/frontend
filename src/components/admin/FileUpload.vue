@@ -113,13 +113,13 @@
     };
 
     const annotationsLoadTrigger = () => {
-        // TODO import 
+        // TODO import
         notifications.notify( {
             'text': 'Machine generated annotations successfuly imported.',
             'type': 'success',
             'title': 'Annotations imported'
         } );
-    }
+    };
 </script>
 
 <template>

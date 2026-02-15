@@ -1,5 +1,6 @@
 <script setup lang="ts">
-    const show = defineModel<boolean>();const emit = defineEmits<{
+    const show = defineModel<boolean>();
+    const emit = defineEmits<{
         ( e: 'next' ): void
         ( e: 'close' ): void
     }>();

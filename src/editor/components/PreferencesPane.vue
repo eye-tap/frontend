@@ -1,31 +1,23 @@
 <script setup lang="ts">
     import {
-        assignedFixationColor,
         assignedLineColor,
         boundingBoxColor,
         boundingBoxStrokeWidth,
         boxesDisplay,
         boxesDisplayOptions,
-        cursorLineColor,
         fixationDisplay,
         fixationDisplayOptions,
         fixationIndexDisplay,
         fixationIndexDisplayOptions,
         fixationRadius,
-        highlightedBoundingBoxColor,
         hoveredFixationRadius,
         lineWidth,
         linesDisplay,
         linesDisplayOptions,
-        machineAssignedFixationColor,
-        proximityBoundingBoxColor,
-        selectedFixationColor,
-        selectedFixationRadius,
         unassignedFixationColor
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
-    import SwitchOption from '@/components/settings/SwitchOption.vue';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
 
     const dismiss = () => {

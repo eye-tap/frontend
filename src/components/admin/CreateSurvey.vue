@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {
         type Ref,
-        computed,
+        // computed,
         ref,
         watch
     } from 'vue';
@@ -12,12 +12,12 @@
     import type {
         ShallowReadingSessionDto
     } from '@/types/dtos/ShallowReadingSessionDto';
+    import SwitchOption from '../settings/SwitchOption.vue';
     import inputFilter from '@/ts/util/inputFilter';
+    import testData from '@/ts/dev/TextTestData.json';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import SwitchOption from '../settings/SwitchOption.vue';
-    import testData from '@/ts/dev/TextTestData.json';
 
     const dismiss = () => {
         show.value = false;
@@ -48,11 +48,11 @@
         selectedTextIndex.value = index;
     };
 
-    const isSelectOrUnselectAll = ( textIdx: number ) => {
-        return computed( () => {
-            return texts.value[ textIdx ]!.selected.reduce( ( res, val ) => res && val ) ? 'Deselect all' : 'Select all';
-        } );
-    };
+    // const isSelectOrUnselectAll = ( textIdx: number ) => {
+    //     return computed( () => {
+    //         return texts.value[ textIdx ]!.selected.reduce( ( res, val ) => res && val ) ? 'Deselect all' : 'Select all';
+    //     } );
+    // };
 
     const loadTexts = async () => {
         if ( devMode ) return useTestData();

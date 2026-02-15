@@ -6,7 +6,7 @@
         undoAvailable
     } from '..';
     import ExportOptions from './ExportOptions.vue';
-import KeybindPane from './KeybindPane.vue';
+    import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
@@ -28,7 +28,7 @@ import KeybindPane from './KeybindPane.vue';
 
     const toggleKeybinds = () => {
         showKeybinds.value = true;
-    }
+    };
 
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->

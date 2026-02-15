@@ -10,10 +10,10 @@
     import {
         listSurveys
     } from '@/ts/surveys';
+    import testData from '@/ts/dev/SurveyTesData.json';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import testData from '@/ts/dev/SurveyTesData.json';
 
     const loading = ref( false );
     const surveys: Ref<SurveyDto[]> = ref( [] );

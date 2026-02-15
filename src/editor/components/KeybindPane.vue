@@ -39,7 +39,7 @@
                 <div class="options-container">
                     <div class="options-section">
                         <p>Keybinds</p>
-                        <div 
+                        <div
                             v-for="descriptor, index in keybindDescriptors"
                             :key="index"
                             class="keybinds"

@@ -10,9 +10,6 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
-        formatDateTime
-    } from '@/ts/util/date';
-    import {
         useActiveFileStore
     } from '@/ts/stores/activeFileStore';
 

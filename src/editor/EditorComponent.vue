@@ -2,16 +2,16 @@
     import {
         type ITourStep, VTour
     } from '@globalhive/vuejs-tour';
+    import AnnotationCompletion from './components/AnnotationCompletion.vue';
     import EditorView from './components/EditorView.vue';
     import PageTour from './tour/PageTour.vue';
     import SidePane from './components/SidePane.vue';
-    import AnnotationCompletion from './components/AnnotationCompletion.vue';
-    import {
-        useAnnotationNavigation
-    } from './composables/useAnnotationNavigation';
     import {
         ref
     } from 'vue';
+    import {
+        useAnnotationNavigation
+    } from './composables/useAnnotationNavigation';
 
     const {
         goToNextAnnotation, isAnnotationComplete
