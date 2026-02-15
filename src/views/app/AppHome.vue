@@ -42,6 +42,9 @@
         annotations.list()
             .then( list => {
                 sessions.value = list;
+                activeFile.setIds(
+                    list.map(value => value.id!)
+                )
                 loading.value = false;
             } )
             .catch( e => {
@@ -75,7 +78,7 @@
 
     const fileSelect = ( selectedFile: ShallowAnnotationSessionDto ) => {
         session.value = selectedFile;
-        activeFile.setActive( selectedFile.id! );
+        activeFile.setActive( activeFile.indexOf(selectedFile.id!) );
     };
 
     const editFile = () => {
