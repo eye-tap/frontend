@@ -21,36 +21,26 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
-    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
     const session: Ref<ShallowAnnotationSessionDto> = ref( {
         'id': 0
     } );
     const activeFile = useActiveFileStore();
     const sessions: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
     const loading = ref( true );
-    const lastLogin = ref( new Date().getTime() - 10000 );
     const notifications = useNotification();
+    const status = useStatusStore();
 
     const reloadFromServer = () => {
-        if ( devMode ) return useTestData();
+        if ( status.devMode ) return useTestData();
 
         loading.value = true;
         annotations.list()
             .then( list => {
                 sessions.value = list;
-                let last = 0;
-
-                // Determine last login date
-                for ( let i = 0; i < sessions.value.length; i++ ) {
-                    const session = sessions.value[i]!;
-
-                    if ( session.lastEdited && session.lastEdited > last )
-                        last = session.progress.modified;
-                }
-
-                lastLogin.value = last;
-
                 loading.value = false;
             } )
             .catch( e => {
@@ -94,12 +84,7 @@
 
     const exportFile = () => {
         if ( activeFile.selected )
-            startExport( {
-                'image': true,
-                'boundingBoxes': true,
-                'localAnnotations': false,
-                'annotations': true
-            } );
+            startExport( activeFile.sessionIds[ activeFile.sessionIdx ]! );
     };
 </script>
 
@@ -111,13 +96,12 @@
                     class="file-picker"
                     :files="sessions"
                     :loading="loading"
-                    :last-login="lastLogin"
                     @file-select="file => fileSelect( file )"
                     @reload-files="reloadFromServer"
                 />
             </div>
             <div class="right">
-                <UserCard class="user-card" :files="sessions" :last-login="lastLogin" />
+                <UserCard class="user-card" :files="sessions" />
                 <PreviewProvider class="preview-provider" :session="session" />
                 <div class="file-actions">
                     <button

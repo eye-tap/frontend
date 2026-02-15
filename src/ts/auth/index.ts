@@ -1,3 +1,6 @@
+import type {
+    UserRoles
+} from '@/types/UserData';
 import {
     ref
 } from 'vue';
@@ -41,6 +44,7 @@ const login = async ( id: string, password: string ): Promise<void> => {
                 'email'?: string;
                 'username'?: string;
                 'exp'?: number;
+                'roles'?: UserRoles[];
             } | null = decodeJwt( data.token );
 
             status.setAuth( true );
@@ -52,6 +56,10 @@ const login = async ( id: string, password: string ): Promise<void> => {
 
             if ( jwtData && jwtData.username ) {
                 status.setUsername( jwtData?.username );
+            }
+
+            if ( jwtData && jwtData.roles! ) {
+                status.setRoles( jwtData.roles! );
             }
 
             notifications.notify( {

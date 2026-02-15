@@ -51,6 +51,7 @@ export const renderer = (
         fix.render();
         indices.render();
         lines.render();
+        io.render();
     };
 
     io.render();

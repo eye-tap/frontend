@@ -18,7 +18,6 @@
     const props = defineProps<{
         'files': ShallowAnnotationSessionDto[],
         'loading': boolean,
-        'lastLogin': number
     }>();
     const emits = defineEmits<{
         ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void

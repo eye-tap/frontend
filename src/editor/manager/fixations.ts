@@ -15,6 +15,3 @@ export const fixationHighlightHandler = ( pos: EditorPoint ): boolean => {
 
     return false;
 };
-
-
-// TODO: On load, got to assign the highlightClasses and assigned status

@@ -28,7 +28,7 @@ router.beforeResolve( ( to, _from, next ) => {
     next();
 } );
 
-router.beforeEach( to => {
+router.beforeEach( ( to, from ) => {
     const store = useStatusStore();
     const file = useActiveFileStore();
 
@@ -40,14 +40,12 @@ router.beforeEach( to => {
         return {
             'name': 'app-home'
         };
-    } else if ( to.name === 'app-home' && store.role === 'admin' && !store.devMode ) {
-        return {
-            'name': 'admin'
-        };
-    } else if ( to.name === 'admin' && store.role !== 'admin' && !store.devMode ) {
-        return {
-            'name': 'app-home'
-        };
+    } else if ( to.meta.allowedRoles && !store.devMode ) {
+        if ( !store.roles.reduce( ( prev, role ) => prev || ( to.meta.allowedRoles as string[] ).includes( role ) ) ) {
+            return {
+                'name': from.name
+            };
+        }
     } else if ( to.name === 'app-editor' ) {
         if ( !file.selected && !store.devMode ) {
             return {

@@ -39,7 +39,11 @@ export const routes = [
                 'component': () => import( '@/views/app/AppHome.vue' ),
                 'meta': {
                     'title': 'Home',
-                    'authRequired': true
+                    'authRequired': true,
+                    'allowedRoles': [
+                        'ROLE_SURVEY_PARTICIPANT',
+                        'ROLE_SURVEY_CROWD_SOURCE'
+                    ]
                 }
             },
             {
@@ -48,7 +52,11 @@ export const routes = [
                 'component': () => import( '@/views/app/AppEditor.vue' ),
                 'meta': {
                     'title': 'Editor',
-                    'authRequired': true
+                    'authRequired': true,
+                    'allowedRoles': [
+                        'ROLE_SURVEY_PARTICIPANT',
+                        'ROLE_SURVEY_CROWD_SOURCE'
+                    ]
                 }
             }
         ]
@@ -60,7 +68,7 @@ export const routes = [
         'meta': {
             'title': 'Admin Panel',
             'authRequired': true,
-            'requiredRole': 'admin'
+            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
         }
     },
     {

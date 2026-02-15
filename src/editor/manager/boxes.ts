@@ -80,7 +80,7 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
     };
 };
 
-// TODO: Highlighted setting
+// TODO: Marking boxes as highlighted
 
 export const resetAllBoxes = () => {
     const renderer = getRenderer();

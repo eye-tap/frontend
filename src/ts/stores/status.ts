@@ -1,3 +1,6 @@
+import type {
+    UserRoles
+} from '@/types/UserData';
 import {
     defineStore
 } from 'pinia';
@@ -5,7 +8,7 @@ import {
 interface Status {
     'isAuth': boolean;
     'username': string;
-    'role': 'user' | 'admin';
+    'roles': UserRoles[];
     'devMode': boolean;
 }
 
@@ -13,7 +16,7 @@ export const useStatusStore = defineStore( 'user', {
     'state': (): Status => ( {
         'isAuth': false,
         'username': '',
-        'role': 'user',
+        'roles': [],
         'devMode': false
     } ),
     'getters': {
@@ -26,8 +29,8 @@ export const useStatusStore = defineStore( 'user', {
         setUsername ( username: string ) {
             this.username = username;
         },
-        setRole ( role: 'user' | 'admin' ) {
-            this.role = role;
+        setRoles ( roles: UserRoles[] ) {
+            this.roles = roles;
         },
         setDevMode ( status: boolean ) {
             this.devMode = status;

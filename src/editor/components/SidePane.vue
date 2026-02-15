@@ -15,7 +15,7 @@
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
-    const showKeybinds = ref( true );
+    const showKeybinds = ref( false );
     const showExportOptions = ref( false );
 
     const toggleCollapse = () => {
