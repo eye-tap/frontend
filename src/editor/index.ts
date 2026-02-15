@@ -15,6 +15,12 @@ import {
 import {
     renderer
 } from './render';
+import {
+    useStatusStore
+} from '@/ts/stores/status';
+import {
+    loadEditorDataFromBackend
+} from './loaders/backend';
 
 export const save = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );
@@ -46,10 +52,15 @@ const start = (
     indicesCanvas: Ref<HTMLCanvasElement | null>,
     clickTarget: Ref<HTMLCanvasElement | null>
 ) => {
+    const status = useStatusStore();
     const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
     const io = ioHandler( clickTarget, draw );
 
     editorSessionManager( draw );
+
+    if ( !status.devMode ) {
+        loadEditorDataFromBackend( draw );
+    }
 
     return {
         'renderer': draw,
