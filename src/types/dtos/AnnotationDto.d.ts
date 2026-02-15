@@ -1,5 +1,5 @@
-import type { CharacterBoundingBoxDto } from "@/types/dtos/CharacterBoundingBoxDto.ts";
-import type { FixationDto } from "@/types/dtos/FixationDto.ts";
+import type { CharacterBoundingBoxDto } from "@/types/dtos/CharacterBoundingBoxDto";
+import type { FixationDto } from "@/types/dtos/FixationDto";
 
 export interface AnnotationDto {
   id?: number;

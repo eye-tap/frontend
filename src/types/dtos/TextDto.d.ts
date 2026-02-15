@@ -1,5 +1,5 @@
-import type { CharacterBoundingBoxDto } from "@/types/dtos/CharacterBoundingBoxDto.ts";
-import type { WordBoundingBoxDto } from "@/types/dtos/WordBoundingBoxDto.ts";
+import type { CharacterBoundingBoxDto } from "@/types/dtos/CharacterBoundingBoxDto";
+import type { WordBoundingBoxDto } from "@/types/dtos/WordBoundingBoxDto";
 
 export interface TextDto {
   id?: number;

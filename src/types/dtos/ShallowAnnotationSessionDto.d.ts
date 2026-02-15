@@ -1,5 +1,5 @@
-import type { AnnotationsMetaDataDto } from "@/types/dtos/AnnotationsMetaDataDto.ts";
-import type { ShallowReadingSessionDto } from "@/types/dtos/ShallowReadingSessionDto.ts";
+import type { AnnotationsMetaDataDto } from "@/types/dtos/AnnotationsMetaDataDto";
+import type { ShallowReadingSessionDto } from "@/types/dtos/ShallowReadingSessionDto";
 
 export interface ShallowAnnotationSessionDto {
   id?: number;

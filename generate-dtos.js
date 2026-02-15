@@ -68,7 +68,7 @@ function schemaToInterface ( name, schema ) {
         .filter( r => r !== name )
         .sort(); // avoid self-import and sort
     const importLines = refs
-        .map( r => `import type { ${ r } } from "@/${ relDir }${ r }.ts";` )
+        .map( r => `import type { ${ r } } from "@/${ relDir }${ r }";` )
         .join( '\n' );
     const lines = [ '{' ];
 

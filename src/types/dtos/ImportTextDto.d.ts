@@ -1,5 +1,5 @@
-import type { ImportCharacterBoundingBoxDto } from "@/types/dtos/ImportCharacterBoundingBoxDto.ts";
-import type { ImportWordBoundingBoxDto } from "@/types/dtos/ImportWordBoundingBoxDto.ts";
+import type { ImportCharacterBoundingBoxDto } from "@/types/dtos/ImportCharacterBoundingBoxDto";
+import type { ImportWordBoundingBoxDto } from "@/types/dtos/ImportWordBoundingBoxDto";
 
 export interface ImportTextDto {
   title?: string;

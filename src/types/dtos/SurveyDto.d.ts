@@ -1,4 +1,4 @@
-import type { ShallowAnnotationSessionDto } from "@/types/dtos/ShallowAnnotationSessionDto.ts";
+import type { ShallowAnnotationSessionDto } from "@/types/dtos/ShallowAnnotationSessionDto";
 
 export interface SurveyDto {
   id?: number;
