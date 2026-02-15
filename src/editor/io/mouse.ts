@@ -5,6 +5,10 @@ import {
     watch
 } from 'vue';
 import {
+    computeOffset,
+    scaleInverse
+} from '../render/scaling';
+import {
     isMouseDragging,
     mouseClickPos,
     mouseDragEnd,
@@ -13,9 +17,6 @@ import {
 import {
     canvasSize
 } from '../data';
-import {
-    scaleInverse
-} from '../render/scaling';
 
 export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
@@ -24,8 +25,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         if ( ev.button === 0 ) {
             isMouseDragging.value = true;
             mouseClickPos.value = {
-                'x': scaleInverse( ev.x - rect.left ),
-                'y': scaleInverse( ev.y - rect.top )
+                'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
+                'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
             };
         }
     };
@@ -34,8 +35,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         if ( ev.button === 0 ) {
             isMouseDragging.value = false;
             mouseDragEnd.value = {
-                'x': scaleInverse( ev.x - rect.left ),
-                'y': scaleInverse( ev.y - rect.top )
+                'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
+                'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
             };
         }
     };
@@ -48,8 +49,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         }
 
         mousePos.value = {
-            'x': scaleInverse( ev.x - rect.left ),
-            'y': scaleInverse( ev.y - rect.top )
+            'x': scaleInverse( ev.x - rect.left ) + computeOffset( 'x' ),
+            'y': scaleInverse( ev.y - rect.top ) + computeOffset( 'y' )
         };
     };
 
@@ -57,13 +58,14 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         rect = target.value!.getBoundingClientRect();
     };
 
-    // TODO: Mouseleave handler
+    // TODO: Mouseleave handler (clears boxes and lines)
 
     onMounted( () => {
         updateRect();
         target.value!.addEventListener( 'mousedown', mouseDownHandler );
         target.value!.addEventListener( 'mouseup', mouseUpHandler );
         target.value!.addEventListener( 'mousemove', mouseMoveHandler );
+        window.addEventListener( 'resize', updateRect );
     } );
 
     onUnmounted( () => {
@@ -77,6 +79,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
         try {
             target.value!.removeEventListener( 'mousemove', mouseMoveHandler );
+        } catch { /* empty */ }
+
+        try {
+            window.removeEventListener( 'resize', updateRect );
         } catch { /* empty */ }
     } );
 

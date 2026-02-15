@@ -15,12 +15,13 @@ import {
     lineWidth,
     linesDisplay
 } from '../config';
+import {
+    computeOffset,
+    scale
+} from './scaling';
 import type {
     EditorAnnotation
 } from '../types/annotation';
-import {
-    scale
-} from './scaling';
 
 export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
@@ -57,8 +58,14 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         const box = boundingBoxes.value[ line.boxId ]!;
 
         ctx!.beginPath();
-        ctx!.moveTo( scale( fix.x! ), scale( fix.y! ) );
-        ctx!.lineTo( scale( box.centerX! ), scale( box.centerY! ) );
+        ctx!.moveTo(
+            scale( fix.x! - computeOffset( 'x' ) ),
+            scale( fix.y! - computeOffset( 'y' ) )
+        );
+        ctx!.lineTo(
+            scale( box.centerX! - computeOffset( 'x' ) ),
+            scale( box.centerY! - computeOffset( 'y' ) )
+        );
         ctx!.stroke();
     };
 

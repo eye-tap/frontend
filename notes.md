@@ -4,32 +4,36 @@
 - bounding box stroke width smaller and lighter colour
 - index colour should become more legible when hovered or generally
 - Bug testing (I can't recall the issues we had previously)
-- Completely rewrite history tracking (as it is quite broken currently, e.g. clicking a new point is a history entry)
-- "fireworks" or the like when annotation is completed
+- Completely rewrite history tracking (as it is quite broken currently, e.g. clicking a new point is a history entry) -- done
+- "fireworks" or the like when annotation is completed -- done
 - Remove some of the options (or hide them better)
 - Fix animation for sidebar collapse
-- Reader selection using dropdown instead of number input field (we can filter out the readers without a point)
+- Reader selection using dropdown instead of number input field (we can filter out the readers without a point) -- done (differently)
 - Move advanced options into a popover instead of the sidebar -- done
-- Change default rendering size of the editor
-- Improve next item selection
-- Make options not depend on each other except when they are a dropdown
+- Change default rendering size of the editor -- done
+- Improve next item selection -- done
+- Make options not depend on each other except when they are a dropdown -- done
 (i.e. we need to make a dropdown e.g. for "show boxes" as options we could have "always", "on hover" and "never")
 - Heatmap (i.e. points are coloured based on the entropy), or shown as a small overlay somewhere sensible
 - Word boxes rendering
+- Tour
+- Zoom
 
 
 ## General
 - Do we need the export feature still? -> Into admin panel
 - General usability improvements
 - Update theme colours (currently primarily the blue and black themes look good)
-- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- done
+- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- ~~done~~ someone broke it again
 - Better error handling for backend errors (i.e. better notifications)
-- RWD fixes
+- RWD fixes -- done
+- Block if device is too small (also touch devices don't work!)
 - Improve animations (e.g. of the account slideover)
 
 
 ## User login
 - Magic link with password and username base64 or so encoded
+
 
 ## Home
 - Basically only have the file select

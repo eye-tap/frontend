@@ -2,14 +2,18 @@ import {
     type Ref,
     onMounted,
     onUnmounted,
-    ref
+    ref,
+    watch
 } from 'vue';
+import {
+    canvasPosition,
+    canvasSize,
+    originalSize,
+    zoomFactor
+} from '../data';
 import type {
     Renderer
 } from '../types/renderer';
-import {
-    canvasSize
-} from '../data';
 import {
     referenceCanvasSize
 } from '../config';
@@ -24,27 +28,40 @@ export const scalingFactor = ref( 1 );
  */
 export const computeScaleFactor = ( original: number, target: number, aspect: number ) => {
     scalingFactor.value = Math.round( target / original * 1000 ) / 1000;
-    canvasSize.value.width = original * scalingFactor.value;
-    canvasSize.value.height = canvasSize.value.width * aspect;
+    canvasSize.value.width = target;
+    canvasSize.value.height = target * aspect;
+    originalSize.value.width = original;
+    originalSize.value.height = original * aspect;
+};
+
+
+/**
+ * Compute the offset from the canvasPosition
+ * @param coordinate - The coordinate axis to compute for
+ * @returns The computed offset (subtract for going from original to scaled, add for opposite)
+ */
+export const computeOffset = ( coordinate: 'x' | 'y' ) => {
+    return canvasPosition.value[ coordinate ] * originalSize.value[ coordinate === 'x' ? 'width' : 'height' ];
 };
 
 /**
- * Simple scale function to reduce writing
+ * Scale function
  * @param value - The value to scale
  * @returns The scaled value
  */
 export const scale = ( value: number ) => {
-    return Math.round( value * scalingFactor.value );
+    return Math.round( value * scalingFactor.value * zoomFactor.value );
 };
 
 /**
- * Simple scale function to reduce writing. Scales the opposite way
+ * Inverse scale function
  * @param value - The value to scale
  * @returns The scaled value
  */
 export const scaleInverse = ( value: number ) => {
-    return Math.round( value / scalingFactor.value );
+    return Math.round( value / ( scalingFactor.value * zoomFactor.value ) );
 };
+
 
 /**
  * Automatically scale the canvas
@@ -64,6 +81,8 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
 
         renderer.renderAll();
     };
+
+    watch( zoomFactor, renderer.renderAll );
 
     onMounted( () => {
         window.addEventListener( 'resize', scaler );

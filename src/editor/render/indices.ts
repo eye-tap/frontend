@@ -17,12 +17,13 @@ import {
     fixations,
     selectedFixation
 } from '../data';
+import {
+    computeOffset,
+    scale
+} from './scaling';
 import type {
     EditorFixation
 } from '../types/fixations';
-import {
-    scale
-} from './scaling';
 
 export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
@@ -72,8 +73,8 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         // TODO: Positioning?
         ctx!.fillText(
             ( idx + 1 ).toString(),
-            scale( fixation.x! ) + scale( fixationRadius.value ),
-            scale( fixation.y! ) - scale( fixationRadius.value )
+            scale( fixation.x! + fixationRadius.value - computeOffset( 'x' ) ),
+            scale( fixation.y! - fixationRadius.value - computeOffset( 'y' ) )
         );
     };
 

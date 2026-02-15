@@ -1,12 +1,13 @@
+import {
+    computeOffset,
+    scale
+} from './scaling';
 import type {
     Color
 } from '../types/boxes';
 import type {
     ImageSlice
 } from '../types/renderer';
-import {
-    scale
-} from './scaling';
 
 const canvas = document.createElement( 'canvas' );
 
@@ -19,8 +20,8 @@ export const setImageTextColour = ( image: HTMLImageElement, col: Color, slice: 
         canvas.height = scale( slice.height );
         ctx.drawImage(
             image,
-            slice.x,
-            slice.y,
+            computeOffset( 'x' ) + slice.x,
+            computeOffset( 'y' ) + slice.y,
             slice.width,
             slice.height,
             0,

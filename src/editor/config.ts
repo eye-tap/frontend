@@ -6,6 +6,8 @@ import {
 // Essentials
 export const nearbyBoxesDistanceThreshold = ref( 20 );
 
+export const overScrollDistanceForZoom = ref( 20 );
+
 
 // Colors
 export const assignedLineColor = ref( 'red' );

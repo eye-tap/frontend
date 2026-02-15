@@ -14,8 +14,14 @@ import {
 } from '../config';
 import {
     boundingBoxes,
-    canvasSize
+    canvasSize,
+    zoomFactor
 } from '../data';
+import {
+    computeOffset,
+    scale,
+    scalingFactor
+} from './scaling';
 import {
     imgDataToImageObject,
     setImageTextColour
@@ -23,9 +29,6 @@ import {
 import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
-import {
-    scale
-} from './scaling';
 
 export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
     let ctx: CanvasRenderingContext2D | null = null;
@@ -78,7 +81,9 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boundingBoxColor,
         boundingBoxStrokeWidth,
         boundingBoxesOpacity,
-        boxesDisplay
+        boxesDisplay,
+        scalingFactor,
+        zoomFactor
     ], render );
 
     return {
@@ -88,7 +93,12 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 
 const drawBox = ( col: string, bb: EditorCharacterBoundingBox, ctx: CanvasRenderingContext2D ) => {
     ctx.strokeStyle = col;
-    ctx.strokeRect( scale( bb.xMin! ), scale( bb.yMin! ), scale( bb.xMax! - bb.xMin! ), scale( bb.yMax! - bb.yMin! ) );
+    ctx.strokeRect(
+        scale( bb.xMin! - computeOffset( 'x' ) ),
+        scale( bb.yMin! - computeOffset( 'y' ) ),
+        scale( bb.xMax! - bb.xMin! ),
+        scale( bb.yMax! - bb.yMin! )
+    );
 };
 
 const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageElement ) => {
@@ -97,8 +107,8 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
             const w = Math.abs( bb.xMax! - bb.xMin! );
             const h = Math.abs( bb.yMax! - bb.yMin! );
             const imgData = setImageTextColour( image, hoveredTextColor.value, {
-                'x': bb.xMin!,
-                'y': bb.yMin!,
+                'x': bb.xMin! - computeOffset( 'x' ),
+                'y': bb.yMin! - computeOffset( 'y' ),
                 'width': w,
                 'height': h,
                 'scale': true
@@ -109,8 +119,17 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
                 const img = await imgDataToImageObject( imgData, w, h );
 
                 ctx.fillStyle = 'white';
-                ctx.fillRect( scale( bb.xMin! - 2 ), scale( bb.yMin! - 2 ), scale( w + 4 ), scale( h + 4 ) );
-                ctx.drawImage( img!, scale( bb.xMin! ), scale( bb.yMin! ) );
+                ctx.fillRect(
+                    scale( bb.xMin! - 2 - computeOffset( 'x' ) ),
+                    scale( bb.yMin! - 2 - computeOffset( 'y' ) ),
+                    scale( w + 4 ),
+                    scale( h + 4 )
+                );
+                ctx.drawImage(
+                    img!,
+                    scale( bb.xMin! - computeOffset( 'x' ) ),
+                    scale( bb.yMin! - computeOffset( 'y' ) )
+                );
             } )();
         } else if ( bb.highlightClass === 'highlight' ) {
             // Always draws an outline

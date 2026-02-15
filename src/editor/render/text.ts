@@ -8,6 +8,10 @@ import {
     unfocusedTextColor
 } from '../config';
 import {
+    computeOffset,
+    scale
+} from './scaling';
+import {
     canvasSize
 } from '../data';
 import {
@@ -39,7 +43,17 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
 
                 ctx.putImageData( imgData, 0, 0 );
             } else {
-                ctx.drawImage( image, 0, 0, ctx.canvas.width, ctx.canvas.height );
+                ctx.drawImage(
+                    image,
+                    computeOffset( 'x' ),
+                    computeOffset( 'y' ),
+                    image.width,
+                    image.height,
+                    0,
+                    0,
+                    scale( image.width ),
+                    scale( image.height )
+                );
             }
         } else {
             ctx.canvas.width = canvasSize.value.width;
@@ -57,7 +71,7 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
     watch( boxesDisplay, ( val, oldVal ) => {
         if ( oldVal === 'letters' && val !== 'letters' ) render();
 
-        if ( oldVal !== 'letters' && val !== 'letters' ) render();
+        if ( oldVal !== 'letters' && val === 'letters' ) render();
     } );
 
     return {

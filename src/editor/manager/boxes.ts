@@ -14,6 +14,9 @@ import {
 import {
     getBoxIdFromCoordinate
 } from '../association/boxes';
+import {
+    getRenderer
+} from '../render/manager';
 
 let previousIdx = -1;
 
@@ -79,3 +82,13 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
 };
 
 // TODO: Highlighted setting
+
+export const resetAllBoxes = () => {
+    const renderer = getRenderer();
+
+    for ( let i = 0; i < boundingBoxes.value.length; i++ ) {
+        boundingBoxes.value[ i ]!.highlightClass = 'none';
+    }
+
+    renderer.renderBoxes.render();
+};

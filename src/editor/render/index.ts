@@ -20,6 +20,9 @@ import {
     linesRenderer
 } from './lines';
 import {
+    setRenderer
+} from './manager';
+import {
     textRenderer
 } from './text';
 import {
@@ -60,6 +63,8 @@ export const renderer = (
         renderAll,
         textImage
     };
+
+    setRenderer( renderer );
 
     useScaler( textCanvas, renderer );
 

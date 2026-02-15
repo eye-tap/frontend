@@ -21,12 +21,13 @@ import {
     hoveredFixation,
     selectedFixation
 } from '../data';
+import {
+    computeOffset,
+    scale
+} from './scaling';
 import type {
     EditorFixation
 } from '../types/fixations';
-import {
-    scale
-} from './scaling';
 
 export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
@@ -82,7 +83,13 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, color: string, radius: number ) => {
         ctx.fillStyle = color;
         ctx.beginPath();
-        ctx.arc( scale( fixation.x! ), scale( fixation.y! ), scale( radius ), 0, Math.PI * 2 );
+        ctx.arc(
+            scale( fixation.x! - computeOffset( 'x' ) ),
+            scale( fixation.y! - computeOffset( 'y' ) ),
+            scale( radius ),
+            0,
+            Math.PI * 2
+        );
         ctx.fill();
     };
 };
