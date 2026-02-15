@@ -95,6 +95,8 @@
     right: 2rem;
     width: 15rem;
     height: 13rem;
+    z-index: 1;
+    box-shadow: 0px 0px 10px var(--theme-bg-1);
 
     background-color: var(--theme-bg-2);
     padding: 1rem;

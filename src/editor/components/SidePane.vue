@@ -6,6 +6,7 @@
         undoAvailable
     } from '..';
     import ExportOptions from './ExportOptions.vue';
+import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
@@ -14,6 +15,7 @@
 
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
+    const showKeybinds = ref( true );
     const showExportOptions = ref( false );
 
     const toggleCollapse = () => {
@@ -24,11 +26,16 @@
         showPreferences.value = true;
     };
 
+    const toggleKeybinds = () => {
+        showKeybinds.value = true;
+    }
+
 </script>
 <!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
 <template>
     <PreferencesPane v-model="showPreferences" />
+    <KeybindPane v-model="showKeybinds" />
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
@@ -73,9 +80,14 @@
         <div v-if="!isSideBarCollapsed">
             <div class="options-bar-sm">
                 <h2>Options</h2>
-                <span class="clickable-icon" title="Advanced options" @click="togglePreferences()">
-                    <i class="fa-lg fa-solid fa-gear"></i>
-                </span>
+                <div>
+                    <span class="clickable-icon" title="Help" @click="toggleKeybinds()">
+                        <i class="fa-lg fa-regular fa-circle-question"></i>
+                    </span>
+                    <span class="clickable-icon gear-icon" title="Advanced options" @click="togglePreferences()">
+                        <i class="fa-lg fa-solid fa-gear"></i>
+                    </span>
+                </div>
             </div>
             <OptionsPane />
         </div>
@@ -120,15 +132,27 @@
         justify-content: space-between;
         margin-bottom: 20px;
 
+        >div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 60px;
+        }
+
         .clickable-icon {
             cursor: pointer;
             height: 20px;
+            i:hover {
+                color: var(--theme-bg-4-20);
+            }
+        }
+
+        .gear-icon {
             i{
                 transition: rotate 0.1s;
             }
             i:hover {
                 rotate: 40deg;
-                color: var(--theme-bg-4-20);
             }
         }
 
