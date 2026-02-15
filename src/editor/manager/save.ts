@@ -27,7 +27,7 @@ export const useSaveFunction = () => {
         annotations.value.map( val => {
             data.annotations![ val.fixationId ] = val.boxId;
         } );
-        annotation.save( data, session.sessionId );
+        annotation.save( data, session.sessionIds[ session.sessionIdx ]! );
     };
 
     onMounted( () => {
