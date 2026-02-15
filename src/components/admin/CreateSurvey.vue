@@ -34,6 +34,8 @@
     }
 
     const show = defineModel<boolean>();
+    const showMagicLinks = ref( false );
+    const magicLinks: Ref<string[]> = ref( [] );
     const texts: Ref<Text[]> = ref( [] );
     const title = ref( '' );
     const desc = ref( '' );
@@ -89,10 +91,31 @@
         texts.value = data;
     };
 
+    // Used for magic links
+    const copyLinkToClipboard = (linkStr: string) => {
+        navigator.clipboard.writeText( linkStr );
+        notifications.notify( {
+            'text': 'Copied magic link to clipboard',
+            'type': 'success',
+            'title': 'Copied'
+        } );
+    };
+
+    const toggleMagicLinksView = () => {
+        showMagicLinks.value = !showMagicLinks.value;
+    }
+
     const useTestData = () => {
         const list: Text[] = testData.list;
 
         texts.value = list!;
+        let links = [];
+
+        for (let i = 0; i < 20; i++)
+            links.push( 'link' + String( i ) );
+
+        magicLinks.value = links;
+
         notifications.notify( {
             'text': 'Populated file list using testing data for frontend dev.',
             'type': 'warn',
@@ -142,23 +165,29 @@
             title.value,
             desc.value,
             texts.value.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
-        );
+        ).then(links => {
+            magicLinks.value = links;
+            showMagicLinks.value = true;
+        });
     };
 
     watch( show, val => {
         if ( val ) loadTexts();
     } );
-
-    // TODO: Fix up design (it is quite horrible currently)
 </script>
 
 <template>
     <div v-if="show" class="create-survey">
         <div class="create-survey-box">
             <div class="top-bar">
-                <h1>Create Survey</h1>
+                <h1 v-if="!showMagicLinks">
+                    Create Survey
+                </h1>
+                <h1 v-else>
+                    Magic Links
+                </h1>
                 <div>
-                    <span>
+                    <span v-if="!showMagicLinks">
                         <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="loadTexts()"></i>
                     </span>
                     <span>
@@ -166,7 +195,7 @@
                     </span>
                 </div>
             </div>
-            <div>
+            <div v-if="!showMagicLinks">
                 <div class="options-container">
                     <div class="options-section">
                         <p>General</p>
@@ -254,11 +283,47 @@
                                 <p>Please select a text</p>
                             </div>
                         </div>
-                        <button class="button primary" @click="save">
-                            Save
-                        </button>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                <div class="options-container">
+                    <div class="options-section">
+                        <div class="link-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Magic Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        v-for="link, index in magicLinks"
+                                        :key="index"
+                                        @click="copyLinkToClipboard( link )"
+                                    >
+                                        <td>
+                                            <i class="fa-lg fa-regular fa-copy"></i>
+                                            {{ link }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <button v-if="!showMagicLinks" class="button primary" @click="save">
+                    Save
+                </button>
+                <button 
+                    v-else
+                    class="button primary"
+                    @click="toggleMagicLinksView"
+                >
+                    Back
+                </button>
             </div>
         </div>
     </div>
@@ -325,12 +390,14 @@
             max-height: 50vh;
             margin-right: 1rem;
             padding: 0px 1rem;
+            background-color: var(--theme-bg-1-shade);
         }
 
         .right-table-wrapper {
             overflow-y: scroll;
             max-height: 50vh;
             padding: 0px 1rem;
+            background-color: var(--theme-bg-1-shade);
         }
 
         .placeholder {
@@ -338,6 +405,7 @@
             align-items: center;
             justify-content: center;
             color: var(--theme-background-text-20);
+            background-color: var(--theme-bg-1-shade);
         }
     }
 
@@ -407,6 +475,15 @@
                     color: var(--theme-background-text-20);
                     margin-top: 5px;
                     cursor: pointer;
+
+                    >i {
+                        margin-right: 1rem;
+                        margin-left: 0.5rem;
+                    }
+
+                    >i:hover {
+                        color: var(--theme-bg-4-20);
+                    }
 
                     >p {
                         font-size: 0.85rem;
@@ -485,8 +562,15 @@
 
         }
 
+        >.bottom-bar {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-top: 1rem;
+        }
+
         width: 50vw;
-        height: 75vh;
+        height: max(76vh, 670px);
         padding: 1px 1.5rem 1.5rem 1.5rem;
         position: relative;
         background-color: var( --theme-bg-2 );
@@ -496,7 +580,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 62vh;
+            height: max(58vh, 500px);
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;
