@@ -92,7 +92,7 @@
     };
 
     // Used for magic links
-    const copyLinkToClipboard = (linkStr: string) => {
+    const copyLinkToClipboard = ( linkStr: string ) => {
         navigator.clipboard.writeText( linkStr );
         notifications.notify( {
             'text': 'Copied magic link to clipboard',
@@ -103,7 +103,7 @@
 
     const toggleMagicLinksView = () => {
         showMagicLinks.value = !showMagicLinks.value;
-    }
+    };
 
     const useTestData = () => {
         const list: Text[] = testData.list;
@@ -111,7 +111,7 @@
         texts.value = list!;
         let links = [];
 
-        for (let i = 0; i < 20; i++)
+        for ( let i = 0; i < 20; i++ )
             links.push( 'link' + String( i ) );
 
         magicLinks.value = links;
@@ -165,10 +165,10 @@
             title.value,
             desc.value,
             texts.value.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
-        ).then(links => {
+        ).then( links => {
             magicLinks.value = links;
             showMagicLinks.value = true;
-        });
+        } );
     };
 
     watch( show, val => {
@@ -317,7 +317,7 @@
                 <button v-if="!showMagicLinks" class="button primary" @click="save">
                     Save
                 </button>
-                <button 
+                <button
                     v-else
                     class="button primary"
                     @click="toggleMagicLinksView"

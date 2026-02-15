@@ -1,9 +1,13 @@
-import type { CharacterBoundingBoxDto } from "@/types/dtos/CharacterBoundingBoxDto";
-import type { FixationDto } from "@/types/dtos/FixationDto";
+import type {
+    CharacterBoundingBoxDto
+} from '@/types/dtos/CharacterBoundingBoxDto';
+import type {
+    FixationDto
+} from '@/types/dtos/FixationDto';
 
 export interface AnnotationDto {
-  id?: number;
-  annotationType?: string;
-  fixation?: FixationDto;
-  characterBoundingBox?: CharacterBoundingBoxDto;
+    'id'?: number;
+    'annotationType'?: string;
+    'fixation'?: FixationDto;
+    'characterBoundingBox'?: CharacterBoundingBoxDto;
 }

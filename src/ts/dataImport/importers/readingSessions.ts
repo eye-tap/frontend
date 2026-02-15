@@ -1,5 +1,7 @@
 import {
+    importConfigFixationFixationIDCSVName,
     importConfigFixationHasMultipleTexts,
+    importConfigFixationReaderCSVName,
     importConfigFixationTextIDCSVName,
     importConfigFixationXCoordCSVName,
     importConfigFixationYCoordCSVName
@@ -23,6 +25,8 @@ export const importReadingSession = async ( fixationsCSVElement: HTMLInputElemen
         100,
         importConfigFixationXCoordCSVName.value,
         importConfigFixationYCoordCSVName.value,
-        importConfigFixationTextIDCSVName.value
+        importConfigFixationReaderCSVName.value,
+        importConfigFixationTextIDCSVName.value,
+        importConfigFixationFixationIDCSVName.value
     );
 };

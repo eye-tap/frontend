@@ -1,88 +1,88 @@
 <script setup lang="ts">
-import type {
-  ShallowAnnotationSessionDto
-} from '@/types/dtos/ShallowAnnotationSessionDto';
-import {
-  formatDate, formatDateTime
-} from '@/ts/util/date';
-import {
-  useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    import type {
+        ShallowAnnotationSessionDto
+    } from '@/types/dtos/ShallowAnnotationSessionDto';
+    import {
+        formatDate, formatDateTime
+    } from '@/ts/util/date';
+    import {
+        useActiveFileStore
+    } from '@/ts/stores/activeFileStore';
 
-const props = defineProps<{
-  'session': ShallowAnnotationSessionDto
-}>();
-const activeFile = useActiveFileStore();
+    const props = defineProps<{
+        'session': ShallowAnnotationSessionDto
+    }>();
+    const activeFile = useActiveFileStore();
 </script>
 
 <template>
-  <div class="preview-provider">
-    <table v-if="activeFile.selected">
-      <tbody>
-      <tr>
-        <td>
-          <p class="title">
-            Uploaded on
-          </p>
-          <p class="content">
-            {{ props.session.readingSession?.uploadedAt ? formatDate(new Date($props.session.readingSession?.uploadedAt!)) : 'N/A' }}
-          </p>
-        </td>
-        <td>
-          <p class="title">
-            Word count
-          </p>
-          <p class="content">
-            {{ 'N/A' }}
-          </p>
-        </td>
-        <td>
-          <p class="title">
-            Gaze points
-          </p>
-          <p class="content">
-            {{ props.session.readingSession?.textTitle ? $props.session.readingSession?.textTitle : 'N/A' }}
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p class="title">
-            Last modified on
-          </p>
-          <p class="content">
-            {{ $props.session.lastEdited ? formatDateTime(new Date($props.session.lastEdited)) : 'N/A' }}
-          </p>
-        </td>
-        <td>
-          <p class="title">
-            Assigned
-          </p>
-          <p class="content">
-            {{ props.session.annotationsMetaData ? $props.session.annotationsMetaData?.done : 'N/A' }}
-          </p>
-        </td>
-        <td>
-          <p class="title">
-            Unassigned
-          </p>
-          <!-- TODO: Set color class depending on value. (success on 0, warning > 0) -->
-          <!-- Using v-if on props currently crashes after reload -->
-          <p
-              class="content information"
-          >
-            {{
-              $props.session.annotationsMetaData ? $props.session.annotationsMetaData.total! - $props.session.annotationsMetaData.done! : 'N/A'
-            }}
-          </p>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <div v-else>
-      <p> Please select a file </p>
+    <div class="preview-provider">
+        <table v-if="activeFile.selected">
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="title">
+                            Uploaded on
+                        </p>
+                        <p class="content">
+                            {{ props.session.readingSession?.uploadedAt ? formatDate(new Date($props.session.readingSession?.uploadedAt!)) : 'N/A' }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="title">
+                            Word count
+                        </p>
+                        <p class="content">
+                            {{ 'N/A' }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="title">
+                            Gaze points
+                        </p>
+                        <p class="content">
+                            {{ props.session.readingSession?.textTitle ? $props.session.readingSession?.textTitle : 'N/A' }}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="title">
+                            Last modified on
+                        </p>
+                        <p class="content">
+                            {{ $props.session.lastEdited ? formatDateTime(new Date($props.session.lastEdited)) : 'N/A' }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="title">
+                            Assigned
+                        </p>
+                        <p class="content">
+                            {{ props.session.annotationsMetaData ? $props.session.annotationsMetaData?.done : 'N/A' }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="title">
+                            Unassigned
+                        </p>
+                        <!-- TODO: Set color class depending on value. (success on 0, warning > 0) -->
+                        <!-- Using v-if on props currently crashes after reload -->
+                        <p
+                            class="content information"
+                        >
+                            {{
+                                $props.session.annotationsMetaData ? $props.session.annotationsMetaData.total! - $props.session.annotationsMetaData.done! : 'N/A'
+                            }}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else>
+            <p> Please select a file </p>
+        </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>

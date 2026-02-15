@@ -13,7 +13,8 @@ export const parseFixationsCSV = (
     xName: string = 'x',
     yName: string = 'y',
     readerName: string = 'reader',
-    textName: string = 'text'
+    textName: string = 'text',
+    idName: string = 'fixid'
 ): ImportReadingSessionDto[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
@@ -22,6 +23,7 @@ export const parseFixationsCSV = (
     const textIndex = header.indexOf( textName );
     const xIndex = header.indexOf( xName );
     const yIndex = header.indexOf( yName );
+    const idIndex = header.indexOf( idName );
 
     if ( xIndex < 0 )
         throw new InvalidIndexNameError( 'X coordinate' );
@@ -29,12 +31,9 @@ export const parseFixationsCSV = (
         throw new InvalidIndexNameError( 'Y coordinate' );
     else if ( readerIndex < 0 )
         throw new InvalidIndexNameError( 'reader ID' );
-    else if ( textIndex < 0 )
+    else if ( textIndex < 0 && textId !== undefined )
         throw new InvalidIndexNameError( 'text ID' );
 
-    const indices: {
-        [key: string]: number
-    } = {};
     const firstCols = lines[0]!.split( ',' );
     const firstEncounteredTextID = firstCols[ textIndex ];
     const points: {
@@ -50,11 +49,10 @@ export const parseFixationsCSV = (
             throw new MultipleTextIDsWithoutSpecifiedTextIDError();
         }
 
-        if ( textId !== undefined || cols[textIndex] === textId ) {
+        if ( textId === undefined ) {
             const reader = cols[ readerIndex ]!;
 
-            if ( !indices[ reader ] ) {
-                indices[ reader ] = 0;
+            if ( !points[ reader ] ) {
                 points[ reader ] = {
                     'textForeignId': Number( textId ),
                     'readerForeignId': Number( reader ),
@@ -65,7 +63,23 @@ export const parseFixationsCSV = (
             points[ reader ]!.fixations!.push( {
                 'x': tempx,
                 'y': tempy,
-                'foreignId': indices[ cols[ readerIndex ]! ]!++
+                'foreignId': Number( cols[ idIndex ]! )
+            } );
+        } else if ( cols[textIndex] === textId ) {
+            const reader = cols[ readerIndex ]!;
+
+            if ( !points[ reader ] ) {
+                points[ reader ] = {
+                    'textForeignId': Number( textId ),
+                    'readerForeignId': Number( reader ),
+                    'fixations': []
+                };
+            }
+
+            points[ reader ]!.fixations!.push( {
+                'x': tempx,
+                'y': tempy,
+                'foreignId': Number( cols[ idIndex ]! )
             } );
         }
     }

@@ -13,14 +13,14 @@ import {
     ioHandler
 } from './io';
 import {
+    loadEditorDataFromBackend
+} from './loaders/backend';
+import {
     renderer
 } from './render';
 import {
     useStatusStore
 } from '@/ts/stores/status';
-import {
-    loadEditorDataFromBackend
-} from './loaders/backend';
 
 export const save = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );

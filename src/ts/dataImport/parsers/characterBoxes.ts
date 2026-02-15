@@ -16,8 +16,6 @@ export const parseCharacterBoundingBoxesCSV = (
     charName: string = 'character',
     textName: string = 'text_id'
 ): ImportCharacterBoundingBoxDto[] => {
-    let index = 0;
-
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
@@ -75,7 +73,7 @@ export const parseCharacterBoundingBoxesCSV = (
                 'yMin': Number( cols[yMinIndex] ),
                 'yMax': Number( cols[yMaxIndex] ),
                 'character': String( cols[charIndex] ),
-                'foreignId': index++
+                'foreignId': Number( cols[textIndex] )
             } );
     }
 

@@ -1,170 +1,170 @@
 <script setup lang="ts">
-import {
-  type ComputedRef,
-  type Ref,
-  computed,
-  ref,
-  watch
-} from 'vue';
-import type {
-  ShallowAnnotationSessionDto
-} from '@/types/dtos/ShallowAnnotationSessionDto';
-import {
-  formatDateTime
-} from '@/ts/util/date';
-import {
-  useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    import {
+        type ComputedRef,
+        type Ref,
+        computed,
+        ref,
+        watch
+    } from 'vue';
+    import type {
+        ShallowAnnotationSessionDto
+    } from '@/types/dtos/ShallowAnnotationSessionDto';
+    import {
+        formatDateTime
+    } from '@/ts/util/date';
+    import {
+        useActiveFileStore
+    } from '@/ts/stores/activeFileStore';
 
-type sortColumns = 'none' | 'total' | 'done';
+    type sortColumns = 'none' | 'total' | 'done';
 
-const props = defineProps<{
-  'files': ShallowAnnotationSessionDto[],
-  'loading': boolean,
-  'lastLogin': number
-}>();
-const emits = defineEmits<{
-  (e: 'fileSelect', file: ShallowAnnotationSessionDto): void
-  (e: 'reloadFiles'): void
-}>();
-const ascendingSort = ref(true);
-const sortColumn: Ref<sortColumns> = ref('none');
-const selectedFileIndex = ref(0);
-const activeFile = useActiveFileStore();
-const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed(() => {
-  if (sortColumn.value === 'none') {
-    return props.files;
-  }
+    const props = defineProps<{
+        'files': ShallowAnnotationSessionDto[],
+        'loading': boolean,
+        'lastLogin': number
+    }>();
+    const emits = defineEmits<{
+        ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void
+        ( e: 'reloadFiles' ): void
+    }>();
+    const ascendingSort = ref( true );
+    const sortColumn: Ref<sortColumns> = ref( 'none' );
+    const selectedFileIndex = ref( 0 );
+    const activeFile = useActiveFileStore();
+    const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
+        if ( sortColumn.value === 'none' ) {
+            return props.files;
+        }
 
-  const toSort = [...props.files];
+        const toSort = [ ...props.files ];
 
-  return toSort.sort(compareFunc);
-});
+        return toSort.sort( compareFunc );
+    } );
 
-watch(sortedList, () => selectedFileIndex.value = 0);
+    watch( sortedList, () => selectedFileIndex.value = 0 );
 
-const setSorting = (col: sortColumns) => {
-  if (sortColumn.value === col) {
-    if (ascendingSort.value)
-      ascendingSort.value = false;
-    else
-      sortColumn.value = 'none';
-  } else {
-    ascendingSort.value = true;
-    sortColumn.value = col;
-  }
-};
+    const setSorting = ( col: sortColumns ) => {
+        if ( sortColumn.value === col ) {
+            if ( ascendingSort.value )
+                ascendingSort.value = false;
+            else
+                sortColumn.value = 'none';
+        } else {
+            ascendingSort.value = true;
+            sortColumn.value = col;
+        }
+    };
 
-// Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
-const compareFunc = (a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto) => {
-  if (sortColumn.value === 'none') return 1;
+    // Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
+    const compareFunc = ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
+        if ( sortColumn.value === 'none' ) return 1;
 
-  if (sortColumn.value === 'total' || sortColumn.value === 'done') {
-    if (!a.annotationsMetaData && b.annotationsMetaData) return sortPredicate(!ascendingSort.value);
+        if ( sortColumn.value === 'total' || sortColumn.value === 'done' ) {
+            if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
 
-    if (a.annotationsMetaData && !b.annotationsMetaData) return sortPredicate(ascendingSort.value);
+            if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort.value );
 
-    if (!a.annotationsMetaData && !b.annotationsMetaData) return sortPredicate(!ascendingSort.value);
+            if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
 
-    if (!ascendingSort.value)
-      return sortPredicate(a['annotationsMetaData']![sortColumn.value]! < b['annotationsMetaData']![sortColumn.value]!);
-    else
-      return sortPredicate(b['annotationsMetaData']![sortColumn.value]! < a['annotationsMetaData']![sortColumn.value]!);
-  } else {
-    if (!ascendingSort.value)
-      return a[sortColumn.value] < b[sortColumn.value] ? 1 : -1;
-    else
-      return a[sortColumn.value] < b[sortColumn.value] ? -1 : 1;
-  }
-};
+            if ( !ascendingSort.value )
+                return sortPredicate( a['annotationsMetaData']![sortColumn.value]! < b['annotationsMetaData']![sortColumn.value]! );
+            else
+                return sortPredicate( b['annotationsMetaData']![sortColumn.value]! < a['annotationsMetaData']![sortColumn.value]! );
+        } else {
+            if ( !ascendingSort.value )
+                return a[sortColumn.value] < b[sortColumn.value] ? 1 : -1;
+            else
+                return a[sortColumn.value] < b[sortColumn.value] ? -1 : 1;
+        }
+    };
 
-const sortPredicate = (predicate: boolean) => {
-  return predicate ? 1 : -1;
-};
+    const sortPredicate = ( predicate: boolean ) => {
+        return predicate ? 1 : -1;
+    };
 
-const selectFile = (index: number) => {
-  selectedFileIndex.value = index;
-  emits('fileSelect', sortedList.value[index]!);
-};
+    const selectFile = ( index: number ) => {
+        selectedFileIndex.value = index;
+        emits( 'fileSelect', sortedList.value[index]! );
+    };
 
-const reloadFromServer = () => {
-  emits('reloadFiles');
-};
+    const reloadFromServer = () => {
+        emits( 'reloadFiles' );
+    };
 </script>
 
 <template>
-  <div class="file-browser">
-    <div class="file-picker-title">
+    <div class="file-browser">
+        <div class="file-picker-title">
             <span>
                 <i class="fa-xl fa-solid fa-file"></i>
                 <p>Select a file to annotate</p>
                 <i v-if="$props.loading" class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
             </span>
-      <div>
+            <div>
                 <span class="refresh-icon">
                     <i class="fa-lg fa-solid fa-arrows-rotate" @click="reloadFromServer()"></i>
                 </span>
-      </div>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table v-if="sortedList.length > 0">
+                <thead>
+                    <tr>
+                        <th class="file-name">
+                            <div>
+                                Name
+                            </div>
+                        </th>
+                        <th class="gazepoints clickable" @click="setSorting( 'total' )">
+                            <div>
+                                Fixations
+                                <span
+                                    v-if="sortColumn === 'total'"
+                                    :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
+                                >arrow_drop_down</span>
+                            </div>
+                        </th>
+                        <th class="assigned clickable" @click="setSorting( 'done' )">
+                            <div>
+                                Assigned
+                                <span
+                                    v-if="sortColumn === 'done'"
+                                    :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
+                                >arrow_drop_down</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        v-for="file, index in sortedList"
+                        :key="file.id"
+                        :class="index === selectedFileIndex && activeFile.selected ? 'selected' : ''"
+                        @click="selectFile( index )"
+                    >
+                        <td class="file-name">
+                            {{ file.readingSession?.textTitle }}
+                        </td>
+                        <td class="gazepoints">
+                            {{
+                                file.annotationsMetaData?.total != null
+                                    ? file.annotationsMetaData.total : 'Not modified'
+                            }}
+                        </td>
+                        <td class="assigned">
+                            {{
+                                file.annotationsMetaData?.done != null
+                                    ? file.annotationsMetaData.done : 'Not modified'
+                            }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div v-else>
+                <p>No Files on the server</p>
+            </div>
+        </div>
     </div>
-    <div class="table-wrapper">
-      <table v-if="sortedList.length > 0">
-        <thead>
-        <tr>
-          <th class="file-name">
-            <div>
-              Name
-            </div>
-          </th>
-          <th class="gazepoints clickable" @click="setSorting( 'total' )">
-            <div>
-              Fixations
-              <span
-                  v-if="sortColumn === 'total'"
-                  :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
-              >arrow_drop_down</span>
-            </div>
-          </th>
-          <th class="assigned clickable" @click="setSorting( 'done' )">
-            <div>
-              Assigned
-              <span
-                  v-if="sortColumn === 'done'"
-                  :class="['material-symbols-outlined', 'sort', ascendingSort ? 'ascending' : undefined]"
-              >arrow_drop_down</span>
-            </div>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-for="file, index in sortedList"
-            :key="file.id"
-            :class="index === selectedFileIndex && activeFile.selected ? 'selected' : ''"
-            @click="selectFile( index )"
-        >
-          <td class="file-name">
-            {{ file.readingSession?.textTitle }}
-          </td>
-          <td class="gazepoints">
-            {{
-              file.annotationsMetaData?.total != null
-                  ? file.annotationsMetaData.total : 'Not modified'
-            }}
-          </td>
-          <td class="assigned">
-            {{
-              file.annotationsMetaData?.done != null
-                  ? file.annotationsMetaData.done : 'Not modified'
-            }}
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div v-else>
-        <p>No Files on the server</p>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
