@@ -30,6 +30,7 @@ router.beforeResolve( ( to, _from, next ) => {
 
 router.beforeEach( to => {
     const store = useStatusStore();
+    const file = useActiveFileStore();
 
     if ( to.meta.authRequired && !store.isAuth ) {
         return {
@@ -39,9 +40,15 @@ router.beforeEach( to => {
         return {
             'name': 'app-home'
         };
+    } else if ( to.name === 'app-home' && store.role === 'admin' && !store.devMode ) {
+        return {
+            'name': 'admin'
+        };
+    } else if ( to.name === 'admin' && store.role !== 'admin' && !store.devMode ) {
+        return {
+            'name': 'app-home'
+        };
     } else if ( to.name === 'app-editor' ) {
-        const file = useActiveFileStore();
-
         if ( !file.selected && !store.devMode ) {
             return {
                 'name': 'app-home'

@@ -31,12 +31,12 @@ if ( import.meta.env.VITE_BACKEND_URL ) {
     localStorage.setItem( 'url', 'http://localhost:8080' );
 }
 
-if ( import.meta.env.VITE_DISABLE_LOGIN_CHECK ) {
+if ( import.meta.env.VITE_DISABLE_LOGIN_CHECK || import.meta.env.VITE_DEV_MODE ) {
     const status = useStatusStore();
 
     status.setDevMode( true );
     status.setAuth( true );
-    console.warn( 'Env var VITE_DISABLE_LOGIN_CHECK set: Login disabled' );
+    console.warn( 'Env var VITE_DEV_MODE (or VITE_DISABLE_LOGIN_CHECK) set: Login disabled' );
 }
 
 app.mount( '#app' );
