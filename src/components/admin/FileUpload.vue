@@ -94,7 +94,7 @@
         }
 
         notifications.notify( {
-            'text': 'Created Annotation Set',
+            'text': 'Text uploaded',
             'type': 'success',
             'title': 'File Upload'
         } );
@@ -117,7 +117,7 @@
         <div class="file-upload-bar">
             <div>
                 <i class="fa-xl fa-solid fa-file"></i>
-                <p>Upload Annotation Set</p>
+                <p>Upload Text</p>
             </div>
             <span class="clickable-icon" @click="toggleOpts()">
                 <i class="fa-lg fa-solid fa-gear"></i>
@@ -177,7 +177,7 @@
                 @click="submit"
             >
                 <i class="fa-solid fa-file-arrow-up"></i>
-                Create annotation set
+                Upload Text
                 <div v-if="uploading">
                     <i class="fa-solid fa-lg fa-arrows-rotate"></i>
                 </div>
