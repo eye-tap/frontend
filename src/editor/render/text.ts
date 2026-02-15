@@ -12,17 +12,20 @@ import {
     scale
 } from './scaling';
 import {
-    canvasSize
-} from '../data';
-import {
+    imageDataToProvidedImageElement,
     setImageTextColour
 } from './image-magic';
+import {
+    canvasSize
+} from '../data';
 
 // TODO: Add note somewhere that Canvas might look odd, simply tell user to allow usage of canvas in browser
 export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
+    const updatedTextCache = document.createElement( 'img' );
+
     let ctx: CanvasRenderingContext2D | null = null;
 
-    const render = async () => {
+    const render = async ( full: boolean = false ) => {
         if ( !ctx ) return;
 
         // Reset canvas
@@ -33,27 +36,22 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
             ctx.canvas.height = canvasSize.value.height;
 
             if ( boxesDisplay.value === 'letters' ) {
-                const imgData = setImageTextColour( image, unfocusedTextColor.value, {
-                    'x': 0,
-                    'y': 0,
-                    'width': image.width,
-                    'height': image.height,
-                    'scale': true
-                } );
+                if ( full || !updatedTextCache.src ) {
+                    const imgData = setImageTextColour( image, unfocusedTextColor.value, {
+                        'x': 0,
+                        'y': 0,
+                        'width': image.width,
+                        'height': image.height,
+                        'scale': false
+                    } );
 
-                ctx.putImageData( imgData, 0, 0 );
+                    imageDataToProvidedImageElement( imgData, image.width, image.height, updatedTextCache )
+                        .then( () => drawImage( updatedTextCache ) );
+                } else {
+                    drawImage( updatedTextCache );
+                }
             } else {
-                ctx.drawImage(
-                    image,
-                    canvasToOriginalCoordinates( 0, 'x' ),
-                    canvasToOriginalCoordinates( 0, 'y' ),
-                    image.width,
-                    image.height,
-                    0,
-                    0,
-                    scale( image.width ),
-                    scale( image.height )
-                );
+                drawImage( image );
             }
         } else {
             ctx.canvas.width = canvasSize.value.width;
@@ -61,12 +59,26 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
         }
     };
 
+    const drawImage = ( image: HTMLImageElement ) => {
+        ctx!.drawImage(
+            image,
+            canvasToOriginalCoordinates( 0, 'x' ),
+            canvasToOriginalCoordinates( 0, 'y' ),
+            image.width,
+            image.height,
+            0,
+            0,
+            scale( image.width ),
+            scale( image.height )
+        );
+    };
+
     onMounted( () => {
         ctx = textCanvas.value!.getContext( '2d' )!;
         render();
     } );
 
-    watch( unfocusedTextColor, render );
+    watch( unfocusedTextColor, () => render( true ) );
 
     watch( boxesDisplay, ( val, oldVal ) => {
         if ( oldVal === 'letters' && val !== 'letters' ) render();

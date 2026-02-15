@@ -63,6 +63,19 @@ const img = document.createElement( 'img' );
 const exportCanvas = document.createElement( 'canvas' );
 
 export const imgDataToImageObject = ( imgData: ImageData, width: number, height: number ): Promise<HTMLImageElement> => {
+    return new Promise( ( resolve, reject ) => {
+        imageDataToProvidedImageElement( imgData, width, height, img )
+            .then( () => resolve( img ) )
+            .catch( reject );
+    } );
+};
+
+export const imageDataToProvidedImageElement = (
+    imgData: ImageData,
+    width: number,
+    height: number,
+    img: HTMLImageElement
+): Promise<void> => {
     return new Promise( resolve => {
         const ctx = exportCanvas.getContext( '2d' )!;
 
@@ -72,7 +85,7 @@ export const imgDataToImageObject = ( imgData: ImageData, width: number, height:
         ctx.putImageData( imgData, 0, 0 );
         const uri = exportCanvas.toDataURL( 'image/jpg' );
 
-        img.onload = () => resolve( img );
+        img.onload = () => resolve();
         img.src = uri;
     } );
 };
