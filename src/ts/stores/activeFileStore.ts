@@ -26,13 +26,14 @@ export const useActiveFileStore = defineStore( 'file', {
             this.sessionIdx = idx;
             this.selected = true;
         },
-        indexOf(sessionId: number){
-            for (let i = 0; i < this.sessionIds.length; i++) {
-                if(this.sessionIds[i] == sessionId){
+        indexOf ( sessionId: number ) {
+            for ( let i = 0; i < this.sessionIds.length; i++ ) {
+                if ( this.sessionIds[i] == sessionId ) {
                     return i;
                 }
             }
-            throw new Error("Couldn't find requested file");
+
+            throw new Error( 'Couldn\'t find requested file' );
         }
     }
 } );

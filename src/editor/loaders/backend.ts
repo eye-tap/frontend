@@ -22,8 +22,9 @@ export const sessionData: Ref<AnnotationSessionDto> = ref( {} );
 
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useActiveFileStore();
-    console.log("Active index " + session.sessionIdx)
-    console.log("Array " + session.sessionIds)
+
+    console.log( 'Active index ' + session.sessionIdx );
+    console.log( 'Array ' + session.sessionIds );
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]! );
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;

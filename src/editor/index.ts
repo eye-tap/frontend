@@ -59,7 +59,7 @@ const start = (
     editorSessionManager( draw );
 
     if ( !status.devMode ) {
-        loadEditorDataFromBackend(draw).then();
+        loadEditorDataFromBackend( draw ).then();
     }
 
     return {
