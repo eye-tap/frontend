@@ -5,9 +5,12 @@
     import EditorView from './components/EditorView.vue';
     import PageTour from './tour/PageTour.vue';
     import SidePane from './components/SidePane.vue';
-    import {
-        ref
-    } from 'vue';
+    import AnnotationCompletion from './components/AnnotationCompletion.vue';
+    import {useAnnotationNavigation} from './composables/useAnnotationNavigation';
+    import { ref } from 'vue';
+
+    const { goToNextAnnotation, isAnnotationComplete } = useAnnotationNavigation();
+    
 
     // TODO: To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
     const steps: ITourStep[] = [
@@ -31,6 +34,11 @@
 <template>
     <div class="editor">
         <PageTour v-model="showWelcomeTour" />
+        <AnnotationCompletion
+            v-model="isAnnotationComplete"
+            @next="goToNextAnnotation"
+            @close="isAnnotationComplete = false"
+        />
         <SidePane />
         <EditorView id="tour-editor" />
         <VTour :steps="steps" />

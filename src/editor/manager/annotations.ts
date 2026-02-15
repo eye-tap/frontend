@@ -48,20 +48,25 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             // TODO: Highlight box that is annotated,
             // then set timeout to un-highlight it
             // Same for delete
+            let endOfAnnotations = true;
 
             for ( let i = 1; i < length; i++ ) {
                 const nextIndex = ( fixationIndex + i ) % length;
 
                 if ( fixations.value[nextIndex]!.assigned !== 'assigned' ) {
                     selectedFixation.value = nextIndex;
-                    document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
+                    endOfAnnotations = false;
+                    break;
+                }
+            }
+            if ( endOfAnnotations ){
+                document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
                         'detail': {
                             'current': session.sessionIds[ session.sessionIdx ],
                             'next': session.sessionIds[ session.sessionIdx + 1 ]
                         }
                     } ) );
-                    break;
-                }
+                selectedFixation.value = -1;
             }
 
 
