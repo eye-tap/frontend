@@ -1,16 +1,16 @@
 <script setup lang="ts">
 
-import {
+    import {
         boxesDisplay,
         boxesDisplayOptions,
-        linesDisplay,
-        linesDisplayOptions,
         fixationDisplay,
         fixationDisplayOptions,
         fixationIndexDisplay,
         fixationIndexDisplayOptions,
+        linesDisplay,
+        linesDisplayOptions
     } from '../config';
-import SliderOptions from '@/components/settings/SliderOptions.vue';
+    import SliderOptions from '@/components/settings/SliderOptions.vue';
 </script>
 
 <template>

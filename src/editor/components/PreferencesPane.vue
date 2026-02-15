@@ -1,27 +1,27 @@
 <script setup lang="ts">
     import {
-        assignedLineColor,
-        cursorLineColor,
-        boundingBoxColor,
-        highlightedBoundingBoxColor,
-        proximityBoundingBoxColor,
-        selectedFixationColor,
         assignedFixationColor,
-        unassignedFixationColor,
-        machineAssignedFixationColor,
-        fixationRadius,
-        hoveredFixationRadius,
-        selectedFixationRadius,
+        assignedLineColor,
+        boundingBoxColor,
         boundingBoxStrokeWidth,
-        lineWidth,
         boxesDisplay,
         boxesDisplayOptions,
-        linesDisplay,
-        linesDisplayOptions,
+        cursorLineColor,
         fixationDisplay,
         fixationDisplayOptions,
         fixationIndexDisplay,
         fixationIndexDisplayOptions,
+        fixationRadius,
+        highlightedBoundingBoxColor,
+        hoveredFixationRadius,
+        lineWidth,
+        linesDisplay,
+        linesDisplayOptions,
+        machineAssignedFixationColor,
+        proximityBoundingBoxColor,
+        selectedFixationColor,
+        selectedFixationRadius,
+        unassignedFixationColor
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
@@ -48,25 +48,25 @@
                     <div class="options-section">
                         <p>Advanced</p>
                         <SliderOptions
-                    v-model="boxesDisplay"
-                    :options="boxesDisplayOptions"
-                    text="Boxes"
-                />
-                <SliderOptions
-                     v-model="linesDisplay"
-                     :options="linesDisplayOptions"
-                     text="Lines"
-                />
-                <SliderOptions
-                    v-model="fixationDisplay"
-                    :options="fixationDisplayOptions"
-                    text="Fixation"
-                />
-                <SliderOptions
-                    v-model="fixationIndexDisplay"
-                    :options="fixationIndexDisplayOptions"
-                    text="Fixation Index"
-                />
+                            v-model="boxesDisplay"
+                            :options="boxesDisplayOptions"
+                            text="Boxes"
+                        />
+                        <SliderOptions
+                            v-model="linesDisplay"
+                            :options="linesDisplayOptions"
+                            text="Lines"
+                        />
+                        <SliderOptions
+                            v-model="fixationDisplay"
+                            :options="fixationDisplayOptions"
+                            text="Fixation"
+                        />
+                        <SliderOptions
+                            v-model="fixationIndexDisplay"
+                            :options="fixationIndexDisplayOptions"
+                            text="Fixation Index"
+                        />
                     </div>
 
                     <div class="options-section">

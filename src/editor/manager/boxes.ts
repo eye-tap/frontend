@@ -48,7 +48,6 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
             }
         }
 
-        // TODO: Update to be relative to cursor instead of box center
         if ( boxesDisplay.value === 'proximity' ) {
             // Compute proximity
             for ( let i = 0; i < boundingBoxes.value.length; i++ ) {

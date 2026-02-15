@@ -1,43 +1,47 @@
 <script setup lang="ts">
-const show = defineModel<boolean>();
+    const show = defineModel<boolean>();const emit = defineEmits<{
+        ( e: 'next' ): void
+        ( e: 'close' ): void
+    }>();
 
-const emit = defineEmits<{
-    (e: 'next'): void
-    (e: 'close'): void
-}>();
+    const goNext = () => {
+        show.value = false;
+        emit( 'next' );
+    };
 
-const goNext = () => {
-    show.value = false;
-    emit('next');
-};
-
-const close = () => {
-    show.value = false;
-    emit('close');
-};
+    const close = () => {
+        show.value = false;
+        emit( 'close' );
+    };
 </script>
 
 <template>
-  <div v-if="show" class="overlay" @click.self="close">
-    <div class="overlay-box">
-      <div class="content">
-        <div class="icon-circle">🎉</div>
-        <h1>Annotation Complete!</h1>
-        <p>You’ve successfully completed this annotation.</p>
-      </div>
+    <div v-if="show" class="overlay" @click.self="close">
+        <div class="overlay-box">
+            <div class="content">
+                <div class="icon-circle">
+                    🎉
+                </div>
+                <h1>Annotation Complete!</h1>
+                <p>You’ve successfully completed this annotation.</p>
+            </div>
 
-      <div class="actions">
-        <button class="btn-primary" @click="goNext">Go to Next Annotation</button>
-        <button class="btn-secondary" @click="close">Stay Here</button>
-      </div>
+            <div class="actions">
+                <button class="btn-primary" @click="goNext">
+                    Go to Next Annotation
+                </button>
+                <button class="btn-secondary" @click="close">
+                    Stay Here
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
 .overlay {
   position: fixed;
-  inset: 0; 
+  inset: 0;
   background-color: var(--theme-overlay, rgba(0, 0, 0, 0.7));
   display: flex;
   justify-content: center;
@@ -45,7 +49,7 @@ const close = () => {
   height: 100vh;
   width: 100vw;
   z-index: 1000;
-  backdrop-filter: blur(4px); 
+  backdrop-filter: blur(4px);
 
   .overlay-box {
     width: 90%;

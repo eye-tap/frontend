@@ -6,12 +6,16 @@
     import PageTour from './tour/PageTour.vue';
     import SidePane from './components/SidePane.vue';
     import AnnotationCompletion from './components/AnnotationCompletion.vue';
-    import {useAnnotationNavigation} from './composables/useAnnotationNavigation';
-    import { ref } from 'vue';
+    import {
+        useAnnotationNavigation
+    } from './composables/useAnnotationNavigation';
+    import {
+        ref
+    } from 'vue';
 
-    const { goToNextAnnotation, isAnnotationComplete } = useAnnotationNavigation();
-    
-
+    const {
+        goToNextAnnotation, isAnnotationComplete
+    } = useAnnotationNavigation();
     // TODO: To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
     const steps: ITourStep[] = [
         {

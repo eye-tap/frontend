@@ -17,7 +17,7 @@
         useNotification
     } from '@kyvg/vue3-notification';
     import SwitchOption from '../settings/SwitchOption.vue';
-    import testData from "@/ts/dev/TextTestData.json"
+    import testData from '@/ts/dev/TextTestData.json';
 
     const dismiss = () => {
         show.value = false;
@@ -42,9 +42,9 @@
     const selectedTextIndex = ref( -1 );
     const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
 
-    const selectText = (index: number) => {
+    const selectText = ( index: number ) => {
         selectedTextIndex.value = index;
-    }
+    };
 
     const isSelectOrUnselectAll = ( textIdx: number ) => {
         return computed( () => {
@@ -98,7 +98,7 @@
             'type': 'warn',
             'title': 'Loaded Testing Data'
         } );
-    }
+    };
 
     const toggleSelectAllForText = ( textIdx: number ) => {
         const text = texts.value[ textIdx ]!;

@@ -17,6 +17,9 @@ import {
 import {
     canvasSize
 } from '../data';
+import {
+    resetAllBoxes
+} from '../manager/boxes';
 
 export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
@@ -58,13 +61,17 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         rect = target.value!.getBoundingClientRect();
     };
 
-    // TODO: Mouseleave handler (clears boxes and lines)
+    const mouseLeaveHandler = () => {
+        resetAllBoxes();
+        isMouseDragging.value = false;
+    };
 
     onMounted( () => {
         updateRect();
         target.value!.addEventListener( 'mousedown', mouseDownHandler );
         target.value!.addEventListener( 'mouseup', mouseUpHandler );
         target.value!.addEventListener( 'mousemove', mouseMoveHandler );
+        target.value!.addEventListener( 'mouseleave', mouseLeaveHandler );
         window.addEventListener( 'resize', updateRect );
     } );
 
@@ -79,6 +86,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
         try {
             target.value!.removeEventListener( 'mousemove', mouseMoveHandler );
+        } catch { /* empty */ }
+
+        try {
+            target.value!.removeEventListener( 'mouseleave', mouseLeaveHandler );
         } catch { /* empty */ }
 
         try {

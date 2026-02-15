@@ -59,13 +59,14 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
                     break;
                 }
             }
-            if ( endOfAnnotations ){
+
+            if ( endOfAnnotations ) {
                 document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
-                        'detail': {
-                            'current': session.sessionIds[ session.sessionIdx ],
-                            'next': session.sessionIds[ session.sessionIdx + 1 ]
-                        }
-                    } ) );
+                    'detail': {
+                        'current': session.sessionIds[ session.sessionIdx ],
+                        'next': session.sessionIds[ session.sessionIdx + 1 ]
+                    }
+                } ) );
                 selectedFixation.value = -1;
             }
 

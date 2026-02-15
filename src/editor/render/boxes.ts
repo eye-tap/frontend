@@ -160,7 +160,7 @@ const proximityModeRendering = ( ctx: CanvasRenderingContext2D ) => {
 
 const normalModeRendering = ( ctx: CanvasRenderingContext2D ) => {
     return ( bb: EditorCharacterBoundingBox ) => {
-        if ( bb.highlightClass === 'none' ) {
+        if ( bb.highlightClass === 'none' || bb.highlightClass === 'proximity' ) {
             // No special highlighting (uses default theme), except if proximity mode, then will not be rendered
             drawBox( boundingBoxColor.value, bb, ctx );
         } else if ( bb.highlightClass === 'hovered' ) {
