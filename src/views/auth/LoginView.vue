@@ -61,18 +61,23 @@
 
                 return;
             } else {
-                // login using magic link
-                const user = magicLinks.getDecoded();
-
-                id.value = user.username;
-                password.value = user.password;
-
-                login();
+                magicLink();
             }
         } )
         .catch( () => {
             loggingIn.value = false; // user not logged in
+            magicLink();
         } );
+
+    const magicLink = () => {
+        // login using magic link
+        const user = magicLinks.getDecoded();
+
+        id.value = user.username;
+        password.value = user.password;
+
+        login();
+    };
 
     const keyHandler = ( ev: KeyboardEvent ) => {
         if ( ev.key === 'Enter' ) {

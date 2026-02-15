@@ -1,3 +1,6 @@
+import type {
+    JWT
+} from '@/types/jwt';
 import {
     ref
 } from 'vue';
@@ -8,9 +11,6 @@ import {
 import {
     useStatusStore
 } from '@/ts/stores/status';
-import type {
-    JWT
-} from '@/types/jwt';
 
 const loggingIn = ref( false );
 const errMsg = ref( '' );
@@ -153,7 +153,7 @@ const logout = (): void => {
 };
 
 
-const signup = ( username: string, email: string, pw: string ): Promise<boolean> => {
+const signup = ( username: string, email: string, pw: string, type: 'SURVEY_ADMIN' | 'CROWD_SOURCE' ): Promise<boolean> => {
     return new Promise( ( resolve, reject ) => {
         fetch( localStorage.getItem( 'url' ) + '/auth/register', {
             'method': 'POST',
@@ -164,7 +164,7 @@ const signup = ( username: string, email: string, pw: string ): Promise<boolean>
                 'id': username,
                 'email': email,
                 'password': pw,
-                'accountType': 'SURVEY_ADMIN' // TODO: Update this
+                'accountType': type
             } ),
             'credentials': 'include'
         } )

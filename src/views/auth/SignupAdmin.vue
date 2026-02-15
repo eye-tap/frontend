@@ -111,7 +111,7 @@
         if ( usernameError.value || emailError.value || pwError.value ) return;
 
         loggingIn.value = true;
-        auth.signup( username.value, email.value, password.value, 'CROWD_SOURCE' )
+        auth.signup( username.value, email.value, password.value, 'SURVEY_ADMIN' )
             .then( success => {
                 loggingIn.value = false;
 
