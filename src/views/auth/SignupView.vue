@@ -228,7 +228,7 @@
                     <button class="button primary" @click="signup">
                         Sign up
                     </button>
-                    <RouterLink to="/login">
+                    <RouterLink to="/">
                         <button class="button secondary">
                             Back
                         </button>

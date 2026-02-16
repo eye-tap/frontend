@@ -153,9 +153,26 @@
                 <div class="logo-bar">
                     <LogoRenderer :kind="'full'" class="logo" />
                 </div>
+                <p class="title">
+                    <span class="highlight">
+                        Admin
+                    </span>
+                    Sign up
+                </p>
                 <div class="inputs">
-                    <p v-if="errMsg" class="error-msg">
-                        {{ errMsg }}
+                    <div class="err-wrapper">
+                        <p v-if="errMsg" class="error-msg">
+                            {{ errMsg }}
+                        </p>
+                        <div 
+                            v-if="loggingIn"
+                            class="spinner-wrapper"
+                        >
+                            <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                        </div>
+                    </div>
+                    <p class="desc">
+                        Username
                     </p>
                     <input
                         v-model="username"
@@ -164,6 +181,9 @@
                         :class="[ 'input', usernameError ? 'error' : undefined ]"
                         @keyup="checkUsername()"
                     >
+                    <p class="desc">
+                        Email address
+                    </p>
                     <input
                         v-model="email"
                         type="email"
@@ -171,6 +191,9 @@
                         :class="[ 'input', emailError ? 'error' : undefined ]"
                         @keyup="checkEmail()"
                     >
+                    <p class="desc">
+                        Password
+                    </p>
                     <div class="password-wrapper">
                         <input
                             v-if="!showPW"
@@ -207,11 +230,8 @@
                 <div class="buttons">
                     <button class="button primary" @click="signup">
                         Sign up
-                        <div v-if="loggingIn">
-                            <i class="fa-solid fa-lg fa-arrows-rotate"></i>
-                        </div>
                     </button>
-                    <RouterLink to="/login">
+                    <RouterLink to="/">
                         <button class="button secondary">
                             Back
                         </button>
@@ -232,10 +252,65 @@
         width: auto;
     }
 
-    .error-msg {
-        color: var( --theme-warning );
-        text-align: center !important;
-        width: 100%;
+    .title {
+        color: var(--theme-bg-3-20);
+        text-align: left;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0px;
+
+        >.highlight {
+            color: var(--theme-bg-4);
+        }
+    }
+
+    .err-wrapper {
+        height: 3rem;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+
+        .error-msg {
+            color: var( --theme-warning );
+            text-align: center !important;
+            width: 100%;
+        }
+
+        >.spinner-wrapper {
+            text-align: center;
+            width: 100%;
+
+            >i {
+                color: var(--theme-interactable-text);
+                animation: rotating 1.5s infinite;
+            }
+
+            @keyframes rotating {
+                0% {
+                    rotate: 0deg;
+                    color: var(--theme-bg-4);
+                }
+                50% {
+                    rotate: 180deg;
+                    color: var(--theme-bg-5);
+                }
+                100% {
+                    rotate: 360deg;
+                    color: var(--theme-bg-4);
+                }
+            }
+        }
+    }
+
+    .inputs {
+        >.desc {
+            color: var(--theme-bg-3-20);
+            font-size: 0.85rem;
+
+            padding: 0px;
+            margin: 0px;
+            margin-top: 0.5rem;
+        }
     }
 
     .password-toggle {
