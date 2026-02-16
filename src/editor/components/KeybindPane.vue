@@ -13,16 +13,44 @@
             'function': 'Zoom'
         },
         {
-            'keybind': 'CTRL + S',
-            'function': 'Save'
-        },
-        {
             'keybind': 'CTRL + -',
             'function': 'Zoom out'
         },
         {
             'keybind': 'CTRL + +',
             'function': 'Zoom in'
+        },
+        {
+            'keybind': 'CTRL + Arrows',
+            'function': 'Pan the view'
+        },
+        {
+            'keybind': 'CTRL + Z',
+            'function': 'Undo'
+        },
+        {
+            'keybind': 'Delete / Backspace',
+            'function': 'Undo'
+        },
+        {
+            'keybind': 'CTRL + SHIFT + Z',
+            'function': 'Redo'
+        },
+        {
+            'keybind': 'CTRL + Y',
+            'function': 'Redo'
+        },
+        {
+            'keybind': 'CTRL + S',
+            'function': 'Save'
+        },
+        {
+            'keybind': 'Arrows',
+            'function': 'Move to next / previous fixation'
+        },
+        {
+            'keybind': 'Letters',
+            'function': 'Assign the current fixation to the closest box of this letter'
         }
     ];
     const show = defineModel<boolean>();
@@ -39,20 +67,23 @@
                 <div class="options-container">
                     <div class="options-section">
                         <p>Keybinds</p>
-                        <div
-                            v-for="descriptor, index in keybindDescriptors"
-                            :key="index"
-                            class="keybinds"
-                        >
-                            <div class="keybind-wrapper">
-                                <p class="keybind">
-                                    {{ descriptor.keybind }}
-                                </p>
-                                <p class="keybind-desc">
-                                    {{ descriptor.function }}
-                                </p>
-                            </div>
-                        </div>
+                        <!-- TODO: Put in table and fix design -->
+                        <table>
+                            <tbody>
+                                <tr
+                                    v-for="descriptor, index in keybindDescriptors"
+                                    :key="index"
+                                    class="keybinds"
+                                >
+                                    <td class="keybind">
+                                        {{ descriptor.keybind }}
+                                    </td>
+                                    <td class="keybind-desc">
+                                        {{ descriptor.function }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -110,6 +141,7 @@
             height: 60vh;
             padding: 1rem;
             background-color: var(--theme-bg-1);
+            overflow-y: scroll;
 
             .options-section {
                 >p {
@@ -120,37 +152,28 @@
                     margin-bottom: 10px;
                 }
 
-                >div.keybinds {
+                >table>tbody>.keybinds {
                     margin-left: 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: left;
-                    justify-content: center;
 
-                    >div.keybind-wrapper {
-                        display: flex;
-                        align-items: center;
-                        justify-content: left;
-                        >p.keybind {
-                            width:fit-content;
-                            padding: 5px;
-                            border-radius: 5px;
+                    >.keybind {
+                        padding: 5px;
+                        border-radius: 5px;
 
-                            color: var(--theme-interactable-text);
-                            background-color: var(--theme-bg-1-shade);
+                        color: var(--theme-interactable-text);
+                        background-color: var(--theme-bg-1-shade);
 
-                            border-style: solid;
-                            border-color: var(--theme-bg-1-shade);
-                            border-width: 4px;
+                        border-style: solid;
+                        border-color: var(--theme-bg-1-shade);
+                        border-width: 4px;
 
-                            margin: 0px;
-                            margin-right: 1rem;
-                        }
-                        >p.keybind-desc {
-                            color: var( --theme-bg-3-20 );
-                            font-weight: 400;
-                            font-size: 1rem;
-                        }
+                        margin: 0px;
+                        margin-right: 1rem;
+                    }
+
+                    >.keybind-desc {
+                        color: var( --theme-bg-3-20 );
+                        font-weight: 400;
+                        font-size: 1rem;
                     }
                 }
             }
