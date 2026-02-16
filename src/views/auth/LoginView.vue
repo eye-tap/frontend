@@ -113,7 +113,7 @@
                 </p>
                 <div class="inputs">
                     <p class="desc">
-                        User name
+                        Username
                     </p>
                     <input
                         v-model="id"
@@ -122,7 +122,7 @@
                         :class="['input', idError ? 'error' : '']"
                     >
                     <p class="desc">
-                        Email address
+                        Password
                     </p>
                     <div class="password-wrapper">
                         <input
