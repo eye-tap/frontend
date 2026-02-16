@@ -9,10 +9,12 @@
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
+        isSideBarCollapsed
+    } from '../data';
+    import {
         ref
     } from 'vue';
 
-    const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
     const showKeybinds = ref( false );
 
@@ -28,8 +30,8 @@
         showKeybinds.value = true;
     };
 
+    // TODO: On sidebar collapse, re-render editor
 </script>
-<!-- TODO: The sidebar (un)collapse animation doesn't look good right now. Ideally: Content is hidden but sidebar height preserved. -->
 
 <template>
     <PreferencesPane v-model="showPreferences" />

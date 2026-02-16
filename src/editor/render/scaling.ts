@@ -8,6 +8,7 @@ import {
 import {
     canvasPosition,
     canvasSize,
+    isSideBarCollapsed,
     originalSize,
     zoomFactor
 } from '../data';
@@ -94,6 +95,12 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
         zoomFactor,
         canvasPosition
     ], renderer.renderAll );
+
+    watch( isSideBarCollapsed, () => {
+        setTimeout( () => {
+            scaler();
+        }, 500 );
+    } );
 
     onMounted( () => {
         window.addEventListener( 'resize', scaler );

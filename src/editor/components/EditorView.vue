@@ -57,13 +57,13 @@
 <style lang="scss" scoped>
     .editor {
         position: relative;
+        flex-direction: column;
     }
 
     .canvas-wrapper {
         background-color: white;
-        width: 75vw;
-        /* height: 80vh; */
         height: min-content;
+        width: 95%;
         max-height: 100%;
         overflow-y: scroll;
         position: relative;

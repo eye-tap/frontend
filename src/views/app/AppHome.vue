@@ -80,6 +80,16 @@
         const list: ShallowAnnotationSessionDto[] = testData.list;
 
         sessions.value = list!;
+        annotationSessionStore.setIds(
+            list.map( value => {
+                return {
+                    'sessionId': value.id!,
+                    'textId': value.readingSession!.textId!,
+                    'title': value.readingSession!.textTitle!,
+                    'reader': value.readingSession!.reader!
+                };
+            } )
+        );
         notifications.notify( {
             'text': 'Populated file list using testing data for frontend dev.',
             'type': 'warn',

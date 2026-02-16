@@ -25,6 +25,7 @@ export const selectedFixation = ref( -1 );
 
 export const hoveredFixation = ref( -1 );
 
+export const isSideBarCollapsed = ref( false );
 
 // ┌                                               ┐
 // │                Zoom utilities                 │
