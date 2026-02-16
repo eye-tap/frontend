@@ -16,6 +16,9 @@ import type {
 } from '../types/renderer';
 import annotationManager from '@/ts/annotations';
 import {
+    sendLoadEvent
+} from './event';
+import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -24,7 +27,7 @@ export const sessionData: Ref<AnnotationSessionDto> = ref( {} );
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
-    sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]! );
+    sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
 
@@ -83,4 +86,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'highlightClass': 'none'
         } );
     } );
+
+    // If you do not want to diplay the reader, delete it here
+    const data = session.sessionIds[ session.sessionIdx ]!;
+
+    sendLoadEvent( data.title ? `${ data.title }, reader ${ data.reader }` : 'EyeTAP' );
 };

@@ -43,7 +43,14 @@
             .then( list => {
                 sessions.value = list;
                 annotationSessionStore.setIds(
-                    list.map( value => value.id! )
+                    list.map( value => {
+                        return {
+                            'sessionId': value.id!,
+                            'textId': value.readingSession!.textId!,
+                            'title': value.readingSession!.textTitle!,
+                            'reader': value.readingSession!.reader!
+                        };
+                    } )
                 );
                 sessions.value.sort( ( a, b ) => {
                     if ( a.readingSession!.textId! === b.readingSession!.textId! ) {
@@ -95,7 +102,7 @@
 
     const exportFile = () => {
         if ( annotationSessionStore.selected )
-            startExport( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]! );
+            startExport( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]!.sessionId );
     };
 </script>
 

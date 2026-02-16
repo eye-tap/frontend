@@ -1,6 +1,7 @@
 import {
     type Ref,
-    computed
+    computed,
+    onUnmounted
 } from 'vue';
 import {
     redoHistory,
@@ -18,6 +19,9 @@ import {
 import {
     renderer
 } from './render';
+import {
+    sendEditorLeaveEvent
+} from './loaders/event';
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
@@ -69,6 +73,9 @@ const start = (
         } );
     }
 
+    onUnmounted( () => {
+        sendEditorLeaveEvent();
+    } );
 
     return {
         'renderer': draw,

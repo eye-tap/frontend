@@ -63,8 +63,8 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             if ( endOfAnnotations ) {
                 document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
                     'detail': {
-                        'current': session.sessionIds[ session.sessionIdx ],
-                        'next': session.sessionIds[ session.sessionIdx + 1 ]
+                        'current': session.sessionIds[ session.sessionIdx ]!.sessionId,
+                        'next': session.sessionIds[ session.sessionIdx + 1 ]!.sessionId
                     }
                 } ) );
                 selectedFixation.value = -1;

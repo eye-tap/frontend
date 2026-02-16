@@ -30,7 +30,7 @@ export const useSaveFunction = () => {
         annotations.value.forEach( val => {
             data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
         } );
-        annotation.save( data, session.sessionIds[ session.sessionIdx ]! );
+        annotation.save( data, session.sessionIds[ session.sessionIdx ]!.sessionId );
     };
 
     onMounted( () => {

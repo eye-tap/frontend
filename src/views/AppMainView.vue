@@ -7,24 +7,22 @@
         ref
     } from 'vue';
 
-    const pageTitle = ref( '' );
+    const pageTitle = ref( 'Eye-TAP' );
 
     document.addEventListener( 'eyetap:fileload', e => {
         pageTitle.value = e.detail.title;
     } );
 
     document.addEventListener( 'eyetap:fileunload', () => {
-        pageTitle.value = '';
+        pageTitle.value = 'Eye-TAP';
     } );
-
-    // TODO: Link to admin panel for users that have the permissions
 </script>
 
 <template>
     <div class="app-main">
         <StatusBar
             class="top-bar"
-            page-title="Eye-TAP"
+            :page-title="pageTitle"
             :show-account="true"
             :show-theme-picker="true"
             logo-click-target="/app"

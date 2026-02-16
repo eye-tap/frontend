@@ -3,13 +3,16 @@ import {
     ref,
     watch
 } from 'vue';
+import type {
+    AnnotationSessionDetails
+} from '@/types/sessionDetails';
 import {
     defineStore
 } from 'pinia';
 
 export const useAnnotationSessionStore = defineStore( 'annotationsession', () => {
     const sessionIdx = ref( -1 );
-    const sessionIds: Ref<number[]> = ref( [] );
+    const sessionIds: Ref<AnnotationSessionDetails[]> = ref( [] );
     const selected = ref( false );
 
     const setActive = ( idx: number ) => {
@@ -17,13 +20,13 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         selected.value = true;
     };
 
-    const setIds = ( ids: number[] ) => {
+    const setIds = ( ids: AnnotationSessionDetails[] ) => {
         sessionIds.value = ids;
     };
 
     const indexOf = ( sessionId: number ) => {
         for ( let i = 0; i < sessionIds.value.length; i++ ) {
-            if ( sessionIds.value[i] == sessionId ) {
+            if ( sessionIds.value[i]!.sessionId == sessionId ) {
                 return i;
             }
         }

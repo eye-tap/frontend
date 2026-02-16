@@ -21,7 +21,10 @@ export function useAnnotationNavigation () {
             return;
         }
 
-        const nextIdx = store.sessionIds.indexOf( nextAnnotationId.value );
+        const nextIdx = store.sessionIds
+            .filter( val => val.sessionId === nextAnnotationId.value )
+            .map( val => val.sessionId )
+            .reduce( ( prev, curr ) => prev + curr );
 
         if ( nextIdx !== -1 ) {
             store.setActive( nextIdx );
