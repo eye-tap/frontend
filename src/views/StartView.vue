@@ -26,23 +26,30 @@
             logo-click-target=""
         />
         <div class="home-wrapper">
-            <div>
-                <!-- <img src="/assets/eyetap-logo.png" class="logo"> -->
-                <LogoRenderer :kind="'full'" class="logo" />
-                <p class="tagline">
-                    Annotate effortlessly
-                </p>
-                <button class="button primary" @click="login()">
-                    Log in
-                </button>
-                <button class="button secondary" @click="signup()">
-                    Sign up
-                </button>
-                <button class="button secondary" @click="create()">
-                    Create Survey
-                </button>
+            <div class="home-left">
+                <div class="home-content">
+                    <LogoRenderer :kind="'full'" class="logo" />
+                    <p class="tagline">
+                        Annotate effortlessly
+                    </p>
+                    <div class="home-buttons">
+                        <div class="home-buttons-top">
+                            <button class="button primary" @click="login()">
+                                Log in
+                            </button>
+                            <button class="button secondary" @click="signup()">
+                                Sign up
+                            </button>
+                        </div>
+                        <button class="button secondary" @click="create()">
+                            Create Survey
+                        </button>
+                    </div>
+                </div>
             </div>
-            <!-- <img src="/assets/logo.jpg" class="logo"> -->
+            <div class="home-right">
+                <p>(A gif of the final editor here)</p>
+            </div>
         </div>
         <div class="home">
         </div>
@@ -69,22 +76,66 @@
         }
 
         >.home-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row;
+            display: grid;
+            grid-column: 1fr 1fr;
+            grid-auto-flow: column;
             height: 90vh;
             margin-top: 10vh;
             width: 100vw;
 
-            .tagline {
-                margin-top: 0px;
-                margin-bottom: 6vh;
+            .home-left {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+
+                .home-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: space-between;
+                    width: 25rem;
+
+                    >button {
+                        margin-bottom: 1rem;
+                        width: 12rem;
+                        padding-left: 0px;
+                        padding-right: 0px;
+                    }
+
+                    .home-buttons-top {
+                        display: flex;
+                        align-items: center;
+                        justify-content: left;
+                        margin-bottom: 1rem;
+
+                        >button {
+                            width: 12rem;
+                        }
+                    }
+                }
+
+                .tagline {
+                    margin-top: 0px;
+                    margin-bottom: 6vh;
+                }
+
+                .logo {
+                    height: 15vh;
+                    justify-content: left;
+                }
             }
 
-            .logo {
-                height: 15vh;
-                border-radius: 20px;
+            .home-right {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+
+                >p {
+                    color: var(--theme-bg-3);
+                    font-weight: 600;
+                }
             }
         }
     }
