@@ -6,7 +6,7 @@ on:
     paths:
       - package.json
 env:
-  IMAGE_NAME: eyetap/frontend
+  IMAGE_NAME: frontend
 jobs:
   build_container:
     runs-on: ubuntu-latest
