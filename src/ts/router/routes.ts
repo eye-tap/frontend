@@ -29,6 +29,15 @@ export const routes = [
         }
     },
     {
+        'path': '/signup/admin',
+        'name': 'signup-admin',
+        'component': () => import( '@/views/auth/SignupAdmin.vue' ),
+        'meta': {
+            'title': 'Signup as Survey Admin',
+            'authRequired': false
+        }
+    },
+    {
         'path': '/app',
         'name': 'app',
         'component': () => import( '@/views/AppMainView.vue' ),

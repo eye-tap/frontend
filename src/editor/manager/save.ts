@@ -11,13 +11,13 @@ import {
     annotations
 } from '../data';
 import {
-    useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export const revision = ref( 0 );
 
 export const useSaveFunction = () => {
-    const session = useActiveFileStore();
+    const session = useAnnotationSessionStore();
 
     const save = () => {
         const data: EditAnnotationsDto = {

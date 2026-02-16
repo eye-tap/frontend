@@ -19,6 +19,9 @@ import {
     renderer
 } from './render';
 import {
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
+import {
     useStatusStore
 } from '@/ts/stores/status';
 
@@ -52,6 +55,7 @@ const start = (
     indicesCanvas: Ref<HTMLCanvasElement | null>,
     clickTarget: Ref<HTMLCanvasElement | null>
 ) => {
+    const session = useAnnotationSessionStore();
     const status = useStatusStore();
     const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
     const io = ioHandler( clickTarget, draw );
@@ -59,8 +63,12 @@ const start = (
     editorSessionManager( draw );
 
     if ( !status.devMode ) {
-        loadEditorDataFromBackend( draw ).then();
+        loadEditorDataFromBackend( draw );
+        session.createWatchIdx( () => {
+            loadEditorDataFromBackend( draw );
+        } );
     }
+
 
     return {
         'renderer': draw,

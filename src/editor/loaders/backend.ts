@@ -15,13 +15,13 @@ import type {
 } from '../types/renderer';
 import annotationManager from '@/ts/annotations';
 import {
-    useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export const sessionData: Ref<AnnotationSessionDto> = ref( {} );
 
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
-    const session = useActiveFileStore();
+    const session = useAnnotationSessionStore();
 
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]! );
     // Load image
@@ -68,4 +68,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'highlightClass': 'none'
         } );
     } );
+
+    // TODO: Select first fixation!
 };

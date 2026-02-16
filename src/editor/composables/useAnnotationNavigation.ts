@@ -1,15 +1,16 @@
 import {
-    onMounted, onUnmounted, ref
+    onMounted,
+    onUnmounted,
+    ref
 } from 'vue';
 import {
-    useActiveFileStore
-} from '@/ts/stores/activeFileStore';
-
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export function useAnnotationNavigation () {
     const isAnnotationComplete = ref( false );
     const nextAnnotationId = ref<number | null>( null );
-    const store = useActiveFileStore();
+    const store = useAnnotationSessionStore();
 
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
@@ -30,6 +31,7 @@ export function useAnnotationNavigation () {
 
         isAnnotationComplete.value = false;
         nextAnnotationId.value = null;
+        // TODO: Save progress!!!!
     };
 
     const handleAnnotationDone = ( event: Event ) => {

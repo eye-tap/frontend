@@ -13,8 +13,8 @@
         formatDateTime
     } from '@/ts/util/date';
     import {
-        useActiveFileStore
-    } from '@/ts/stores/activeFileStore';
+        useAnnotationSessionStore
+    } from '@/ts/stores/annotationSessionStore';
 
     type sortColumns = 'none' | 'baseName' | 'modified' | 'wordCount';
 
@@ -30,7 +30,7 @@
     const ascendingSort = ref( true );
     const sortColumn: Ref<sortColumns> = ref( 'none' );
     const selectedFileIndex = ref( 0 );
-    const activeFile = useActiveFileStore();
+    const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<AnnotationSet[]> = computed( () => {
         if ( sortColumn.value === 'none' ) {
             return props.files;
@@ -140,7 +140,7 @@
                     <tr
                         v-for="file, index in sortedList"
                         :key="file.id"
-                        :class="index === selectedFileIndex && activeFile.selected ? 'selected' : ''"
+                        :class="index === selectedFileIndex && session.selected ? 'selected' : ''"
                         @click="selectFile( index )"
                     >
                         <td class="file-name">

@@ -55,9 +55,11 @@
     auth.verify()
         .then( () => {
             if ( status.isAuth ) {
-                const redir = '/app';
-
-                router.push( redir );
+                if ( status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && status.roles.length === 1 ) {
+                    router.push( '/admin' );
+                } else {
+                    router.push( '/app' );
+                }
 
                 return;
             } else {

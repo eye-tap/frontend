@@ -6,8 +6,8 @@ import {
     routes
 } from './routes';
 import {
-    useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    useAnnotationSessionStore
+} from '../stores/annotationSessionStore';
 import {
     useStatusStore
 } from '@/ts/stores/status';
@@ -30,7 +30,7 @@ router.beforeResolve( ( to, _from, next ) => {
 
 router.beforeEach( ( to, from ) => {
     const store = useStatusStore();
-    const file = useActiveFileStore();
+    const session = useAnnotationSessionStore();
 
     if ( to.meta.authRequired && !store.isAuth ) {
         return {
@@ -42,13 +42,13 @@ router.beforeEach( ( to, from ) => {
         };
     } else if ( to.meta.allowedRoles && !store.devMode ) {
         if ( store.roles.length === 0
-            || !store.roles.reduce( ( prev, role ) => prev || ( to.meta.allowedRoles as string[] ).includes( role ) ) ) {
+            || !store.roles.map( role => ( to.meta.allowedRoles as string[] ).includes( role ) ).reduce( ( prev, val ) => prev || val ) ) {
             return {
                 'name': from.name
             };
         }
     } else if ( to.name === 'app-editor' ) {
-        if ( !file.selected && !store.devMode ) {
+        if ( !session.selected && !store.devMode ) {
             return {
                 'name': 'app-home'
             };

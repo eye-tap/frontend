@@ -10,7 +10,7 @@
     const pageTitle = ref( '' );
 
     document.addEventListener( 'eyetap:fileload', e => {
-        pageTitle.value = e.detail.baseName;
+        pageTitle.value = e.detail.title;
     } );
 
     document.addEventListener( 'eyetap:fileunload', () => {

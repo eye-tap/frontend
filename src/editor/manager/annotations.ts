@@ -16,11 +16,11 @@ import {
     startHistoryTracker
 } from './history';
 import {
-    useActiveFileStore
-} from '@/ts/stores/activeFileStore';
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
-    const session = useActiveFileStore();
+    const session = useAnnotationSessionStore();
 
     /**
      * Create an annotation. Automatically starts a redraw

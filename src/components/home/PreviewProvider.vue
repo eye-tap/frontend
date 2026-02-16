@@ -7,18 +7,18 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
-        useActiveFileStore
-    } from '@/ts/stores/activeFileStore';
+        useAnnotationSessionStore
+    } from '@/ts/stores/annotationSessionStore';
 
     const props = defineProps<{
         'session': ShallowAnnotationSessionDto
     }>();
-    const activeFile = useActiveFileStore();
+    const annotationSessionStore = useAnnotationSessionStore();
 </script>
 
 <template>
     <div class="preview-provider">
-        <table v-if="activeFile.selected">
+        <table v-if="annotationSessionStore.selected">
             <tbody>
                 <tr>
                     <td>

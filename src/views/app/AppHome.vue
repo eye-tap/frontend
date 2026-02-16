@@ -17,8 +17,8 @@
     } from '@/ts/export';
     import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
     import {
-        useActiveFileStore
-    } from '@/ts/stores/activeFileStore';
+        useAnnotationSessionStore
+    } from '@/ts/stores/annotationSessionStore';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
@@ -29,7 +29,7 @@
     const session: Ref<ShallowAnnotationSessionDto> = ref( {
         'id': 0
     } );
-    const activeFile = useActiveFileStore();
+    const annotationSessionStore = useAnnotationSessionStore();
     const sessions: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
     const loading = ref( true );
     const notifications = useNotification();
@@ -42,7 +42,7 @@
         annotations.list()
             .then( list => {
                 sessions.value = list;
-                activeFile.setIds(
+                annotationSessionStore.setIds(
                     list.map( value => value.id! )
                 );
                 loading.value = false;
@@ -78,17 +78,17 @@
 
     const fileSelect = ( selectedFile: ShallowAnnotationSessionDto ) => {
         session.value = selectedFile;
-        activeFile.setActive( activeFile.indexOf( selectedFile.id! ) );
+        annotationSessionStore.setActive( annotationSessionStore.indexOf( selectedFile.id! ) );
     };
 
     const editFile = () => {
-        if ( activeFile.selected )
+        if ( annotationSessionStore.selected )
             router.push( '/app/editor' );
     };
 
     const exportFile = () => {
-        if ( activeFile.selected )
-            startExport( activeFile.sessionIds[ activeFile.sessionIdx ]! );
+        if ( annotationSessionStore.selected )
+            startExport( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]! );
     };
 </script>
 
@@ -109,7 +109,7 @@
                 <PreviewProvider class="preview-provider" :session="session" />
                 <div class="file-actions">
                     <button
-                        :class="activeFile.selected ? undefined : 'disabled' "
+                        :class="annotationSessionStore.selected ? undefined : 'disabled' "
                         class="button primary has-icon edit-button"
                         @click="editFile()"
                     >
@@ -117,7 +117,7 @@
                         Edit
                     </button>
                     <button
-                        :class="activeFile.selected ? undefined : 'disabled' "
+                        :class="annotationSessionStore.selected ? undefined : 'disabled' "
                         class="button primary has-icon"
                         @click="exportFile()"
                     >

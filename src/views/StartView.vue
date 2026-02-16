@@ -10,6 +10,10 @@
     const signup = () => {
         router.push( '/signup' );
     };
+
+    const create = () => {
+        router.push( '/signup/admin' );
+    };
 </script>
 
 <template>
@@ -33,6 +37,9 @@
                 </button>
                 <button class="button secondary" @click="signup()">
                     Sign up
+                </button>
+                <button class="button secondary" @click="create()">
+                    Create Survey
                 </button>
             </div>
             <!-- <img src="/assets/logo.jpg" class="logo"> -->

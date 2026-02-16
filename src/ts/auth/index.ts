@@ -62,8 +62,12 @@ const login = async ( id: string, password: string ): Promise<void> => {
                 'type': 'success',
                 'title': 'Login'
             } );
-            await router.push( '/app' )
-                .catch( e => console.error( 'Router push failed:', e ) );
+
+            if ( status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && status.roles.length === 1 ) {
+                router.push( '/admin' );
+            } else {
+                router.push( '/app' );
+            }
         } else if ( res.status === 400 || res.status === 401 || res.status === 403 ) {
             errMsg.value = 'Email / Username or password incorrect.';
             loggingIn.value = false;

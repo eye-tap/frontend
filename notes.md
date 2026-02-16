@@ -21,6 +21,7 @@
 - Integrate zoom -- done
 - Keybind improvements
 - Indices rendering outside box if possible?
+- On move to next annotation session, SAVE!!!
 
 
 ## General
@@ -76,8 +77,5 @@ These notes are from my initial gloss over back in December
 - Fire an event when annotation is complete, we could display fireworks or the like on the event (custom event on document) -- done
 
 
-QuietSeal961: 
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFNlYWw5NjElMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMkU5RSUyNU5UTUUlMjIlN0Q=
-
-TinyKoala825:
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJUaW55S29hbGE4MjUlMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMkhZVjFVWFJfJTIyJTdE
+CoolPelican953
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJDb29sUGVsaWNhbjk1MyUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyJTI1JTJCKFZhWEpUJTIyJTdE
