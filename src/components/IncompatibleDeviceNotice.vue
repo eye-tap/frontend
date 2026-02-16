@@ -5,13 +5,15 @@
         ref
     } from 'vue';
     import LogoRenderer from './LogoRenderer.vue';
+    import { useNotification } from '@kyvg/vue3-notification';
 
-    // TODO: Set this to false once design done
-    const show = ref( true );
-    // const show = ref( false );
+    const show = ref( false );
     const isTouchDevice = ref( false );
     const isTooSmall = ref( false );
     const isUnsuitableAspectRatio = ref( false );
+    const notifications = useNotification();
+    const devForceIncompatible = false;
+    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
 
     const dismiss = () => {
         show.value = false;
@@ -19,6 +21,8 @@
     };
 
     const runCheck = () => {
+        if ( devMode && devForceIncompatible ) return useTestData();
+
         isTouchDevice.value = ( 'ontouchstart' in window )
             || ( navigator.maxTouchPoints > 0 );
         isTooSmall.value = window.innerHeight < 400 || window.innerWidth < 400;
@@ -26,6 +30,17 @@
 
         if ( !show.value && !sessionStorage.getItem( 'dismissed-incompatibility' ) )
             show.value = isTooSmall.value || isTouchDevice.value || isUnsuitableAspectRatio.value;
+    };
+
+    const useTestData = () => {
+        isTouchDevice.value = true;
+        show.value = isTouchDevice.value;
+
+        notifications.notify( {
+            'text': 'Forced Unsupported device for frontend dev',
+            'type': 'warn',
+            'title': 'Forced Unsupported Device'
+        } );
     };
 
     onMounted( () => {
@@ -44,20 +59,24 @@
     <div v-if="show" class="incompatible-device">
         <div class="popup">
             <div class="top-bar">
+                <LogoRenderer kind="full" class="logo" />
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
-            <LogoRenderer kind="full" class="logo" />
             <div v-if="isTouchDevice || isTooSmall || isUnsuitableAspectRatio" class="popup-body">
-                <!-- TODO: Better title -->
-                <h2>Potential issues with your device</h2>
-                <p>We have detected that you are on a device that is incompatible with EyeTap for the following reasons:</p>
+                <h2 class="title">Unsupported Device</h2>
+                <p class="desc">Eye-TAP is intended for a desktop deviceand does not support this device type:</p>
                 <ul>
-                    <li></li>
+                    <li v-if="isTouchDevice">Touch Device</li>
+                    <li v-if="isTooSmall">Screen size too small</li>
+                    <li v-if="isUnsuitableAspectRatio">Unsuitable Aspect Ratio</li>
                 </ul>
             </div>
             <div v-else class="popup-body">
-                <h2>Device fully compatible</h2>
-                <p>Your device should work great with Eye-TAP</p>
+                <h2 class="title">Device compatible</h2>
+                <p class="desc">All features required for Eye-TAP are supported</p>
+                <button class="button primary" @click="dismiss">
+                    Continue
+                </button>
             </div>
         </div>
     </div>
@@ -76,6 +95,29 @@
     justify-content: center;
     align-items: center;
 
+    ul {
+        margin: 0px;
+        padding: 0px;
+        li {
+            list-style-type: none;
+            padding: 0.85rem;
+            margin-bottom: 1rem;
+            border-radius: 20px;
+            color: var(--theme-warning);
+            background-color: var(--theme-bg-2);
+        }
+    }
+
+    .title {
+        color: var(--theme-foreground-text);
+        margin: 0px;
+    }
+
+    .desc {
+        color: var(--theme-background-text-20);
+        padding-bottom: 1rem;
+    }
+
     >.popup {
         width: max(40vw, 380px);
         height: max-content;
@@ -93,6 +135,10 @@
             justify-content: space-between;
             align-items: center;
 
+            >.logo {
+                height: 4rem;
+            }
+
             >.fa-solid {
                 margin-left: auto;
                 font-size: 1.5rem;
@@ -106,10 +152,6 @@
             >h1 {
                 font-size: 2rem;
             }
-        }
-
-        >.logo {
-            height: 5rem;
         }
 
         >.popup-body {
