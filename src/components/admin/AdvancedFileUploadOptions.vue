@@ -41,8 +41,14 @@
                             type="text"
                             placeholder="Y coordinate"
                         >
+                        <input
+                            v-model="dataImport.importConfigFixationFixationIDCSVName.value"
+                            type="text"
+                            placeholder="Fixation ID"
+                        >
                         <SwitchOption v-model="dataImport.importConfigFixationHasMultipleTexts.value" text="Use TextID on fixations" />
                     </div>
+                    <!-- TODO: Add options for annotations import -->
 
                     <div class="options-section">
                         <p>Bounding Boxes</p>

@@ -1,4 +1,9 @@
 import {
+    importConfigAnnotationBoundingBoxIdCSVName,
+    importConfigAnnotationFixationIDCSVName,
+    importConfigAnnotationHasMultipleTexts,
+    importConfigAnnotationReaderCSVName,
+    importConfigAnnotationTextIDCSVName,
     importConfigBBCharacterCSVName,
     importConfigBBHasMultipleTexts,
     importConfigBBTextIDCSVName,
@@ -6,6 +11,7 @@ import {
     importConfigBBXminCoordCSVName,
     importConfigBBYmaxCoordCSVName,
     importConfigBBYminCoordCSVName,
+    importConfigFixationFixationIDCSVName,
     importConfigFixationHasMultipleTexts,
     importConfigFixationReaderCSVName,
     importConfigFixationTextIDCSVName,
@@ -46,6 +52,12 @@ export default {
     importConfigFixationYCoordCSVName,
     importConfigFixationReaderCSVName,
     importConfigFixationTextIDCSVName,
+    importConfigFixationFixationIDCSVName,
     importConfigFixationHasMultipleTexts,
+    importConfigAnnotationFixationIDCSVName,
+    importConfigAnnotationReaderCSVName,
+    importConfigAnnotationTextIDCSVName,
+    importConfigAnnotationBoundingBoxIdCSVName,
+    importConfigAnnotationHasMultipleTexts,
     importDatasetFromCSV
 };
