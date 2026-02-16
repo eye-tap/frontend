@@ -60,23 +60,34 @@
     <div v-if="show" class="wrapper">
         <div class="box">
             <div class="top-bar">
-                <h1>Help</h1>
+                <h1>Editor Controls</h1>
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
+            <p class="desc">The Editor provides several keybinds for quicker annotations.</p>
             <div>
                 <div class="options-container">
                     <div class="options-section">
-                        <p>Keybinds</p>
-                        <!-- TODO: Put in table and fix design -->
                         <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Keybind
+                                    </th>
+                                    <th>
+                                        Function
+                                    </th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr
                                     v-for="descriptor, index in keybindDescriptors"
                                     :key="index"
                                     class="keybinds"
                                 >
-                                    <td class="keybind">
-                                        {{ descriptor.keybind }}
+                                    <td>
+                                        <p class="keybind">
+                                            {{ descriptor.keybind }}
+                                        </p>
                                     </td>
                                     <td class="keybind-desc">
                                         {{ descriptor.function }}
@@ -103,6 +114,11 @@
     height: 100vh;
     width: 100vw;
     z-index: 1;     // To properly black out all of the Editor
+
+    .desc {
+        color: var(--theme-background-text-20);
+        padding-bottom: 0.5rem;
+    }
 
     >.box {
         >.top-bar {
@@ -142,6 +158,8 @@
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;
+            scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
+
 
             .options-section {
                 >p {
@@ -152,28 +170,41 @@
                     margin-bottom: 10px;
                 }
 
-                >table>tbody>.keybinds {
-                    margin-left: 1rem;
-
-                    >.keybind {
-                        padding: 5px;
-                        border-radius: 5px;
-
-                        color: var(--theme-interactable-text);
-                        background-color: var(--theme-bg-1-shade);
-
-                        border-style: solid;
-                        border-color: var(--theme-bg-1-shade);
-                        border-width: 4px;
-
-                        margin: 0px;
-                        margin-right: 1rem;
+                >table {
+                    >thead>tr>th {
+                        padding-bottom: 1rem;
+                        text-align: left;
+                        color: var(--theme-bg-3-20);
                     }
 
-                    >.keybind-desc {
-                        color: var( --theme-bg-3-20 );
-                        font-weight: 400;
-                        font-size: 1rem;
+                    >tbody>.keybinds {
+                        margin-left: 1rem;
+                        >td {
+
+                            .keybind {
+                                padding: 5px;
+                                border-radius: 5px;
+
+                                color: var(--theme-interactable-text);
+
+                                background-color: var(--theme-bg-1-shade);
+
+                                border-style: solid;
+                                border-color: var(--theme-bg-1-shade);
+                                border-width: 4px;
+
+                                margin: 0px;
+                                margin-right: 1rem;
+
+                                width: fit-content;
+                            }
+                        }
+
+                        >.keybind-desc {
+                            color: var( --theme-bg-3-20 );
+                            font-weight: 400;
+                            font-size: 1rem;
+                        }
                     }
                 }
             }
