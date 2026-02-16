@@ -11,4 +11,5 @@ export interface ShallowAnnotationSessionDto {
     'annotationsMetaData'?: AnnotationsMetaDataDto;
     'readingSession'?: ShallowReadingSessionDto;
     'lastEdited'?: string;
+    'description'?: string;
 }

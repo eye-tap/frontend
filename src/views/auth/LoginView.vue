@@ -102,7 +102,7 @@
                 :show-account="false"
                 :show-theme-picker="true"
                 page-title=""
-                logo-click-target=""
+                logo-click-target="/"
             />
             <div class="applet">
                 <div class="logo-bar">
