@@ -8,7 +8,8 @@ import type {
 
 export const parseFixationsCSV = (
     text: string,
-    textId?: string,
+    textId: string,
+    fileHasMultipleTextIDs: boolean,
     factor: number = 100,
     xName: string = 'x',
     yName: string = 'y',
@@ -47,11 +48,12 @@ export const parseFixationsCSV = (
         const tempx = Math.round( Number( cols[xIndex] ) * factor );
         const tempy = Math.round( Number( cols[yIndex] ) * factor );
 
-        if ( firstEncounteredTextID !== cols[ textIndex ] && !textId ) {
-            throw new MultipleTextIDsWithoutSpecifiedTextIDError();
-        }
 
-        if ( textId === undefined ) {
+        if ( fileHasMultipleTextIDs ) {
+            if ( firstEncounteredTextID !== cols[ textIndex ] ) {
+                throw new MultipleTextIDsWithoutSpecifiedTextIDError();
+            }
+
             const reader = cols[ readerIndex ]!;
 
             if ( !points[ reader ] ) {

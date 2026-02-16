@@ -31,7 +31,8 @@ export const importReadingSession = async (
     const pCSV = await loadFileFromDiskAsString( fixationsCSVElement );
     const fix = parseFixationsCSV(
         pCSV,
-        importConfigFixationHasMultipleTexts.value ? textId : undefined,
+        textId,
+        importConfigFixationHasMultipleTexts.value,
         100,
         importConfigFixationXCoordCSVName.value,
         importConfigFixationYCoordCSVName.value,
