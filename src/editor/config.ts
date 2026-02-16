@@ -17,7 +17,7 @@ export const overScrollDistanceForZoom = ref( 20 );
 
 
 // Colors
-export const assignedLineColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
+export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
@@ -29,26 +29,26 @@ export const proximityBoundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3
 
 export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-2' ) );
+export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-success' ) );
 
-export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3-20' ) );
+export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-warning' ) );
 
-export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
+export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shade' ) );
 
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-information' ) );
 
 // Stroke width
 export const boundingBoxStrokeWidth = ref( 2 );
 
-export const fixationRadius = ref( 4 );
+export const fixationRadius = ref( 5 );
 
-export const hoveredFixationRadius = ref( 8 );
+export const hoveredFixationRadius = ref( 10 );
 
-export const selectedFixationRadius = ref( 6 );
+export const selectedFixationRadius = ref( 8 );
 
-export const lineWidth = ref( 1 );
+export const lineWidth = ref( 3 );
 
-export const indicesFontSize = ref( 12 );
+export const indicesFontSize = ref( 14 );
 
 export const indicesFontFamily = ref( 'sans-serif' );
 
@@ -63,9 +63,9 @@ export const zoomScrollWheelDivideFactor = ref( 100 );
 
 // Opacity
 export const unfocusedTextColor: Ref<Color> = ref( {
-    'r': 128,
-    'g': 128,
-    'b': 128
+    'r': 175,
+    'g': 175,
+    'b': 175
 } );
 
 export const hoveredTextColor: Ref<Color> = ref( {
