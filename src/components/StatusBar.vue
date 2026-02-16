@@ -17,6 +17,7 @@
     const status = useStatusStore();
     const showUserMenu = ref( false );
     const showThemePickerMenu = ref( false );
+    const maxUsernameLength = ref( 20 );
 
     const toggleMenu = () => {
         showUserMenu.value = !showUserMenu.value;
@@ -35,6 +36,12 @@
     const logoClick = () => {
         if ( props.logoClickTarget != '' && props.logoClickTarget !== router.currentRoute.value.path )
             router.push( props.logoClickTarget );
+    };
+
+    // History Lesson: Too long usernames break the side-menu, so this cuts them off
+    const truncate = (text: string, limit: number) => {
+        if ( text.length < limit ) return text;
+        else return text.slice( 0, limit - 3 ) + '...';
     };
 
     const logoRedirectable = computed( () => {
@@ -81,11 +88,11 @@
             <!-- For user-made themes, color pickers etc. could be added here -->
         </div>
         <div :class="[ 'user-menu', showUserMenu ? 'shown' : undefined ]">
-            <h2 v-if="status.username">
-                {{ status.username }}
+            <h2 class="user-name" v-if="status.username">
+                {{ truncate( status.username, maxUsernameLength ) }}
             </h2>
-            <h2 v-else>
-                Dev Build
+            <h2 class="user-name" v-else>
+                {{ truncate( 'TestUserNameWhichSurpassesLengthLimit', maxUsernameLength) }}
             </h2>
             <p>Logged in</p>
             <div class="user-buttons">
@@ -218,14 +225,14 @@
             border-bottom-left-radius: 10px;
             box-shadow: 5px 5px 20px var(--theme-bg-1);
 
-            transform: translateX(250px);
+            transform: translateX(500px);
             transform-origin: top right;
             transition: transform 0.3s ease-in-out;
             overflow: hidden;
 
             &.shown {
                 display: block;
-                transform: translateX(0vw);
+                transform: translateX(0px);
             }
 
             h2 {
