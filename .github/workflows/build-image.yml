@@ -19,7 +19,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: Build image
-        run: docker buildx build . --tag $IMAGE_NAME
+        run: docker buildx build . --tag ${{ github.repository_owner }}/$IMAGE_NAME
       - name: Login to registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
