@@ -45,6 +45,13 @@
                 annotationSessionStore.setIds(
                     list.map( value => value.id! )
                 );
+                sessions.value.sort( ( a, b ) => {
+                    if ( a.readingSession!.textId! === b.readingSession!.textId! ) {
+                        return a.readingSession!.reader! - b.readingSession!.reader!;
+                    }
+
+                    return a.readingSession!.textId! - b.readingSession!.textId!;
+                } );
                 loading.value = false;
             } )
             .catch( e => {

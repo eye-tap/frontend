@@ -28,9 +28,8 @@
     const selectedFileIndex = ref( 0 );
     const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
-        if ( sortColumn.value === 'none' ) {
+        if ( sortColumn.value === 'none' )
             return props.files;
-        }
 
         const toSort = [ ...props.files ];
 
@@ -53,8 +52,7 @@
 
     // Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
     const compareFunc = ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
-        if ( sortColumn.value === 'none' ) return 1;
-
+        // Sort by text name, then reader
         if ( sortColumn.value === 'total' || sortColumn.value === 'done' ) {
             if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
 
@@ -67,10 +65,7 @@
             else
                 return sortPredicate( b['annotationsMetaData']![sortColumn.value]! < a['annotationsMetaData']![sortColumn.value]! );
         } else {
-            if ( !ascendingSort.value )
-                return a[sortColumn.value] < b[sortColumn.value] ? 1 : -1;
-            else
-                return a[sortColumn.value] < b[sortColumn.value] ? -1 : 1;
+            return 1;
         }
     };
 
@@ -139,7 +134,7 @@
                         @click="selectFile( index )"
                     >
                         <td class="file-name">
-                            {{ file.readingSession?.textTitle }}
+                            {{ file.readingSession?.textTitle }}, reader {{ file.readingSession?.reader }}
                         </td>
                         <td class="gazepoints">
                             {{
