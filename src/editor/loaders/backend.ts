@@ -38,12 +38,15 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const annotationLoad = sessionData.value.annotations!;
 
     annotations.value = [];
-    annotationLoad.forEach( annotation => {
-        annotations.value.push( {
-            'fixationId': annotation.fixation!.id!,
-            'boxId': annotation.characterBoundingBox!.id!
+
+    if ( annotationLoad )
+        annotationLoad.forEach( annotation => {
+            annotations.value.push( {
+                'fixationId': annotation.fixation!.id!,
+                'boxId': annotation.characterBoundingBox!.id!
+            } );
         } );
-    } );
+
     // Load fixations
     const fix = sessionData.value.readingSession!.fixations!;
 

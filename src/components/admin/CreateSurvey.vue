@@ -186,6 +186,7 @@
                 <h1 v-else>
                     Magic Links
                 </h1>
+                <!-- TODO: Add note that it will only be shown once and confirm exit. Also reload surveys on exit -->
                 <div>
                     <span v-if="!showMagicLinks">
                         <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="loadTexts()"></i>
