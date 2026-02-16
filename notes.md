@@ -1,21 +1,20 @@
 # Improvement ideas
 ## Editor
-- nicer default colours
+- nicer default colours -- done
 - bounding box stroke width smaller and lighter colour -- done (as options)
 - index colour should become more legible when hovered or generally -- done (as options)
 - Bug testing (I can't recall the issues we had previously)
 - Completely rewrite history tracking (as it is quite broken currently, e.g. clicking a new point is a history entry) -- done
 - "fireworks" or the like when annotation is completed -- done
 - Remove some of the options (or hide them better)
-- Fix animation for sidebar collapse
+- Fix animation for sidebar collapse -- done
 - Reader selection using dropdown instead of number input field (we can filter out the readers without a point) -- done (differently)
 - Move advanced options into a popover instead of the sidebar -- done
 - Change default rendering size of the editor -- done
 - Improve next item selection -- done
 - Make options not depend on each other except when they are a dropdown -- done
-(i.e. we need to make a dropdown e.g. for "show boxes" as options we could have "always", "on hover" and "never")
-- Heatmap (i.e. points are coloured based on the entropy), or shown as a small overlay somewhere sensible -- TODO: Really needed? Or how to do (support is technically there)
-- Word boxes rendering -- TODO: Do we really need this? (again, editor technically supports it, but handling code is missing)
+- Heatmap (i.e. points are coloured based on the entropy), or shown as a small overlay somewhere sensible -- TODO: Really needed? (support is technically there) -- skipped for now
+- Word boxes rendering -- TODO: Do we really need this? (again, editor technically supports it, but handling code is missing) -- skipped for now
 - Tour
 - Zoom APIs -- done
 - Integrate zoom -- done
@@ -27,13 +26,13 @@
 
 ## General
 - Do we need the export feature still? -> Into admin panel -- done
-- General usability improvements
+- General usability improvements -- done
 - Update theme colours (currently primarily the blue and black themes look good)
 - Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- ~~done~~ someone broke it again
 - Better error handling for backend errors (i.e. better notifications) -- done
 - RWD fixes -- done
 - Block if device is too small (also touch devices don't work!) -- done
-- Improve animations (e.g. of the account slideover)
+- Improve animations (e.g. of the account slideover) -- done
 - Take care of all TODOs in the code
 - Do deployment
 
