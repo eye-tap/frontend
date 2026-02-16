@@ -5,7 +5,8 @@ import {
 import {
     annotations,
     boundingBoxes,
-    fixations
+    fixations,
+    selectedFixation
 } from '../data';
 import type {
     AnnotationSessionDto
@@ -54,6 +55,20 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             } );
         }
     } );
+    // Sorting
+    fixations.value.sort( ( a, b ) => {
+        return a.id! - b.id!;
+    } );
+    selectedFixation.value = 0;
+
+    if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
+        for ( let i = 1; i < fixations.value.length; i++ ) {
+            if ( fixations.value[ i ]!.assigned === 'unassigned' ) {
+                selectedFixation.value = i;
+                break;
+            }
+        }
+    }
 
     // Load bounding boxes
     const bb = sessionData.value.readingSession!.textDto!.characterBoundingBoxes!;
@@ -68,6 +83,4 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'highlightClass': 'none'
         } );
     } );
-
-    // TODO: Select first fixation!
 };

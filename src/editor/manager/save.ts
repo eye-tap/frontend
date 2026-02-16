@@ -1,4 +1,9 @@
 import {
+    annotations,
+    boundingBoxes,
+    fixations
+} from '../data';
+import {
     onMounted,
     onUnmounted,
     ref
@@ -7,9 +12,6 @@ import type {
     EditAnnotationsDto
 } from '@/types/dtos/EditAnnotationsDto';
 import annotation from '@/ts/annotations';
-import {
-    annotations
-} from '../data';
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
@@ -24,8 +26,9 @@ export const useSaveFunction = () => {
             'annotations': {}
         };
 
-        annotations.value.map( val => {
-            data.annotations![ val.fixationId ] = val.boxId;
+        // Translate to correct ids
+        annotations.value.forEach( val => {
+            data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
         } );
         annotation.save( data, session.sessionIds[ session.sessionIdx ]! );
     };
