@@ -5,8 +5,11 @@ import {
 import type {
     Color
 } from './types/boxes';
+import type {
+    EditorPoint
+} from './types/annotation';
 
-const r = document.querySelector( ':root' );
+const r = document.querySelector( ':root' )!;
 const rs = getComputedStyle( r );
 
 
