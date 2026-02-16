@@ -48,7 +48,6 @@
                         >
                         <SwitchOption v-model="dataImport.importConfigFixationHasMultipleTexts.value" text="Use TextID on fixations" />
                     </div>
-                    <!-- TODO: Add options for annotations import -->
 
                     <div class="options-section">
                         <p>Bounding Boxes</p>
@@ -83,6 +82,34 @@
                             placeholder="Larger Y coordinate"
                         >
                         <SwitchOption v-model="dataImport.importConfigBBHasMultipleTexts.value" text="Use TextID on Bounding Boxes" />
+                    </div>
+
+                    <div class="options-section">
+                        <p>Annotations</p>
+                        <input
+                            v-model="dataImport.importConfigAnnotationTextIDCSVName.value"
+                            type="text"
+                            placeholder="Text ID"
+                        >
+                        <input
+                            v-model="dataImport.importConfigAnnotationReaderCSVName.value"
+                            type="text"
+                            placeholder="Reader"
+                        >
+                        <input
+                            v-model="dataImport.importConfigAnnotationFixationIDCSVName.value"
+                            type="text"
+                            placeholder="Fixation ID"
+                        >
+                        <input
+                            v-model="dataImport.importConfigAnnotationBoundingBoxIdCSVName.value"
+                            type="text"
+                            placeholder="Bounding Box ID"
+                        >
+                        <SwitchOption
+                            v-model="dataImport.importConfigAnnotationHasMultipleTexts.value"
+                            text="Use TextID on Bounding Boxes"
+                        />
                     </div>
                 </div>
             </div>
