@@ -19,7 +19,6 @@ import {
     canvasSize
 } from '../data';
 
-// TODO: Add note somewhere that Canvas might look odd, simply tell user to allow usage of canvas in browser
 export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
     const updatedTextCache = document.createElement( 'img' );
 

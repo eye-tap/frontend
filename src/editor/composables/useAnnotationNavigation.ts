@@ -4,6 +4,9 @@ import {
     ref
 } from 'vue';
 import {
+    save
+} from '..';
+import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -14,6 +17,7 @@ export function useAnnotationNavigation () {
 
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
+        save();
 
         if ( !nextAnnotationId.value ) {
             console.warn( 'No next annotation ID available.' );
@@ -34,7 +38,6 @@ export function useAnnotationNavigation () {
 
         isAnnotationComplete.value = false;
         nextAnnotationId.value = null;
-        // TODO: Save progress!!!!
     };
 
     const handleAnnotationDone = ( event: Event ) => {

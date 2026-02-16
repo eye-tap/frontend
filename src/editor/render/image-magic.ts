@@ -35,7 +35,6 @@ export const setImageTextColour = ( image: HTMLImageElement, col: Color, slice: 
     }
 
     const imgData = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height );
-    const color = col;
     const data = imgData.data;
     const bgReferencePoint = ( 10 * imgData.width ) + ( 10 * 4 );
     const bgAmbiance = data[ bgReferencePoint + 3 ];
@@ -45,16 +44,15 @@ export const setImageTextColour = ( image: HTMLImageElement, col: Color, slice: 
         const luminance = ( data[i]! + data[i + 1]! + data[i + 2]! ) / 3;
 
         if ( luminance !== bgLuminance || data[i + 3] !== bgAmbiance ) {
-            const l = luminance > 0 ? luminance : 0;
+            const l = luminance > 0 ? luminance : 1;
 
-            data[i] = Math.round( color.r / l );
-            data[i + 1] = Math.round( color.g / l );
-            data[i + 2] = Math.round( color.b / l );
+            data[i] = Math.round( col.r / l );
+            data[i + 1] = Math.round( col.g / l );
+            data[i + 2] = Math.round( col.b / l );
         }
     }
 
     ctx.putImageData( imgData, 0, 0 );
-    canvas.toDataURL( 'image/jpg' );
 
     return imgData;
 };
