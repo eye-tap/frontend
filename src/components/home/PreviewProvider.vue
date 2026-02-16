@@ -43,7 +43,7 @@
                             Gaze points
                         </p>
                         <p class="content">
-                            {{ props.session.readingSession?.textTitle ? $props.session.readingSession?.textTitle : 'N/A' }}
+                            {{ props.session.annotationsMetaData?.total ? props.session.annotationsMetaData.total : 'N/A' }}
                         </p>
                     </td>
                 </tr>
