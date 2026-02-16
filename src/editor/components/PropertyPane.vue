@@ -29,8 +29,8 @@
     const isDragging = ref( false );
     const session = useAnnotationSessionStore();
     const pos: Ref<EditorPoint> = ref( {
-        'x': 0,
-        'y': 0
+        'x': 10,
+        'y': 10
     } );
 
     let oldPos: EditorPoint = {
