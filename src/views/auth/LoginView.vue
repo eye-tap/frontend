@@ -146,7 +146,7 @@
                         <p v-if="errMsg" class="error">
                             {{ errMsg }}
                         </p>
-                        <div 
+                        <div
                             v-if="loggingIn"
                             class="spinner-wrapper"
                         >
