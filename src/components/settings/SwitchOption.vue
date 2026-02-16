@@ -1,8 +1,20 @@
 <script setup lang="ts">
+    import {
+        watch
+    } from 'vue';
+
     const props = defineProps<{
         'text': string
     }>();
     const state = defineModel<boolean>();
+    const emit = defineEmits<{
+        ( e: 'change', newState: boolean ): void
+
+    }>();
+
+    watch( state, newState => {
+        emit( 'change', newState! );
+    } );
 </script>
 
 <template>

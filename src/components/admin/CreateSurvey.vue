@@ -123,10 +123,10 @@
         } );
     };
 
-    const toggleSelectAllForText = ( textIdx: number ) => {
+    const toggleSelectAllForText = ( textIdx: number, newState: boolean ) => {
         const text = texts.value[ textIdx ]!;
 
-        if ( text.selected.reduce( ( res, val ) => res && val ) ) {
+        if ( !newState ) {
             text.selected = text.selected.map( () => false );
         } else {
             text.selected = text.selected.map( () => true );
@@ -239,14 +239,16 @@
                                             v-for="text, index in texts"
                                             :key="index"
                                             :class="index === selectedTextIndex ? 'selected' : ''"
-                                            @click="selectText( index )"
                                         >
-                                            <td class="text-name">
+                                            <td
+                                                class="text-name"
+                                                @click="() => selectText( index )"
+                                            >
                                                 {{ text.title }}
                                             </td>
                                             <td class="select-all">
-                                                <div @Click="toggleSelectAllForText(index)">
-                                                    <SwitchOption text="" />
+                                                <div>
+                                                    <SwitchOption text="" @change="newState => toggleSelectAllForText( index, newState )" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -272,7 +274,7 @@
                                             </td>
                                             <td class="select-all">
                                                 <div>
-                                                    <SwitchOption v-model="texts[selectedTextIndex]!.selected[index]" text="" />
+                                                    <SwitchOption v-model="texts[ selectedTextIndex ]!.selected[ index ]" text="" />
                                                 </div>
                                             </td>
                                         </tr>
