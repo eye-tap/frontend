@@ -108,16 +108,22 @@
                 <div class="logo-bar">
                     <LogoRenderer :kind="'full'" class="logo" />
                 </div>
+                <p class="title">
+                    Login
+                </p>
                 <div class="inputs">
-                    <!-- Email input -->
+                    <p class="desc">
+                        User name
+                    </p>
                     <input
                         v-model="id"
                         type="text"
                         placeholder="Your email or username"
                         :class="['input', idError ? 'error' : '']"
                     >
-
-                    <!-- Password input -->
+                    <p class="desc">
+                        Email address
+                    </p>
                     <div class="password-wrapper">
                         <input
                             v-model="password"
@@ -140,6 +146,12 @@
                         <p v-if="errMsg" class="error">
                             {{ errMsg }}
                         </p>
+                        <div 
+                            v-if="loggingIn"
+                            class="spinner-wrapper"
+                        >
+                            <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -147,9 +159,6 @@
                 <div class="buttons">
                     <button class="button primary" @click="login">
                         Log in
-                        <div v-if="loggingIn">
-                            <i class="fa-solid fa-lg fa-arrows-rotate"></i>
-                        </div>
                     </button>
                     <RouterLink to="/signup">
                         <button class="button secondary">
@@ -174,6 +183,25 @@
         width: auto;
     }
 
+    .title {
+        color: var(--theme-bg-3-20);
+        text-align: left;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0px;
+    }
+
+    .inputs {
+        >.desc {
+            color: var(--theme-bg-3-20);
+            font-size: 0.85rem;
+
+            padding: 0px;
+            margin: 0px;
+            margin-top: 0.5rem;
+        }
+    }
+
     .password-toggle {
 
         >span {
@@ -186,12 +214,37 @@
 
     .errWrapper {
         width: 100%;
+        margin-top: 1rem;
 
         >.error {
             color: var(--theme-warning);
             text-align: center;
             padding: 0;
             margin: 0;
+        }
+
+        >.spinner-wrapper {
+            text-align: center;
+
+            >i {
+                color: var(--theme-interactable-text);
+                animation: rotating 1.5s infinite;
+            }
+
+            @keyframes rotating {
+                0% {
+                    rotate: 0deg;
+                    color: var(--theme-bg-4);
+                }
+                50% {
+                    rotate: 180deg;
+                    color: var(--theme-bg-5);
+                }
+                100% {
+                    rotate: 360deg;
+                    color: var(--theme-bg-4);
+                }
+            }
         }
     }
 
