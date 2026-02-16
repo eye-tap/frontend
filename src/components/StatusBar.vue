@@ -92,15 +92,19 @@
                 <button class="button primary" @click="auth.logout">
                     Log out
                 </button>
-                <button v-if="status.roles.includes( 'ROLE_SURVEY_ADMIN' )" class="button primary" @click="admin">
+                <button
+                    v-if="status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && router.currentRoute.value.name !== 'admin'"
+                    class="button primary"
+                    @click="admin"
+                >
                     Admin
                 </button>
             </div>
         </div>
 
-        <div v-if="$props.showThemePicker" class="user-menu-wrapper">
+        <div v-if="props.showThemePicker" class="user-menu-wrapper">
             <button
-                v-if="$props.showThemePicker"
+                v-if="props.showThemePicker"
                 id="theme-select"
                 class="user-button"
                 title="Change Theme"

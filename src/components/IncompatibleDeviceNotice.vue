@@ -8,6 +8,7 @@
 
     // TODO: Set this to false once design done
     const show = ref( true );
+    // const show = ref( false );
     const isTouchDevice = ref( false );
     const isTooSmall = ref( false );
     const isUnsuitableAspectRatio = ref( false );
