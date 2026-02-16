@@ -146,7 +146,9 @@ const logout = (): void => {
 
     // Clear local authentication state
     status.setAuth( false );
-    status.setUsername( '' );
+    setTimeout( () => {
+        status.setUsername( '' );
+    }, 1000 );
 
     // Remove stored JWT
     localStorage.removeItem( 'jwt' );

@@ -5,7 +5,6 @@
         undo,
         undoAvailable
     } from '..';
-    import ExportOptions from './ExportOptions.vue';
     import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
@@ -16,7 +15,6 @@
     const isSideBarCollapsed = ref( false );
     const showPreferences = ref( false );
     const showKeybinds = ref( false );
-    const showExportOptions = ref( false );
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
@@ -90,10 +88,6 @@
                 </div>
             </div>
             <OptionsPane />
-        </div>
-        <div v-if="!isSideBarCollapsed && showExportOptions">
-            <h2>Export</h2>
-            <ExportOptions />
         </div>
         <div v-if="!isSideBarCollapsed" class="bottom-buttons">
             <button class="button primary" @click="editor.save">

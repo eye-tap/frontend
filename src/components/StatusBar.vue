@@ -92,7 +92,7 @@
                 <button class="button primary" @click="auth.logout">
                     Log out
                 </button>
-                <button class="button primary" @click="admin">
+                <button v-if="status.roles.includes( 'ROLE_SURVEY_ADMIN' )" class="button primary" @click="admin">
                     Admin
                 </button>
             </div>
