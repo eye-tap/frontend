@@ -63,7 +63,9 @@
                 <h1>Editor Controls</h1>
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
-            <p class="desc">The Editor provides several keybinds for quicker annotations.</p>
+            <p class="desc">
+                The Editor provides several keybinds for quicker annotations.
+            </p>
             <div>
                 <div class="options-container">
                     <div class="options-section">
