@@ -26,6 +26,9 @@ import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 import {
+    useSaveFunction
+} from './manager/save';
+import {
     useStatusStore
 } from '@/ts/stores/status';
 
@@ -65,6 +68,7 @@ const start = (
     const io = ioHandler( clickTarget, draw );
 
     editorSessionManager( draw );
+    useSaveFunction();
 
     if ( !status.devMode ) {
         loadEditorDataFromBackend( draw );
