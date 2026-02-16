@@ -1,10 +1,11 @@
 import {
-    type Ref,
-    ref
+    ref,
+    type Ref
 } from 'vue';
-import type {
-    EditorPoint
-} from './types/annotation';
+import type { Color } from './types/boxes';
+
+const r = document.querySelector( ':root' );
+const rs = getComputedStyle( r );
 
 
 // Essentials
@@ -14,25 +15,25 @@ export const overScrollDistanceForZoom = ref( 20 );
 
 
 // Colors
-export const assignedLineColor = ref( 'red' );
+export const assignedLineColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
-export const cursorLineColor = ref( 'black' );
+export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-export const boundingBoxColor = ref( 'grey' );
+export const boundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
-export const highlightedBoundingBoxColor = ref( 'red' );
+export const highlightedBoundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-export const proximityBoundingBoxColor = ref( 'blue' );
+export const proximityBoundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3-20' ) );
 
-export const selectedFixationColor = ref( 'blue' );
+export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-export const assignedFixationColor = ref( 'green' );
+export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-2' ) );
 
-export const unassignedFixationColor = ref( 'red' );
+export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3-20' ) );
 
-export const hoveredFixationColor = ref( 'red' );
+export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-export const machineAssignedFixationColor = ref( 'red' );
+export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-information' ) );
 
 // Stroke width
 export const boundingBoxStrokeWidth = ref( 2 );
@@ -47,7 +48,7 @@ export const lineWidth = ref( 1 );
 
 export const indicesFontSize = ref( 12 );
 
-export const indicesFontFamily = ref( 'serif' );
+export const indicesFontFamily = ref( 'sans-serif' );
 
 
 // Scaling and Zoom
@@ -59,15 +60,15 @@ export const referenceCanvasSize = {
 export const zoomScrollWheelDivideFactor = ref( 100 );
 
 // Opacity
-export const unfocusedTextColor = ref( {
-    'r': 255,
-    'g': 0,
-    'b': 0
+export const unfocusedTextColor: Ref<Color> = ref( {
+    'r': 128,
+    'g': 128,
+    'b': 128
 } );
 
-export const hoveredTextColor = ref( {
+export const hoveredTextColor: Ref<Color> = ref( {
     'r': 0,
-    'g': 255,
+    'g': 0,
     'b': 0
 } );
 
