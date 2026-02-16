@@ -58,7 +58,8 @@ export const parseFixationsCSV = (
                 points[ reader ] = {
                     'textForeignId': Number( textId ),
                     'readerForeignId': Number( reader ),
-                    'fixations': []
+                    'fixations': [],
+                    'preAnnotations': []
                 };
             }
 

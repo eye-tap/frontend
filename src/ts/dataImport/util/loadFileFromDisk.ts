@@ -38,6 +38,12 @@ export const loadFileFromDisk = ( element: HTMLInputElement ): Promise<Response>
             return;
         }
 
+        fileLoader( file );
+    } );
+};
+
+export const fileLoader = ( file: File ): Promise<Response> => {
+    return new Promise( ( resolve, reject ) => {
         fetch( URL.createObjectURL( file ) )
             .then( res => {
                 if ( res.status === 200 ) {
