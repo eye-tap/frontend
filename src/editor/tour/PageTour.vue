@@ -5,6 +5,14 @@
     };
 
     const show = defineModel<boolean>();
+    const emit = defineEmits<{
+        ( e: 'launch-tour' ): void
+    }>();
+
+    const startFullTour = () => {
+        emit( 'launch-tour' );
+        dismiss();
+    };
 </script>
 
 <template>
@@ -28,6 +36,9 @@
                     </div>
                     <span>Note:</span> if you press Backspace or Delete, your last annotation will be deleted.
                 </div>
+                <button class="button primary" @click="startFullTour">
+                    Start Tour
+                </button>
                 <!-- TODO: Add button to start detailed tour -->
             </div>
         </div>

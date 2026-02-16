@@ -1,14 +1,16 @@
 <script setup lang="ts">
     import {
-        type ITourStep, VTour
+        type ITourStep, VTour,
+        type VTourExposedMethods
     } from '@globalhive/vuejs-tour';
+    import {
+        type Ref,
+        ref
+    } from 'vue';
     import AnnotationCompletion from './components/AnnotationCompletion.vue';
     import EditorView from './components/EditorView.vue';
     import PageTour from './tour/PageTour.vue';
     import SidePane from './components/SidePane.vue';
-    import {
-        ref
-    } from 'vue';
     import {
         useAnnotationNavigation
     } from './composables/useAnnotationNavigation';
@@ -31,13 +33,18 @@
             'backdrop': true
         }
     ];
+    // TODO: Expand tour
     const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
-    // TODO: Use the start method for the tour
+    const tour: Ref<VTourExposedMethods | null> = ref( null );
+
+    const startFullTour = () => {
+        tour.value!.startTour();
+    };
 </script>
 
 <template>
     <div class="editor">
-        <PageTour v-model="showWelcomeTour" />
+        <PageTour v-model="showWelcomeTour" @launch-tour="startFullTour" />
         <AnnotationCompletion
             v-model="isAnnotationComplete"
             @next="goToNextAnnotation"
@@ -45,7 +52,7 @@
         />
         <SidePane />
         <EditorView id="tour-editor" />
-        <VTour :steps="steps" />
+        <VTour ref="tour" :steps="steps" />
     </div>
 </template>
 

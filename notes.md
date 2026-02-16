@@ -20,9 +20,9 @@
 - Zoom APIs -- done
 - Integrate zoom -- done
 - Keybind improvements -- done
-- Show keybinds
+- Show keybinds -- done
 - ~~Indices rendering outside box if possible?~~
-- On move to next annotation session, SAVE!!!
+- On move to next annotation session, SAVE!!! -- done
 
 
 ## General
