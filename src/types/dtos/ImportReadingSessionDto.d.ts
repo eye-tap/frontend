@@ -1,9 +1,13 @@
-import type { ImportFixationDto } from "@/types/dtos/ImportFixationDto";
-import type { ImportPreAnnotationDto } from "@/types/dtos/ImportPreAnnotationDto";
+import type {
+    ImportFixationDto
+} from '@/types/dtos/ImportFixationDto';
+import type {
+    ImportPreAnnotationDto
+} from '@/types/dtos/ImportPreAnnotationDto';
 
 export interface ImportReadingSessionDto {
-  fixations?: ImportFixationDto[];
-  readerForeignId?: number;
-  textForeignId?: number;
-  preAnnotations?: ImportPreAnnotationDto[];
+    'fixations'?: ImportFixationDto[];
+    'readerForeignId'?: number;
+    'textForeignId'?: number;
+    'preAnnotations'?: ImportPreAnnotationDto[];
 }
