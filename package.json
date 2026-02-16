@@ -1,7 +1,7 @@
 {
-  "name": "eye-tap",
+  "name": "eye-tap-frontend",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
