@@ -13,6 +13,9 @@ import type {
     Renderer
 } from '../types/renderer';
 import {
+    highlightBox
+} from './boxes';
+import {
     startHistoryTracker
 } from './history';
 import {
@@ -27,7 +30,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
      * @param boundingBoxIndex - The index of the bounding box
      * @param fixationIndex - The index of the fixation
      */
-    const create = ( boundingBoxIndex: number, fixationIndex: number, skipHistory: boolean = false ) => {
+    const create = ( boundingBoxIndex: number, fixationIndex: number, skipHistory: boolean = false, highlight: boolean = false ) => {
         if (
             boundingBoxIndex > -1 && fixationIndex > -1
         ) {
@@ -41,6 +44,9 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             // Add to history
             if ( !skipHistory )
                 history.add( annotation, fixationIndex );
+
+            if ( highlight )
+                highlightBox( boundingBoxIndex, 1000 );
 
             // Advance to next element
             const length = fixations.value.length;
@@ -92,7 +98,9 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         }
 
         if ( idx > -1 ) {
-            annotations.value.splice( idx, 1 );
+            const d = annotations.value.splice( idx, 1 );
+
+            highlightBox( d[ 0 ]!.boxId, 3000 );
         }
     };
 
@@ -111,7 +119,9 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         }
 
         if ( idx > -1 ) {
-            annotations.value.splice( idx, 1 );
+            const d = annotations.value.splice( idx, 1 );
+
+            highlightBox( d[ 0 ]!.boxId, 3000 );
         }
     };
 

@@ -6,8 +6,10 @@ export interface EditorCharacterBoundingBox extends CharacterBoundingBoxDto {
     'centerX': number;
     'centerY': number;
     'nearbyPoints': number[];
-    'highlightClass': 'nearby' | 'hovered' | 'proximity' | 'highlight' | 'none';
+    'highlightClass': HighlightClass;
 }
+
+export type HighlightClass = 'nearby' | 'hovered' | 'proximity' | 'highlight' | 'none';
 
 export interface Color {
     'r': number,

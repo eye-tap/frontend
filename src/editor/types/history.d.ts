@@ -10,5 +10,5 @@ export interface HistoryEntry {
 export interface AnnotationManager {
     'deleteByFixID': ( fixationId: number ) => void;
     'deleteByBoxID': ( boxId: number ) => void;
-    'create': ( boundingBoxIndex: number, fixationIndex: number, skipHistory?: boolean ) => void;
+    'create': ( boundingBoxIndex: number, fixationIndex: number, skipHistory?: boolean, highlight?: boolean ) => void;
 }

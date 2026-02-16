@@ -20,7 +20,8 @@
 - Zoom APIs -- done
 - Integrate zoom -- done
 - Keybind improvements
-- Indices rendering outside box if possible?
+- Show keybinds
+- ~~Indices rendering outside box if possible?~~
 - On move to next annotation session, SAVE!!!
 
 
@@ -31,9 +32,10 @@
 - Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- ~~done~~ someone broke it again
 - Better error handling for backend errors (i.e. better notifications) -- done
 - RWD fixes -- done
-- Block if device is too small (also touch devices don't work!)
+- Block if device is too small (also touch devices don't work!) -- done
 - Improve animations (e.g. of the account slideover)
 - Take care of all TODOs in the code
+- Do deployment
 
 
 ## User login

@@ -29,7 +29,12 @@ export const keyboardHandler = ( renderer: Renderer ) => {
         if ( !disableKeyHandler.value ) {
             if ( isCharacterKey( ev.key ) && !ev.ctrlKey && !ev.metaKey && !ev.altKey ) {
                 ev.preventDefault();
-                annotation.create( getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key ), selectedFixation.value );
+                annotation.create(
+                    getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key ),
+                    selectedFixation.value,
+                    false,
+                    true
+                );
             } else if ( isUndoCmd( ev ) || ev.key === 'Backspace' || ev.key === 'Delete' ) {
                 ev.preventDefault();
                 undo();

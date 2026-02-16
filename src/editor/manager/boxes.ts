@@ -6,6 +6,9 @@ import type {
     EditorPoint
 } from '../types/annotation';
 import type {
+    HighlightClass
+} from '../types/boxes';
+import type {
     Renderer
 } from '../types/renderer';
 import {
@@ -30,21 +33,21 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
             if ( previousIdx > -1 ) {
                 needToRedraw = true;
 
-                boundingBoxes.value[ previousIdx ]!.highlightClass = 'none';
+                setHighlightClass( previousIdx, 'none' );
             }
         } else {
             if ( idx !== previousIdx ) {
                 needToRedraw = true;
 
                 if ( previousIdx > -1 )
-                    boundingBoxes.value[ previousIdx ]!.highlightClass = 'none';
+                    setHighlightClass( previousIdx, 'none' );
 
-                boundingBoxes.value[ idx ]!.highlightClass = 'hovered';
+                setHighlightClass( idx, 'hovered' );
             }
 
             if ( highlightCurrent === false ) {
+                setHighlightClass( idx, 'none' );
                 needToRedraw = true;
-                boundingBoxes.value[ idx ]!.highlightClass = 'none';
             }
         }
 
@@ -59,13 +62,13 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
                         + Math.pow( bb.centerY - pos.y, 2 ) ) < boundingBoxOnHoverRadius.value )
                 ) {
                     if ( bb.highlightClass !== 'proximity' ) {
-                        bb.highlightClass = 'proximity';
+                        setHighlightClass( i, 'proximity' );
 
                         needToRedraw = true;
                     }
                 } else {
                     if ( bb.highlightClass === 'proximity' ) {
-                        bb.highlightClass = 'none';
+                        setHighlightClass( i, 'none' );
 
                         needToRedraw = true;
                     }
@@ -80,12 +83,19 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
     };
 };
 
-// TODO: Marking boxes as highlighted
+const setHighlightClass = ( idx: number, highlightClass: HighlightClass ) => {
+    if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
+        setPreviosHighlightClassForBoxIndex( idx, highlightClass );
+    } else {
+        boundingBoxes.value[ idx ]!.highlightClass = highlightClass;
+    }
+};
+
 const prev: {
-    [key: number]: string
+    [key: number]: HighlightClass
 } = {};
 
-export const setPreviosHighlightClassForBoxIndex = ( idx: number, previous: string ) => {
+export const setPreviosHighlightClassForBoxIndex = ( idx: number, previous: HighlightClass ) => {
     prev[ idx ] = previous;
 };
 
@@ -94,9 +104,11 @@ export const setPreviosHighlightClassForBoxIndex = ( idx: number, previous: stri
  * @param pos - The position at which to highlight the box
  * @param duration - Time in millis. Set to -1 to not automatically remove highlight
  */
-export const highlightBox = ( pos: EditorPoint, duration: number ) => {
-    const idx = getBoxIdFromCoordinate( pos );
+export const highlightBoxByPos = ( pos: EditorPoint, duration: number ) => {
+    highlightBox( getBoxIdFromCoordinate( pos ), duration );
+};
 
+export const highlightBox = ( idx: number, duration: number ) => {
     if ( idx < 0 ) return;
 
     const renderer = getRenderer();
@@ -109,11 +121,25 @@ export const highlightBox = ( pos: EditorPoint, duration: number ) => {
     if ( duration > -1 ) {
         setTimeout( () => {
             if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
-                boundingBoxes.value[ idx ]!.highlightClass = 'none';
+                boundingBoxes.value[ idx ]!.highlightClass = prev[ idx ]!;
 
                 renderer.renderBoxes.render();
             }
         }, duration );
+    }
+};
+
+export const unHighlightBoxByPos = ( pos: EditorPoint ) => {
+    unHighlightBox( getBoxIdFromCoordinate( pos ) );
+};
+
+export const unHighlightBox = ( idx: number ) => {
+    const renderer = getRenderer();
+
+    if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
+        boundingBoxes.value[ idx ]!.highlightClass = prev[ idx ]!;
+
+        renderer.renderBoxes.render();
     }
 };
 
