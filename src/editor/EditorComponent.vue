@@ -14,10 +14,13 @@
     import {
         useAnnotationNavigation
     } from './composables/useAnnotationNavigation';
+    import {useSaveFunction} from "@/editor/manager/save.ts";
 
     const {
         goToNextAnnotation, isAnnotationComplete
     } = useAnnotationNavigation();
+
+    useSaveFunction();
     // TODO: To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
     const steps: ITourStep[] = [
         {

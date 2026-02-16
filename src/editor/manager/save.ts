@@ -25,15 +25,17 @@ export const useSaveFunction = () => {
         const data: EditAnnotationsDto = {
             'annotations': {}
         };
-
+        console.log("Trying to save annotations");
         // Translate to correct ids
         annotations.value.forEach( val => {
             data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
         } );
-        annotation.save( data, session.sessionIds[ session.sessionIdx ]!.sessionId );
-    };
+        console.log("Edited annotations: " + data);
+        annotation.save(data, session.sessionIds[session.sessionIdx]!.sessionId).then();
+     };
 
     onMounted( () => {
+        console.log("Registering eyetap:save listener")
         document.addEventListener( 'eyetap:save', save );
     } );
 
