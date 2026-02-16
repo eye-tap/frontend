@@ -5,7 +5,9 @@
         ref
     } from 'vue';
     import LogoRenderer from './LogoRenderer.vue';
-    import { useNotification } from '@kyvg/vue3-notification';
+    import {
+        useNotification
+    } from '@kyvg/vue3-notification';
 
     const show = ref( false );
     const isTouchDevice = ref( false );
@@ -63,17 +65,31 @@
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
             <div v-if="isTouchDevice || isTooSmall || isUnsuitableAspectRatio" class="popup-body">
-                <h2 class="title">Unsupported Device</h2>
-                <p class="desc">Eye-TAP is intended for a desktop deviceand does not support this device type:</p>
+                <h2 class="title">
+                    Unsupported Device
+                </h2>
+                <p class="desc">
+                    Eye-TAP is intended for a desktop deviceand does not support this device type:
+                </p>
                 <ul>
-                    <li v-if="isTouchDevice">Touch Device</li>
-                    <li v-if="isTooSmall">Screen size too small</li>
-                    <li v-if="isUnsuitableAspectRatio">Unsuitable Aspect Ratio</li>
+                    <li v-if="isTouchDevice">
+                        Touch Device
+                    </li>
+                    <li v-if="isTooSmall">
+                        Screen size too small
+                    </li>
+                    <li v-if="isUnsuitableAspectRatio">
+                        Unsuitable Aspect Ratio
+                    </li>
                 </ul>
             </div>
             <div v-else class="popup-body">
-                <h2 class="title">Device compatible</h2>
-                <p class="desc">All features required for Eye-TAP are supported</p>
+                <h2 class="title">
+                    Device compatible
+                </h2>
+                <p class="desc">
+                    All features required for Eye-TAP are supported
+                </p>
                 <button class="button primary" @click="dismiss">
                     Continue
                 </button>
