@@ -134,7 +134,7 @@
                         @click="selectFile( index )"
                     >
                         <td class="file-name">
-                            {{ file.readingSession?.textTitle }}, reader {{ file.readingSession?.reader }}
+                            {{ file.description }}
                         </td>
                         <td class="gazepoints">
                             {{
