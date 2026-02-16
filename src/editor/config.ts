@@ -1,8 +1,10 @@
 import {
-    ref,
-    type Ref
+    type Ref,
+    ref
 } from 'vue';
-import type { Color } from './types/boxes';
+import type {
+    Color
+} from './types/boxes';
 
 const r = document.querySelector( ':root' );
 const rs = getComputedStyle( r );
