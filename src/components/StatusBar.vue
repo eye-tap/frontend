@@ -39,7 +39,7 @@
     };
 
     // History Lesson: Too long usernames break the side-menu, so this cuts them off
-    const truncate = (text: string, limit: number) => {
+    const truncate = ( text: string, limit: number ) => {
         if ( text.length < limit ) return text;
         else return text.slice( 0, limit - 3 ) + '...';
     };
@@ -88,10 +88,10 @@
             <!-- For user-made themes, color pickers etc. could be added here -->
         </div>
         <div :class="[ 'user-menu', showUserMenu ? 'shown' : undefined ]">
-            <h2 class="user-name" v-if="status.username">
+            <h2 v-if="status.username" class="user-name">
                 {{ truncate( status.username, maxUsernameLength ) }}
             </h2>
-            <h2 class="user-name" v-else>
+            <h2 v-else class="user-name">
                 {{ truncate( 'TestUserNameWhichSurpassesLengthLimit', maxUsernameLength) }}
             </h2>
             <p>Logged in</p>
