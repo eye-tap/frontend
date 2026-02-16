@@ -44,8 +44,8 @@ export const parseFixationsCSV = (
 
     for ( let i = 0; i < lines.length; i++ ) {
         const cols = lines[i]!.split( ',' );
-        const tempx = Number( cols[xIndex] ) * factor;
-        const tempy = Number( cols[yIndex] ) * factor;
+        const tempx = Math.round( Number( cols[xIndex] ) * factor );
+        const tempy = Math.round( Number( cols[yIndex] ) * factor );
 
         if ( firstEncounteredTextID !== cols[ textIndex ] && !textId ) {
             throw new MultipleTextIDsWithoutSpecifiedTextIDError();

@@ -62,9 +62,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         }
     } );
     // Sorting
-    fixations.value.sort( ( a, b ) => {
-        return a.id! - b.id!;
-    } );
+    // fixations.value.sort( ( a, b ) => {
+    //     return a.id! - b.id!;
+    // } );
     selectedFixation.value = 0;
 
     if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
