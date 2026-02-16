@@ -33,11 +33,13 @@ export const parseFixationsCSV = (
         throw new InvalidIndexNameError( 'reader ID' );
     else if ( textIndex < 0 && textId !== undefined )
         throw new InvalidIndexNameError( 'text ID' );
+    else if ( idIndex < 0 )
+        throw new InvalidIndexNameError( 'fixation ID' );
 
     const firstCols = lines[0]!.split( ',' );
     const firstEncounteredTextID = firstCols[ textIndex ];
     const points: {
-        [key: string]: ImportReadingSessionDto
+        [reader: string]: ImportReadingSessionDto
     } = {};
 
     for ( let i = 0; i < lines.length; i++ ) {
