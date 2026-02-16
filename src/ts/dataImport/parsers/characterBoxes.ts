@@ -21,11 +21,10 @@ export const parseCharacterBoundingBoxesCSV = (
         .map( h => h.trim() );
     const charIndex = header.indexOf( charName );
     const textIndex = header.indexOf( textName );
-
-    let xMinIndex = header.indexOf( xMinName );
-    let xMaxIndex = header.indexOf( xMaxName );
-    let yMinIndex = header.indexOf( yMinName );
-    let yMaxIndex = header.indexOf( yMaxName );
+    const xMinIndex = header.indexOf( xMinName );
+    const xMaxIndex = header.indexOf( xMaxName );
+    const yMinIndex = header.indexOf( yMinName );
+    const yMaxIndex = header.indexOf( yMaxName );
 
     if ( xMinIndex < 0 )
         throw new InvalidIndexNameError( 'smaller X coordinate' );
@@ -44,21 +43,6 @@ export const parseCharacterBoundingBoxesCSV = (
     const firstCols = lines[0]!.split( ',' );
     const firstEncounteredTextID = firstCols[ textIndex ];
 
-    // Make sure the order is actually correct
-    if ( firstCols[ yMaxIndex ]! < firstCols[ yMinIndex ]! ) {
-        const temp = yMaxIndex;
-
-        yMaxIndex = yMinIndex;
-        yMinIndex = temp;
-    }
-
-    if ( firstCols[ xMaxIndex ]! < firstCols[ xMinIndex ]! ) {
-        const temp = xMaxIndex;
-
-        xMaxIndex = xMinIndex;
-        xMinIndex = temp;
-    }
-
     for ( let i = 0; i < lines.length; i++ ) {
         const cols = lines[i]!.split( ',' );
 
@@ -66,15 +50,21 @@ export const parseCharacterBoundingBoxesCSV = (
             throw new MultipleTextIDsWithoutSpecifiedTextIDError();
         }
 
-        if ( textId === undefined || cols[textIndex] === textId )
+        if ( textId === undefined || cols[textIndex] === textId ) {
+            const x1 = Number( cols[xMinIndex] );
+            const x2 = Number( cols[xMaxIndex] );
+            const y1 = Number( cols[yMinIndex] );
+            const y2 = Number( cols[yMaxIndex] );
+
             boxes.push( {
-                'xMin': Number( cols[xMinIndex] ),
-                'xMax': Number( cols[xMaxIndex] ),
-                'yMin': Number( cols[yMinIndex] ),
-                'yMax': Number( cols[yMaxIndex] ),
+                'xMin': x1 < x2 ? x1 : x2,
+                'xMax': x1 < x2 ? x2 : x1,
+                'yMin': y1 < y2 ? y1 : y2,
+                'yMax': y1 < y2 ? y2 : y1,
                 'character': String( cols[charIndex] ),
                 'foreignId': Number( cols[textIndex] )
             } );
+        }
     }
 
     return boxes;

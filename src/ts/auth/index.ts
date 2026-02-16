@@ -1,6 +1,7 @@
 import type {
     JWT
 } from '@/types/jwt';
+import magicLinks from './magic-links';
 import {
     ref
 } from 'vue';
@@ -78,8 +79,6 @@ const login = async ( id: string, password: string ): Promise<void> => {
 };
 
 const decodeJwt = ( token: string ): object | null => {
-    console.log( 'DECODING JWT ', token );
-
     const payload = token.split( '.' )[1];
 
     if ( !payload ) {
@@ -93,6 +92,12 @@ const decodeJwt = ( token: string ): object | null => {
 
 const verify = async (): Promise<void> => {
     const status = useStatusStore();
+
+    if ( magicLinks.checkIfAvailable() ) {
+        console.warn( 'New login triggered due to magic link being present' );
+
+        return Promise.reject();
+    }
 
     try {
         const token = localStorage.getItem( 'jwt' );
