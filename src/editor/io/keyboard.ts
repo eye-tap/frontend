@@ -1,9 +1,19 @@
 import {
+    disableKeyHandler,
+    keyboardZoomPanStep,
+    keyboardZoomStep
+} from '../config';
+import {
+    fixations,
+    selectedFixation
+} from '../data';
+import {
     onMounted,
     onUnmounted
 } from 'vue';
 import {
     redo,
+    save,
     undo
 } from '..';
 import type {
@@ -13,14 +23,12 @@ import {
     annotationManager
 } from '../manager/annotations';
 import {
-    disableKeyHandler
-} from '../config';
-import {
     getClosestBoxIdByCharacterAndFixId
 } from '../association/boxes';
 import {
-    selectedFixation
-} from '../data';
+    providedOffsetHandler
+} from './zoom';
+import zoom from '../manager/zoom';
 
 export const keyboardHandler = ( renderer: Renderer ) => {
     const annotation = annotationManager( renderer );
@@ -41,6 +49,35 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             } else if ( isRedoCmd( ev ) ) {
                 ev.preventDefault();
                 redo();
+            } else if ( ev.key === 's' && ev.ctrlKey ) {
+                ev.preventDefault();
+                save();
+            } else if ( ev.key === '+' && ev.ctrlKey ) {
+                ev.preventDefault();
+                zoom.zoom( keyboardZoomStep.value, 'add' );
+            } else if ( ev.key === '-' && ev.ctrlKey ) {
+                ev.preventDefault();
+                zoom.zoom( -keyboardZoomStep.value, 'add' );
+            } else if ( ev.key.includes( 'Arrow' ) && ev.ctrlKey ) {
+                ev.preventDefault();
+
+                if ( ev.key === 'ArrowLeft' ) {
+                    providedOffsetHandler( -keyboardZoomPanStep.value.x, 0 );
+                } else if ( ev.key === 'ArrowRight' ) {
+                    providedOffsetHandler( keyboardZoomPanStep.value.x, 0 );
+                } else if ( ev.key === 'ArrowUp' ) {
+                    providedOffsetHandler( -keyboardZoomPanStep.value.y, 0 );
+                } else if ( ev.key === 'ArrowDown' ) {
+                    providedOffsetHandler( keyboardZoomPanStep.value.y, 0 );
+                }
+            } else if ( ev.key === 'ArrowRight' ) {
+                if ( selectedFixation.value > -1 ) {
+                    selectedFixation.value = ( selectedFixation.value + 1 ) % fixations.value.length;
+                }
+            } else if ( ev.key === 'ArrowLeft' ) {
+                if ( selectedFixation.value > -1 ) {
+                    selectedFixation.value = ( selectedFixation.value - 1 ) % fixations.value.length;
+                }
             }
         }
     };

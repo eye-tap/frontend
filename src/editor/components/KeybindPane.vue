@@ -5,24 +5,24 @@
 
     const keybindDescriptors = [
         {
-            'keybind': 'CTRL + A',
-            'function': 'Some function'
+            'keybind': 'CTRL + Drag',
+            'function': 'Pan the view'
         },
         {
-            'keybind': 'CTRL + A',
-            'function': 'Some function'
+            'keybind': 'CTRL + Scroll',
+            'function': 'Zoom'
         },
         {
-            'keybind': 'CTRL + A',
-            'function': 'Some function'
+            'keybind': 'CTRL + S',
+            'function': 'Save'
         },
         {
-            'keybind': 'CTRL + A',
-            'function': 'Some function'
+            'keybind': 'CTRL + -',
+            'function': 'Zoom out'
         },
         {
-            'keybind': 'CTRL + A',
-            'function': 'Some function'
+            'keybind': 'CTRL + +',
+            'function': 'Zoom in'
         }
     ];
     const show = defineModel<boolean>();

@@ -1,6 +1,10 @@
 import {
+    type Ref,
     ref
 } from 'vue';
+import type {
+    EditorPoint
+} from './types/annotation';
 
 
 // Essentials
@@ -133,3 +137,10 @@ export const boundingBoxOnHoverRadius = ref( 100 );
 export const disableKeyHandler = ref( false );
 
 export const moveThresholdForDrag = 3;
+
+export const keyboardZoomStep = ref( 0.25 );
+
+export const keyboardZoomPanStep: Ref<EditorPoint> = ref( {
+    'x': 20,
+    'y': 20
+} );

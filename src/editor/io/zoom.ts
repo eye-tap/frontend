@@ -43,10 +43,17 @@ export const moveHandler = ( ev: MouseEvent ) => {
         'y': Math.round( zoomClickPos.y - scaleInverse( ev.y ) )
     };
 
-    console.log( originalCanvasPosition );
-
     zoom.setViewPortOrigin( {
         'x': originalCanvasPosition.x + diff.x,
         'y': originalCanvasPosition.y + diff.y
+    } );
+};
+
+export const providedOffsetHandler = ( diffX: number, diffY: number ) => {
+    const curr = zoom.getViewPortOrigin();
+
+    zoom.setViewPortOrigin( {
+        'x': curr.x + diffX,
+        'y': curr.y + diffY
     } );
 };
