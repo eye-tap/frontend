@@ -35,20 +35,13 @@
 </script>
 
 <template>
-    <div>
+    <div class="editor">
         <div v-if="status.devMode">
             Image: <input type="file" accept="image/*" @change="e => loader.loadImage( e as InputEvent )">
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">
         </div>
         <PropertyPane
             :show-property-pane="true"
-            :point-selected="true"
-            :metadata="{
-                'assignedBy': 'User1',
-                'entropy': 10,
-                'pointID': 10,
-                'readerID': 10
-            }"
         />
         <div class="canvas-wrapper">
             <canvas id="text" ref="textCanvas"></canvas>
@@ -62,6 +55,10 @@
 </template>
 
 <style lang="scss" scoped>
+    .editor {
+        position: relative;
+    }
+
     .canvas-wrapper {
         background-color: white;
         width: 75vw;

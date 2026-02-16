@@ -1,28 +1,81 @@
 <script setup lang="ts">
+    import {
+        type Ref,
+        computed,
+        ref
+    } from 'vue';
+    import {
+        fixations,
+        selectedFixation
+    } from '../data';
+    import type {
+        EditorPoint
+    } from '../types/annotation';
+    import {
+        useAnnotationSessionStore
+    } from '@/ts/stores/annotationSessionStore';
+
     const props = defineProps<{
         'showPropertyPane': boolean,
-        'pointSelected': boolean,
-        'metadata': {
-            'assignedBy': string,
-            'entropy': number,
-            'pointID': number,
-            'readerID': number
-        }
     }>();
     // Minimum values to apply color change to Entropy property
     const entropyThresholds = {
         'high': 50,
         'mid': 25
     };
+    const entropy = computed( () => {
+        return 0;
+    } );
+    const isDragging = ref( false );
+    const session = useAnnotationSessionStore();
+    const pos: Ref<EditorPoint> = ref( {
+        'x': 0,
+        'y': 0
+    } );
 
-    // TODO: Make movable
+    let oldPos: EditorPoint = {
+        'x': 0,
+        'y': 0
+    };
+
+    const clickPos: EditorPoint = {
+        'x': 0,
+        'y': 0
+    };
+
+    const dragHandler = ( ev: MouseEvent ) => {
+        if ( !isDragging.value && ev.buttons === 1 ) {
+            isDragging.value = true;
+            oldPos = {
+                ...pos.value
+            };
+            clickPos.x = ev.x;
+            clickPos.y = ev.y;
+        } else if ( isDragging.value ) {
+            pos.value = {
+                'x': oldPos.x + ( clickPos.x - ev.x ),
+                'y': oldPos.y + ( clickPos.y - ev.y )
+            };
+            console.log( pos.value );
+        }
+    };
+
+    const mouseUp = () => {
+        isDragging.value = false;
+    };
 </script>
 
 <template>
-    <div class="property-pane" :class="[ !showPropertyPane ? 'hidden' : undefined ]">
+    <div
+        v-if="props.showPropertyPane"
+        class="property-pane"
+        :style="`bottom: ${ pos.y }px; right: ${ pos.x }px;`"
+        @mousemove="dragHandler"
+        @mouseup="mouseUp"
+    >
         <h2>Properties</h2>
 
-        <table v-if="pointSelected">
+        <table v-if="selectedFixation > -1">
             <tbody>
                 <tr>
                     <td>
@@ -30,7 +83,7 @@
                             Assigned by
                         </p>
                         <p class="content">
-                            {{ props.metadata.assignedBy }}
+                            {{ fixations[ selectedFixation ]!.assigned }}
                         </p>
                     </td>
                     <td>
@@ -38,7 +91,7 @@
                             Point number
                         </p>
                         <p class="content">
-                            {{ props.metadata.pointID }}
+                            {{ fixations[ selectedFixation ]!.id }}
                         </p>
                     </td>
                 </tr>
@@ -50,12 +103,12 @@
                         <p
                             class="content"
                             :class="[
-                                metadata.entropy > entropyThresholds.mid ?
-                                    metadata.entropy > entropyThresholds.high ?
+                                entropy > entropyThresholds.mid ?
+                                    entropy > entropyThresholds.high ?
                                         'warning' : 'information' : 'success'
                             ]"
                         >
-                            {{ $props.metadata.entropy }}
+                            {{ entropy }}
                         </p>
                     </td>
                     <td>
@@ -63,7 +116,7 @@
                             Reader
                         </p>
                         <p class="content">
-                            {{ props.metadata.readerID }}
+                            {{ session.sessionIds[ session.sessionIdx ]!.reader }}
                         </p>
                     </td>
                 </tr>
@@ -76,10 +129,6 @@
 </template>
 
 <style scoped>
-.hidden {
-    visibility: hidden;
-}
-
 .placeholder {
     display: flex;
     align-items: center;
@@ -91,12 +140,12 @@
 
 .property-pane {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
     width: 15rem;
     height: 13rem;
     z-index: 1;
     box-shadow: 0px 0px 10px var(--theme-bg-1);
+
+    user-select: none;
 
     background-color: var(--theme-bg-2);
     padding: 1rem;
