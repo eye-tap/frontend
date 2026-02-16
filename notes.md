@@ -75,4 +75,9 @@ These notes are from my initial gloss over back in December
 - ~~Maybe add a mode where the ordering is dictated by closest horizontally, then next lowest vertically??~~
 - Fire an event when annotation is complete, we could display fireworks or the like on the event (custom event on document) -- done
 
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJDbGVhclJvYmluNzYyJTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJYJTI2JTJCVyglM0RweSUyMiU3RA==
+
+QuietSeal961: 
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFNlYWw5NjElMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMkU5RSUyNU5UTUUlMjIlN0Q=
+
+TinyKoala825:
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJUaW55S29hbGE4MjUlMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMkhZVjFVWFJfJTIyJTdE

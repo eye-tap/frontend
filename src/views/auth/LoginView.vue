@@ -73,10 +73,12 @@
         // login using magic link
         const user = magicLinks.getDecoded();
 
-        id.value = user.username;
-        password.value = user.password;
+        if ( user ) {
+            id.value = user.username;
+            password.value = user.password;
 
-        login();
+            login();
+        }
     };
 
     const keyHandler = ( ev: KeyboardEvent ) => {
