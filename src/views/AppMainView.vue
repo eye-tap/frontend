@@ -9,7 +9,7 @@
     } from 'vue';
 
     const pageTitle = ref( 'Eye-TAP' );
-    const route = useRoute();
+    const router = useRoute();
 
     document.addEventListener( 'eyetap:fileload', e => {
         pageTitle.value = e.detail.title;
@@ -29,7 +29,7 @@
     <div class="app-main">
         <StatusBar
             class="top-bar"
-            :mode="(route.meta.mode as 'standard' | 'editor' | undefined)"
+            :mode="(router.meta.mode as 'standard' | 'editor' | undefined)"
             :page-title="pageTitle"
             :show-account="true"
             :show-theme-picker="true"
