@@ -23,7 +23,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install packages
-        run: npm install --loglevel=verbose
+        run: npm install
       - name: Run eslint
         run: npm run lint-fix
       - name: Push changes back to repository
