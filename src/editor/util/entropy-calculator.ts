@@ -13,7 +13,8 @@ export const calculateFixationEntropy = ( fixation, annotations ) => {
         );
 
         return 1 / ( distance + 1 );
-    } );    const expScores = scores.map( s => Math.exp( s ) );
+    } );
+    const expScores = scores.map( s => Math.exp( s ) );
     const sumExpScores = expScores.reduce( ( a, b ) => a + b, 0 );
     const probabilities = expScores.map( s => s / sumExpScores );
 
