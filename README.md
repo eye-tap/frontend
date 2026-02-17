@@ -3,7 +3,7 @@
     <h1>Eye-TAP</h1>
 </div>
 
-A platform to connect gaze points to bounding boxes of texts.
+A platform to connect fixations to bounding boxes of texts.
 Deployed version can be found [here](https://group-p23.webdev-25.ivia.isginf.ch/)
 
 ## Development
