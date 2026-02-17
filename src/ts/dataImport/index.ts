@@ -26,6 +26,9 @@ import {
     importText
 } from './importers/text';
 import request from '../util/request';
+import {
+    useNotification
+} from '@kyvg/vue3-notification';
 
 export const importDatasetFromCSV = async (
     boundingBoxesCSVInputElement: HTMLInputElement,
@@ -35,13 +38,26 @@ export const importDatasetFromCSV = async (
     textId: string,
     textName: string
 ): Promise<void> => {
+    const notifications = useNotification();
+
     console.debug( '[Bench] Starting import' );
     const importStart = performance.now();
     const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName );
     const readingSession = await importReadingSession( fixationsCSVInputElement, annotationsCSVInputElement, textId );
+    const loadTime = performance.now() - importStart;
 
-    console.debug( '[Bench] Parsing took', performance.now() - importStart, 'ms' );
+    console.debug( '[Bench] Parsing took', loadTime, 'ms' );
     console.debug( '[Bench] Starting upload' );
+
+    if ( loadTime > 750 )
+        setTimeout( () => {
+            notifications.notify( {
+                'text': 'Completing the import may still take some time. Estimate >' + ( loadTime * 5 ) + 's',
+                'type': 'warn',
+                'title': 'Importing'
+            } );
+        }, 2000 );
+
     const backendProcessingStart = performance.now();
 
     await request.post( '/import/text', text );
