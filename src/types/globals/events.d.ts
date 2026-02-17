@@ -10,6 +10,11 @@ declare global {
         }>;
         'eyetap:fileunload': CustomEvent<void>;
         'eyetap:save': CustomEvent<void>;
+        'eyetap:save:success': CustomEvent<void>;
+        'eyetap:save:fail': CustomEvent<{
+            'reason': string,
+            'error'?: Error
+        }>;
         'eyetap:undo': CustomEvent<void>;
         'eyetap:redo': CustomEvent<void>;
         'eyetap:annotation-done': CustomEvent<AnnotationDoneEvent>;
