@@ -78,13 +78,13 @@
         </div>
         <!-- Content -->
         <div v-if="!isSideBarCollapsed">
-            <div class="options-bar-sm">
+            <div id="tour-options" class="options-bar-sm">
                 <h2>Options</h2>
                 <div>
-                    <span class="clickable-icon" title="Help" @click="toggleKeybinds()">
+                    <span id="tour-keybinds" class="clickable-icon" title="Help" @click="toggleKeybinds()">
                         <i class="fa-lg fa-regular fa-circle-question"></i>
                     </span>
-                    <span class="clickable-icon gear-icon" title="Advanced options" @click="togglePreferences()">
+                    <span id="tour-preferences" class="clickable-icon gear-icon" title="Advanced options" @click="togglePreferences()">
                         <i class="fa-lg fa-solid fa-gear"></i>
                     </span>
                 </div>

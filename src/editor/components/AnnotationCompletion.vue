@@ -17,7 +17,7 @@
 </script>
 
 <template>
-    <div v-if="show" class="overlay" @click.self="close">
+    <div v-if="show"  class="overlay" @click.self="close">
         <div class="overlay-box">
             <div class="content">
                 <div class="icon-circle">

@@ -68,6 +68,7 @@
 <template>
     <div
         v-if="props.showPropertyPane"
+        id="tour-properties"
         class="property-pane"
         :style="`bottom: ${ pos.y }px; right: ${ pos.x }px;`"
         @mousemove="dragHandler"

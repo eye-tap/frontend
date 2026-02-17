@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
     const dismiss = () => {
         localStorage.setItem( 'welcomeTourViewed', 'true' );
@@ -5,6 +6,7 @@
     };
 
     const show = defineModel<boolean>();
+        show.value = true;
     const emit = defineEmits<{
         ( e: 'launch-tour' ): void
     }>();
@@ -16,22 +18,19 @@
 </script>
 
 <template>
+    <div id="tour-finale">  </div>
     <div v-if="show" class="page-tour">
         <div class="page-tour-box">
             <i class="fa-solid fa-close" @click="dismiss"></i>
             <div>
                 <h1>Welcome to the <span>Editor</span></h1>
-                <p>
-                    You usually want to start by filtering readers.
-                    Some readers may not contain any gaze points.
-                </p>
                 <div style="margin: 10px">
                     Start by selecting a point, then there are three ways to annotate:
                     <div class="ul-container">
                         <ul>
-                            <li>Drag a line from the point to a box</li>
+                            <li>Press a character key to connect the point to the closest box with this character</li>
                             <li>Click a box</li>
-                            <li>Press a key to connect the point to the closest box with this character</li>
+                            <li>Drag a line from the point to a box</li>
                         </ul>
                     </div>
                     <span>Note:</span> if you press Backspace or Delete, your last annotation will be deleted.
@@ -39,13 +38,13 @@
                 <button class="button primary" @click="startFullTour">
                     Start Tour
                 </button>
-                <!-- TODO: Add button to start detailed tour -->
             </div>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
 .page-tour {
     position: fixed;
     top: 0;

@@ -296,4 +296,15 @@
         cursor: pointer;
     }
 }
+#theme-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px; 
+    min-width: 45px;
+    min-height: 45px;
+    line-height: 1;
+}
+
+
 </style>
