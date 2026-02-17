@@ -7,7 +7,7 @@
 - Heatmap i.e. points are coloured based on the entropy
 - Multiple entropy sources (switchable with dropdown)
 - Annotations need also the source? -> Think about how to do this
-- Word boxes rendering -- TODO: Do we really need this? (again, editor technically supports it, but handling code is missing) -- skipped for now
+- Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing) -- skipped for now
 - Tour -- done
 - ~~Indices rendering outside box if possible?~~
 
@@ -29,7 +29,7 @@
 - Design
 - Bug testing
 - New Survey options
-- Upload: Allow multiple files for multiple readers or one file with multiple readers
+- Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing
 - Pre-annotations: One file for each algorithm, filename is the algo name (minus extension).
 - Define file contents specs somewhere
 - Magic link regen

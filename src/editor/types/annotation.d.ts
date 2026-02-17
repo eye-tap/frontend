@@ -8,6 +8,11 @@ export interface EditorAnnotation {
      * The box index, i.e. index in the boundingBoxes array
      */
     'boxId': number;
+
+    /**
+     * The algorithm that created it. If not set, assumes it's user-created
+     */
+    'algorithm'?: string;
 }
 
 export interface EditorPoint {

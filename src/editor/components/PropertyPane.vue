@@ -24,6 +24,7 @@
         'mid': 25
     };
     const entropy = computed( () => {
+        // TODO: Actually show
         return 0;
     } );
     const isDragging = ref( false );
