@@ -15,15 +15,11 @@ import annotation from '@/ts/annotations';
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
-import {
-    useNotification
-} from '@kyvg/vue3-notification';
 
 export const revision = ref( 0 );
 
 export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
-    const notifications = useNotification();
 
     const save = async () => {
         const data: EditAnnotationsDto = {
@@ -42,20 +38,10 @@ export const useSaveFunction = () => {
                     'error': e
                 }
             } ) );
-            notifications.notify( {
-                'text': 'There was an error saving your data',
-                'type': 'error',
-                'title': 'Editor'
-            } );
         }
 
         try {
             await annotation.save( data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
-            notifications.notify( {
-                'text': 'Your progress has been saved',
-                'type': 'success',
-                'title': 'Editor'
-            } );
             document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
         } catch ( e ) {
             document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
@@ -64,11 +50,6 @@ export const useSaveFunction = () => {
                     'error': e
                 }
             } ) );
-            notifications.notify( {
-                'text': 'There was an error saving your data',
-                'type': 'error',
-                'title': 'Editor'
-            } );
         }
     };
 
