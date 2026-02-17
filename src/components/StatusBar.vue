@@ -52,7 +52,8 @@
         'showThemePicker': boolean,
         'pageTitle': string,
         'logoClickTarget': string,
-        'isComplete'?: boolean
+        'isComplete'?: boolean,
+        'mode'?: 'standard' | 'editor'
     }>();
     const emit = defineEmits( [ 'next' ] );
 
@@ -72,12 +73,12 @@
         <div v-if="props.pageTitle" class="page-title">
             {{ props.pageTitle }}
             <transition name="fade">
-                <span v-if="props.isComplete" class="completion-pill">
+                <span v-if="props.isComplete && props.mode === 'editor'" class="completion-pill">
                     <i class="fa-solid fa-check-circle"></i> Completed
                 </span>
             </transition>
         </div>
-        <div class="next-action-wrapper">
+        <div v-if="props.mode === 'editor'" class="next-action-wrapper">
             <button class="button primary next-btn" @click="emit('next')">
                 Next Annotation <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -340,16 +341,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-
-@keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); }
-}
 
 </style>

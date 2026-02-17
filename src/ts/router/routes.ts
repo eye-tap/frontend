@@ -65,7 +65,8 @@ export const routes = [
                     'allowedRoles': [
                         'ROLE_SURVEY_PARTICIPANT',
                         'ROLE_SURVEY_CROWD_SOURCE'
-                    ]
+                    ],
+                    'mode': 'editor'
                 }
             }
         ]
