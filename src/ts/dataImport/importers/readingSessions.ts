@@ -37,6 +37,9 @@ export const importReadingSession = async (
     if ( !fixImportFiles )
         throw new MissingFilesError();
 
+    console.debug( '[Bench] Loading and parsing of fixations has started' );
+    const importStart = performance.now();
+
     for ( let i = 0; i < fixImportFiles.length; i++ ) {
         // TODO: Somehow get reader number
         const imported = parseFixationsCSV(
@@ -58,15 +61,22 @@ export const importReadingSession = async (
         } );
     }
 
+    console.debug( '[Bench] Loading and parsing all fixations took', performance.now() - importStart, 'ms' );
+
     const files = annotationsCSVElement.files;
 
     if ( files ) {
+        console.debug( '[Bench] Loading and parsing of annotations has started' );
+        const start = performance.now();
+
         for ( let i = 0; i < files.length; i++ ) {
             const data = await ( await fileLoader( files[i]! ) ).text();
             const parsed = await importAnnotation( data, textId, files[i]!.name.split( '.' )[ 0 ]! );
 
             addPreAnnotationsToReadingSession( fix, parsed, textId );
         }
+
+        console.debug( '[Bench] Loading and parsing all annotations took', performance.now() - start, 'ms' );
     }
 
     return fix;
