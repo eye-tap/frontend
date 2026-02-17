@@ -39,8 +39,7 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         // Render
         if ( linesDisplay.value === 'all' ) {
             annotations.value.forEach( l => {
-                if ( l.fixationId === selectedFixation.value )
-                    return;
+                    drawLine( l );
             } );
         } else if ( linesDisplay.value === 'previous' ) {
             if ( selectedFixation.value >= 0 )
