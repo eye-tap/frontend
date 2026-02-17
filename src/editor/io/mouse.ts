@@ -134,8 +134,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         } catch { /* empty */ }
     } );
 
-    watch( [
-        canvasSize,
-        isSideBarCollapsed
-    ], updateRect );
+    watch( canvasSize, updateRect );
+    watch( isSideBarCollapsed, () => {
+        setTimeout( () => {
+            updateRect();
+        }, 600 );
+    } );
 };
