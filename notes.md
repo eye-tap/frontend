@@ -3,7 +3,8 @@
 - Bug testing (I can't recall the issues we had previously)
 - Remove some of the options (or hide them better)
 - Fix animation for sidebar collapse -- done
-- Move advanced options into a popover instead of the sidebar -- done
+- Possibly: Resize listener on canvas container
+- Move advanced options into a popover instead of the sidebar
 - Heatmap i.e. points are coloured based on the entropy
 - Multiple entropy sources (switchable with dropdown)
 - Annotations need also the source? -> Think about how to do this
@@ -13,7 +14,6 @@
 
 
 ## General
-- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- done
 - Deployment -- done
 - Update theme colours (currently primarily the blue and black themes look good)
 - Better error handling for backend errors (i.e. better notifications)
@@ -25,8 +25,8 @@
 
 
 ## Admin
-- Upload pre-assigned points with multi-file select button on Text creation -- done TODO: Test
-- Design
+- Upload pre-assigned points with multi-file select button on Text creation -- TODO: Testing
+- Design -- done
 - Bug testing
 - New Survey options
 - Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing

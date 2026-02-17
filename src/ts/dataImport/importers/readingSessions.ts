@@ -63,7 +63,7 @@ export const importReadingSession = async (
     if ( files ) {
         for ( let i = 0; i < files.length; i++ ) {
             const data = await ( await fileLoader( files[i]! ) ).text();
-            const parsed = await importAnnotation( data, textId, files[i]!.name );
+            const parsed = await importAnnotation( data, textId, files[i]!.name.split( '.' )[ 0 ]! );
 
             addPreAnnotationsToReadingSession( fix, parsed, textId );
         }

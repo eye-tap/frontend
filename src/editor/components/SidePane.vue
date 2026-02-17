@@ -114,7 +114,8 @@
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
             <span class="clickable-icon" title="Save" @click="save">
-                <i class="fa-xl fa-solid fa-floppy-disk"></i>
+                <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
+                <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
             </span>
         </div>
         <!-- Content -->
