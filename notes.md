@@ -28,6 +28,7 @@
 - Upload pre-assigned points with multi-file select button on Text creation -- TODO: Testing
 - Design -- done
 - Bug testing
+- Reload surveys on create
 - New Survey options
 - Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing
 - Pre-annotations: One file for each algorithm, filename is the algo name (minus extension).
