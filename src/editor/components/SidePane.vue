@@ -1,17 +1,28 @@
 <script setup lang="ts">
+    import editor, {
+        redoAvailable,
+        saveNeeded,
+        undoAvailable
+    } from '..';
+    import {
+        onMounted,
+        onUnmounted,
+        ref
+    } from 'vue';
     import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
-    import editor from '..';
     import {
         isSideBarCollapsed
     } from '../data';
     import {
-        ref
-    } from 'vue';
+        useNotification
+    } from '@kyvg/vue3-notification';
 
     const showPreferences = ref( false );
     const showKeybinds = ref( false );
+    const saving = ref( false );
+    const notifications = useNotification();
 
     const toggleCollapse = () => {
         isSideBarCollapsed.value = !isSideBarCollapsed.value;
@@ -25,7 +36,41 @@
         showKeybinds.value = true;
     };
 
-    // TODO: On sidebar collapse, re-render editor
+    // TODO: Auto-save?
+    const save = () => {
+        if ( !saveNeeded.value ) return;
+
+        saving.value = true;
+        editor.save();
+    };
+
+    const saveSuccessHandler = () => {
+        notifications.notify( {
+            'text': 'Your progress was saved',
+            'type': 'success',
+            'title': 'Editor'
+        } );
+        saving.value = false;
+    };
+
+    const saveFailHandler = ( ev: CustomEvent ) => {
+        console.log( ev.detail );
+        notifications.notify( {
+            'text': 'There was an error saving your progress',
+            'type': 'error',
+            'title': 'Editor'
+        } );
+        saving.value = false;
+    };
+
+    onMounted( () => {
+        document.addEventListener( 'eyetap:save:success', saveSuccessHandler );
+        document.addEventListener( 'eyetap:save:fail', saveFailHandler );
+    } );
+    onUnmounted( () => {
+        document.removeEventListener( 'eyetap:save:success', saveSuccessHandler );
+        document.removeEventListener( 'eyetap:save:fail', saveFailHandler );
+    } );
 </script>
 
 <template>
@@ -36,15 +81,16 @@
         <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
                 <span class="clickable-icon" @click="editor.undo">
-                    <i v-if="editor.undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
+                    <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
                 </span>
                 <span class="clickable-icon" title="Redo your last undone action" @click="editor.redo">
-                    <i v-if="editor.redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
+                    <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
                 <span class="clickable-icon" title="Save" @click="editor.save">
-                    <i class="fa-xl fa-solid fa-floppy-disk"></i>
+                    <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
+                    <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
                 </span>
             </div>
             <div class="options-bar-right">
@@ -56,18 +102,18 @@
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
             <span class="clickable-icon" title="Undo your last action" @click="editor.undo">
-                <i v-if="editor.undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
+                <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
             <span class="clickable-icon" title="Redo you last undone action" @click="editor.redo">
-                <i v-if="editor.redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
+                <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Save" @click="editor.save">
+            <span class="clickable-icon" title="Save" @click="save">
                 <i class="fa-xl fa-solid fa-floppy-disk"></i>
             </span>
         </div>
@@ -97,8 +143,12 @@
             <OptionsPane />
         </div>
         <div v-if="!isSideBarCollapsed" class="bottom-buttons">
-            <button class="button primary" @click="editor.save">
+            <!-- TODO: Unavailable class needed here too -->
+            <button class="button primary long-action" :class="saveNeeded ? '' : 'unavailable'" @click="save">
                 Save
+                <div v-if="saving">
+                    <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                </div>
             </button>
             <RouterLink to="/app" class="button secondary">
                 Back

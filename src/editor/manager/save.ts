@@ -18,6 +18,8 @@ import {
 
 export const revision = ref( 0 );
 
+export const savedAtRevision = ref( 0 );
+
 export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
 
@@ -42,6 +44,7 @@ export const useSaveFunction = () => {
 
         try {
             await annotation.save( data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
+            savedAtRevision.value = revision.value;
             document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
         } catch ( e ) {
             document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {

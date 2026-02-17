@@ -26,6 +26,8 @@ import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 import {
+    revision,
+    savedAtRevision,
     useSaveFunction
 } from './manager/save';
 import {
@@ -37,13 +39,15 @@ export const save = () => {
 };
 
 export const redoAvailable = computed( () => {
-    console.log( 'redoHistory', redoHistory.value );
-
     return redoHistory.value.length > 0;
 } );
 
 export const undoAvailable = computed( () => {
     return undoHistory.value.length > 0;
+} );
+
+export const saveNeeded = computed( () => {
+    return revision.value !== savedAtRevision.value;
 } );
 
 /** Redo an operation */
@@ -93,7 +97,5 @@ export default {
     save,
     redo,
     undo,
-    redoAvailable,
-    undoAvailable,
     start
 };
