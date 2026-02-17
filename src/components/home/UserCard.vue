@@ -2,7 +2,9 @@
     import {
         useStatusStore
     } from '@/ts/stores/status';
-    import { ref } from 'vue';
+    import {
+        ref
+    } from 'vue';
 
     const status = useStatusStore();
     const maxUsernameLength = ref( 20 );
@@ -18,8 +20,8 @@
         <h1>
             Welcome back,
             <div class="welcome-user">
-                {{ status.username !== '' 
-                    ? truncate(status.username, maxUsernameLength) 
+                {{ status.username !== ''
+                    ? truncate(status.username, maxUsernameLength)
                     : truncate("UsernameWhichIsTooLongToBeDisplayed", maxUsernameLength) }}
             </div>
         </h1>

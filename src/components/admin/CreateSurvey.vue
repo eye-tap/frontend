@@ -223,7 +223,7 @@
                 </div>
             </div>
             <p>
-                <span class="warning-span">Warning</span> 
+                <span class="warning-span">Warning</span>
                 Magic Links are only shown once. When you click back, you cannot see them again.
             </p>
             <div v-if="!showMagicLinks">
