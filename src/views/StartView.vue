@@ -49,7 +49,9 @@
             </div>
             <div class="home-right">
                 <img class="preview-image" src="../../public/assets/editor-preview-image.png" alt="">
-                <p class="preview-image-subtitle">Easily annotate using an intuitive interface.</p>
+                <p class="preview-image-subtitle">
+                    Easily annotate using an intuitive interface.
+                </p>
             </div>
         </div>
         <div class="home">
