@@ -15,6 +15,9 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
 
     const baseName = ref( '' );
@@ -27,6 +30,7 @@
     const showError = ref( false );
     const errorMessage = ref( '' );
     const notifications = useNotification();
+    const status = useStatusStore();
     const inputsValid = computed( () => {
         const bb = !!boundingBoxesInput.value && boundingBoxesInput.value.files && boundingBoxesInput.value.files.length !== 0;
         const gp = !!fixationsInput.value && fixationsInput.value.files && fixationsInput.value.files.length !== 0;
@@ -64,7 +68,8 @@
 
         if ( !boundingBoxesInput.value || !boundingBoxesInput.value.files
             || !fixationsInput.value || !fixationsInput.value.files
-            || !imageInput.value || !imageInput.value.files || !textID.value ) {
+            || !imageInput.value || !imageInput.value.files || !textID.value
+            || !annotationsInput.value ) {
             displayError( 'Some files are missing.' );
 
             return;
@@ -73,9 +78,17 @@
         uploading.value = true;
 
         try {
-            await importDatasetFromCSV( boundingBoxesInput.value, fixationsInput.value, imageInput.value, textID.value, baseName.value );
+            await importDatasetFromCSV(
+                boundingBoxesInput.value,
+                fixationsInput.value,
+                annotationsInput.value,
+                imageInput.value,
+                textID.value,
+                baseName.value
+            );
         } catch ( error ) {
-            console.log( 'error caught in caller' );
+            if ( status.devMode )
+                console.error( error );
 
             if ( error instanceof InvalidIndexNameError )
                 notifications.notify( {

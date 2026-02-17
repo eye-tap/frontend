@@ -48,8 +48,7 @@ export const parseFixationsCSV = (
         const tempx = Math.round( Number( cols[xIndex] ) * factor );
         const tempy = Math.round( Number( cols[yIndex] ) * factor );
 
-
-        if ( fileHasMultipleTextIDs ) {
+        if ( !fileHasMultipleTextIDs ) {
             if ( firstEncounteredTextID !== cols[ textIndex ] ) {
                 throw new MultipleTextIDsWithoutSpecifiedTextIDError();
             }

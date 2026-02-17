@@ -38,7 +38,9 @@ export const loadFileFromDisk = ( element: HTMLInputElement ): Promise<Response>
             return;
         }
 
-        fileLoader( file );
+        fileLoader( file )
+            .then( resolve )
+            .catch( reject );
     } );
 };
 
