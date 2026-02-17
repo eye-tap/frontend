@@ -25,7 +25,7 @@ if ( import.meta.env.VITE_BACKEND_URL ) {
 } else if ( import.meta.env.MODE === 'production' || import.meta.env.VITE_OVERRIDE_PROD === 'true' ) {
     if ( import.meta.env.VITE_OVERRIDE_PROD === 'true' ) console.warn( 'Env var VITE_OVERRIDE_PROD set: using production backend' );
 
-    localStorage.setItem( 'url', 'https://api.group-p23.webdev-25.ivia.isginf.ch' );
+    localStorage.setItem( 'url', 'https://api.' + location.host );
 } else {
     console.warn( 'Running against local backend' );
     localStorage.setItem( 'url', 'http://localhost:8080' );
