@@ -78,4 +78,4 @@ These notes are from my initial gloss over back in December
 - Fire an event when annotation is complete, we could display fireworks or the like on the event (custom event on document) -- done
 
 
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJHZW50bGVIZWRnZWhvZzAwMiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyVjg3eCUyNTZJbiUyMiU3RA==
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFR1cnRsZTgyNiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIydS1HMjV0OEolMjIlN0Q=
