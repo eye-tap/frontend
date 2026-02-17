@@ -3,4 +3,5 @@ export interface AnnotationSessionDetails {
     'title': string;
     'reader': number;
     'sessionId': number;
+    'desc': string;
 }

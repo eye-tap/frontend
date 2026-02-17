@@ -48,7 +48,8 @@
                             'sessionId': value.id!,
                             'textId': value.readingSession!.textId!,
                             'title': value.readingSession!.textTitle!,
-                            'reader': value.readingSession!.reader!
+                            'reader': value.readingSession!.reader!,
+                            'desc': value.description!
                         };
                     } )
                 );
@@ -86,7 +87,8 @@
                     'sessionId': value.id!,
                     'textId': value.readingSession!.textId!,
                     'title': value.readingSession!.textTitle!,
-                    'reader': value.readingSession!.reader!
+                    'reader': value.readingSession!.reader!,
+                    'desc': `${ value.readingSession!.textTitle! }, reader ${ value.readingSession!.reader! }`
                 };
             } )
         );
