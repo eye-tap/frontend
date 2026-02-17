@@ -1,13 +1,8 @@
 <script setup lang="ts">
-    import editor, {
-        redo,
-        redoAvailable,
-        undo,
-        undoAvailable
-    } from '..';
     import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
+    import editor from '..';
     import {
         isSideBarCollapsed
     } from '../data';
@@ -40,12 +35,12 @@
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
-                <span class="clickable-icon" @click="undo">
-                    <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
+                <span class="clickable-icon" @click="editor.undo">
+                    <i v-if="editor.undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
                 </span>
-                <span class="clickable-icon" title="Redo your last undone action" @click="redo">
-                    <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
+                <span class="clickable-icon" title="Redo your last undone action" @click="editor.redo">
+                    <i v-if="editor.redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
                 <span class="clickable-icon" title="Save" @click="editor.save">
@@ -60,14 +55,14 @@
         </div>
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Undo your last action" @click="undo">
-                <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
+            <span class="clickable-icon" title="Undo your last action" @click="editor.undo">
+                <i v-if="editor.undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Redo you last undone action" @click="redo">
-                <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
+            <span class="clickable-icon" title="Redo you last undone action" @click="editor.redo">
+                <i v-if="editor.redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
             </span>
         </div>

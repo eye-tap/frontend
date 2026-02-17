@@ -51,9 +51,6 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             // Advance to next element
             const length = fixations.value.length;
 
-            // TODO: Highlight box that is annotated,
-            // then set timeout to un-highlight it
-            // Same for delete
             let endOfAnnotations = true;
 
             for ( let i = 1; i < length; i++ ) {

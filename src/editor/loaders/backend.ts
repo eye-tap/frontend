@@ -33,48 +33,18 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     renderer.textImage.src = 'data:image/jpg;base64,' + img;
 
-    // Load annotations
-    const fixIds: number[] = [];
-    const annotationLoad = sessionData.value.annotations!;
-
-    annotations.value = [];
-
-    if ( annotationLoad )
-        annotationLoad.forEach( annotation => {
-            annotations.value.push( {
-                'fixationId': annotation.fixation!.id!,
-                'boxId': annotation.characterBoundingBox!.id!
-            } );
-        } );
-
     // Load fixations
     const fix = sessionData.value.readingSession!.fixations!;
 
     fixations.value = [];
     fix.forEach( f => {
-        if ( !fixIds.includes( f.id! ) ) {
-            fixations.value.push( {
-                'x': f.x!,
-                'y': f.y!,
-                'id': f.id!,
-                'assigned': 'unassigned'
-            } );
-        }
+        fixations.value.push( {
+            'x': f.x!,
+            'y': f.y!,
+            'id': f.id!,
+            'assigned': 'unassigned'
+        } );
     } );
-    // Sorting
-    // fixations.value.sort( ( a, b ) => {
-    //     return a.id! - b.id!;
-    // } );
-    selectedFixation.value = 0;
-
-    if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
-        for ( let i = 1; i < fixations.value.length; i++ ) {
-            if ( fixations.value[ i ]!.assigned === 'unassigned' ) {
-                selectedFixation.value = i;
-                break;
-            }
-        }
-    }
 
     // Load bounding boxes
     const bb = sessionData.value.readingSession!.textDto!.characterBoundingBoxes!;
@@ -90,8 +60,54 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         } );
     } );
 
+    // Load annotations
+    const annotationLoad = sessionData.value.annotations!;
+
+    annotations.value = [];
+
+    if ( annotationLoad )
+        annotationLoad.forEach( annotation => {
+            const ann = {
+                'fixationId': getFixIdxFromId( annotation.fixation!.id! ),
+                'boxId': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
+            };
+
+            fixations.value[ ann.fixationId ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+
+            annotations.value.push( ann );
+        } );
+
+    selectedFixation.value = 0;
+
+    if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
+        for ( let i = 1; i < fixations.value.length; i++ ) {
+            if ( fixations.value[ i ]!.assigned === 'unassigned' ) {
+                selectedFixation.value = i;
+                break;
+            }
+        }
+    }
+
     // If you do not want to diplay the reader, delete it here
     const data = session.sessionIds[ session.sessionIdx ]!;
 
     sendLoadEvent( data.title ? `${ data.title }, reader ${ data.reader }` : 'EyeTAP' );
+};
+
+const getBoxIdxFromId = ( id: number ) => {
+    for ( let i = 0; i < boundingBoxes.value.length; i++ ) {
+        if ( boundingBoxes.value[i]!.id === id )
+            return i;
+    }
+
+    return -1;
+};
+
+const getFixIdxFromId = ( id: number ) => {
+    for ( let i = 0; i < fixations.value.length; i++ ) {
+        if ( fixations.value[i]!.id === id )
+            return i;
+    }
+
+    return -1;
 };

@@ -17,7 +17,6 @@ export function useAnnotationNavigation () {
 
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
-        save();
 
         if ( !nextAnnotationId.value ) {
             console.warn( 'No next annotation ID available.' );
@@ -41,6 +40,7 @@ export function useAnnotationNavigation () {
     };
 
     const handleAnnotationDone = ( event: Event ) => {
+        save();
         const customEvent = event as CustomEvent;
         const {
             next

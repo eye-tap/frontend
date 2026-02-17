@@ -29,6 +29,7 @@ export const useSaveFunction = () => {
         console.log( 'Trying to save annotations' );
         // Translate to correct ids
         annotations.value.forEach( val => {
+            console.log( val.fixationId );
             data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
         } );
         console.log( 'Edited annotations: ' + data );
@@ -36,7 +37,6 @@ export const useSaveFunction = () => {
     };
 
     onMounted( () => {
-        console.log( 'Registering eyetap:save listener' );
         document.addEventListener( 'eyetap:save', save );
     } );
 

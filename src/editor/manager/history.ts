@@ -49,7 +49,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
 
         undoHistory.value.push( last );
         selectedFixation.value = last.selectedFixation;
-        annotation.create( last.annotation.boxId, last.annotation.fixationId, true );
+        annotation.create( last.annotation.boxId, last.annotation.fixationId, true, false );
 
         if ( last.annotation.boxId !== undefined ) {
             fixations.value[ last.annotation.fixationId ]!.assigned = 'assigned';
