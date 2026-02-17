@@ -34,6 +34,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
 
     const mouseDownHandler = ( ev: MouseEvent ) => {
+        updateRect();
+
         if ( ev.ctrlKey )
             zoomPanStartHandler( ev );
         else if ( ev.button === 0 ) {
@@ -46,6 +48,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     };
 
     const mouseUpHandler = ( ev: MouseEvent ) => {
+        updateRect();
+
         if ( ev.button === 0 ) {
             isMouseDragging.value = false;
             isZoomDragging.value = false;
@@ -57,6 +61,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     };
 
     const mouseMoveHandler = ( ev: MouseEvent ) => {
+        updateRect();
+
         if ( ev.ctrlKey && ev.buttons === 1 ) {
             moveHandler( ev );
         } else {
