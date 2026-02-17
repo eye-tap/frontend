@@ -60,13 +60,13 @@
         @include rwd-ratio("wide", "ultrawide") {
           /* border-color: yellow; */
           width: 25vw;
-          height: 65vh;
+          height: 70vh;
         }
 
         @include rwd-ratio("ultrawide", "extrawide") {
           /* border-color: orange; */
           width: 27vw;
-          height: 70vh;
+          height: 75vh;
         }
 
         @include rwd-ratio("extrawide", "max") {

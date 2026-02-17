@@ -26,20 +26,25 @@
             <i class="fa-solid fa-close" @click="dismiss"></i>
             <div>
                 <h1>Welcome to the <span>Editor</span></h1>
-                <div style="margin: 10px">
-                    Start by selecting a point, then there are three ways to annotate:
+                <div class="box-content">
+                    <p class="desc">Start by selecting a point, then there are three ways to annotate:</p>
                     <div class="ul-container">
                         <ul>
-                            <li>Press a character key to connect the point to the closest box with this character</li>
-                            <li>Click a box</li>
-                            <li>Drag a line from the point to a box</li>
+                            <li><span>Press</span> a character key to connect the point to the closest box with this character</li>
+                            <li><span>Click</span> a box</li>
+                            <li><span>Drag</span> a line from the point to a box</li>
                         </ul>
                     </div>
-                    <span>Note:</span> if you press Backspace or Delete, your last annotation will be deleted.
+                    <p class="desc">First time? Try the Editor Tour.</p>
                 </div>
-                <button class="button primary" @click="startFullTour">
-                    Start Tour
-                </button>
+                <div class="buttons">
+                    <button class="button primary" @click="startFullTour">
+                        Start Tour
+                    </button>
+                    <button class="button secondary" @click="dismiss">
+                        Skip Tour
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -62,11 +67,15 @@
     >.page-tour-box {
         width: max-content;
         height: max-content;
-        padding: 30px;
+        padding: 3rem;
         position: relative;
         background-color: var( --theme-bg-1 );
         border-radius: 20px;
         text-align: center;
+
+        >div>.box-content {
+            margin-bottom: 2rem;
+        }
 
         span {
             color: var(--theme-interactable-text);
@@ -76,16 +85,26 @@
             font-size: 3rem;
         }
 
+        .desc {
+            color: var(--theme-bg-3-20);
+        }
+
         .ul-container {
-            background-color: var(--theme-bg-2);
             padding: 0.5rem;
             padding-right: 1.5rem;
-            margin: 1rem;
             border-radius: 20px;
+
+            >ul>li {
+                background-color: var(--theme-bg-2);
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 10px;
+            }
         }
 
         ul {
             text-align: left;
+            list-style-type: none;
         }
 
         >.fa-solid {
@@ -94,6 +113,10 @@
             right: 30px;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        >.fa-solid:hover {
+            color: var(--theme-bg-4);
         }
 
         >div {

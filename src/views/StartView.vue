@@ -48,7 +48,8 @@
                 </div>
             </div>
             <div class="home-right">
-                <p>(A gif of the final editor here)</p>
+                <img class="preview-image" src="../../public/assets/editor-preview-image.png" alt="">
+                <p class="preview-image-subtitle">Easily annotate using an intuitive interface.</p>
             </div>
         </div>
         <div class="home">
@@ -130,11 +131,25 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                flex-direction: row;
+                flex-direction: column;
+
+                @media screen and (max-width: 1500px) {
+                    display: none;
+                }
+
+                >img {
+                    border-style: solid;
+                    border-width: 15px;
+                    border-radius: 20px;
+                    border-color: var(--theme-bg-2);
+                    user-select: none;
+                    pointer-events: none;
+                }
 
                 >p {
                     color: var(--theme-bg-3);
                     font-weight: 600;
+                    user-select: none;
                 }
             }
         }
