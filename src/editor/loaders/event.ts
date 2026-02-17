@@ -14,5 +14,9 @@ export const sendLoadEvent = ( title: string ) => {
 };
 
 export const sendEditorLeaveEvent = () => {
+    const session = useAnnotationSessionStore();
+
+    session.selected = false;
+
     document.dispatchEvent( new CustomEvent( 'eyetap:fileunload' ) );
 };
