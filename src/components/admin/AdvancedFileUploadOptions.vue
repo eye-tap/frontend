@@ -6,6 +6,8 @@
         show.value = false;
     };
 
+    // TODO: If any errors from src/ts/dataImport/util/errors.ts are raised, open this popup automatically
+
     const show = defineModel<boolean>();
 </script>
 
@@ -81,6 +83,10 @@
                             placeholder="Larger Y coordinate"
                         >
                         <SwitchOption v-model="dataImport.importConfigBBHasMultipleTexts.value" text="Use TextID on Bounding Boxes" />
+                        <SwitchOption
+                            v-model="dataImport.importConfigFixationHasMultipleReaders.value"
+                            text="Imported files contain multiple readers"
+                        />
                     </div>
 
                     <div class="options-section">

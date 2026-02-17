@@ -1,7 +1,7 @@
 import {
     InvalidIndexNameError,
     MultipleTextIDsWithoutSpecifiedTextIDError
-} from './errors';
+} from '../util/errors';
 import type {
     ImportAnnotation
 } from '@/types/import-annotation';

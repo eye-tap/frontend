@@ -1,7 +1,7 @@
 import {
     InvalidIndexNameError,
     MultipleTextIDsWithoutSpecifiedTextIDError
-} from './errors';
+} from '../util/errors';
 import type {
     ImportCharacterBoundingBoxDto
 } from '@/types/dtos/ImportCharacterBoundingBoxDto';

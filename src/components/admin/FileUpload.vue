@@ -2,7 +2,7 @@
     import {
         InvalidIndexNameError,
         MultipleTextIDsWithoutSpecifiedTextIDError
-    } from '@/ts/dataImport/parsers/errors';
+    } from '@/ts/dataImport/util/errors';
     import {
         type Ref,
         computed,
@@ -173,7 +173,7 @@
             </label>
 
             <label>
-                <span>Gaze points</span>
+                <span>Fixations</span>
                 <input
                     ref="fixationsInput"
                     type="file"

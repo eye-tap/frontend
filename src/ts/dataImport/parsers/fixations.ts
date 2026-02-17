@@ -1,7 +1,7 @@
 import {
     InvalidIndexNameError,
     MultipleTextIDsWithoutSpecifiedTextIDError
-} from './errors';
+} from '../util/errors';
 import type {
     ImportReadingSessionDto
 } from '@/types/dtos/ImportReadingSessionDto';
@@ -10,6 +10,8 @@ export const parseFixationsCSV = (
     text: string,
     textId: string,
     fileHasMultipleTextIDs: boolean,
+    fileHasMultipleReaderIDs: boolean,
+    currentReader: string = '0', // only used if fileHasMultipleReaderIDs = false
     factor: number = 100,
     xName: string = 'x',
     yName: string = 'y',
@@ -30,9 +32,9 @@ export const parseFixationsCSV = (
         throw new InvalidIndexNameError( 'X coordinate' );
     else if ( yIndex < 0 )
         throw new InvalidIndexNameError( 'Y coordinate' );
-    else if ( readerIndex < 0 )
+    else if ( readerIndex < 0 && fileHasMultipleReaderIDs )
         throw new InvalidIndexNameError( 'reader ID' );
-    else if ( textIndex < 0 && textId !== undefined )
+    else if ( textIndex < 0 && fileHasMultipleTextIDs )
         throw new InvalidIndexNameError( 'text ID' );
     else if ( idIndex < 0 )
         throw new InvalidIndexNameError( 'fixation ID' );
@@ -43,48 +45,38 @@ export const parseFixationsCSV = (
         [reader: string]: ImportReadingSessionDto
     } = {};
 
-    for ( let i = 0; i < lines.length; i++ ) {
-        const cols = lines[i]!.split( ',' );
+    const addPointForReader = ( cols: string[] ) => {
+        const reader = fileHasMultipleReaderIDs ? cols[ readerIndex ]! : currentReader;
         const tempx = Math.round( Number( cols[xIndex] ) * factor );
         const tempy = Math.round( Number( cols[yIndex] ) * factor );
+
+        if ( !points[ reader ] ) {
+            points[ reader ] = {
+                'textForeignId': Number( textId ),
+                'readerForeignId': Number( reader ),
+                'fixations': [],
+                'preAnnotations': []
+            };
+        }
+
+        points[ reader ]!.fixations!.push( {
+            'x': tempx,
+            'y': tempy,
+            'foreignId': Number( cols[ idIndex ]! )
+        } );
+    };
+
+    for ( let i = 0; i < lines.length; i++ ) {
+        const cols = lines[i]!.split( ',' );
 
         if ( !fileHasMultipleTextIDs ) {
             if ( firstEncounteredTextID !== cols[ textIndex ] ) {
                 throw new MultipleTextIDsWithoutSpecifiedTextIDError();
             }
 
-            const reader = cols[ readerIndex ]!;
-
-            if ( !points[ reader ] ) {
-                points[ reader ] = {
-                    'textForeignId': Number( textId ),
-                    'readerForeignId': Number( reader ),
-                    'fixations': [],
-                    'preAnnotations': []
-                };
-            }
-
-            points[ reader ]!.fixations!.push( {
-                'x': tempx,
-                'y': tempy,
-                'foreignId': Number( cols[ idIndex ]! )
-            } );
+            addPointForReader( cols );
         } else if ( cols[textIndex] === textId ) {
-            const reader = cols[ readerIndex ]!;
-
-            if ( !points[ reader ] ) {
-                points[ reader ] = {
-                    'textForeignId': Number( textId ),
-                    'readerForeignId': Number( reader ),
-                    'fixations': []
-                };
-            }
-
-            points[ reader ]!.fixations!.push( {
-                'x': tempx,
-                'y': tempy,
-                'foreignId': Number( cols[ idIndex ]! )
-            } );
+            addPointForReader( cols );
         }
     }
 

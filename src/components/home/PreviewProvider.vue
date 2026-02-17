@@ -40,7 +40,7 @@
                     </td>
                     <td>
                         <p class="title">
-                            Gaze points
+                            Fixations
                         </p>
                         <p class="content">
                             {{ props.session.annotationsMetaData?.total ? props.session.annotationsMetaData.total : 'N/A' }}

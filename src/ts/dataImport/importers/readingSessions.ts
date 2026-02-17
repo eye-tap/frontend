@@ -1,9 +1,6 @@
 import {
-    fileLoader,
-    loadFileFromDiskAsString
-} from '../util/loadFileFromDisk';
-import {
     importConfigFixationFixationIDCSVName,
+    importConfigFixationHasMultipleReaders,
     importConfigFixationHasMultipleTexts,
     importConfigFixationReaderCSVName,
     importConfigFixationTextIDCSVName,
@@ -17,6 +14,12 @@ import type {
     ImportReadingSessionDto
 } from '@/types/dtos/ImportReadingSessionDto';
 import {
+    MissingFilesError
+} from '../util/errors';
+import {
+    fileLoader
+} from '../util/loadFileFromDisk';
+import {
     importAnnotation
 } from './annotations';
 import {
@@ -28,18 +31,33 @@ export const importReadingSession = async (
     annotationsCSVElement: HTMLInputElement,
     textId: string
 ): Promise<ImportReadingSessionDto[]> => {
-    const pCSV = await loadFileFromDiskAsString( fixationsCSVElement );
-    const fix = parseFixationsCSV(
-        pCSV,
-        textId,
-        importConfigFixationHasMultipleTexts.value,
-        100,
-        importConfigFixationXCoordCSVName.value,
-        importConfigFixationYCoordCSVName.value,
-        importConfigFixationReaderCSVName.value,
-        importConfigFixationTextIDCSVName.value,
-        importConfigFixationFixationIDCSVName.value
-    );
+    const fix: ImportReadingSessionDto[] = [];
+    const fixImportFiles = fixationsCSVElement.files;
+
+    if ( !fixImportFiles )
+        throw new MissingFilesError();
+
+    for ( let i = 0; i < fixImportFiles.length; i++ ) {
+        // TODO: Somehow get reader number
+        const imported = parseFixationsCSV(
+            await ( await fileLoader( fixImportFiles[i]! ) ).text(),
+            textId,
+            importConfigFixationHasMultipleTexts.value,
+            importConfigFixationHasMultipleReaders.value,
+            '' + i,
+            100,
+            importConfigFixationXCoordCSVName.value,
+            importConfigFixationYCoordCSVName.value,
+            importConfigFixationReaderCSVName.value,
+            importConfigFixationTextIDCSVName.value,
+            importConfigFixationFixationIDCSVName.value
+        );
+
+        imported.forEach( el => {
+            fix.push( el );
+        } );
+    }
+
     const files = annotationsCSVElement.files;
 
     if ( files ) {

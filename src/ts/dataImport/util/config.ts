@@ -35,6 +35,8 @@ export const importConfigFixationFixationIDCSVName: Ref<string> = ref( 'fixid' )
 
 export const importConfigFixationHasMultipleTexts: Ref<boolean> = ref( true );
 
+export const importConfigFixationHasMultipleReaders: Ref<boolean> = ref( true );
+
 
 // ┌                                               ┐
 // │           Annotations import config           │
