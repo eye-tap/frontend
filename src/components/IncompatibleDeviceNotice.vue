@@ -15,7 +15,7 @@
     const isUnsuitableAspectRatio = ref( false );
     const notifications = useNotification();
     const devForceIncompatible = false;
-    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
+    const devMode = import.meta.env.VITE_DEV_MODE;
 
     const dismiss = () => {
         show.value = false;

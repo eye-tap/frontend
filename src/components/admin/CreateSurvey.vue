@@ -34,7 +34,7 @@
     }
 
     const show = defineModel<boolean>();
-    const showMagicLinks = ref( false );
+    const showMagicLinks = ref( true );
     const magicLinks: Ref<string[]> = ref( [] );
     const texts: Ref<Text[]> = ref( [] );
     const title = ref( '' );
@@ -42,7 +42,7 @@
     const userCount = ref( null );
     const notifications = useNotification();
     const selectedTextIndex = ref( -1 );
-    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
+    const devMode = import.meta.env.VITE_DEV_MODE;
 
     const selectText = ( index: number ) => {
         selectedTextIndex.value = index;
@@ -101,20 +101,46 @@
         } );
     };
 
+    // Used to make magic links fit the table
+    const truncate = ( text: string, limit: number ) => {
+        if ( text.length < limit ) return text;
+        else return text.slice( 0, limit - 3 ) + '...';
+    };
+
+    // Download all magic links as .txt
+    const downloadMagicLinks = () => {
+        const textContent = magicLinks.value.join( '\n' );
+        const blob = new Blob(
+            [ textContent ],
+            {
+                'type': 'text/plain'
+            }
+        );
+        const url = URL.createObjectURL( blob );
+        const a: HTMLAnchorElement = document.getElementById( 'linkDownloadAnchor' )!;
+
+        a.href = url;
+        a.download = 'magicLinks.txt';
+        a.click();
+    };
+
     const toggleMagicLinksView = () => {
         showMagicLinks.value = !showMagicLinks.value;
     };
 
     const useTestData = () => {
-        const list: Text[] = testData.list;
-
-        texts.value = list!;
         let links = [];
 
         for ( let i = 0; i < 20; i++ )
             links.push( 'link' + String( i ) );
 
+        links.push( 'linkWhichIsVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong' );
+
         magicLinks.value = links;
+
+        const list: Text[] = testData.list;
+
+        texts.value = list!;
 
         notifications.notify( {
             'text': 'Populated file list using testing data for frontend dev.',
@@ -196,6 +222,10 @@
                     </span>
                 </div>
             </div>
+            <p>
+                <span class="warning-span">Warning</span> 
+                Magic Links are only shown once. When you click back, you cannot see them again.
+            </p>
             <div v-if="!showMagicLinks">
                 <div class="options-container">
                     <div class="options-section">
@@ -225,8 +255,8 @@
                         <p>Texts to include</p>
 
                         <div class="multi-table-wrapper">
-                            <div class="left-table-wrapper">
-                                <table v-if="texts.length > 0">
+                            <div v-if="texts.length > 0" class="left-table-wrapper">
+                                <table>
                                     <thead>
                                         <tr>
                                             <th>Title</th>
@@ -255,6 +285,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div v-else class="placeholder">
+                                Please upload a text
                             </div>
 
                             <div v-if="selectedTextIndex !== -1" class="right-table-wrapper">
@@ -307,7 +340,7 @@
                                     >
                                         <td>
                                             <i class="fa-lg fa-regular fa-copy"></i>
-                                            {{ link }}
+                                            {{ truncate(link, 50) }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -327,6 +360,14 @@
                 >
                     Back
                 </button>
+                <a id="linkDownloadAnchor">
+                    <button
+                        class="button secondary"
+                        @click="downloadMagicLinks()"
+                    >
+                        Download All
+                    </button>
+                </a>
             </div>
         </div>
     </div>
@@ -344,6 +385,19 @@
     height: 100vh;
     width: 100vw;
     z-index: 1;     // To properly black out all of the Editor
+
+    .warning-span {
+        color: var(--theme-warning);
+        font-weight: 700;
+        background-color: var(--theme-bg-1);
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+        border-radius: 10px;
+    }
+
+    p {
+        color: var(--theme-bg-3-20);
+    }
 
     textarea {
         resize: none;
@@ -409,6 +463,7 @@
             justify-content: center;
             color: var(--theme-background-text-20);
             background-color: var(--theme-bg-1-shade);
+            height: 10rem;
         }
     }
 
@@ -583,7 +638,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: max(58vh, 500px);
+            height: max(52vh, 500px);
             padding: 1rem;
             background-color: var(--theme-bg-1);
             overflow-y: scroll;

@@ -2,8 +2,15 @@
     import {
         useStatusStore
     } from '@/ts/stores/status';
+    import { ref } from 'vue';
 
     const status = useStatusStore();
+    const maxUsernameLength = ref( 20 );
+
+    const truncate = ( text: string, limit: number ) => {
+        if ( text.length < limit ) return text;
+        else return text.slice( 0, limit - 3 ) + '...';
+    };
 </script>
 
 <template>
@@ -11,7 +18,9 @@
         <h1>
             Welcome back,
             <div class="welcome-user">
-                {{ status.username !== '' ? status.username : 'Unknown User' }}
+                {{ status.username !== '' 
+                    ? truncate(status.username, maxUsernameLength) 
+                    : truncate("UsernameWhichIsTooLongToBeDisplayed", maxUsernameLength) }}
             </div>
         </h1>
     </div>

@@ -20,7 +20,7 @@
     const selectedSurveyIndex = ref( -1 );
     const isShowingAddSurvey = ref( false );
     const notifications = useNotification();
-    const devMode = import.meta.env.VITE_DISABLE_LOGIN_CHECK;
+    const devMode = import.meta.env.VITE_DEV_MODE;
 
     const reloadFromServer = async () => {
         if ( devMode ) return useTestData();
