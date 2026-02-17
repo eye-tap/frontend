@@ -13,6 +13,11 @@
         pageTitle.value = e.detail.title;
     } );
 
+    document.addEventListener( 'eyetap:annotation-done', () => {
+        if ( !pageTitle.value.includes( 'complete' ) )
+            pageTitle.value += ' (complete)';
+    } );
+
     document.addEventListener( 'eyetap:fileunload', () => {
         pageTitle.value = 'Eye-TAP';
     } );
