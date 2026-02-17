@@ -5,6 +5,10 @@ import {
     watch
 } from 'vue';
 import {
+    canvasSize,
+    isSideBarCollapsed
+} from '../data';
+import {
     canvasToOriginalCoordinates,
     scaleInverse
 } from '../render/scaling';
@@ -19,9 +23,6 @@ import {
     moveHandler,
     zoomPanStartHandler
 } from './zoom';
-import {
-    canvasSize
-} from '../data';
 import {
     resetAllBoxes
 } from '../manager/boxes';
@@ -61,8 +62,6 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     };
 
     const mouseMoveHandler = ( ev: MouseEvent ) => {
-        updateRect();
-
         if ( ev.ctrlKey && ev.buttons === 1 ) {
             moveHandler( ev );
         } else {
@@ -135,5 +134,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         } catch { /* empty */ }
     } );
 
-    watch( canvasSize, updateRect );
+    watch( [
+        canvasSize,
+        isSideBarCollapsed
+    ], updateRect );
 };
