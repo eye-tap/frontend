@@ -1,14 +1,17 @@
-import { ref, type Ref } from 'vue';
-import { type ITourStep, type VTourExposedMethods } from '@globalhive/vuejs-tour';
+import {
+    type ITourStep, type VTourExposedMethods
+} from '@globalhive/vuejs-tour';
+import {
+    type Ref, ref
+} from 'vue';
 
 
 // TODO: To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
 
 
 export const useEditorTour = () => {
-    const tour: Ref<VTourExposedMethods | null> = ref(null);
-    const showWelcomeTour = ref(!localStorage.getItem('welcomeTourViewed'));
-
+    const tour: Ref<VTourExposedMethods | null> = ref( null );
+    const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
     const steps: ITourStep[] = [
         {
             'target': '#tour-editor',
@@ -41,7 +44,7 @@ export const useEditorTour = () => {
             'backdrop': true
         },
         {
-            'target': "#theme-select",
+            'target': '#theme-select',
             'content': '<h3>Themes</h3><p>You can change the theme of the editor here.</p>',
             'highlight': true,
             'backdrop': true
@@ -52,7 +55,8 @@ export const useEditorTour = () => {
             'highlight': true,
             'backdrop': true
         },
-        {   'target': '#tour-finale',
+        {
+            'target': '#tour-finale',
             'content': `
             <div class="tour-final-content">
             <div class="tour-final-emoji">🚀</div>
@@ -65,13 +69,14 @@ export const useEditorTour = () => {
             </p>
             </div>
             `,
-            'backdrop': true,
+            'backdrop': true
         }
     ];
+
     const startFullTour = () => {
-        if (tour.value) {
+        if ( tour.value ) {
             tour.value.startTour();
-            localStorage.setItem('welcomeTourViewed', 'true');
+            localStorage.setItem( 'welcomeTourViewed', 'true' );
             showWelcomeTour.value = false;
         }
     };

@@ -36,8 +36,8 @@ const getSessionById = async ( sessionId: number ): Promise<AnnotationSessionDto
  * @param sessionId - The annotation session Id to save for
  */
 const save = async ( data: EditAnnotationsDto, sessionId: number ) => {
-    let response = await request.post( '/annotation/' + sessionId, data )
-        .then( res => res.text());
+    const response = await request.post( '/annotation/' + sessionId, data )
+        .then( res => res.text() );
 
     return JSON.parse( response ) as AnnotationSessionDto;
 };

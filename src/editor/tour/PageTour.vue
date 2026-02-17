@@ -6,7 +6,8 @@
     };
 
     const show = defineModel<boolean>();
-        show.value = true;
+
+    show.value = true;
     const emit = defineEmits<{
         ( e: 'launch-tour' ): void
     }>();
@@ -18,7 +19,8 @@
 </script>
 
 <template>
-    <div id="tour-finale">  </div>
+    <div id="tour-finale">
+    </div>
     <div v-if="show" class="page-tour">
         <div class="page-tour-box">
             <i class="fa-solid fa-close" @click="dismiss"></i>
