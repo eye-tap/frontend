@@ -7,7 +7,6 @@
     };
 
     const show = defineModel<boolean>();
-    // TODO: Fix up design (it is quite horrible currently)
 </script>
 
 <template>

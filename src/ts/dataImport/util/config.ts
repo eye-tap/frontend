@@ -39,7 +39,6 @@ export const importConfigFixationHasMultipleTexts: Ref<boolean> = ref( true );
 // ┌                                               ┐
 // │           Annotations import config           │
 // └                                               ┘
-// TODO: Add these options to the corresponding pane
 export const importConfigAnnotationReaderCSVName: Ref<string> = ref( 'reader' );
 
 export const importConfigAnnotationTextIDCSVName: Ref<string> = ref( 'text' );

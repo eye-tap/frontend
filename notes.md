@@ -28,7 +28,7 @@
 - Do we need the export feature still? -> Into admin panel -- done
 - General usability improvements -- done
 - Update theme colours (currently primarily the blue and black themes look good)
-- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- ~~done~~ someone broke it again
+- Fix top bar showing the name of the text when returning (i.e. fire event on closing the editor) -- done
 - Better error handling for backend errors (i.e. better notifications) -- done
 - RWD fixes -- done
 - Block if device is too small (also touch devices don't work!) -- done
@@ -46,11 +46,11 @@
 
 
 ## Admin
-- Upload pre-assigned points with multi-file select button on Text creation
-- Design
+- Upload pre-assigned points with multi-file select button on Text creation -- done TODO: Test
+- Design -- done
 - Bug testing
 - New Survey options
-- Select all button for add survey
+- Select all button for add survey -- done
 
 
 

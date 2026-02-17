@@ -89,7 +89,7 @@
                     </td>
                     <td>
                         <p class="title">
-                            Point number
+                            Fixation number
                         </p>
                         <p class="content">
                             {{ fixations[ selectedFixation ]!.id }}
@@ -124,7 +124,7 @@
             </tbody>
         </table>
         <div v-else class="placeholder">
-            <p> Please select a Gaze Point</p>
+            <p> Please select a Fixation</p>
         </div>
     </div>
 </template>

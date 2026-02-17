@@ -97,7 +97,7 @@ const decodeJwt = ( token: string ): object | null => {
 const verify = async (): Promise<void> => {
     const status = useStatusStore();
 
-    if ( magicLinks.checkIfAvailable() ) {
+    if ( magicLinks.checkIfAvailable() && localStorage.getItem( 'jwt' ) ) {
         console.warn( 'New login triggered due to magic link being present' );
 
         return Promise.reject();

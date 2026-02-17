@@ -32,7 +32,7 @@ export const useSaveFunction = () => {
             console.log( val.fixationId );
             data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
         } );
-        console.log( 'Edited annotations: ' + data );
+        console.log( 'Edited annotations: ', data );
         annotation.save( data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
     };
 

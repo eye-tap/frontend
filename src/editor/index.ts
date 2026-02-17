@@ -37,6 +37,8 @@ export const save = () => {
 };
 
 export const redoAvailable = computed( () => {
+    console.log( 'redoHistory', redoHistory.value );
+
     return redoHistory.value.length > 0;
 } );
 
