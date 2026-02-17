@@ -52,7 +52,9 @@
         'showThemePicker': boolean,
         'pageTitle': string,
         'logoClickTarget': string,
+        'isComplete'?: boolean
     }>();
+    const emit = defineEmits( [ 'next' ] );
 
     const admin = () => {
         router.push( '/admin' );
@@ -69,8 +71,17 @@
         />
         <div v-if="props.pageTitle" class="page-title">
             {{ props.pageTitle }}
+            <transition name="fade">
+                <span v-if="props.isComplete" class="completion-pill">
+                    <i class="fa-solid fa-check-circle"></i> Completed
+                </span>
+            </transition>
         </div>
-
+        <div class="next-action-wrapper">
+            <button class="button primary next-btn" @click="emit('next')">
+                Next Annotation <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
         <div :class="[ 'theme-menu', showThemePickerMenu ? 'shown' : undefined , props.showAccount ? 'theme-menu-alt' : 'theme-menu' ]">
             <h2>Themes</h2>
             <p>Select a Theme</p>
@@ -305,6 +316,40 @@
     min-height: 45px;
     line-height: 1;
 }
+.completion-pill {
+    margin-left: 15px;
+    font-size: 0.8rem;
+    background: #27ae60;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
 
+.next-action-wrapper {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.next-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
 
 </style>
