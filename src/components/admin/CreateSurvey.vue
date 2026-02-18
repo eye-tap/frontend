@@ -117,11 +117,12 @@
             }
         );
         const url = URL.createObjectURL( blob );
-        const a: HTMLAnchorElement = document.getElementById( 'linkDownloadAnchor' )!;
+        const a: HTMLAnchorElement = document.getElementById( 'linkDownloadAnchor' )! as HTMLAnchorElement;
 
         a.href = url;
         a.download = 'magicLinks.txt';
         a.click();
+        URL.revokeObjectURL( url );
     };
 
     const toggleMagicLinksView = () => {
