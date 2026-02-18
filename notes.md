@@ -14,7 +14,7 @@
 
 
 ## General
-- Deployment -- done
+- Deployment -- done TODO: CORS
 - Update theme colours (currently primarily the blue and black themes look good)
 - Better error handling for backend errors (i.e. better notifications)
 - RWD fixes (Signup and Login views)
