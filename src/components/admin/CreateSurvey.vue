@@ -18,6 +18,9 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
     const dismiss = () => {
         show.value = false;
@@ -33,8 +36,9 @@
         'selected': boolean[];
     }
 
+    const status = useStatusStore();
     const show = defineModel<boolean>();
-    const showMagicLinks = ref( true );
+    const showMagicLinks = ref( status.devMode );
     const magicLinks: Ref<string[]> = ref( [] );
     const texts: Ref<Text[]> = ref( [] );
     const title = ref( '' );
@@ -42,20 +46,13 @@
     const userCount = ref( null );
     const notifications = useNotification();
     const selectedTextIndex = ref( -1 );
-    const devMode = import.meta.env.VITE_DEV_MODE;
 
     const selectText = ( index: number ) => {
         selectedTextIndex.value = index;
     };
 
-    // const isSelectOrUnselectAll = ( textIdx: number ) => {
-    //     return computed( () => {
-    //         return texts.value[ textIdx ]!.selected.reduce( ( res, val ) => res && val ) ? 'Deselect all' : 'Select all';
-    //     } );
-    // };
-
     const loadTexts = async () => {
-        if ( devMode ) return useTestData();
+        if ( status.devMode ) return useTestData();
 
         const sessions = await listReadingSessions();
         const t: {
