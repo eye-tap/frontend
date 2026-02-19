@@ -239,6 +239,726 @@
                     }
                 }
             ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+                {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+               {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
+        },
+               {
+            "id": 10,
+            "userIds": [
+                1,2,3,4,5
+            ],
+            "title": "Survey Name",
+            "description": "Survey description",
+            "annotationSessions": [
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                },
+                {
+                    "id": 1,
+                    "annotator": 1,
+                    "annotationsMetaData": {
+                        "total": 200,
+                        "done": 50
+                    },
+                    "readingSession": {
+                        "id": 1,
+                        "reader": 1,
+                        "textId": 1,
+                        "textTitle": "Session Title"
+                    }
+                }
+            ]
         }
     ]
 }

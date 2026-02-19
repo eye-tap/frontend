@@ -81,6 +81,17 @@ export const routes = [
             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
         }
     },
+    // Temporary route for new admin panel
+    {
+        'path': '/admin-new',
+        'name': 'admin-new',
+        'component': () => import( '@/views/admin-new/AdminHome.vue' ),
+        'meta': {
+            'title': 'Admin Panel (dev)',
+            'authRequired': true,
+            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+        }
+    },
     {
         'path': '/:pathMatch(.*)*',
         'name': 'NotFound',

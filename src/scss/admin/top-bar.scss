@@ -1,0 +1,61 @@
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    >.title {
+        color: var(--theme-foreground-text);
+        font-size: 2rem;
+        font-weight: 500;
+
+        margin: 1rem;
+    }
+
+    >.bar-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 75px;
+
+        .refresh-icon {
+            cursor: pointer;
+            color: var(--theme-foreground-text);
+            transition: rotate 0.2s;
+
+            &:hover {
+                color: var(--theme-bg-4-20);
+                rotate: 135deg;
+            }
+
+            &:focus {
+                animation: rotating 1s linear 1;
+            }
+        }
+
+        .add-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            color: var(--theme-foreground-text);
+            transition: scale 0.2s;
+
+            &:hover {
+                color: var(--theme-bg-4-20);
+                scale: 1.2;
+            }
+        }
+
+        .trash-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            color: var(--theme-foreground-text);
+            transition: scale 0.2s;
+
+            &:hover {
+                color: var(--theme-warning);
+                scale: 1.2;
+            }
+        }
+    }
+}
