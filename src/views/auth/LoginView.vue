@@ -118,7 +118,7 @@
                     <input
                         v-model="id"
                         type="text"
-                        placeholder="Your email or username"
+                        placeholder="Your username"
                         :class="['input', idError ? 'error' : '']"
                     >
                     <p class="desc">

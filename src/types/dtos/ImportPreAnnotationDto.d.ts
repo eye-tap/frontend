@@ -1,4 +1,6 @@
+import type { PreAnnotationValueDto } from "@/types/dtos/PreAnnotationValueDto";
+
 export interface ImportPreAnnotationDto {
-    'title'?: string;
-    'fixationToCharacterBoxForeignIds'?: Record<string, unknown>;
+  title?: string;
+  annotations?: PreAnnotationValueDto[];
 }
