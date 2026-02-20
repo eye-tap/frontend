@@ -2,9 +2,6 @@ name: Create and publish container
 on:
   release:
     types: [published]
-  push:
-    paths:
-      - package.json
   workflow_dispatch:
 jobs:
   build_container:
