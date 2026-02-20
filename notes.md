@@ -14,11 +14,11 @@
 
 
 ## General
-- Deployment -- done TODO: CORS
+- Deployment -- done TODO: CORS -- done
 - Update theme colours (currently primarily the blue and black themes look good)
 - Better error handling for backend errors (i.e. better notifications)
 - RWD fixes (Signup and Login views)
-- Block if device is too small (also touch devices don't work!) -> Design?
+- Block if device is too small (also touch devices don't work!) -> Design? -- done
 - Take care of all TODOs in the code
 - Buttons with long actions need spinners or other progress indicator
 

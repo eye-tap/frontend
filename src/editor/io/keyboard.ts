@@ -83,7 +83,6 @@ export const keyboardHandler = ( renderer: Renderer ) => {
     };
 
     onMounted( () => {
-        // TODO: See if this somehow interferes with interface elements
         document.addEventListener( 'keydown', handler );
     } );
 
