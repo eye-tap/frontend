@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import {
-        useStatusStore
-    } from '@/ts/stores/status';
-    import {
         ref
     } from 'vue';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
     const status = useStatusStore();
     const maxUsernameLength = ref( 20 );

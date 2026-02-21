@@ -1,8 +1,10 @@
 <script setup lang="ts">
-    import { useSurveyStore } from '@/ts/stores/admin';
     import SurveyBrowser from './surveys/SurveyBrowser.vue';
-    import SurveyProperties from './surveys/SurveyProperties.vue';
     import SurveyCreator from './surveys/SurveyCreator.vue';
+    import SurveyProperties from './surveys/SurveyProperties.vue';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     // Using the store ID to switch panels feels hacky, but ig it works
     const surveyStore = useSurveyStore();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import Sidebar from '@/components/admin-new/sidebar/Sidebar.vue';
+    import Sidebar from '@/components/admin-new/sidebar/SidebarPanel.vue';
     import StatusBar from '@/components/StatusBar.vue';
     import SurveyManager from '@/components/admin-new/SurveyManager.vue';
     import TextManager from '@/components/admin-new/TextManager.vue';

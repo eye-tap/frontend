@@ -1,17 +1,17 @@
 <script setup lang="ts">
-    import {
-        ref
-    } from 'vue';
+    import type { ShallowReadingSessionDto } from '@/types/dtos/ShallowReadingSessionDto';
     import {
         listReadingSessions,
-        listSurveys
     } from '@/ts/surveys';
+    // import {
+    //     ref
+    // } from 'vue';
     import testData from '@/ts/dev/TextTestData.json';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import { useSurveyStore } from '@/ts/stores/admin';
     import { useStatusStore } from '@/ts/stores/status';
+    import { useSurveyStore } from '@/ts/stores/admin';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
@@ -21,7 +21,7 @@
     }
 
     const surveyStore = useSurveyStore();
-    const loading = ref( false );
+    // const loading = ref( false );
     const notifications = useNotification();
     const status = useStatusStore();
 

@@ -1,12 +1,13 @@
 <script setup lang="ts">
-    import { useStatusStore } from '@/ts/stores/status';
     import { createSurvey, listReadingSessions } from '@/ts/surveys';
-    import { useNotification } from '@kyvg/vue3-notification';
-    import { ref, type Ref } from 'vue';
-    import testData from '@/ts/dev/TextTestData.json';
-    import inputFilter from '@/ts/util/inputFilter';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import type { ShallowReadingSessionDto } from '@/types/dtos/ShallowReadingSessionDto';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
+    import inputFilter from '@/ts/util/inputFilter';
+    import { ref } from 'vue';
+    import testData from '@/ts/dev/TextTestData.json';
+    import { useNotification } from '@kyvg/vue3-notification';
+    import { useStatusStore } from '@/ts/stores/status';
+    import { useSurveyStore } from '@/ts/stores/admin';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
