@@ -2,7 +2,9 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     // TODO Download magic links from server to display (if this is supported)
 
@@ -85,7 +87,7 @@
             >
                 Survey Properties
             </h2>
-            <div 
+            <div
                 v-if="surveyStore.selectedSurveyID >= 0"
                 class="bar-buttons trash-icon"
             >
@@ -145,7 +147,7 @@
                 <p>No Magic Links available</p>
             </div>
             <a id="linkDownloadAnchor">
-                <button 
+                <button
                     class="button primary"
                     :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
                     @click="downloadMagicLinks()"
@@ -154,7 +156,7 @@
                 </button>
             </a>
         </div>
-        <div 
+        <div
             v-else
             class="placeholder"
         >

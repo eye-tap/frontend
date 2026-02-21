@@ -1,13 +1,25 @@
 <script setup lang="ts">
-    import { createSurvey, listReadingSessions } from '@/ts/surveys';
-    import type { ShallowReadingSessionDto } from '@/types/dtos/ShallowReadingSessionDto';
+    import {
+        createSurvey, listReadingSessions
+    } from '@/ts/surveys';
+    import type {
+        ShallowReadingSessionDto
+    } from '@/types/dtos/ShallowReadingSessionDto';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
     import inputFilter from '@/ts/util/inputFilter';
-    import { ref } from 'vue';
+    import {
+        ref
+    } from 'vue';
     import testData from '@/ts/dev/TextTestData.json';
-    import { useNotification } from '@kyvg/vue3-notification';
-    import { useStatusStore } from '@/ts/stores/status';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useNotification
+    } from '@kyvg/vue3-notification';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
@@ -98,7 +110,7 @@
                 'title': 'Survey creation'
             } );
         } else if ( !surveyStore.texts.map( text => text.selected.reduce( ( res, val ) => res || val ) )
-        .reduce( ( res, val ) => res || val ) ) {
+            .reduce( ( res, val ) => res || val ) ) {
             return notifications.notify( {
                 'text': 'Please select at least one reader from one text',
                 'type': 'error',
@@ -147,7 +159,9 @@
         </div>
 
         <div class="content">
-            <p class="subtitle">METADATA</p>
+            <p class="subtitle">
+                METADATA
+            </p>
             <div>
                 <input
                     v-model="title"
@@ -168,10 +182,12 @@
                 rows="4"
             ></textarea>
 
-            <p class="subtitle">TEXTS</p>
+            <p class="subtitle">
+                TEXTS
+            </p>
             <div class="multi-table-wrapper">
                 <div
-                    v-if="surveyStore.texts.length > 0" 
+                    v-if="surveyStore.texts.length > 0"
                     class="left-table-wrapper"
                 >
                     <table>

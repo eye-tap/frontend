@@ -1,7 +1,9 @@
 <script setup lang="ts">
-    import type { ShallowReadingSessionDto } from '@/types/dtos/ShallowReadingSessionDto';
+    import type {
+        ShallowReadingSessionDto
+    } from '@/types/dtos/ShallowReadingSessionDto';
     import {
-        listReadingSessions,
+        listReadingSessions
     } from '@/ts/surveys';
     // import {
     //     ref
@@ -10,8 +12,12 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import { useStatusStore } from '@/ts/stores/status';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
@@ -138,7 +144,7 @@
     border-style: solid;
     border-color: var(--theme-bg-3-shade);
     border-width: 0px 2px 0px 0px;
-    
+
     td {
         cursor: default;
     }

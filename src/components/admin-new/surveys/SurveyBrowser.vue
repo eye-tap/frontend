@@ -9,7 +9,9 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     const surveyStore = useSurveyStore();
     const loading = ref( false );

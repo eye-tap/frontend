@@ -1,4 +1,6 @@
-import type { Mode } from '@/ts/stores/admin';
+import type {
+    Mode
+} from '@/ts/stores/admin';
 
 type SidebarOption = {
     'text': string,
@@ -32,12 +34,10 @@ export const content: Array<sidebarSection> = [
     },
     {
         'name': 'texts',
-        'content': [
-            {
-                'text': 'View Texts',
-                'mode': 'texts',
-                'id': 2
-            }
-        ]
+        'content': [ {
+            'text': 'View Texts',
+            'mode': 'texts',
+            'id': 2
+        } ]
     }
 ];

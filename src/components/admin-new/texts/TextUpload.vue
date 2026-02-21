@@ -3,9 +3,9 @@
 </script>
 
 <template>
-<div>
-    <p>Text upload TBD</p>
-</div>
+    <div>
+        <p>Text upload TBD</p>
+    </div>
 </template>
 
 <style scoped lang="scss">

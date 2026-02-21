@@ -3,7 +3,9 @@
     import StatusBar from '@/components/StatusBar.vue';
     import SurveyManager from '@/components/admin-new/SurveyManager.vue';
     import TextManager from '@/components/admin-new/TextManager.vue';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     const surveyStore = useSurveyStore();
 </script>
@@ -15,7 +17,7 @@
         :show-theme-picker="true"
         page-title="Admin Panel"
         logo-click-target="/app"
-    /> 
+    />
     <div class="admin">
         <Sidebar />
         <div class="content-wrapper">

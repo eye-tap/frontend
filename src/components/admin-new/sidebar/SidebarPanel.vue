@@ -1,10 +1,16 @@
 <script setup lang="ts">
-    import { type Ref, ref } from 'vue';
-    import type { Mode } from '@/ts/stores/admin';
-    import { 
+    import {
+        type Ref, ref
+    } from 'vue';
+    import type {
+        Mode
+    } from '@/ts/stores/admin';
+    import {
         content
     } from './SidebarConfig';
-    import { useSurveyStore } from '@/ts/stores/admin';
+    import {
+        useSurveyStore
+    } from '@/ts/stores/admin';
 
     const surveyStore = useSurveyStore();
     const selectedOption: Ref<number> = ref( -1 );
@@ -13,11 +19,11 @@
         selectedOption.value = id;
         surveyStore.setPanelMode( mode );
 
-        switch (mode) {
-            case ('surveys-create'):
+        switch ( mode ) {
+            case 'surveys-create':
                 surveyStore.setSurveyID( -1 );
                 break;
-            case ('surveys'):
+            case 'surveys':
                 surveyStore.setSurveyID( -2 );
                 break;
         }

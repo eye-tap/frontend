@@ -1,6 +1,12 @@
-import type { ShallowReadingSessionDto } from '@/types/dtos/ShallowReadingSessionDto';
-import type { SurveyDto } from '@/types/dtos/SurveyDto';
-import { defineStore } from 'pinia';
+import type {
+    ShallowReadingSessionDto
+} from '@/types/dtos/ShallowReadingSessionDto';
+import type {
+    SurveyDto
+} from '@/types/dtos/SurveyDto';
+import {
+    defineStore
+} from 'pinia';
 
 interface Text {
     'sessions': ShallowReadingSessionDto[];
@@ -26,7 +32,7 @@ interface SurveyStore {
 /**
  * Store for data displayed in the Admin Panel.
  */
-export const useSurveyStore = defineStore('surveys', {
+export const useSurveyStore = defineStore( 'surveys', {
     'state': (): SurveyStore => ( {
         'surveys': [],
         'selectedSurveyID': -1,
@@ -66,4 +72,4 @@ export const useSurveyStore = defineStore('surveys', {
             this.panelMode = mode;
         }
     }
-})
+} );
