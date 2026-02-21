@@ -1,10 +1,10 @@
 <script setup lang="ts">
-    import { ref, type Ref } from 'vue';
+    import { type Ref, ref } from 'vue';
+    import type { Mode } from '@/ts/stores/admin';
     import { 
         content
     } from './SidebarConfig';
     import { useSurveyStore } from '@/ts/stores/admin';
-    import type { Mode } from '@/ts/stores/admin';
 
     const surveyStore = useSurveyStore();
     const selectedOption: Ref<number> = ref( -1 );

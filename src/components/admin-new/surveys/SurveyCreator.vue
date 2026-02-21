@@ -97,7 +97,8 @@
                 'type': 'error',
                 'title': 'Survey creation'
             } );
-        } else if ( !texts.value.map( text => text.selected.reduce( ( res, val ) => res || val ) ).reduce( ( res, val ) => res || val ) ) {
+        } else if ( !surveyStore.texts.map( text => text.selected.reduce( ( res, val ) => res || val ) )
+        .reduce( ( res, val ) => res || val ) ) {
             return notifications.notify( {
                 'text': 'Please select at least one reader from one text',
                 'type': 'error',
