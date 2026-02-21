@@ -8,9 +8,14 @@ import {
     fixationDisplay,
     fixationRadius,
     fixationsOpacity,
+    heatMapMaxColor,
+    heatMapMaxValue,
+    heatMapMinColor,
+    heatMapMinValue,
     hoveredFixationColor,
     hoveredFixationRadius,
     machineAssignedFixationColor,
+    renderFixationHeatMapInsteadOfDefaultColour,
     selectedFixationColor,
     selectedFixationRadius,
     unassignedFixationColor
@@ -25,6 +30,9 @@ import {
     originalToCanvasCoordinates,
     scale
 } from './scaling';
+import type {
+    Color
+} from '../types/boxes';
 import type {
     EditorFixation
 } from '../types/fixations';
@@ -81,7 +89,19 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
 
 const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, color: string, radius: number ) => {
-        ctx.fillStyle = color;
+        if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined ) {
+            const percentage = fixation.disagreement / ( heatMapMaxValue.value - heatMapMinValue.value );
+            const col: Color = {
+                'r': heatMapMinColor.value.r + ( ( heatMapMaxColor.value.r - heatMapMinColor.value.r ) * percentage ),
+                'g': heatMapMinColor.value.g + ( ( heatMapMaxColor.value.g - heatMapMinColor.value.g ) * percentage ),
+                'b': heatMapMinColor.value.b + ( ( heatMapMaxColor.value.b - heatMapMinColor.value.b ) * percentage )
+            };
+
+            ctx.fillStyle = `rgb( ${ col.r }, ${ col.g }, ${ col.b } )`;
+        } else {
+            ctx.fillStyle = color;
+        }
+
         ctx.beginPath();
         ctx.arc(
             scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),

@@ -5,10 +5,11 @@
 - Fix animation for sidebar collapse -- done
 - Possibly: Resize listener on canvas container
 - Move advanced options into a popover instead of the sidebar
-- Heatmap i.e. points are coloured based on the entropy
-- Autosave -- TODO: Add button to disable (`src/editor/index.ts`) exports the option to do so
-- Multiple entropy sources (switchable with dropdown)
-- Annotations need also the source? -> Think about how to do this
+- Heatmap i.e. points are coloured based on the entropy -- done
+- Loading of disagreement metrics from backend -- done
+- Autosave -- TODO: Add button to disable (`src/editor/index.ts` exports the option to do so)
+- Multiple entropy sources (switchable with dropdown) -- not planned
+- Annotations need also the source? -> Think about how to do this -- not planned
 - Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing) -- skipped for now
 - Tour -- done
 - ~~Indices rendering outside box if possible?~~
@@ -36,6 +37,8 @@
 - Define file contents specs somewhere
 - Magic link regen
 - Magic link panel close warning
+- survey delete
+- survey export
 
 
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFR1cnRsZTgyNiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIydS1HMjV0OEolMjIlN0Q=

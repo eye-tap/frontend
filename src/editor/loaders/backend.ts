@@ -42,7 +42,8 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'x': f.x!,
             'y': f.y!,
             'id': f.id!,
-            'assigned': 'unassigned'
+            'assigned': 'unassigned',
+            'disagreement': f.disagreement
         } );
     } );
 

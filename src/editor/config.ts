@@ -78,6 +78,22 @@ export const hoveredTextColor: Ref<Color> = ref( {
     'b': 0
 } );
 
+export const heatMapMinColor: Ref<Color> = ref( {
+    'r': 0,
+    'g': 0,
+    'b': 0
+} );
+
+export const heatMapMaxColor: Ref<Color> = ref( {
+    'r': 0,
+    'g': 0,
+    'b': 0
+} );
+
+export const heatMapMinValue = ref( 0 );
+
+export const heatMapMaxValue = ref( 1 );
+
 export const boundingBoxesOpacity = ref( 1 );
 
 export const fixationsOpacity = ref( 1 );
@@ -123,6 +139,12 @@ export const fixationDisplayOptions = [
 export type FixationDisplay = typeof fixationDisplayOptions[number];
 
 export const fixationDisplay = ref<FixationDisplay>( 'all' );
+
+/*
+ * Renders a colour based on heat map instead of the default colour.
+ * Only affects non-selected and non-hovered and machine-assigned fixations
+*/
+export const renderFixationHeatMapInsteadOfDefaultColour = ref( false );
 
 
 export const fixationIndexDisplayOptions = [
