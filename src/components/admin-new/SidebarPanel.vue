@@ -2,38 +2,25 @@
     import {
         type Ref, ref
     } from 'vue';
-    import type {
-        Mode
-    } from '@/ts/stores/admin';
     import {
-        content
-    } from './SidebarConfig';
-    import {
-        useSurveyStore
-    } from '@/ts/stores/admin';
+        adminBaseRoute,
+        adminContent
+    } from './adminConfig';
+    import { useRouter } from 'vue-router';
 
-    const surveyStore = useSurveyStore();
+    const router = useRouter();
     const selectedOption: Ref<number> = ref( -1 );
 
-    const selectOption = ( id: number, mode: Mode ) => {
+    const selectOption = ( id: number, route: string ) => {
         selectedOption.value = id;
-        surveyStore.setPanelMode( mode );
-
-        switch ( mode ) {
-            case 'surveys-create':
-                surveyStore.setSurveyID( -1 );
-                break;
-            case 'surveys':
-                surveyStore.setSurveyID( -2 );
-                break;
-        }
+        router.push( adminBaseRoute + route );
     };
 </script>
 
 <template>
     <div class="wrapper">
         <div
-            v-for="section, i in content"
+            v-for="section, i in adminContent"
             :key="i"
             class="section"
         >
@@ -46,7 +33,7 @@
                     :key="option.id"
                     :class="selectedOption === option.id ? 'selected' : undefined"
                     class="option"
-                    @click="selectOption( option.id, option.mode )"
+                    @click="selectOption( option.id, option.route )"
                 >
                     {{ option.text }}
                 </p>

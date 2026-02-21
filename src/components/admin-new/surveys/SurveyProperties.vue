@@ -14,8 +14,6 @@
 
     // TODO: Download magic links from server to display (if this is supported)
     // --> Likely won't be due to bcrypt or the like being used for passwords
-    // FIXME: Use router views instead of this concept (also gives transition animations)
-    // that are configurable from within the router (fade or scale afaik are supported)
 
     const surveyStore = useSurveyStore();
     const maxSurveyLength = 50;
@@ -23,18 +21,37 @@
     const status = useStatusStore();
 
     const removeSurvey = () => {
-        deleteSurvey( surveyStore.selectedSurveyID );
-        // FIXME: Update the notification based on result from delete
-        notifications.notify( {
-            'text': 'Deletion not implemented',
-            'type': 'error',
-            'title': 'Not implemented'
+        deleteSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean) => {
+            if ( success ) 
+                notifications.notify( {
+                    'text': 'Survey was deleted successfuly',
+                    'type': 'success',
+                    'title': 'Survey Deleted'
+                } );
+            else
+                notifications.notify( {
+                    'text': 'Survey could not be deleted',
+                    'type': 'error',
+                    'title': 'Error: Survey Deletion'
+                } );
         } );
     };
 
     const exportThisSurvey = () => {
-        exportSurvey( surveyStore.selectedSurveyID );
-        // TODO: Add notification
+        exportSurvey( surveyStore.selectedSurveyID ).then(( success: boolean) => {
+            if ( success ) 
+                notifications.notify( {
+                    'text': 'Survey exported successfuly',
+                    'type': 'success',
+                    'title': 'Survey Export'
+                } );
+            else
+                notifications.notify( {
+                    'text': 'Survey could not be exported',
+                    'type': 'error',
+                    'title': 'Error: Survey Export'
+                } );
+        } );
     };
 
     const copyLinkToClipboard = ( linkStr: string ) => {
@@ -114,7 +131,7 @@
                 </span>
                 <span>
                     <i
-                        class="fa-solid fa-download fa-lg trash-icon"
+                        class="fa-solid fa-download fa-lg dl-icon"
                         @click="exportThisSurvey"
                     ></i>
                 </span>
@@ -167,13 +184,19 @@
             >
                 <p>No Magic Links available</p>
             </div>
+            <button 
+                class="button primary"
+                @click="exportThisSurvey"
+            >
+                Export
+            </button>
             <a id="linkDownloadAnchor">
                 <button
-                    class="button primary"
+                    class="button secondary"
                     :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
                     @click="downloadMagicLinks()"
                 >
-                    Download All
+                    Download Links
                 </button>
             </a>
         </div>
@@ -191,6 +214,11 @@
 @use '@/scss/admin/top-bar';
 
 .survey-properties {
+    // Mainly for wide displays
+    .top-bar {
+        justify-content: left;
+    }
+
     >div.content {
         overflow-y: auto;
         scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );

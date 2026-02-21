@@ -2,20 +2,13 @@
     import SurveyBrowser from './surveys/SurveyBrowser.vue';
     import SurveyCreator from './surveys/SurveyCreator.vue';
     import SurveyProperties from './surveys/SurveyProperties.vue';
-    import {
-        useSurveyStore
-    } from '@/ts/stores/admin';
+    import { useRoute } from 'vue-router';
 
-    // Using the store ID to switch panels feels hacky, but ig it works
-    const surveyStore = useSurveyStore();
+    const route = useRoute();
 </script>
 
 <template>
     <SurveyBrowser />
-    <SurveyProperties v-if="surveyStore.selectedSurveyID !== -1" />
+    <SurveyProperties v-if="!route.path.endsWith( 'create-survey' )" />
     <SurveyCreator v-else />
 </template>
-
-<style scoped lang="scss">
-
-</style>

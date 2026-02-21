@@ -1,13 +1,6 @@
 <script setup lang="ts">
-    import Sidebar from '@/components/admin-new/sidebar/SidebarPanel.vue';
+    import Sidebar from '@/components/admin-new/SidebarPanel.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import SurveyManager from '@/components/admin-new/SurveyManager.vue';
-    import TextManager from '@/components/admin-new/TextManager.vue';
-    import {
-        useSurveyStore
-    } from '@/ts/stores/admin';
-
-    const surveyStore = useSurveyStore();
 </script>
 
 <template>
@@ -21,8 +14,9 @@
     <div class="admin">
         <Sidebar />
         <div class="content-wrapper">
-            <SurveyManager v-if="surveyStore.panelMode === 'surveys' || surveyStore.panelMode === 'surveys-create'" />
-            <TextManager v-else-if="surveyStore.panelMode === 'texts'" />
+            <router-view v-slot="{ Component }">
+                <component :is="Component" />
+            </router-view>
         </div>
     </div>
 </template>

@@ -18,15 +18,12 @@ interface Text {
     'selected': boolean[];
 }
 
-export type Mode = 'surveys' | 'surveys-create' | 'texts';
-
 interface SurveyStore {
     'surveys': SurveyDto[],
     'selectedSurveyID': number,
     'links': string[],
     'texts': Text[],
     'selectedTextID': number,
-    'panelMode': Mode
 }
 
 /**
@@ -39,7 +36,6 @@ export const useSurveyStore = defineStore( 'surveys', {
         'links': [],
         'texts': [],
         'selectedTextID': -1,
-        'panelMode': 'surveys'
     } ),
 
     'getters': {
@@ -67,9 +63,6 @@ export const useSurveyStore = defineStore( 'surveys', {
         },
         setTextID ( id: number ) {
             this.selectedTextID = id;
-        },
-        setPanelMode ( mode: Mode ) {
-            this.panelMode = mode;
         }
     }
 } );

@@ -268,6 +268,10 @@
 @use '@/scss/admin/top-bar';
 
 .survey-create {
+    // Mainly for wide displays
+    .top-bar {
+        justify-content: left;
+    }
 
     .content {
         overflow-y: auto;

@@ -1,10 +1,6 @@
-import type {
-    Mode
-} from '@/ts/stores/admin';
-
 type SidebarOption = {
     'text': string,
-    'mode': Mode,
+    'route': string,
     'id': number
 };
 
@@ -13,21 +9,23 @@ type sidebarSection = {
     'content': Array<SidebarOption>
 };
 
+export const adminBaseRoute = '/admin-new/';
+
 /**
  * Populates the admin sidebar. IDs should be unique.
  */
-export const content: Array<sidebarSection> = [
+export const adminContent: Array<sidebarSection> = [
     {
         'name': 'surveys',
         'content': [
             {
                 'text': 'View Survey',
-                'mode': 'surveys',
+                'route': 'surveys',
                 'id': 0
             },
             {
                 'text': 'Create Survey',
-                'mode': 'surveys-create',
+                'route': 'create-survey',
                 'id': 1
             }
         ]
@@ -36,7 +34,7 @@ export const content: Array<sidebarSection> = [
         'name': 'texts',
         'content': [ {
             'text': 'View Texts',
-            'mode': 'texts',
+            'route': 'texts',
             'id': 2
         } ]
     }

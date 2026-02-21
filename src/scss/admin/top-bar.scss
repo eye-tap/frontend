@@ -57,5 +57,18 @@
                 scale: 1.2;
             }
         }
+
+        .dl-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            color: var(--theme-foreground-text);
+            transition: scale 0.2s;
+
+            &:hover {
+                color: var(--theme-bg-4);
+                scale: 1.2;
+            }  
+
+        }
     }
 }

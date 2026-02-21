@@ -15,7 +15,10 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
+    import { useRouter } from 'vue-router';
+    import { adminBaseRoute } from '../adminConfig';
 
+    const router = useRouter();
     const surveyStore = useSurveyStore();
     const loading = ref( false );
     const notifications = useNotification();
@@ -53,10 +56,11 @@
 
     const selectSurvey = ( surveyId: number ) => {
         surveyStore.setSurveyID( surveyId );
+        router.push( adminBaseRoute + 'surveys');
     };
 
     const addSurvey = () => {
-        surveyStore.selectedSurveyID = -1;
+        router.push( adminBaseRoute + 'create-survey');
     };
 
     reloadFromServer();

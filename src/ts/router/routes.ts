@@ -90,7 +90,49 @@ export const routes = [
             'title': 'Admin Panel (dev)',
             'authRequired': true,
             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-        }
+        },
+        'children': [
+            {
+                'path': '',
+                'name': 'admin-home',
+                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            {
+                'path': 'surveys',
+                'name': 'surveys',
+                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            {
+                'path': 'create-survey',
+                'name': 'create-survey',
+                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            {
+                'path': 'texts',
+                'name': 'texts',
+                'component': () => import( '@/components/admin-new/TextManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            }
+        ]
     },
     {
         'path': '/:pathMatch(.*)*',
