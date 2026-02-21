@@ -21,5 +21,6 @@ declare global {
         'eyetap:keys:char': CustomEvent<void>;
         'eyetap:keys:next': CustomEvent<void>;
         'eyetap:keys:prev': CustomEvent<void>;
+        'eyetap:theme': CustomEvent<void>;
     }
 }

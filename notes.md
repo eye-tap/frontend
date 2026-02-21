@@ -6,6 +6,7 @@
 - Possibly: Resize listener on canvas container
 - Move advanced options into a popover instead of the sidebar
 - Heatmap i.e. points are coloured based on the entropy
+- Autosave -- TODO: Add button to disable (`src/editor/index.ts`) exports the option to do so
 - Multiple entropy sources (switchable with dropdown)
 - Annotations need also the source? -> Think about how to do this
 - Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing) -- skipped for now

@@ -14,9 +14,12 @@ const themes: Ref<string[]> = ref( [
 const selectedTheme = ref( themes.value[ 0 ]! );
 
 watch( selectedTheme, ( val, oldVal ) => {
-    document.documentElement.classList.remove( 'theme-' + oldVal.toLowerCase() );
-    document.documentElement.classList.add( 'theme-' + val.toLowerCase() );
-    localStorage.setItem( 'theme', val );
+    if ( val !== oldVal ) {
+        document.documentElement.classList.remove( 'theme-' + oldVal.toLowerCase() );
+        document.documentElement.classList.add( 'theme-' + val.toLowerCase() );
+        document.dispatchEvent( new CustomEvent( 'eyetap:theme' ) );
+        localStorage.setItem( 'theme', val );
+    }
 } );
 
 const tempTheme = localStorage.getItem( 'theme' );

@@ -1,12 +1,23 @@
 import {
     type Ref,
     computed,
-    onUnmounted
+    onMounted,
+    onUnmounted,
+    ref,
+    watch
 } from 'vue';
 import {
     redoHistory,
     undoHistory
 } from './manager/history';
+import {
+    revision,
+    savedAtRevision,
+    useSaveFunction
+} from './manager/save';
+import {
+    autoSaveInterval
+} from './config';
 import {
     editorSessionManager
 } from './manager';
@@ -17,6 +28,9 @@ import {
     loadEditorDataFromBackend
 } from './loaders/backend';
 import {
+    reloadThemeColours
+} from './manager/theme';
+import {
     renderer
 } from './render';
 import {
@@ -26,13 +40,37 @@ import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 import {
-    revision,
-    savedAtRevision,
-    useSaveFunction
-} from './manager/save';
-import {
     useStatusStore
 } from '@/ts/stores/status';
+
+export const isAutoSaveEnabled = ref( true );
+
+const useAutoSave = () => {
+    let interval: number | undefined = undefined;
+
+    watch( isAutoSaveEnabled, ( val, oldVal ) => {
+        if ( !oldVal && val ) startHandler();
+        else if ( oldVal && !val ) stopHandler();
+    } );
+
+    const startHandler = () => {
+        interval = setInterval( () => {
+            if ( isAutoSaveEnabled.value && saveNeeded.value ) {
+                save();
+            }
+        }, autoSaveInterval.value );
+    };
+
+    const stopHandler = () => {
+        clearInterval( interval );
+    };
+
+    startHandler();
+};
+
+export const setAutoSave = ( enabled: boolean ) => {
+    isAutoSaveEnabled.value = enabled;
+};
 
 export const save = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );
@@ -83,8 +121,17 @@ const start = (
         } );
     }
 
+    onMounted( () => {
+        document.addEventListener( 'eyetap:theme', reloadThemeColours );
+        reloadThemeColours();
+    } );
+
     onUnmounted( () => {
         sendEditorLeaveEvent();
+
+        try {
+            document.removeEventListener( 'eyetap:theme', reloadThemeColours );
+        } catch { /* empty */ }
     } );
 
     return {
@@ -97,5 +144,6 @@ export default {
     save,
     redo,
     undo,
-    start
+    start,
+    useAutoSave
 };

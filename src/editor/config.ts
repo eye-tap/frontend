@@ -18,6 +18,7 @@ export const nearbyBoxesDistanceThreshold = ref( 20 );
 
 export const overScrollDistanceForZoom = ref( 20 );
 
+export const autoSaveInterval = ref( 60000 );
 
 // Colors
 export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
