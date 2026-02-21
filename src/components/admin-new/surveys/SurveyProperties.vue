@@ -8,7 +8,9 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-import { deleteSurvey, exportSurvey } from '@/ts/surveys';
+    import {
+        deleteSurvey, exportSurvey
+    } from '@/ts/surveys';
 
     // TODO: Download magic links from server to display (if this is supported)
     // --> Likely won't be due to bcrypt or the like being used for passwords
