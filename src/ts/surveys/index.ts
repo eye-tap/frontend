@@ -62,8 +62,6 @@ export const exportSurvey = async (
     ) );
     const a = document.createElement( 'a' );
 
-    // document.body.appendChild( a );
-    // a.style = 'display: none';
     a.href = link;
     a.download = 'export.csv';
     a.click();
