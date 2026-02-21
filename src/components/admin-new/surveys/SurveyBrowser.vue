@@ -10,16 +10,19 @@
         useNotification
     } from '@kyvg/vue3-notification';
     import {
+        useStatusStore
+    } from '@/ts/stores/status';
+    import {
         useSurveyStore
     } from '@/ts/stores/admin';
 
     const surveyStore = useSurveyStore();
     const loading = ref( false );
     const notifications = useNotification();
-    const devMode = import.meta.env.VITE_DEV_MODE;
+    const status = useStatusStore();
 
     const reloadFromServer = async () => {
-        if ( devMode ) return useTestData();
+        if ( status.devMode ) return useTestData();
 
         loading.value = true;
 

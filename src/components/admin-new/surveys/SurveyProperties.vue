@@ -3,23 +3,36 @@
         useNotification
     } from '@kyvg/vue3-notification';
     import {
+        useStatusStore
+    } from '@/ts/stores/status';
+    import {
         useSurveyStore
     } from '@/ts/stores/admin';
+import { deleteSurvey, exportSurvey } from '@/ts/surveys';
 
-    // TODO Download magic links from server to display (if this is supported)
+    // TODO: Download magic links from server to display (if this is supported)
+    // --> Likely won't be due to bcrypt or the like being used for passwords
+    // FIXME: Use router views instead of this concept (also gives transition animations)
+    // that are configurable from within the router (fade or scale afaik are supported)
 
     const surveyStore = useSurveyStore();
     const maxSurveyLength = 50;
     const notifications = useNotification();
-    const devMode = import.meta.env.VITE_DEV_MODE;
+    const status = useStatusStore();
 
     const removeSurvey = () => {
-        // TODO in case the server ends up supporting this
+        deleteSurvey( surveyStore.selectedSurveyID );
+        // FIXME: Update the notification based on result from delete
         notifications.notify( {
             'text': 'Deletion not implemented',
             'type': 'error',
             'title': 'Not implemented'
         } );
+    };
+
+    const exportThisSurvey = () => {
+        exportSurvey( surveyStore.selectedSurveyID );
+        // TODO: Add notification
     };
 
     const copyLinkToClipboard = ( linkStr: string ) => {
@@ -69,7 +82,7 @@
         } );
     };
 
-    if ( devMode ) useTestData();
+    if ( status.devMode ) useTestData();
 </script>
 
 <template>
@@ -95,6 +108,12 @@
                     <i
                         class="fa-solid fa-trash fa-lg trash-icon"
                         @click="removeSurvey"
+                    ></i>
+                </span>
+                <span>
+                    <i
+                        class="fa-solid fa-download fa-lg trash-icon"
+                        @click="exportThisSurvey"
                     ></i>
                 </span>
             </div>

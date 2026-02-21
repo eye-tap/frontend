@@ -43,3 +43,30 @@ export const createSurvey = async (
 
     return links;
 };
+
+export const deleteSurvey = async (
+    id: number
+): Promise<boolean> => {
+    return ( await request.deleteRequest( '/survey/' + id ) ).status === 200;
+};
+
+export const exportSurvey = async (
+    id: number
+): Promise<boolean> => {
+    const data = await request.get( '/export/survey/' + id );
+    const link = URL.createObjectURL( new Blob(
+        [ data ],
+        {
+            'type': 'text/plain'
+        }
+    ) );
+    const a = document.createElement( 'a' );
+
+    // document.body.appendChild( a );
+    // a.style = 'display: none';
+    a.href = link;
+    a.download = 'export.csv';
+    a.click();
+
+    return true;
+};

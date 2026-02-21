@@ -43,10 +43,17 @@ const post = ( url: string, data: object, noRedirect = false ): Promise<Response
     const fetchOptions: RequestInit = {
         'method': 'post',
         'body': JSON.stringify( data ),
-        'credentials': 'include',
         'headers': {
             'Content-Type': 'application/json'
         }
+    };
+
+    return requestWithOpts( url, fetchOptions, noRedirect );
+};
+
+const deleteRequest = ( url: string, noRedirect = false ): Promise<Response> => {
+    const fetchOptions: RequestInit = {
+        'method': 'delete'
     };
 
     return requestWithOpts( url, fetchOptions, noRedirect );
@@ -155,5 +162,6 @@ export default {
     get,
     getRequest,
     post,
-    postFormData
+    postFormData,
+    deleteRequest
 };
