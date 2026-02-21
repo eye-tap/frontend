@@ -2,7 +2,9 @@
     import SurveyBrowser from './surveys/SurveyBrowser.vue';
     import SurveyCreator from './surveys/SurveyCreator.vue';
     import SurveyProperties from './surveys/SurveyProperties.vue';
-    import { useRoute } from 'vue-router';
+    import {
+        useRoute
+    } from 'vue-router';
 
     const route = useRoute();
 </script>

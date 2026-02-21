@@ -6,7 +6,9 @@
         adminBaseRoute,
         adminContent
     } from './adminConfig';
-    import { useRouter } from 'vue-router';
+    import {
+        useRouter
+    } from 'vue-router';
 
     const router = useRouter();
     const selectedOption: Ref<number> = ref( -1 );

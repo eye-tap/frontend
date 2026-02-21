@@ -35,7 +35,7 @@ export const useSurveyStore = defineStore( 'surveys', {
         'selectedSurveyID': -1,
         'links': [],
         'texts': [],
-        'selectedTextID': -1,
+        'selectedTextID': -1
     } ),
 
     'getters': {

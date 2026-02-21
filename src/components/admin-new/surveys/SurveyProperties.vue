@@ -21,8 +21,8 @@
     const status = useStatusStore();
 
     const removeSurvey = () => {
-        deleteSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean) => {
-            if ( success ) 
+        deleteSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean ) => {
+            if ( success )
                 notifications.notify( {
                     'text': 'Survey was deleted successfuly',
                     'type': 'success',
@@ -38,8 +38,8 @@
     };
 
     const exportThisSurvey = () => {
-        exportSurvey( surveyStore.selectedSurveyID ).then(( success: boolean) => {
-            if ( success ) 
+        exportSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean ) => {
+            if ( success )
                 notifications.notify( {
                     'text': 'Survey exported successfuly',
                     'type': 'success',
@@ -184,7 +184,7 @@
             >
                 <p>No Magic Links available</p>
             </div>
-            <button 
+            <button
                 class="button primary"
                 @click="exportThisSurvey"
             >
