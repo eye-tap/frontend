@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import SurveyBrowser from './surveys/SurveyBrowser.vue';
     import SurveyCreator from './surveys/SurveyCreator.vue';
+    import SurveyMagicLinks from './surveys/SurveyMagicLinks.vue';
     import SurveyProperties from './surveys/SurveyProperties.vue';
     import {
         useRoute
@@ -11,6 +12,7 @@
 
 <template>
     <SurveyBrowser />
-    <SurveyProperties v-if="!route.path.endsWith( 'create-survey' )" />
-    <SurveyCreator v-else />
+    <SurveyCreator v-if="route.path.endsWith( 'create-survey' )" />
+    <SurveyMagicLinks v-else-if="route.path.endsWith( 'magiclinks' )" />
+    <SurveyProperties v-else />
 </template>

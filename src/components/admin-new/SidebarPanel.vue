@@ -7,14 +7,14 @@
         adminContent
     } from './adminConfig';
     import {
+        useRoute,
         useRouter
     } from 'vue-router';
 
     const router = useRouter();
-    const selectedOption: Ref<number> = ref( -1 );
+    const route = useRoute();
 
-    const selectOption = ( id: number, route: string ) => {
-        selectedOption.value = id;
+    const selectOption = ( route: string ) => {
         router.push( adminBaseRoute + route );
     };
 </script>
@@ -33,9 +33,9 @@
                 <p
                     v-for="option in section.content"
                     :key="option.id"
-                    :class="selectedOption === option.id ? 'selected' : undefined"
+                    :class="route.path.includes( option.route ) ? 'selected' : undefined"
                     class="option"
-                    @click="selectOption( option.id, option.route )"
+                    @click="selectOption( option.route )"
                 >
                     {{ option.text }}
                 </p>

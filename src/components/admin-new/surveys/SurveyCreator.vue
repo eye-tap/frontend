@@ -20,6 +20,8 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
+import { useRouter } from 'vue-router';
+import { adminBaseRoute } from '../adminConfig';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
@@ -28,6 +30,7 @@
         'selected': boolean[];
     }
 
+    const router = useRouter();
     const notifications = useNotification();
     const surveyStore = useSurveyStore();
     const status = useStatusStore();
@@ -36,11 +39,11 @@
     const userCount = ref( null );
 
     const dismiss = () => {
-        surveyStore.selectedSurveyID = -2;
+        surveyStore.selectedSurveyIndex = -2;
     };
 
     const selectText = ( index: number ) => {
-        surveyStore.setTextID( index );
+        surveyStore.setTextIndex( index );
     };
 
     const loadTexts = async () => {
@@ -125,9 +128,8 @@
             surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
         ).then( links => {
             surveyStore.setLinks( links );
+            router.push( adminBaseRoute + '/magiclinks' );
         } );
-
-        // TODO set SurveyStore.selectedID to the ID of the survey just created
     };
 
     const useTestData = () => {
@@ -142,6 +144,7 @@
         } );
     };
 
+    surveyStore.unselectSurvey();
     loadTexts();
 </script>
 
@@ -203,7 +206,7 @@
                             <tr
                                 v-for="text, index in surveyStore.texts"
                                 :key="index"
-                                :class="index === surveyStore.selectedTextID ? 'selected' : ''"
+                                :class="index === surveyStore.selectedTextIndex ? 'selected' : ''"
                             >
                                 <td
                                     class="left-td"
@@ -224,7 +227,7 @@
                     Please upload a text
                 </div>
 
-                <div v-if="surveyStore.selectedTextID !== -1" class="right-table-wrapper">
+                <div v-if="surveyStore.selectedTextIndex !== -1" class="right-table-wrapper">
                     <table>
                         <thead>
                             <tr>

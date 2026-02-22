@@ -104,7 +104,18 @@ export const routes = [
             },
             {
                 'path': 'surveys',
-                'name': 'surveys',
+                'name': 'surveys-none-selected',
+                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            // id is the unique id associated with a survey
+            {
+                'path': 'surveys/:id',
+                'name': 'surveys-selected',
                 'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
                 'meta': {
                     'title': 'Admin',
@@ -119,12 +130,32 @@ export const routes = [
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ],
+                }
+            },
+            {
+                'path': 'magiclinks',
+                'name': 'magiclinks',
+                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ],
                 }
             },
             {
                 'path': 'texts',
                 'name': 'texts',
+                'component': () => import( '@/components/admin-new/TextManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            {
+                'path': 'texts/options',
+                'name': 'texts-options',
                 'component': () => import( '@/components/admin-new/TextManager.vue' ),
                 'meta': {
                     'title': 'Admin',

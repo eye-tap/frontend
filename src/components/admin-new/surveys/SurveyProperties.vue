@@ -11,17 +11,20 @@
     import {
         deleteSurvey, exportSurvey
     } from '@/ts/surveys';
+    import { useRoute } from 'vue-router';
+    import { watch } from 'vue';
 
     // TODO: Download magic links from server to display (if this is supported)
     // --> Likely won't be due to bcrypt or the like being used for passwords
 
+    const route = useRoute();
     const surveyStore = useSurveyStore();
     const maxSurveyLength = 50;
     const notifications = useNotification();
     const status = useStatusStore();
 
     const removeSurvey = () => {
-        deleteSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean ) => {
+        deleteSurvey( surveyStore.selectedSurveyIndex ).then( ( success: boolean ) => {
             if ( success )
                 notifications.notify( {
                     'text': 'Survey was deleted successfuly',
@@ -38,7 +41,7 @@
     };
 
     const exportThisSurvey = () => {
-        exportSurvey( surveyStore.selectedSurveyID ).then( ( success: boolean ) => {
+        exportSurvey( surveyStore.selectedSurveyIndex ).then( ( success: boolean ) => {
             if ( success )
                 notifications.notify( {
                     'text': 'Survey exported successfuly',
@@ -52,32 +55,6 @@
                     'title': 'Error: Survey Export'
                 } );
         } );
-    };
-
-    const copyLinkToClipboard = ( linkStr: string ) => {
-        navigator.clipboard.writeText( linkStr );
-        notifications.notify( {
-            'text': 'Copied magic link to clipboard',
-            'type': 'success',
-            'title': 'Copied'
-        } );
-    };
-
-    const downloadMagicLinks = () => {
-        const textContent = surveyStore.links.join( '\n' );
-        const blob = new Blob(
-            [ textContent ],
-            {
-                'type': 'text/plain'
-            }
-        );
-        const url = URL.createObjectURL( blob );
-        const a: HTMLAnchorElement = document.getElementById( 'linkDownloadAnchor' )! as HTMLAnchorElement;
-
-        a.href = url;
-        a.download = 'magicLinks.txt';
-        a.click();
-        URL.revokeObjectURL( url );
     };
 
     const truncate = ( text: string, limit: number ) => {
@@ -101,6 +78,19 @@
         } );
     };
 
+    /**
+     *  Selected survey is derived via route (contains unique survey id)
+     */
+    watch(
+        () => route.params.id,
+        ( newId, _oldId ) => {
+            console.log( newId );
+
+            if ( newId === undefined ) surveyStore.setSurveyIndex(-1);
+            else surveyStore.setSurveyIndexById( parseInt( newId as string ) );
+        }
+    );
+
     if ( status.devMode ) useTestData();
 </script>
 
@@ -108,7 +98,7 @@
     <div class="survey-properties">
         <div class="top-bar">
             <h2
-                v-if="surveyStore.selectedSurveyID >= 0"
+                v-if="surveyStore.selectedSurveyIndex >= 0"
                 class="title"
             >
                 {{ truncate( surveyStore.getSelectedSurvey?.title!, maxSurveyLength ) }}
@@ -120,8 +110,8 @@
                 Survey Properties
             </h2>
             <div
-                v-if="surveyStore.selectedSurveyID >= 0"
-                class="bar-buttons trash-icon"
+                v-if="surveyStore.selectedSurveyIndex >= 0"
+                class="bar-buttons"
             >
                 <span>
                     <i
@@ -138,7 +128,7 @@
             </div>
         </div>
         <div
-            v-if="surveyStore.selectedSurveyID >= 0"
+            v-if="surveyStore.selectedSurveyIndex >= 0"
             class="content"
         >
             <p class="subtitle">
@@ -155,50 +145,6 @@
             <div class="properties-wrapper">
                 <p>Users: <strong> {{ surveyStore.getSelectedSurvey?.userIds?.length }} </strong></p>
             </div>
-            <p class="subtitle">
-                MAGIC LINKS
-            </p>
-
-            <div
-                v-if="surveyStore.links.length > 0"
-                class="link-table"
-            >
-                <table>
-                    <tbody>
-                        <tr
-                            v-for="link, index in surveyStore.links"
-                            :key="index"
-                            @click="copyLinkToClipboard( link )"
-                        >
-                            <td>
-                                <i class="fa-lg fa-regular fa-copy copy-icon"></i>
-                                {{ truncate(link, 50) }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div
-                v-else
-                class="placeholder"
-            >
-                <p>No Magic Links available</p>
-            </div>
-            <button
-                class="button primary"
-                @click="exportThisSurvey"
-            >
-                Export
-            </button>
-            <a id="linkDownloadAnchor">
-                <button
-                    class="button secondary"
-                    :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
-                    @click="downloadMagicLinks()"
-                >
-                    Download Links
-                </button>
-            </a>
         </div>
         <div
             v-else

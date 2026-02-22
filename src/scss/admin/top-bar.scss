@@ -70,5 +70,17 @@
             }  
 
         }
+
+        .gear-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            color: var(--theme-foreground-text);
+            transition: rotate 0.2s;
+
+            &:hover {
+                rotate: 45deg;
+                color: var(--theme-bg-4-20);
+            } 
+        }
     }
 }

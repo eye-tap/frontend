@@ -20,37 +20,39 @@ interface Text {
 
 interface SurveyStore {
     'surveys': SurveyDto[],
-    'selectedSurveyID': number,
+    'selectedSurveyIndex': number,
     'links': string[],
     'texts': Text[],
-    'selectedTextID': number,
+    'selectedTextIndex': number,
 }
 
 /**
  * Store for data displayed in the Admin Panel.
+ * -1 indicates that nothing is selected, can also be used as fallback for invalid values.
  */
 export const useSurveyStore = defineStore( 'surveys', {
     'state': (): SurveyStore => ( {
         'surveys': [],
-        'selectedSurveyID': -1,
+        'selectedSurveyIndex': -1,
         'links': [],
         'texts': [],
-        'selectedTextID': -1
+        'selectedTextIndex': -1
     } ),
 
     'getters': {
         'getSurveys': state => state.surveys,
-        'getSelectedID': state => state.selectedSurveyID,
-        'getSelectedSurvey': state => state.surveys[state.selectedSurveyID],
+        'getSelectedIndex': state => state.selectedSurveyIndex,
+        'getSelectedSurveyID': state => state.surveys[state.selectedSurveyIndex]?.id,
+        'getSelectedSurvey': state => state.surveys[state.selectedSurveyIndex],
         'getLinks': state => state.links,
         'getTexts': state => state.texts,
-        'getSelectedTextID': state => state.selectedTextID,
-        'getSelectedText': state => state.texts[state.selectedTextID]
+        'getSelectedTextIndex': state => state.selectedTextIndex,
+        'getSelectedText': state => state.texts[state.selectedTextIndex]
     },
 
     'actions': {
-        setSurveyID ( id: number ) {
-            this.selectedSurveyID = id;
+        setSurveyIndex ( index: number ) {
+            this.selectedSurveyIndex = index;
         },
         setSurveys ( surveys: SurveyDto[] ) {
             this.surveys = surveys;
@@ -61,8 +63,21 @@ export const useSurveyStore = defineStore( 'surveys', {
         setTexts ( texts: Text[] ) {
             this.texts = texts;
         },
-        setTextID ( id: number ) {
-            this.selectedTextID = id;
+        setTextIndex ( index: number ) {
+            this.selectedTextIndex = index;
+        },
+        findSurveyIndex ( id: number) {
+            for ( let i = 0; i < this.surveys.length; i++ )
+                if ( this.surveys[i]?.id === id )
+                    return i;
+
+            return -1;
+        },
+        setSurveyIndexById ( id: number ) {
+            this.setSurveyIndex( this.findSurveyIndex( id ) );
+        },
+        unselectSurvey () {
+            this.selectedSurveyIndex = -1;
         }
     }
 } );

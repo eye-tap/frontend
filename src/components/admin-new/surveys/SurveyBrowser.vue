@@ -58,9 +58,9 @@
         loading.value = false;
     };
 
-    const selectSurvey = ( surveyId: number ) => {
-        surveyStore.setSurveyID( surveyId );
-        router.push( adminBaseRoute + 'surveys' );
+    const selectSurvey = ( surveyIndex: number ) => {
+        surveyStore.setSurveyIndex( surveyIndex );
+        router.push( adminBaseRoute + 'surveys/' + String( surveyStore.getSelectedSurveyID ) );
     };
 
     const addSurvey = () => {
@@ -101,7 +101,7 @@
                     <tr
                         v-for="survey, index in surveyStore.surveys"
                         :key="survey.id"
-                        :class="index === surveyStore.selectedSurveyID ? 'selected' : ''"
+                        :class="index === surveyStore.selectedSurveyIndex ? 'selected' : ''"
                         @click="selectSurvey( index )"
                     >
                         <td class="survey-name">

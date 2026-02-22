@@ -57,6 +57,33 @@ input[type=text]:focus {
     background-color: var(--theme-bg-3-20);
 }
 
+input[type=file] {
+    all: unset;
+    width: 13rem;
+    font-size: small;
+    color: var(--theme-background-text-20);
+
+    &::file-selector-button {
+        text-decoration: none;
+        color: var(--theme-foreground-text);
+        background-color: var(--theme-bg-4);
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        border-radius: 10px;
+        transition: background-color, 0.2s;
+        transition: color, 0.2s;
+
+        &:hover {
+            background-color: var(--theme-bg-4-20);
+        }
+    }
+}
+
 table {
     width: 100%;
     border-spacing: 0px 15px;
