@@ -21,7 +21,7 @@ export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSession
     'name': 'Multiple Fixations in a file',
     'options': {
         ...fixationsOpts,
-        'textId': {
+        'textID': {
             'input': 'string',
             'value': 'text',
             'display': 'Text ID'
@@ -40,7 +40,7 @@ const runParse = async ( data: string, textId: string ): Promise<ImportReadingSe
     if ( conf.textIndex < 0 )
         throw new InvalidIndexNameError( 'text ID' );
 
-    const lang = fixationsMultiplePerFileImporter.options.language!.value;
+    const lang = fixationsMultiplePerFileImporter.options.lang!.value;
     const points: {
         [reader: string]: ImportReadingSessionDto
     } = {};
