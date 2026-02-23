@@ -24,7 +24,6 @@
     }
 
     const surveyStore = useSurveyStore();
-    // const loading = ref( false );
     const notifications = useNotification();
     const status = useStatusStore();
 

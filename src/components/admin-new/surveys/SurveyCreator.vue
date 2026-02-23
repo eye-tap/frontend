@@ -228,7 +228,9 @@
                     </table>
                 </div>
                 <div v-else class="placeholder">
-                    Please upload a text
+                    <p>
+                        Please upload a text
+                    </p>
                 </div>
 
                 <div v-if="surveyStore.selectedTextIndex !== -1" class="right-table-wrapper">

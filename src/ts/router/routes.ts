@@ -1,3 +1,4 @@
+import { adminBaseRoute } from '@/components/admin-new/adminConfig';
 import HomeView from '@/views/StartView.vue';
 
 export const routes = [
@@ -73,7 +74,7 @@ export const routes = [
     },
     {
         'path': '/admin',
-        'name': 'admin',
+        'name': 'admin (old)',
         'component': () => import( '@/views/admin/AdminHome.vue' ),
         'meta': {
             'title': 'Admin Panel',
@@ -83,7 +84,7 @@ export const routes = [
     },
     // Temporary route for new admin panel
     {
-        'path': '/admin-new',
+        'path': adminBaseRoute,
         'name': 'admin-new',
         'component': () => import( '@/views/admin-new/AdminHome.vue' ),
         'meta': {
