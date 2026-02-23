@@ -16,6 +16,7 @@ interface FixationsCSVIndices {
     'yIndex': number;
     'idIndex': number;
     'langIndex': number;
+    'disagreementIndex': number;
 }
 
 export const fixationsOpts: ParserOptsList<unknown> = {
@@ -48,6 +49,16 @@ export const fixationsOpts: ParserOptsList<unknown> = {
         'display': 'Factor',
         'value': 0,
         'input': 'number'
+    },
+    'dgeom': {
+        'display': 'Geometric Mean',
+        'value': 'D_geom_mean',
+        'input': 'number'
+    },
+    'pshare': {
+        'display': 'P share', // TODO: Update these names
+        'value': 'P_share_mean',
+        'input': 'number'
     }
 };
 
@@ -64,6 +75,7 @@ export const preprocessor = (
     const yIndex = header.indexOf( opts.y!.value as string );
     const idIndex = header.indexOf( opts.id!.value as string );
     const langIndex = header.indexOf( opts.lang!.value as string );
+    const disagreementIndex = header.indexOf( opts.dgeom!.value as string );
 
     if ( xIndex < 0 )
         throw new InvalidIndexNameError( 'X coordinate' );
@@ -79,7 +91,8 @@ export const preprocessor = (
         xIndex,
         yIndex,
         idIndex,
-        langIndex
+        langIndex,
+        disagreementIndex
     };
 };
 
@@ -110,7 +123,8 @@ export const usePointAdder = (
         points[ reader ]!.fixations!.push( {
             'x': tempx,
             'y': tempy,
-            'foreignId': Number( cols[ indices.idIndex ]! )
+            'foreignId': Number( cols[ indices.idIndex ]! ),
+            'disagreement': indices.disagreementIndex > -1 ? Number( cols[ indices.disagreementIndex ] ) : undefined
         } );
     };
 };

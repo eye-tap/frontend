@@ -1,3 +1,8 @@
+import type {
+    PreAnnotationValueDto
+} from './dtos/PreAnnotationValueDto';
+
+
 export interface ImportConfig<T> {
     'name': string;
     'desc'?: string;
@@ -18,7 +23,7 @@ export interface ParserOption<T> {
     /**
      * The input type you'd like
      */
-    'input': 'number' | 'string' | 'dropdown' | 'boolean';
+    'input': 'number' | 'string' | 'dropdown' | 'boolean' | 'file';
 
     /**
      * Set the options to display in a dropdown (if set to select)
@@ -31,10 +36,10 @@ export interface ParserOption<T> {
     'value': T;
 }
 
-import type {
-    ImportPreAnnotationDto
-} from './dtos/ImportPreAnnotationDto';
-
 export interface ImportAnnotation {
-    [reader: string]: ImportPreAnnotationDto
+    [algo: string]: ImportAnnotationPreProcessing[];
+}
+
+export interface ImportAnnotationPreProcessing extends PreAnnotationValueDto {
+    'textid': string;
 }

@@ -1,10 +1,19 @@
-export const createUidLookupMap = ( csvText: string ): Map<string, string> => {
+import {
+    InvalidIndexNameError
+} from './errors';
+
+export const createUidLookupMap = ( csvText: string, textUidCSVName: string, textIDCSVName: string ): Map<string, string> => {
     const lines = csvText.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
-    const charUid = header.indexOf( 'text_uid' ); // Target for characterid lookup
-    const textUid = header.indexOf( 'text_id' ); // global text ID
+    const charUid = header.indexOf( textUidCSVName ); // Target for UID lookup
+    const textUid = header.indexOf( textIDCSVName ); // global text ID
     const lookup = new Map<string, string>();
+
+    if ( charUid < 0 )
+        throw new InvalidIndexNameError( 'Text UID' );
+    else if ( textUid < 0 )
+        throw new InvalidIndexNameError( 'Text ID (for association)' );
 
     lines.forEach( line => {
         const cols = line.split( ',' );
