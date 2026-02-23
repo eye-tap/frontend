@@ -5,14 +5,18 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-    import { useRoute } from 'vue-router';
+    import {
+        useRoute
+    } from 'vue-router';
     import {
         useStatusStore
     } from '@/ts/stores/status';
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import { watch } from 'vue';
+    import {
+        watch
+    } from 'vue';
 
     // TODO: Download magic links from server to display (if this is supported)
     // --> Likely won't be due to bcrypt or the like being used for passwords
@@ -83,10 +87,10 @@
      */
     watch(
         () => route.params.id,
-        ( newId ) => {
+        newId => {
             console.log( newId );
 
-            if ( newId === undefined ) surveyStore.setSurveyIndex(-1);
+            if ( newId === undefined ) surveyStore.setSurveyIndex( -1 );
             else surveyStore.setSurveyIndexById( parseInt( newId as string ) );
         }
     );

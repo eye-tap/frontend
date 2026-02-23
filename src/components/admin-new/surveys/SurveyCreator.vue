@@ -6,7 +6,9 @@
         ShallowReadingSessionDto
     } from '@/types/dtos/ShallowReadingSessionDto';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
-import { adminBaseRoute } from '../adminConfig';
+    import {
+        adminBaseRoute
+    } from '../adminConfig';
     import inputFilter from '@/ts/util/inputFilter';
     import {
         ref
@@ -15,7 +17,9 @@ import { adminBaseRoute } from '../adminConfig';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
-import { useRouter } from 'vue-router';
+    import {
+        useRouter
+    } from 'vue-router';
     import {
         useStatusStore
     } from '@/ts/stores/status';

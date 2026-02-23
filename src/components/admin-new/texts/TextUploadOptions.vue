@@ -1,6 +1,8 @@
 <script setup lang="ts">
-    import SwitchOption from '@/components/settings/SwitchOption.vue'
-    import { adminBaseRoute } from '../adminConfig';
+    import SwitchOption from '@/components/settings/SwitchOption.vue';
+    import {
+        adminBaseRoute
+    } from '../adminConfig';
     import dataImport from '@/ts/dataImport';
     import router from '@/ts/router';
 
@@ -122,8 +124,8 @@
                 />
             </div>
         </div>
-        <button 
-            class="button primary" 
+        <button
+            class="button primary"
             @click="goBack"
         >
             Back

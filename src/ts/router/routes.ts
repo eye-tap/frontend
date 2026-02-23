@@ -130,7 +130,7 @@ export const routes = [
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ],
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                 }
             },
             {
@@ -140,7 +140,7 @@ export const routes = [
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ],
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                 }
             },
             {

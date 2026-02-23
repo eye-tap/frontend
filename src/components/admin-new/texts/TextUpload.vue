@@ -8,7 +8,9 @@
         computed,
         ref
     } from 'vue';
-    import { adminBaseRoute } from '../adminConfig';
+    import {
+        adminBaseRoute
+    } from '../adminConfig';
     import {
         importDatasetFromCSV
     } from '@/ts/dataImport';
@@ -123,7 +125,7 @@
 
     const goToOptions = () => {
         router.push( adminBaseRoute + 'texts/options' );
-    }
+    };
 
     const annotationsLoadTrigger = () => {
         // TODO import
@@ -158,7 +160,7 @@
             </p>
 
             <label class="metadata">
-                <input 
+                <input
                     v-model="baseName"
                     placeholder="Set Name"
                     type="text"

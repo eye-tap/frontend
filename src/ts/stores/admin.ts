@@ -66,7 +66,7 @@ export const useSurveyStore = defineStore( 'surveys', {
         setTextIndex ( index: number ) {
             this.selectedTextIndex = index;
         },
-        findSurveyIndex ( id: number) {
+        findSurveyIndex ( id: number ) {
             for ( let i = 0; i < this.surveys.length; i++ )
                 if ( this.surveys[i]?.id === id )
                     return i;

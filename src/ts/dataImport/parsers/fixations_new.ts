@@ -17,7 +17,7 @@ export const parseFixationsCSV = (
     yName: string = 'y',
     readerName: string = 'reader',
     textName: string = 'text',
-    idName: string = 'fixid',
+    idName: string = 'fixid'
     // lang: string ='lang'
 ): ImportReadingSessionDto[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );

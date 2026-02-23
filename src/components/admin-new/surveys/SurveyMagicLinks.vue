@@ -107,7 +107,7 @@
                 <button
                     class="button primary"
                     :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
-                    @click="surveyStore.links.length > 0 ?  downloadMagicLinks() : 'undefined'"
+                    @click="surveyStore.links.length > 0 ? downloadMagicLinks() : 'undefined'"
                 >
                     Download Links
                 </button>
