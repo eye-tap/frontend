@@ -3,7 +3,7 @@ import type {
 } from '@/types/dtos/ImportTextDto';
 import {
     importBoundingBoxes
-} from './boundingBoxes';
+} from './characterBoxes';
 import {
     loadFileFromDisk
 } from '../util/loadFileFromDisk';

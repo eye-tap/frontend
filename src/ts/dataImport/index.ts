@@ -1,27 +1,6 @@
 import {
-    importConfigAnnotationBoundingBoxIdCSVName,
-    importConfigAnnotationFixationIDCSVName,
-    importConfigAnnotationHasMultipleTexts,
-    importConfigAnnotationReaderCSVName,
-    importConfigAnnotationTextIDCSVName,
-    importConfigBBCharacterCSVName,
-    importConfigBBHasMultipleTexts,
-    importConfigBBTextIDCSVName,
-    importConfigBBXmaxCoordCSVName,
-    importConfigBBXminCoordCSVName,
-    importConfigBBYmaxCoordCSVName,
-    importConfigBBYminCoordCSVName,
-    importConfigFixationFixationIDCSVName,
-    importConfigFixationHasMultipleReaders,
-    importConfigFixationHasMultipleTexts,
-    importConfigFixationReaderCSVName,
-    importConfigFixationTextIDCSVName,
-    importConfigFixationXCoordCSVName,
-    importConfigFixationYCoordCSVName
-} from './util/config';
-import {
     importReadingSession
-} from './importers/readingSessions';
+} from './importers/fixations';
 import {
     importText
 } from './importers/text';
@@ -43,7 +22,8 @@ export const importDatasetFromCSV = async (
     console.debug( '[Bench] Starting import' );
     const importStart = performance.now();
     const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName );
-    const readingSession = await importReadingSession( fixationsCSVInputElement, annotationsCSVInputElement, textId );
+    // TODO: Pre-annotations import
+    const readingSession = await importReadingSession( fixationsCSVInputElement, textId );
     const loadTime = performance.now() - importStart;
 
     console.debug( '[Bench] Parsing took', loadTime, 'ms' );
@@ -52,7 +32,7 @@ export const importDatasetFromCSV = async (
     if ( loadTime > 750 )
         setTimeout( () => {
             notifications.notify( {
-                'text': 'Completing the import may still take some time. Estimate >' + ( loadTime * 5 ) + 's',
+                'text': 'Completing the import may still take some time. Estimate >' + ( ( loadTime * 5 ) / 1000 ) + 's',
                 'type': 'warn',
                 'title': 'Importing'
             } );
@@ -67,24 +47,5 @@ export const importDatasetFromCSV = async (
 };
 
 export default {
-    importConfigBBXminCoordCSVName,
-    importConfigBBXmaxCoordCSVName,
-    importConfigBBYminCoordCSVName,
-    importConfigBBYmaxCoordCSVName,
-    importConfigBBCharacterCSVName,
-    importConfigBBTextIDCSVName,
-    importConfigBBHasMultipleTexts,
-    importConfigFixationXCoordCSVName,
-    importConfigFixationYCoordCSVName,
-    importConfigFixationReaderCSVName,
-    importConfigFixationTextIDCSVName,
-    importConfigFixationFixationIDCSVName,
-    importConfigFixationHasMultipleTexts,
-    importConfigFixationHasMultipleReaders,
-    importConfigAnnotationFixationIDCSVName,
-    importConfigAnnotationReaderCSVName,
-    importConfigAnnotationTextIDCSVName,
-    importConfigAnnotationBoundingBoxIdCSVName,
-    importConfigAnnotationHasMultipleTexts,
     importDatasetFromCSV
 };

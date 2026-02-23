@@ -1,3 +1,7 @@
+import {
+    fileLoader
+} from './fileLoader';
+
 /**
  * Convenience wrapper around loadFileFromDisk.
  * @param element - An HTML Input Element with a selected file
@@ -41,23 +45,5 @@ export const loadFileFromDisk = ( element: HTMLInputElement ): Promise<Response>
         fileLoader( file )
             .then( resolve )
             .catch( reject );
-    } );
-};
-
-export const fileLoader = ( file: File ): Promise<Response> => {
-    return new Promise( ( resolve, reject ) => {
-        fetch( URL.createObjectURL( file ) )
-            .then( res => {
-                if ( res.status === 200 ) {
-                    resolve( res );
-                } else {
-                    console.error( 'Load failed with error code', res.status );
-                    reject( 'ERR_LOAD_FAILED' );
-                }
-            } )
-            .catch( e => {
-                console.error( 'Load failed with error', e );
-                reject( 'ERR_LOAD_FAILED' );
-            } );
     } );
 };

@@ -9,7 +9,7 @@ import {
 } from '../util/config';
 import type {
     ImportAnnotation
-} from '@/types/import-annotation';
+} from '@/types/import';
 import type {
     ImportReadingSessionDto
 } from '@/types/dtos/ImportReadingSessionDto';
