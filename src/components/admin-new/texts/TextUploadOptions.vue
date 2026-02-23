@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import SwitchOption from '@/components/settings/SwitchOption.vue'
-    import dataImport from '@/ts/dataImport';
     import { adminBaseRoute } from '../adminConfig';
+    import dataImport from '@/ts/dataImport';
     import router from '@/ts/router';
 
     const goBack = () => {

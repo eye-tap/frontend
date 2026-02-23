@@ -64,7 +64,7 @@ export const parseAlgorithmAnnotationsCSV = (
                 ...(dGeomIndex >= 0 && cols[ dGeomIndex ] && { 'dGeom': parseFloat( cols[ dGeomIndex ] ) }),
                 ...(pShareIndex >= 0 && cols[ pShareIndex ] && { 'pShare': parseFloat( cols[ pShareIndex ] ) })
             };
-            (annotations[ algorithm ]!.annotations as any).push( preAnnotation );
+            annotations[ algorithm ]!.annotations!.push( preAnnotation );
         } else if ( cols[ textIndex ] === textId ) {
             const algorithm = cols[ algorithmName ]!;
 
@@ -81,7 +81,7 @@ export const parseAlgorithmAnnotationsCSV = (
                 ...(dGeomIndex >= 0 && cols[ dGeomIndex ] && { 'dGeom': parseFloat( cols[ dGeomIndex ] ) }),
                 ...(pShareIndex >= 0 && cols[ pShareIndex ] && { 'pShare': parseFloat( cols[ pShareIndex ] ) })
             };
-            (annotations[ algorithm ]!.annotations as any).push( preAnnotation );
+            annotations[ algorithm ]!.annotations!.push( preAnnotation );
         }
     }
 

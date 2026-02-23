@@ -8,18 +8,11 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import {
-        deleteSurvey, exportSurvey
-    } from '@/ts/surveys';
-    import { useRoute } from 'vue-router';
-    import { watch } from 'vue';
 
     // TODO: Download magic links from server to display (if this is supported)
     // --> Likely won't be due to bcrypt or the like being used for passwords
 
-    const route = useRoute();
     const surveyStore = useSurveyStore();
-    const maxSurveyLength = 50;
     const notifications = useNotification();
     const status = useStatusStore();
 

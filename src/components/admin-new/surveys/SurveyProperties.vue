@@ -1,17 +1,17 @@
 <script setup lang="ts">
     import {
+        deleteSurvey, exportSurvey
+    } from '@/ts/surveys';
+    import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import { useRoute } from 'vue-router';
     import {
         useStatusStore
     } from '@/ts/stores/status';
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import {
-        deleteSurvey, exportSurvey
-    } from '@/ts/surveys';
-    import { useRoute } from 'vue-router';
     import { watch } from 'vue';
 
     // TODO: Download magic links from server to display (if this is supported)

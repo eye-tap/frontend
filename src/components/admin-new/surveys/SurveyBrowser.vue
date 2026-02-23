@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import {
+        adminBaseRoute
+    } from '../adminConfig';
+    import {
         listSurveys
     } from '@/ts/surveys';
     import {
@@ -10,17 +13,14 @@
         useNotification
     } from '@kyvg/vue3-notification';
     import {
+        useRouter
+    } from 'vue-router';
+    import {
         useStatusStore
     } from '@/ts/stores/status';
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import {
-        useRouter
-    } from 'vue-router';
-    import {
-        adminBaseRoute
-    } from '../adminConfig';
 
     const router = useRouter();
     const surveyStore = useSurveyStore();
