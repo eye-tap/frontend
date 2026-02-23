@@ -26,6 +26,8 @@ jobs:
         run: npm install
       - name: Run eslint
         run: npm run lint-fix
+      - name: Run type-check
+        run: npm run type-check
       - name: Push changes back to repository
         uses: stefanzweifel/git-auto-commit-action@v7 # or actions/ for my gitea
         with:
