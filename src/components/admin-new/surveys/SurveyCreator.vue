@@ -6,6 +6,7 @@
         ShallowReadingSessionDto
     } from '@/types/dtos/ShallowReadingSessionDto';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
+import { adminBaseRoute } from '../adminConfig';
     import inputFilter from '@/ts/util/inputFilter';
     import {
         ref
@@ -14,14 +15,13 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+import { useRouter } from 'vue-router';
     import {
         useStatusStore
     } from '@/ts/stores/status';
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-import { useRouter } from 'vue-router';
-import { adminBaseRoute } from '../adminConfig';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];

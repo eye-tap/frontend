@@ -83,7 +83,7 @@
      */
     watch(
         () => route.params.id,
-        ( newId, _oldId ) => {
+        ( newId ) => {
             console.log( newId );
 
             if ( newId === undefined ) surveyStore.setSurveyIndex(-1);

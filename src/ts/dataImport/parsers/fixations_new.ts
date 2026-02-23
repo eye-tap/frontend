@@ -18,7 +18,7 @@ export const parseFixationsCSV = (
     readerName: string = 'reader',
     textName: string = 'text',
     idName: string = 'fixid',
-    lang: string ='lang'
+    // lang: string ='lang'
 ): ImportReadingSessionDto[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
@@ -28,7 +28,7 @@ export const parseFixationsCSV = (
     const xIndex = header.indexOf( xName );
     const yIndex = header.indexOf( yName );
     const idIndex = header.indexOf( idName );
-    const language = header.indexOf( lang );
+    // const language = header.indexOf( lang );
 
     if ( xIndex < 0 )
         throw new InvalidIndexNameError( 'X coordinate' );
