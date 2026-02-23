@@ -6,6 +6,8 @@ import type {
     ImportCharacterBoundingBoxDto
 } from '@/types/dtos/ImportCharacterBoundingBoxDto';
 
+// NOTE: I am not quite sure this is actually needed... I also don't really have a good understanding
+// of what data we are now using to import.
 export const parseCharacterBoundingBoxesCSV = (
     text: string,
     textId?: string,
@@ -26,7 +28,6 @@ export const parseCharacterBoundingBoxesCSV = (
     const xMaxIndex = header.indexOf( xMaxName );
     const yMinIndex = header.indexOf( yMinName );
     const yMaxIndex = header.indexOf( yMaxName );
-
 
 
     if ( xMinIndex < 0 )
@@ -71,8 +72,6 @@ export const parseCharacterBoundingBoxesCSV = (
             } );
         }
     }
-
-
 
     return boxes;
 };

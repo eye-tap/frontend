@@ -11,14 +11,15 @@ export const parseFixationsCSV = (
     textId: string,
     fileHasMultipleTextIDs: boolean,
     fileHasMultipleReaderIDs: boolean,
+    language?: string,
     currentReader: string = '0', // only used if fileHasMultipleReaderIDs = false
     factor: number = 100,
     xName: string = 'x',
     yName: string = 'y',
     readerName: string = 'reader',
     textName: string = 'text',
-    idName: string = 'fixid'
-    // lang: string ='lang'
+    idName: string = 'fixid',
+    langName: string = 'lang'
 ): ImportReadingSessionDto[] => {
     const lines = text.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
@@ -28,7 +29,7 @@ export const parseFixationsCSV = (
     const xIndex = header.indexOf( xName );
     const yIndex = header.indexOf( yName );
     const idIndex = header.indexOf( idName );
-    // const language = header.indexOf( lang );
+    const langIndex = header.indexOf( langName );
 
     if ( xIndex < 0 )
         throw new InvalidIndexNameError( 'X coordinate' );
@@ -71,14 +72,17 @@ export const parseFixationsCSV = (
     for ( let i = 0; i < lines.length; i++ ) {
         const cols = lines[i]!.split( ',' );
 
-        if ( !fileHasMultipleTextIDs ) {
-            if ( firstEncounteredTextID !== cols[ textIndex ] ) {
-                throw new MultipleTextIDsWithoutSpecifiedTextIDError();
-            }
+        // Language filtering
+        if ( !language || cols[ langIndex ] === language ) {
+            if ( !fileHasMultipleTextIDs ) {
+                if ( firstEncounteredTextID !== cols[ textIndex ] ) {
+                    throw new MultipleTextIDsWithoutSpecifiedTextIDError();
+                }
 
-            addPointForReader( cols );
-        } else if ( cols[textIndex] === textId ) {
-            addPointForReader( cols );
+                addPointForReader( cols );
+            } else if ( cols[textIndex] === textId ) {
+                addPointForReader( cols );
+            }
         }
     }
 
