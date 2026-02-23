@@ -11,10 +11,10 @@
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import UserCard from '@/components/home/UserCard.vue';
     import annotations from '@/ts/annotations';
-    import router from '@/ts/router';
     import {
-        startExport
-    } from '@/ts/export';
+        exportSurvey
+    } from '@/ts/surveys';
+    import router from '@/ts/router';
     import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
     import {
         useAnnotationSessionStore
@@ -114,7 +114,7 @@
 
     const exportFile = () => {
         if ( annotationSessionStore.selected )
-            startExport( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]!.sessionId );
+            exportSurvey( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]!.sessionId );
     };
 </script>
 

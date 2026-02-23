@@ -50,22 +50,28 @@ export const parseAnnotationsCSV = (
             if ( !annotations[ reader ] ) {
                 annotations[ reader ] = {
                     'title': title,
-                    'fixationToCharacterBoxForeignIds': {}
+                    'annotations': []
                 };
             }
 
-            annotations[ reader ].fixationToCharacterBoxForeignIds![ cols[ fixIndex ]! ] = cols[ boxIndex ]!;
+            annotations[ reader ].annotations!.push( {
+                'foreignFixationId': Number( cols[ fixIndex ]! ),
+                'foreignCharacterBoxId': Number( cols[ boxIndex ]! )
+            } );
         } else if ( cols[ textIndex ] === textId ) {
             const reader = cols[ readerIndex ]!;
 
             if ( !annotations[ reader ] ) {
                 annotations[ reader ] = {
                     'title': title,
-                    'fixationToCharacterBoxForeignIds': {}
+                    'annotations': []
                 };
             }
 
-            annotations[ reader ].fixationToCharacterBoxForeignIds![ cols[ fixIndex ]! ] = cols[ boxIndex ]!;
+            annotations[ reader ].annotations!.push( {
+                'foreignFixationId': Number( cols[ fixIndex ]! ),
+                'foreignCharacterBoxId': Number( cols[ boxIndex ]! )
+            } );
         }
     }
 
