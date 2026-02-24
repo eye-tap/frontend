@@ -27,7 +27,7 @@
         if ( selectedFixation.value < 0 || fixations.value[ selectedFixation.value ]!.disagreement === undefined )
             return -1;
 
-        return fixations.value[ selectedFixation.value ]!.disagreement!;
+        return Math.round( fixations.value[ selectedFixation.value ]!.disagreement! * 1000 ) / 1000;
     } );
     const isDragging = ref( false );
     const session = useAnnotationSessionStore();

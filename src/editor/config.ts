@@ -85,7 +85,7 @@ export const heatMapMinColor: Ref<Color> = ref( {
 } );
 
 export const heatMapMaxColor: Ref<Color> = ref( {
-    'r': 0,
+    'r': 255,
     'g': 0,
     'b': 0
 } );
@@ -144,7 +144,7 @@ export const fixationDisplay = ref<FixationDisplay>( 'all' );
  * Renders a colour based on heat map instead of the default colour.
  * Only affects non-selected and non-hovered and machine-assigned fixations
 */
-export const renderFixationHeatMapInsteadOfDefaultColour = ref( false );
+export const renderFixationHeatMapInsteadOfDefaultColour = ref( true );
 
 
 export const fixationIndexDisplayOptions = [
