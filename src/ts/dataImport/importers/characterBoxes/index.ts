@@ -18,7 +18,7 @@ import {
 } from './singleTextPerFile';
 import {
     generateWordBoxesFromCharacterBoxes
-} from '../../parsers/wordBoxes';
+} from '../../util/wordBoxes';
 import {
     selectBestParser
 } from '../parserSelector';
