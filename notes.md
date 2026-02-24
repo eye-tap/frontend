@@ -8,9 +8,9 @@
 - [X] Heatmap i.e. points are coloured based on the entropy
 - [X] Loading of disagreement metrics from backend
 - [ ] Autosave -- TODO: Add button to disable (`src/editor/index.ts` exports the option to do so)
-- [ ] Multiple entropy sources (switchable with dropdown) -- not planned
-- [ ] Annotations need also the source? -> Think about how to do this -- not planned
-- [ ] Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing) -- skipped for now
+- [ ] ~~Multiple entropy sources (switchable with dropdown)~~
+- [X] Pre-Annotation sources name (retrieved from CSVs)
+- [ ] ~~Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing)~~
 - [X] Tour
 - [ ] ~~Indices rendering outside box if possible?~~
 
@@ -37,10 +37,7 @@
 - [ ] Define file contents specs somewhere
 - [ ] Magic link regen
 - [ ] Magic link panel close warning
-- [ ] survey delete
-- [ ] survey export
+- [ ] survey delete -- TODO: Testing
+- [ ] survey export -- TODO: Testing
 - [ ] on index errors open parser settings panel
 - [ ] How to get reader id for one file per reader import scheme for fixations?
-
-
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFR1cnRsZTgyNiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIydS1HMjV0OEolMjIlN0Q=

@@ -32,7 +32,7 @@
                     </p>
                     <div class="ul-container">
                         <ul>
-                            <li><span>Press</span> a character key to connect the point to the closest box with this character</li>
+                            <li><span>Press</span> a key on your keyboard to connect the point to the closest box with this character</li>
                             <li><span>Click</span> a box</li>
                             <li><span>Drag</span> a line from the point to a box</li>
                         </ul>
