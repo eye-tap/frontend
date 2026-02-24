@@ -19,6 +19,9 @@ import {
 import {
     generateWordBoxesFromCharacterBoxes
 } from '../../parsers/wordBoxes';
+import {
+    selectBestParser
+} from '../parserSelector';
 
 export const characterBoxParsers: Ref<ImportConfig<ImportCharacterBoundingBoxDto[]>[]> = ref( [
     characterBoxSingleTextImporter,
@@ -37,7 +40,7 @@ export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputEle
     if ( selectedCharacterBoxParserIndex.value > -1 ) {
         cbb = await characterBoxParsers.value[ selectedCharacterBoxParserIndex.value ]!.parse( boundingBoxesCSVElement, textId );
     } else {
-        // TODO: Determine best parser
+        cbb = await selectBestParser( characterBoxParsers, selectedCharacterBoxParserIndex, boundingBoxesCSVElement, textId );
     }
 
     return {

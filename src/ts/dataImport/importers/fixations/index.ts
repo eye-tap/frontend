@@ -13,6 +13,9 @@ import {
 import {
     fixationsSingleReaderPerFileImporter
 } from './singlePerFile';
+import {
+    selectBestParser
+} from '../parserSelector';
 
 export const readingSessionParsers: Ref<ImportConfig<ImportReadingSessionDto[]>[]> = ref( [
     fixationsSingleReaderPerFileImporter,
@@ -23,13 +26,12 @@ export const readingSessionParsers: Ref<ImportConfig<ImportReadingSessionDto[]>[
 export const selectedReadingSessionParserIndex = ref( 1 );
 
 export const importReadingSession = async (
-    boundingBoxesCSVElement: HTMLInputElement,
+    fixationsCSVElement: HTMLInputElement,
     textId: string
 ): Promise<ImportReadingSessionDto[]> => {
     if ( selectedReadingSessionParserIndex.value > -1 ) {
-        return await readingSessionParsers.value[ selectedReadingSessionParserIndex.value ]!.parse( boundingBoxesCSVElement, textId );
+        return await readingSessionParsers.value[ selectedReadingSessionParserIndex.value ]!.parse( fixationsCSVElement, textId );
     } else {
-        // TODO: Determine best parser
-        return [];
+        return await selectBestParser( readingSessionParsers, selectedReadingSessionParserIndex, fixationsCSVElement, textId );
     }
 };
