@@ -12,6 +12,9 @@ import type {
     AnnotationSessionDto
 } from '@/types/dtos/AnnotationSessionDto';
 import type {
+    EditorAnnotation
+} from '../types/annotation';
+import type {
     Renderer
 } from '../types/renderer';
 import annotationManager from '@/ts/annotations';
@@ -68,7 +71,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
-            const ann = {
+            const ann: EditorAnnotation = {
                 'fixationId': getFixIdxFromId( annotation.fixation!.id! ),
                 'boxId': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
@@ -76,6 +79,8 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             fixations.value[ ann.fixationId ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
             annotations.value.push( ann );
+
+            // NOTE: To use other disagreement measures, compute here
         } );
 
     selectedFixation.value = 0;

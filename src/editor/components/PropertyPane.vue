@@ -20,12 +20,14 @@
     }>();
     // Minimum values to apply color change to Entropy property
     const entropyThresholds = {
-        'high': 50,
-        'mid': 25
+        'high': 1,
+        'mid': 0.5
     };
     const entropy = computed( () => {
-        // TODO: Actually show
-        return 0;
+        if ( selectedFixation.value < 0 || fixations.value[ selectedFixation.value ]!.disagreement === undefined )
+            return -1;
+
+        return fixations.value[ selectedFixation.value ]!.disagreement!;
     } );
     const isDragging = ref( false );
     const session = useAnnotationSessionStore();
@@ -57,7 +59,6 @@
                 'x': oldPos.x + ( clickPos.x - ev.x ),
                 'y': oldPos.y + ( clickPos.y - ev.y )
             };
-            console.log( pos.value );
         }
     };
 
@@ -110,7 +111,7 @@
                                         'warning' : 'information' : 'success'
                             ]"
                         >
-                            {{ entropy }}
+                            {{ entropy >= 0 ? entropy : 'N/A' }}
                         </p>
                     </td>
                     <td>
