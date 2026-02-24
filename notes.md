@@ -39,6 +39,7 @@
 - Magic link panel close warning
 - survey delete
 - survey export
+- on index errors open parser settings panel
 
 
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldFR1cnRsZTgyNiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIydS1HMjV0OEolMjIlN0Q=
