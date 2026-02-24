@@ -63,8 +63,9 @@
         router.push( adminBaseRoute + 'surveys/' + String( surveyStore.getSelectedSurveyID ) );
     };
 
+    // TODO: Can use RouterLink instead, makes these functions obsolete. I did do one migration for you in the SidebarPanel
     const addSurvey = () => {
-        router.push( adminBaseRoute + 'create-survey' );
+        router.push( adminBaseRoute + 'surveys/create' );
     };
 
     reloadFromServer();
