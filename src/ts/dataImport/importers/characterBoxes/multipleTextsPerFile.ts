@@ -17,7 +17,7 @@ import {
 } from '../../util/fileLoader';
 
 export const characterBoxMultipleTextImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> = {
-    'name': '',
+    'display': 'Multiple Texts per file',
     'options': {
         ...boundingBoxesOpts,
         'textID': {

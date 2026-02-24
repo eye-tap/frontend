@@ -17,7 +17,7 @@ import {
 } from '../../util/fileLoader';
 
 export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSessionDto[]> = {
-    'name': '',
+    'display': 'Single reader per File',
     'options': {
         ...fixationsOpts
     },

@@ -16,7 +16,7 @@ import {
 } from '../../util/fileLoader';
 
 export const characterBoxSingleTextImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> = {
-    'name': '',
+    'display': 'Single Text per File',
     'options': {
         ...boundingBoxesOpts
     },

@@ -40,6 +40,11 @@ router.beforeEach( ( to, from ) => {
         return {
             'name': 'app-home'
         };
+    } else if ( to.name === 'admin-home' ) {
+        // Automatically redirect on admin panel
+        return {
+            'name': 'surveys-none-selected'
+        };
     } else if ( to.meta.allowedRoles && !store.devMode ) {
         if ( store.roles.length === 0
             || !store.roles.map( role => ( to.meta.allowedRoles as string[] ).includes( role ) ).reduce( ( prev, val ) => prev || val ) ) {

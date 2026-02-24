@@ -16,7 +16,8 @@ import {
 } from '../../util/fileLoader';
 
 export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
-    'name': '',
+    'display': 'Normal', // TODO: Descriptions here and in others
+    'desc': '',
     'options': {
         ...annotationOpts,
         'textid': {

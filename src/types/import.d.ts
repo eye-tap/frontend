@@ -4,7 +4,7 @@ import type {
 
 
 export interface ImportConfig<T> {
-    'name': string;
+    'display': string;
     'desc'?: string;
     'options': ParserOptsList<unknown>,
     'parse': ( inputElement: HTMLInputElement, textId: string ) => Promise<T>

@@ -18,7 +18,7 @@ import {
 } from '../../util/fileLoader';
 
 export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSessionDto[]> = {
-    'name': 'Multiple Fixations in a file',
+    'display': 'Multiple readers in a file',
     'options': {
         ...fixationsOpts,
         'textID': {

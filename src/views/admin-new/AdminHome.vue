@@ -4,18 +4,20 @@
 </script>
 
 <template>
-    <StatusBar
-        class="top-bar"
-        :show-account="true"
-        :show-theme-picker="true"
-        page-title="Admin Panel"
-        logo-click-target="/app"
-    />
     <div class="admin">
+        <StatusBar
+            class="top-bar"
+            :show-account="true"
+            :show-theme-picker="true"
+            page-title="Admin Panel"
+            logo-click-target="/app"
+        />
         <Sidebar />
         <div class="content-wrapper">
-            <router-view v-slot="{ Component }">
-                <component :is="Component" />
+            <router-view v-slot="{ Component, route }">
+                <transition :name="route.meta.transition ? String( route.meta.transition ) : 'fade'" mode="out-in">
+                    <component :is="Component" />
+                </transition>
             </router-view>
         </div>
     </div>

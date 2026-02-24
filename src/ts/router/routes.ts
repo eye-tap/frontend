@@ -96,55 +96,57 @@ export const routes = [
         },
         'children': [
             {
-                'path': '',
+                'path': 'surveys',
                 'name': 'admin-home',
                 'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
                     'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
-            },
-            {
-                'path': 'surveys',
-                'name': 'surveys-none-selected',
-                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
-                'meta': {
-                    'title': 'Admin',
-                    'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
-            },
-            // id is the unique id associated with a survey
-            {
-                'path': 'surveys/:id',
-                'name': 'surveys-selected',
-                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
-                'meta': {
-                    'title': 'Admin',
-                    'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
-            },
-            {
-                'path': 'create-survey',
-                'name': 'create-survey',
-                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
-                'meta': {
-                    'title': 'Admin',
-                    'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
-            },
-            {
-                'path': 'magiclinks',
-                'name': 'magiclinks',
-                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
-                'meta': {
-                    'title': 'Admin',
-                    'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
+                },
+                'children': [
+                    {
+                        'path': '',
+                        'name': 'surveys-none-selected',
+                        'component': () => import( '@/components/admin-new/surveys/SurveyNoneSelected.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    },
+                    // id is the unique id associated with a survey
+                    {
+                        'path': ':id',
+                        'name': 'surveys-selected',
+                        'component': () => import( '@/components/admin-new/surveys/SurveyProperties.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    },
+                    {
+                        'path': 'create',
+                        'name': 'create-survey',
+                        'component': () => import( '@/components/admin-new/surveys/SurveyCreator.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    },
+                    {
+                        'path': 'magiclinks',
+                        'name': 'magiclinks',
+                        'component': () => import( '@/components/admin-new/surveys/SurveyMagicLinks.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    }
+                ]
             },
             {
                 'path': 'texts',
@@ -154,17 +156,29 @@ export const routes = [
                     'title': 'Admin',
                     'authRequired': true,
                     'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
-            },
-            {
-                'path': 'texts/options',
-                'name': 'texts-options',
-                'component': () => import( '@/components/admin-new/TextManager.vue' ),
-                'meta': {
-                    'title': 'Admin',
-                    'authRequired': true,
-                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                }
+                },
+                'children': [
+                    {
+                        'path': '',
+                        'name': 'texts-options',
+                        'component': () => import( '@/components/admin-new/texts/TextUpload.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    },
+                    {
+                        'path': 'options',
+                        'name': 'texts-create',
+                        'component': () => import( '@/components/admin-new/texts/TextUploadOptions.vue' ),
+                        'meta': {
+                            'title': 'Admin',
+                            'authRequired': true,
+                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                        }
+                    }
+                ]
             }
         ]
     },

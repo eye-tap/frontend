@@ -20,7 +20,7 @@ import {
 } from '../../util/char_text_map';
 
 export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
-    'name': '',
+    'display': 'UID based reverse association',
     'options': {
         ...annotationOpts,
         'textuid': {
