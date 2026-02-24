@@ -3,17 +3,6 @@
         adminBaseRoute,
         adminContent
     } from './adminConfig';
-    import {
-        useRoute,
-        useRouter
-    } from 'vue-router';
-
-    const router = useRouter();
-    const route = useRoute();
-
-    const selectOption = ( route: string ) => {
-        router.push( adminBaseRoute + route );
-    };
 </script>
 
 <template>
@@ -27,15 +16,14 @@
                 {{ section.name.toUpperCase() }}
             </p>
             <div class="options">
-                <p
+                <RouterLink
                     v-for="option in section.content"
                     :key="option.id"
-                    :class="route.path.includes( option.route ) ? 'selected' : undefined"
+                    :to="adminBaseRoute + option.route"
                     class="option"
-                    @click="selectOption( option.route )"
                 >
                     {{ option.text }}
-                </p>
+                </RouterLink>
             </div>
         </div>
     </div>
@@ -71,18 +59,21 @@
             >.option {
                 color: var(--theme-interactable-text);
                 transition: color 0.1s;
+                display: block;
+                text-decoration: none;
 
-                &.selected {
+                &.router-link-exact-active {
                     color: var(--theme-foreground-text);
                 }
-            }
-            >.option:hover {
-                color: var(--theme-interactable-text-20);
-                cursor: pointer;
 
-                &.selected {
-                    color: var(--theme-foreground-text);
-                    cursor: default;
+                &:hover {
+                    color: var(--theme-interactable-text-20);
+                    cursor: pointer;
+
+                    &.router-link-exact-active {
+                        color: var(--theme-foreground-text);
+                        cursor: default;
+                    }
                 }
             }
         }

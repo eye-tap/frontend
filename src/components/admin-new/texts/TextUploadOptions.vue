@@ -1,9 +1,20 @@
 <script setup lang="ts">
-    import SwitchOption from '@/components/settings/SwitchOption.vue';
+    import {
+        annotationParsers,
+        selectedAnnotationParserIndex
+    } from '@/ts/dataImport/importers/annotations';
+    import {
+        characterBoxParsers,
+        selectedCharacterBoxParserIndex
+    } from '@/ts/dataImport/importers/characterBoxes';
+    import {
+        readingSessionParsers,
+        selectedReadingSessionParserIndex
+    } from '@/ts/dataImport/importers/fixations';
+    import TextUploadOptionsOptionRenderer from './TextUploadOptionsOptionRenderer.vue';
     import {
         adminBaseRoute
     } from '../adminConfig';
-    import dataImport from '@/ts/dataImport';
     import router from '@/ts/router';
 
     const goBack = () => {
@@ -25,72 +36,19 @@
         </p>
         <div class="options-container">
             <div class="options-section">
-                <input
-                    v-model="dataImport.importConfigFixationTextIDCSVName.value"
-                    type="text"
-                    placeholder="Text ID"
-                >
-                <input
-                    v-model="dataImport.importConfigFixationReaderCSVName.value"
-                    type="text"
-                    placeholder="Reader ID"
-                >
-                <input
-                    v-model="dataImport.importConfigFixationXCoordCSVName.value"
-                    type="text"
-                    placeholder="X coordinate"
-                >
-                <input
-                    v-model="dataImport.importConfigFixationYCoordCSVName.value"
-                    type="text"
-                    placeholder="Y coordinate"
-                >
-                <input
-                    v-model="dataImport.importConfigFixationFixationIDCSVName.value"
-                    type="text"
-                    placeholder="Fixation ID"
-                >
-                <SwitchOption v-model="dataImport.importConfigFixationHasMultipleTexts.value" text="Use TextID on fixations" />
+                <TextUploadOptionsOptionRenderer
+                    v-model="selectedReadingSessionParserIndex"
+                    :parsers="readingSessionParsers"
+                />
             </div>
 
-            <p class="subtitle">
-                BOUNDING BOXES
-            </p>
             <div class="options-section">
-                <input
-                    v-model="dataImport.importConfigBBTextIDCSVName.value"
-                    type="text"
-                    placeholder="Text ID"
-                >
-                <input
-                    v-model="dataImport.importConfigBBCharacterCSVName.value"
-                    type="text"
-                    placeholder="Character"
-                >
-                <input
-                    v-model="dataImport.importConfigBBXminCoordCSVName.value"
-                    type="text"
-                    placeholder="Smaller X coordinate"
-                >
-                <input
-                    v-model="dataImport.importConfigBBXmaxCoordCSVName.value"
-                    type="text"
-                    placeholder="Larger X coordinate"
-                >
-                <input
-                    v-model="dataImport.importConfigBBYminCoordCSVName.value"
-                    type="text"
-                    placeholder="Smaller Y coordinate"
-                >
-                <input
-                    v-model="dataImport.importConfigBBYmaxCoordCSVName.value"
-                    type="text"
-                    placeholder="Larger Y coordinate"
-                >
-                <SwitchOption v-model="dataImport.importConfigBBHasMultipleTexts.value" text="Use TextID on Bounding Boxes" />
-                <SwitchOption
-                    v-model="dataImport.importConfigFixationHasMultipleReaders.value"
-                    text="Imported files contain multiple readers"
+                <p class="subtitle">
+                    BOUNDING BOXES
+                </p>
+                <TextUploadOptionsOptionRenderer
+                    v-model="selectedCharacterBoxParserIndex"
+                    :parsers="characterBoxParsers"
                 />
             </div>
 
@@ -98,29 +56,9 @@
                 <p class="subtitle">
                     ANNOTATIONS
                 </p>
-                <input
-                    v-model="dataImport.importConfigAnnotationTextIDCSVName.value"
-                    type="text"
-                    placeholder="Text ID"
-                >
-                <input
-                    v-model="dataImport.importConfigAnnotationReaderCSVName.value"
-                    type="text"
-                    placeholder="Reader"
-                >
-                <input
-                    v-model="dataImport.importConfigAnnotationFixationIDCSVName.value"
-                    type="text"
-                    placeholder="Fixation ID"
-                >
-                <input
-                    v-model="dataImport.importConfigAnnotationBoundingBoxIdCSVName.value"
-                    type="text"
-                    placeholder="Bounding Box ID"
-                >
-                <SwitchOption
-                    v-model="dataImport.importConfigAnnotationHasMultipleTexts.value"
-                    text="Use TextID on Bounding Boxes"
+                <TextUploadOptionsOptionRenderer
+                    v-model="selectedAnnotationParserIndex"
+                    :parsers="annotationParsers"
                 />
             </div>
         </div>

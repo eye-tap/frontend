@@ -25,7 +25,7 @@ export const adminContent: Array<sidebarSection> = [
             },
             {
                 'text': 'Create Survey',
-                'route': 'create-survey',
+                'route': 'surveys/create',
                 'id': 1
             }
         ]

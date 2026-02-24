@@ -132,7 +132,7 @@
             surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
         ).then( links => {
             surveyStore.setLinks( links );
-            router.push( adminBaseRoute + '/magiclinks' );
+            router.push( adminBaseRoute + '/surveys/magiclinks' );
         } );
     };
 
