@@ -86,8 +86,8 @@ export const mainParser = (
             parsed[ cols[ algoIndex ]! ]!.annotations!.push( {
                 'foreignFixationId': Number( cols[ fixIndex ]! ),
                 'foreignCharacterBoxId': Number( cols[ charIndex ]! ),
-                'dGeom': Number( cols[ dgeomIndex ]! ), // TODO: Make optional
-                'pShare': Number( cols[ pshareIndex ]! )
+                'dGeom': dgeomIndex >= 0 ? Number( cols[dgeomIndex]! ) : undefined,
+                'pShare': pshareIndex >= 0 ? Number( cols[pshareIndex]! ) : undefined
             } );
         }
     }

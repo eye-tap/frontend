@@ -31,6 +31,11 @@ export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSession
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
         return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId );
+    },
+
+    // used for parser selection
+    'canParse': ( header: string[] ) => {
+        return header.includes( 'algorithm_id' ) || header.includes( 'text_id' );
     }
 };
 

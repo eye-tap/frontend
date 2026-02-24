@@ -8,6 +8,7 @@ export interface ImportConfig<T> {
     'desc'?: string;
     'options': ParserOptsList<unknown>,
     'parse': ( inputElement: HTMLInputElement, textId: string ) => Promise<T>
+    'canParse'?: ( header: string[] ) => boolean;
 }
 
 export interface ParserOptsList<T> {

@@ -1,7 +1,7 @@
+import HomeView from '@/views/StartView.vue';
 import {
     adminBaseRoute
 } from '@/components/admin-new/adminConfig';
-import HomeView from '@/views/StartView.vue';
 
 export const routes = [
     {

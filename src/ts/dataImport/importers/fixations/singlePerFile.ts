@@ -21,6 +21,11 @@ export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSes
     'options': {
         ...fixationsOpts
     }, // TODO: Opts here and for others
+
+    // used for parser selection
+    'canParse': ( header: string[] ) => {
+        return !header.includes( 'algorithm_id' );
+    },
     'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportReadingSessionDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
