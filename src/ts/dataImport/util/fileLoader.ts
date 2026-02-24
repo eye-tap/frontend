@@ -1,10 +1,10 @@
-export const loadAllFilesOfElementAsStringWithCallback = async ( element: HTMLInputElement, cb: ( data: string ) => void ) => {
+export const loadAllFilesOfElementAsStringWithCallback = async ( element: HTMLInputElement, cb: ( data: string ) => Promise<void> ) => {
     const files = element.files;
 
     if ( files === null || files.length === 0 ) return Promise.reject( 'ERR_NO_FILE' );
 
     for ( let index = 0; index < files.length; index++ ) {
-        cb( await fileLoaderString( files[ index ]! ) );
+        await cb( await fileLoaderString( files[ index ]! ) );
     }
 };
 

@@ -54,7 +54,7 @@ export const mainParser = (
     const fixIndex = header.indexOf( opts.fixid!.value as string );
     const textIndex = opts.textID
         ? header.indexOf( opts.textID!.value as string )
-        : ( opts.textUID ? header.indexOf( opts.textUID!.value as string ) : -1 ); // TODO: Update to use the uid one as well
+        : ( opts.textUID ? header.indexOf( opts.textUID!.value as string ) : -1 );
     const charIndex = header.indexOf( opts.charid!.value as string );
     // const idIndex = header.indexOf( opts.id!.value as string );
     const dgeomIndex = header.indexOf( opts.dgeom!.value as string );

@@ -20,7 +20,7 @@ export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSes
     'name': '',
     'options': {
         ...fixationsOpts
-    }, // TODO: Opts here and for others
+    },
 
     // used for parser selection
     'canParse': ( header: string[] ) => {
@@ -31,15 +31,13 @@ export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSes
 
         const store: ImportReadingSessionDto[] = [];
 
-        loadAllFilesOfElementAsStringWithCallback( inputElement, ( data: string ) => {
-            ( async () => {
-                // TODO: Get reader
-                const parsed = await runParse( data, textId, '' );
+        await loadAllFilesOfElementAsStringWithCallback( inputElement, async ( data: string ) => {
+            // TODO: Get reader from somewhere, how? Have user provide regex?
+            const parsed = await runParse( data, textId, '' );
 
-                parsed.forEach( val => {
-                    store.push( val );
-                } );
-            } )();
+            parsed.forEach( val => {
+                store.push( val );
+            } );
         } );
 
         return store;

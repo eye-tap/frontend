@@ -36,7 +36,6 @@
         showKeybinds.value = true;
     };
 
-    // TODO: Auto-save?
     const save = () => {
         if ( !saveNeeded.value ) return;
 

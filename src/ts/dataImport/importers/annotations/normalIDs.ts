@@ -12,7 +12,7 @@ import {
     MissingFilesError
 } from '../../util/errors';
 import {
-    fileLoaderString
+    loadAllFilesOfElementAsStringWithCallback
 } from '../../util/fileLoader';
 
 export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
@@ -28,6 +28,16 @@ export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = 
     'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportPreAnnotationDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
-        return mainParser( await fileLoaderString( inputElement.files[ 0 ] ), normalAnnotationImporter.options, textId );
+        const store: ImportPreAnnotationDto[] = [];
+
+        await loadAllFilesOfElementAsStringWithCallback( inputElement, async ( data: string ) => {
+            const parsed = mainParser( data, normalAnnotationImporter.options, textId );
+
+            parsed.forEach( val => {
+                store.push( val );
+            } );
+        } );
+
+        return store;
     }
 };

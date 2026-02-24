@@ -2,6 +2,10 @@ import {
     annotationOpts,
     mainParser
 } from './util';
+import {
+    fileLoaderString,
+    loadAllFilesOfElementAsStringWithCallback
+} from '../../util/fileLoader';
 import type {
     ImportConfig
 } from '@/types/import';
@@ -14,9 +18,6 @@ import {
 import {
     createUidLookupMap
 } from '../../util/char_text_map';
-import {
-    fileLoaderString
-} from '../../util/fileLoader';
 
 export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
     'name': '',
@@ -51,13 +52,21 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
             uidBasedTextAnnotationImporter.options.assTextUID!.value as string,
             uidBasedTextAnnotationImporter.options.assTextID!.value as string
         );
+        const store: ImportPreAnnotationDto[] = [];
 
-        // TODO: Use multi-file importer instead!
-        return mainParser(
-            await fileLoaderString( inputElement.files[ 0 ] ),
-            uidBasedTextAnnotationImporter.options,
-            textId,
-            association
-        );
+        await loadAllFilesOfElementAsStringWithCallback( inputElement, async ( data: string ) => {
+            const parsed = mainParser(
+                data,
+                uidBasedTextAnnotationImporter.options,
+                textId,
+                association
+            );
+
+            parsed.forEach( val => {
+                store.push( val );
+            } );
+        } );
+
+        return store;
     }
 };

@@ -1,6 +1,6 @@
 import {
     importReadingSession
-} from './importers/fixations';
+} from './importers/readingSessions';
 import {
     importText
 } from './importers/text';
@@ -22,8 +22,7 @@ export const importDatasetFromCSV = async (
     console.debug( '[Bench] Starting import' );
     const importStart = performance.now();
     const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName );
-    // TODO: Pre-annotations import
-    const readingSession = await importReadingSession( fixationsCSVInputElement, textId );
+    const readingSession = await importReadingSession( fixationsCSVInputElement, annotationsCSVInputElement, textId );
     const loadTime = performance.now() - importStart;
 
     console.debug( '[Bench] Parsing took', loadTime, 'ms' );
