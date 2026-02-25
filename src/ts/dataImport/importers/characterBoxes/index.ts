@@ -28,8 +28,7 @@ export const characterBoxParsers: Ref<ImportConfig<ImportCharacterBoundingBoxDto
     characterBoxMultipleTextImporter
 ] );
 
-// TODO: Set to -1 as soon as best parser selection is implemented
-export const selectedCharacterBoxParserIndex = ref( 1 );
+export const selectedCharacterBoxParserIndex = ref( -1 );
 
 export const currentTextLang: {
     'lang': string

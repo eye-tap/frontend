@@ -33,5 +33,7 @@ export const selectBestParser = async <T> (
     if ( !parser )
         throw new NoSuitableParserError( 'No suitable parser found.' );
 
+    console.log( '[Parser selector] Using parser', parser );
+
     return await parser.parse( csvElement, textId );
 };

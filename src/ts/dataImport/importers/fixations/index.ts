@@ -22,8 +22,7 @@ export const readingSessionParsers: Ref<ImportConfig<ImportReadingSessionDto[]>[
     fixationsMultiplePerFileImporter
 ] );
 
-// TODO: Set to -1 as soon as best parser selection is implemented
-export const selectedReadingSessionParserIndex = ref( 1 );
+export const selectedReadingSessionParserIndex = ref( -1 );
 
 export const importFixations = async (
     fixationsCSVElement: HTMLInputElement,
