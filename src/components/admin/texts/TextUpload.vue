@@ -166,15 +166,6 @@
             <h2 class="title">
                 Upload new Text
             </h2>
-            <div class="bar-buttons">
-                <span>
-                    <i
-                        class="fa-lg fa-solid fa-gear gear-icon"
-                        @click="goToOptions"
-                    >
-                    </i>
-                </span>
-            </div>
         </div>
 
         <div class="file-upload-container">

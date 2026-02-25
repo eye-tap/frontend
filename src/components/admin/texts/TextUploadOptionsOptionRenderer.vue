@@ -31,10 +31,7 @@
                 {{ parser.display }}
             </option>
         </select>
-        <div v-if="selected < 0">
-            The system is trying to guess the best parser and configuration for it
-        </div>
-        <div v-else>
+        <div v-if="selected >= 0">
             <div v-for="opt, idx in props.parsers[ selected ]!.options" :key="idx">
                 <input
                     v-if="opt.input === 'string'"
@@ -63,3 +60,11 @@
         </div>
     </div>
 </template>
+
+<style scoped lang="scss">
+    @use '@/scss/admin/general';
+
+    select {
+        margin: 1rem;
+    }
+</style>
