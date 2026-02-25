@@ -33,6 +33,9 @@ export const characterBoxMultipleTextImporter: ImportConfig<ImportCharacterBound
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
         return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId );
+    },
+    'canParse': ( header: string[] ) => {
+        return header.includes( 'text' );
     }
 };
 

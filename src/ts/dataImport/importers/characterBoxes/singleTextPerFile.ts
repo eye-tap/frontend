@@ -24,6 +24,9 @@ export const characterBoxSingleTextImporter: ImportConfig<ImportCharacterBoundin
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
         return runParse( await fileLoaderString( inputElement.files[ 0 ] ) );
+    },
+    'canParse': ( header: string[] ) => {
+        return !header.includes( 'text' );
     }
 };
 

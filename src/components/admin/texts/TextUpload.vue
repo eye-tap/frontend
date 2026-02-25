@@ -114,7 +114,14 @@
                     'type': 'error',
                     'title': 'File Upload'
                 } );
-            else console.error( error );
+            else {
+                console.error( error );
+                notifications.notify( {
+                    'text': 'An unknown error occurred. See console for more information',
+                    'type': 'error',
+                    'title': 'File Upload'
+                } );
+            }
 
             uploading.value = false;
 
