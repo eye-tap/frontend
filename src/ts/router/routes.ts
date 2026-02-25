@@ -96,8 +96,18 @@ export const routes = [
         },
         'children': [
             {
-                'path': 'surveys',
+                'path': '',
                 'name': 'admin-home',
+                'component': () => import( '@/components/admin-new/surveys/SurveyNoneSelected.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
+            },
+            {
+                'path': 'surveys',
+                'name': 'admin-surveys',
                 'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
                 'meta': {
                     'title': 'Admin',
