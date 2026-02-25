@@ -60,6 +60,9 @@
         >.options {
             margin-left: 1rem;
             margin-bottom: 2rem;
+            .router-link-exact-active {
+                color: var(--theme-foreground-text);
+            }
 
             >.option {
                 color: var(--theme-interactable-text);
@@ -67,9 +70,6 @@
                 display: block;
                 text-decoration: none;
 
-                &.router-link-exact-active {
-                    color: var(--theme-foreground-text);
-                }
 
                 &:hover {
                     color: var(--theme-interactable-text-20);
