@@ -14,10 +14,6 @@
         ref
     } from 'vue';
     import {
-        adminBaseRoute
-    } from '../adminConfig';
-    import router from '@/ts/router';
-    import {
         useNotification
     } from '@kyvg/vue3-notification';
     import {
@@ -144,10 +140,6 @@
 
     const fileLoadTrigger = () => {
         index.value++;
-    };
-
-    const goToOptions = () => {
-        router.push( adminBaseRoute + 'texts-options' );
     };
 
     const annotationsLoadTrigger = () => {

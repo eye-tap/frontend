@@ -1,4 +1,7 @@
 <script setup lang="ts">
+    import {
+        RouterLink
+    } from 'vue-router';
     import type {
         ShallowReadingSessionDto
     } from '@/types/dtos/ShallowReadingSessionDto';
@@ -15,9 +18,6 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import {
-        RouterLink
-    } from 'vue-router';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
