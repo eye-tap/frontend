@@ -45,10 +45,8 @@ export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shad
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-information' ) );
 
 
-// Drop shadow for fixations
-export const dropShadowSize = ref( 3 ); // Zero disables it
-
-export const dropShadowFontScale = ref( 1.1 );
+// Drop shadow for fixations. In pixels
+export const dropShadowSize = ref( 2 ); // Zero disables it
 
 export const dropShadowPasses = ref( 20 );
 

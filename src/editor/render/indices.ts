@@ -5,7 +5,6 @@ import {
 } from 'vue';
 import {
     assignedFixationColor,
-    dropShadowFontScale,
     dropShadowOpacityEnd,
     dropShadowOpacityStart,
     dropShadowPasses,
@@ -76,18 +75,22 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
     };
 
     const draw = ( fixation: EditorFixation, idx: number, col: string ) => {
-        ctx!.font = scale( indicesFontSize.value * dropShadowFontScale.value ) + 'px ' + indicesFontFamily.value;
-
         // Drop shadow
         if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 ) {
             const movePerIter = dropShadowSize.value / dropShadowPasses.value;
             const opacityPerStep = ( dropShadowOpacityStart.value - dropShadowOpacityEnd.value ) / dropShadowPasses.value;
+            const fontScaleUpPerIter = 2 * movePerIter;
 
             for ( let i = 0; i < dropShadowPasses.value; i++ ) {
+                const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIter * i ) );
+
+                ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
                 ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
+                const aspect = ctx!.measureText( ( idx + 1 ).toString() ).width / fontSize;
+
                 ctx!.fillText(
                     ( idx + 1 ).toString(),
-                    scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) + ( movePerIter * i ), 'x' ) ),
+                    scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) - ( movePerIter * i * aspect ), 'x' ) ),
                     scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIter * i ), 'y' ) )
                 );
             }
@@ -110,7 +113,6 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         machineAssignedFixationColor,
         fixationDisplay,
         selectedFixation,
-        dropShadowFontScale,
         dropShadowOpacityStart,
         dropShadowOpacityEnd,
         dropShadowPasses,
