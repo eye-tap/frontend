@@ -84,6 +84,12 @@ export const heatMapMinColor: Ref<Color> = ref( {
     'b': 0
 } );
 
+export const heatMapMidColor: Ref<Color> = ref( {
+    'r': 0,
+    'g': 0,
+    'b': 0
+} );
+
 export const heatMapMaxColor: Ref<Color> = ref( {
     'r': 255,
     'g': 0,
@@ -91,6 +97,8 @@ export const heatMapMaxColor: Ref<Color> = ref( {
 } );
 
 export const heatMapMinValue = ref( 0 );
+
+export const heatMapMidValue = ref( 0.5 );
 
 export const heatMapMaxValue = ref( 1 );
 

@@ -10,6 +10,8 @@ import {
     fixationsOpacity,
     heatMapMaxColor,
     heatMapMaxValue,
+    heatMapMidColor,
+    heatMapMidValue,
     heatMapMinColor,
     heatMapMinValue,
     hoveredFixationColor,
@@ -90,14 +92,25 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
 const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, color: string, radius: number ) => {
         if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined ) {
-            const percentage = fixation.disagreement / ( heatMapMaxValue.value - heatMapMinValue.value );
-            const col: Color = {
-                'r': heatMapMinColor.value.r + ( ( heatMapMaxColor.value.r - heatMapMinColor.value.r ) * percentage ),
-                'g': heatMapMinColor.value.g + ( ( heatMapMaxColor.value.g - heatMapMinColor.value.g ) * percentage ),
-                'b': heatMapMinColor.value.b + ( ( heatMapMaxColor.value.b - heatMapMinColor.value.b ) * percentage )
-            };
+            if ( fixation.disagreement < heatMapMidValue.value ) {
+                const percentage = fixation.disagreement / ( heatMapMidValue.value - heatMapMinValue.value );
+                const col: Color = {
+                    'r': heatMapMinColor.value.r + ( ( heatMapMidColor.value.r - heatMapMinColor.value.r ) * percentage ),
+                    'g': heatMapMinColor.value.g + ( ( heatMapMidColor.value.g - heatMapMinColor.value.g ) * percentage ),
+                    'b': heatMapMinColor.value.b + ( ( heatMapMidColor.value.b - heatMapMinColor.value.b ) * percentage )
+                };
 
-            ctx.fillStyle = `rgb( ${ col.r }, ${ col.g }, ${ col.b } )`;
+                ctx.fillStyle = `rgb( ${ col.r }, ${ col.g }, ${ col.b } )`;
+            } else {
+                const percentage = fixation.disagreement / ( heatMapMaxValue.value - heatMapMidValue.value );
+                const col: Color = {
+                    'r': heatMapMinColor.value.r + ( ( heatMapMaxColor.value.r - heatMapMidColor.value.r ) * percentage ),
+                    'g': heatMapMinColor.value.g + ( ( heatMapMaxColor.value.g - heatMapMidColor.value.g ) * percentage ),
+                    'b': heatMapMinColor.value.b + ( ( heatMapMaxColor.value.b - heatMapMidColor.value.b ) * percentage )
+                };
+
+                ctx.fillStyle = `rgb( ${ col.r }, ${ col.g }, ${ col.b } )`;
+            }
         } else {
             ctx.fillStyle = color;
         }

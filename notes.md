@@ -1,7 +1,6 @@
 # Improvement ideas
 ## Editor
 - [ ] Bug testing (I can't recall the issues we had previously)
-- [ ] Remove some of the options (or hide them better)
 - [X] Fix animation for sidebar collapse
 - [ ] Possibly: Resize listener on canvas container
 - [ ] Move advanced options into a popover instead of the sidebar
@@ -12,6 +11,7 @@
 - [X] Pre-Annotation sources name (retrieved from CSVs)
 - [ ] ~~Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing)~~
 - [X] Tour
+- [ ] Gradients with three points
 - [ ] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [ ] ~~Indices rendering outside box if possible?~~
 
