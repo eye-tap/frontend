@@ -68,5 +68,9 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
         } );
 
         return store;
+    },
+    'canParse': ( header: string[] ) => {
+        // TODO: Update the canParse functions of most parsers
+        return header.includes( 'text_uid' );
     }
 };

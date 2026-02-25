@@ -24,7 +24,7 @@ export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSes
 
     // used for parser selection
     'canParse': ( header: string[] ) => {
-        return !header.includes( 'algorithm_id' );
+        return !header.includes( 'reader' );
     },
     'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportReadingSessionDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
@@ -46,7 +46,7 @@ export const fixationsSingleReaderPerFileImporter: ImportConfig<ImportReadingSes
 
 const runParse = async ( data: string, textId: string, reader: string ): Promise<ImportReadingSessionDto[]> => {
     const conf = preprocessor( data, fixationsSingleReaderPerFileImporter.options );
-    const lang = fixationsSingleReaderPerFileImporter.options.language!.value;
+    const lang = fixationsSingleReaderPerFileImporter.options.lang!.value;
     const points: {
         [reader: string]: ImportReadingSessionDto
     } = {};

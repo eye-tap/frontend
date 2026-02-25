@@ -40,5 +40,8 @@ export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = 
         } );
 
         return store;
+    },
+    'canParse': ( header: string[] ) => {
+        return !header.includes( 'text_uid' );
     }
 };

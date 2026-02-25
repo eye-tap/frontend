@@ -35,7 +35,7 @@ export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSession
 
     // used for parser selection
     'canParse': ( header: string[] ) => {
-        return header.includes( 'algorithm_id' ) || header.includes( 'text_id' );
+        return header.includes( 'reader' );
     }
 };
 
