@@ -13,6 +13,9 @@ import type {
     ImportConfig
 } from '@/types/import';
 import {
+    currentTextLang
+} from '.';
+import {
     fileLoaderString
 } from '../../util/fileLoader';
 
@@ -44,6 +47,7 @@ const runParse = async ( data: string, textId: string ): Promise<ImportCharacter
         const cols = conf.lines[i]!.split( ',' );
 
         if ( cols[conf.textIndex] === textId ) {
+            currentTextLang.lang = conf.langIndex > -1 ? cols[conf.langIndex]! : 'undefined';
             const x1 = Number( cols[conf.xMinIndex] );
             const x2 = Number( cols[conf.xMaxIndex] );
             const y1 = Number( cols[conf.yMinIndex] );

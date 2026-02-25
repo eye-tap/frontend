@@ -31,9 +31,16 @@ export const characterBoxParsers: Ref<ImportConfig<ImportCharacterBoundingBoxDto
 // TODO: Set to -1 as soon as best parser selection is implemented
 export const selectedCharacterBoxParserIndex = ref( 1 );
 
+export const currentTextLang: {
+    'lang': string
+} = {
+    'lang': 'undefined'
+};
+
 export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputElement, textId: string ): Promise<{
     'characters': ImportCharacterBoundingBoxDto[],
-    'words': ImportWordBoundingBoxDto[]
+    'words': ImportWordBoundingBoxDto[],
+    'lang': string
 }> => {
     let cbb: ImportCharacterBoundingBoxDto[] = [];
 
@@ -45,6 +52,7 @@ export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputEle
 
     return {
         'characters': cbb,
-        'words': generateWordBoxesFromCharacterBoxes( cbb )
+        'words': generateWordBoxesFromCharacterBoxes( cbb ),
+        'lang': currentTextLang.lang
     };
 };

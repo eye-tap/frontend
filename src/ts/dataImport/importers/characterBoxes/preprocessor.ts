@@ -12,6 +12,11 @@ export const boundingBoxesOpts: ParserOptsList<unknown> = {
         'value': 'character',
         'input': 'string'
     },
+    'lang': {
+        'display': 'Language',
+        'value': 'lang',
+        'input': 'string'
+    },
     'xMin': {
         'display': 'Lower X Coordiante',
         'value': 'bbox_x1',
@@ -43,6 +48,7 @@ export const preprocessor = (
         .map( h => h.trim() );
     const charIndex = header.indexOf( opts.char!.value as string );
     const textIndex = opts.textID ? header.indexOf( opts.textID.value as string ) : -1;
+    const langIndex = header.indexOf( opts.lang!.value as string );
     const xMinIndex = header.indexOf( opts.xMin!.value as string );
     const xMaxIndex = header.indexOf( opts.xMax!.value as string );
     const yMinIndex = header.indexOf( opts.yMin!.value as string );
@@ -63,6 +69,7 @@ export const preprocessor = (
         lines,
         charIndex,
         textIndex,
+        langIndex,
         xMinIndex,
         xMaxIndex,
         yMinIndex,

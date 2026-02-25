@@ -22,7 +22,7 @@ export const importText = async (
     return {
         'title': textName,
         'backgroundImage': uint8ArrayToBase64( await ( await loadFileFromDisk( image ) ).bytes() ),
-        'language': 'undefined', // TODO: language selection
+        'language': boundingBoxes.lang,
         'characterBoundingBoxes': boundingBoxes.characters,
         'wordBoundingBoxes': boundingBoxes.words,
         'foreignId': Number( textId )

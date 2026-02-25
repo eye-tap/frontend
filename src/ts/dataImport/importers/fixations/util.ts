@@ -116,7 +116,8 @@ export const usePointAdder = (
                 'textForeignId': Number( textId ),
                 'readerForeignId': Number( reader ),
                 'fixations': [],
-                'preAnnotations': []
+                'preAnnotations': [],
+                'language': indices.langIndex > -1 ? cols[ indices.langIndex ]! : 'undefined'
             };
         }
 
