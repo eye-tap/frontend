@@ -77,22 +77,21 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
 
     const draw = ( fixation: EditorFixation, idx: number, col: string ) => {
         // Drop shadow
-        if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 ) {
-            // TODO: Start at smaller scale
-            const movePerIterOutside = dropShadowSize.value / dropShadowPasses.value;
-            const movePerIterInside = dropShadowInnerSize.value / dropShadowPasses.value;
-            const opacityPerStep = ( dropShadowOpacityStart.value - dropShadowOpacityEnd.value ) / dropShadowPasses.value;
-            const fontScaleUpPerIterOutside = 2 * movePerIterOutside;
-            const fontScaleUpPerIterInside = 2 * movePerIterInside;
-            const numberToShow = ( idx + 1 ).toString();
+        const movePerIterOutside = dropShadowSize.value / dropShadowPasses.value;
+        const movePerIterInside = dropShadowInnerSize.value / dropShadowPasses.value;
+        const opacityPerStep = ( dropShadowOpacityStart.value - dropShadowOpacityEnd.value ) / dropShadowPasses.value;
+        const fontScaleUpPerIterOutside = 2 * movePerIterOutside;
+        const fontScaleUpPerIterInside = 2 * movePerIterInside;
+        const numberToShow = ( idx + 1 ).toString();
 
-            let totalOffset = 0;
+        let totalOffset = 0;
 
-            for ( let j = 0; j < numberToShow.length; j++ ) {
-                const toDisplay = numberToShow[ j ]!;
-                const width = ctx!.measureText( toDisplay ).width;
+        for ( let j = 0; j < numberToShow.length; j++ ) {
+            const toDisplay = numberToShow[ j ]!;
+            const width = ctx!.measureText( toDisplay ).width;
 
-                // Outer shadow
+            // Outer shadow
+            if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 )
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
                     const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
 
@@ -107,9 +106,11 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                     );
                 }
 
-                // Inner shadow
+            // Inner shadow
+            if ( dropShadowInnerSize.value !== 0 )
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
-                    const fontSize = scale( indicesFontSize.value - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
+                    const fontSize = scale( indicesFontSize.value
+                        - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
 
                     ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityEnd.value - ( opacityPerStep * i ) } )`;
@@ -122,27 +123,17 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                     );
                 }
 
-                // Draw the actual number
-                ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
-                ctx!.fillStyle = col;
-
-                ctx!.fillText(
-                    toDisplay,
-                    scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ) + totalOffset,
-                    scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
-                );
-
-                totalOffset += width;
-            }
-        } else {
+            // Draw the actual number
             ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
             ctx!.fillStyle = col;
 
             ctx!.fillText(
-                ( idx + 1 ).toString(),
-                scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),
+                toDisplay,
+                scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ) + totalOffset,
                 scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
             );
+
+            totalOffset += width;
         }
     };
 
