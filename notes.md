@@ -12,6 +12,7 @@
 - [X] Pre-Annotation sources name (retrieved from CSVs)
 - [ ] ~~Word boxes rendering -- TODO: Do we really need this? (editor technically supports it, but handling code is missing)~~
 - [X] Tour
+- [ ] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [ ] ~~Indices rendering outside box if possible?~~
 
 
