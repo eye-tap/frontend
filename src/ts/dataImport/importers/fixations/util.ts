@@ -47,7 +47,7 @@ export const fixationsOpts: ParserOptsList<unknown> = {
     },
     'factor': {
         'display': 'Factor',
-        'value': 0,
+        'value': 100,
         'input': 'number'
     },
     'dgeom': {
