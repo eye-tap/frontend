@@ -5,6 +5,7 @@ import {
 } from 'vue';
 import {
     assignedFixationColor,
+    dropShadowInnerSize,
     dropShadowOpacityEnd,
     dropShadowOpacityStart,
     dropShadowPasses,
@@ -77,33 +78,72 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
     const draw = ( fixation: EditorFixation, idx: number, col: string ) => {
         // Drop shadow
         if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 ) {
-            const movePerIter = dropShadowSize.value / dropShadowPasses.value;
+            // TODO: Start at smaller scale
+            const movePerIterOutside = dropShadowSize.value / dropShadowPasses.value;
+            const movePerIterInside = dropShadowInnerSize.value / dropShadowPasses.value;
             const opacityPerStep = ( dropShadowOpacityStart.value - dropShadowOpacityEnd.value ) / dropShadowPasses.value;
-            const fontScaleUpPerIter = 2 * movePerIter;
+            const fontScaleUpPerIterOutside = 2 * movePerIterOutside;
+            const fontScaleUpPerIterInside = 2 * movePerIterInside;
+            const numberToShow = ( idx + 1 ).toString();
 
-            for ( let i = 0; i < dropShadowPasses.value; i++ ) {
-                const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIter * i ) );
+            let totalOffset = 0;
 
-                ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
-                ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
-                const aspect = ctx!.measureText( ( idx + 1 ).toString() ).width / fontSize;
+            for ( let j = 0; j < numberToShow.length; j++ ) {
+                const toDisplay = numberToShow[ j ]!;
+                const width = ctx!.measureText( toDisplay ).width;
+
+                // Outer shadow
+                for ( let i = 0; i < dropShadowPasses.value; i++ ) {
+                    const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
+
+                    ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
+                    ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
+                    const aspect = ctx!.measureText( toDisplay ).width / fontSize;
+
+                    ctx!.fillText(
+                        toDisplay,
+                        scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) - ( movePerIterOutside * i * aspect ), 'x' ) ) + totalOffset,
+                        scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIterOutside * i ), 'y' ) )
+                    );
+                }
+
+                // Inner shadow
+                for ( let i = 0; i < dropShadowPasses.value; i++ ) {
+                    const fontSize = scale( indicesFontSize.value - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
+
+                    ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
+                    ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityEnd.value - ( opacityPerStep * i ) } )`;
+                    const aspect = ctx!.measureText( toDisplay ).width / fontSize;
+
+                    ctx!.fillText(
+                        toDisplay,
+                        scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) - ( movePerIterInside * i * aspect ), 'x' ) ) + totalOffset,
+                        scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIterInside * i ), 'y' ) )
+                    );
+                }
+
+                // Draw the actual number
+                ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
+                ctx!.fillStyle = col;
 
                 ctx!.fillText(
-                    ( idx + 1 ).toString(),
-                    scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) - ( movePerIter * i * aspect ), 'x' ) ),
-                    scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIter * i ), 'y' ) )
+                    toDisplay,
+                    scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ) + totalOffset,
+                    scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
                 );
+
+                totalOffset += width;
             }
+        } else {
+            ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
+            ctx!.fillStyle = col;
+
+            ctx!.fillText(
+                ( idx + 1 ).toString(),
+                scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),
+                scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
+            );
         }
-
-        ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
-        ctx!.fillStyle = col;
-
-        ctx!.fillText(
-            ( idx + 1 ).toString(),
-            scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),
-            scale( originalToCanvasCoordinates( fixation.y! - fixationRadius.value, 'y' ) )
-        );
     };
 
     watch( [

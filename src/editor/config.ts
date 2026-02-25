@@ -48,6 +48,8 @@ export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-i
 // Drop shadow for fixations. In pixels
 export const dropShadowSize = ref( 2 ); // Zero disables it
 
+export const dropShadowInnerSize = ref( 1 );
+
 export const dropShadowPasses = ref( 20 );
 
 export const dropShadowOpacityStart = ref( 1 );
