@@ -25,8 +25,11 @@
 
 <style scoped lang="scss">
 .content-wrapper {
-    display: grid;
-    grid-template-columns: max(30vw, 500px) auto;
+    >div {
+        display: grid;
+        grid-template-columns: max(30vw, 500px) auto;
+    }
+
 }
 
 .top-bar {
