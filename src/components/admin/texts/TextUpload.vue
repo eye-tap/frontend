@@ -1,6 +1,11 @@
 <script setup lang="ts">
     import {
+        ImportError,
+        importDatasetFromCSV
+    } from '@/ts/dataImport';
+    import {
         InvalidIndexNameError,
+        MissingFilesError,
         MultipleTextIDsWithoutSpecifiedTextIDError
     } from '@/ts/dataImport/util/errors';
     import {
@@ -11,9 +16,6 @@
     import {
         adminBaseRoute
     } from '../adminConfig';
-    import {
-        importDatasetFromCSV
-    } from '@/ts/dataImport';
     import router from '@/ts/router';
     import {
         useNotification
@@ -100,7 +102,21 @@
                     'type': 'error',
                     'title': 'File Upload'
                 } );
-            else console.log( error );
+            else if ( error instanceof ImportError )
+                notifications.notify( {
+                    'text': `Import failed with error "${ error.message }"`,
+                    'type': 'error',
+                    'title': 'File Upload'
+                } );
+            else if ( error instanceof MissingFilesError )
+                notifications.notify( {
+                    'text': 'A required file was not uploaded',
+                    'type': 'error',
+                    'title': 'File Upload'
+                } );
+            else console.error( error );
+
+            uploading.value = false;
 
             return;
         }

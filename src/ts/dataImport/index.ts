@@ -9,6 +9,8 @@ import {
     useNotification
 } from '@kyvg/vue3-notification';
 
+export class ImportError extends Error {}
+
 export const importDatasetFromCSV = async (
     boundingBoxesCSVInputElement: HTMLInputElement,
     fixationsCSVInputElement: HTMLInputElement,
@@ -39,8 +41,22 @@ export const importDatasetFromCSV = async (
 
     const backendProcessingStart = performance.now();
 
-    await request.post( '/import/text', text );
-    await request.post( '/import/reading-sessions', readingSession );
+    try {
+        if ( !( await request.post( '/import/text', text ) ).ok ) throw new ImportError( 'Text Import Failed' );
+    } catch ( error ) {
+        console.error( error );
+
+        throw new ImportError( 'Text Import Failed' );
+    }
+
+    try {
+        if ( !( await request.post( '/import/reading-sessions', readingSession ) ).ok ) throw new ImportError( 'Reading Session Import Failed' );
+    } catch ( error ) {
+        console.error( error );
+
+        throw new ImportError( 'Reading Session Import Failed' );
+    }
+
     console.debug( '[Bench] Backend processing and networking took', performance.now() - backendProcessingStart, 'ms' );
     console.log( '[Bench] Full import took', performance.now() - importStart, 'ms' );
 };

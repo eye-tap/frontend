@@ -9,7 +9,7 @@ type sidebarSection = {
     'content': Array<SidebarOption>
 };
 
-export const adminBaseRoute = '/admin-new/';
+export const adminBaseRoute = '/admin/';
 
 /**
  * Populates the admin sidebar. IDs should be unique.

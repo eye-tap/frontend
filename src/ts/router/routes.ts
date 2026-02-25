@@ -1,7 +1,7 @@
 import HomeView from '@/views/StartView.vue';
 import {
     adminBaseRoute
-} from '@/components/admin-new/adminConfig';
+} from '@/components/admin/adminConfig';
 
 export const routes = [
     {
@@ -75,20 +75,9 @@ export const routes = [
         ]
     },
     {
-        'path': '/admin',
-        'name': 'admin (old)',
-        'component': () => import( '@/views/admin/AdminHome.vue' ),
-        'meta': {
-            'title': 'Admin Panel',
-            'authRequired': true,
-            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-        }
-    },
-    // Temporary route for new admin panel
-    {
         'path': adminBaseRoute,
-        'name': 'admin-new',
-        'component': () => import( '@/views/admin-new/AdminHome.vue' ),
+        'name': 'admin',
+        'component': () => import( '@/views/admin/AdminHome.vue' ),
         'meta': {
             'title': 'Admin Panel (dev)',
             'authRequired': true,
@@ -98,7 +87,7 @@ export const routes = [
             {
                 'path': '',
                 'name': 'admin-home',
-                'component': () => import( '@/components/admin-new/surveys/SurveyNoneSelected.vue' ),
+                'component': () => import( '@/components/admin/surveys/SurveyNoneSelected.vue' ),
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
@@ -108,7 +97,7 @@ export const routes = [
             {
                 'path': 'surveys',
                 'name': 'admin-surveys',
-                'component': () => import( '@/components/admin-new/SurveyManager.vue' ),
+                'component': () => import( '@/components/admin/SurveyManager.vue' ),
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
@@ -118,7 +107,7 @@ export const routes = [
                     {
                         'path': '',
                         'name': 'surveys-none-selected',
-                        'component': () => import( '@/components/admin-new/surveys/SurveyNoneSelected.vue' ),
+                        'component': () => import( '@/components/admin/surveys/SurveyNoneSelected.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
@@ -129,7 +118,7 @@ export const routes = [
                     {
                         'path': ':id',
                         'name': 'surveys-selected',
-                        'component': () => import( '@/components/admin-new/surveys/SurveyProperties.vue' ),
+                        'component': () => import( '@/components/admin/surveys/SurveyProperties.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
@@ -139,7 +128,7 @@ export const routes = [
                     {
                         'path': 'create',
                         'name': 'create-survey',
-                        'component': () => import( '@/components/admin-new/surveys/SurveyCreator.vue' ),
+                        'component': () => import( '@/components/admin/surveys/SurveyCreator.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
@@ -149,7 +138,7 @@ export const routes = [
                     {
                         'path': 'magiclinks',
                         'name': 'magiclinks',
-                        'component': () => import( '@/components/admin-new/surveys/SurveyMagicLinks.vue' ),
+                        'component': () => import( '@/components/admin/surveys/SurveyMagicLinks.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
@@ -161,7 +150,7 @@ export const routes = [
             {
                 'path': 'texts',
                 'name': 'texts',
-                'component': () => import( '@/components/admin-new/TextManager.vue' ),
+                'component': () => import( '@/components/admin/TextManager.vue' ),
                 'meta': {
                     'title': 'Admin',
                     'authRequired': true,
@@ -171,7 +160,7 @@ export const routes = [
                     {
                         'path': '',
                         'name': 'texts-options',
-                        'component': () => import( '@/components/admin-new/texts/TextUpload.vue' ),
+                        'component': () => import( '@/components/admin/texts/TextUpload.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
@@ -181,7 +170,7 @@ export const routes = [
                     {
                         'path': 'options',
                         'name': 'texts-create',
-                        'component': () => import( '@/components/admin-new/texts/TextUploadOptions.vue' ),
+                        'component': () => import( '@/components/admin/texts/TextUploadOptions.vue' ),
                         'meta': {
                             'title': 'Admin',
                             'authRequired': true,
