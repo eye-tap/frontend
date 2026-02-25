@@ -16,7 +16,5 @@
 </template>
 
 <style lang="scss" scoped>
-.survey-manager {
-    display: flex;
-}
+
 </style>

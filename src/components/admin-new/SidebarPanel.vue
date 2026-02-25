@@ -20,9 +20,10 @@
                     v-for="option in section.content"
                     :key="option.id"
                     :to="adminBaseRoute + option.route"
-                    class="option"
                 >
-                    {{ option.text }}
+                    <p class="option">
+                        {{ option.text }}
+                    </p>
                 </RouterLink>
             </div>
         </div>
@@ -43,6 +44,10 @@
 
     overflow-y: auto;
     scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
+    
+    a {
+        text-decoration: none;
+    }
 
     >.section {
 
