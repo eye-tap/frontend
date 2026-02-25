@@ -44,7 +44,7 @@
 
     overflow-y: auto;
     scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
-    
+
     a {
         text-decoration: none;
     }
