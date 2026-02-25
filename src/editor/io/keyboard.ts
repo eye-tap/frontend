@@ -78,6 +78,15 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 if ( selectedFixation.value > -1 ) {
                     selectedFixation.value = ( selectedFixation.value - 1 ) % fixations.value.length;
                 }
+            } else if ( ev.key === 'Space' ) {
+                ev.preventDefault();
+                annotation.create(
+                    // TODO: Get current algorithm's selected fixation
+                    0,
+                    selectedFixation.value,
+                    false,
+                    false
+                );
             }
         }
     };

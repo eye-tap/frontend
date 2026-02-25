@@ -13,7 +13,8 @@ import {
 import {
     assignedLineColor,
     lineWidth,
-    linesDisplay
+    linesDisplay,
+    numberOfLinesToRenderInSurroundingMode
 } from '../config';
 import {
     originalToCanvasCoordinates,
@@ -39,14 +40,32 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         // Render
         if ( linesDisplay.value === 'all' ) {
             annotations.value.forEach( l => {
+                // TODO: Filter algorithm
                 drawLine( l );
             } );
         } else if ( linesDisplay.value === 'previous' ) {
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
+                    // TODO: Filter algorithm
                     if ( l.fixationId === selectedFixation.value )
                         drawLine( l );
                     else if ( l.fixationId === selectedFixation.value - 1 )
+                        drawLine( l );
+                } );
+        } else if ( linesDisplay.value === 'surrounding' ) {
+            if ( selectedFixation.value >= 0 )
+                annotations.value.forEach( l => {
+                    // TODO: Filter algorithm
+                    if ( l.fixationId > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
+                        || l.fixationId < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
+                        drawLine( l );
+                } );
+
+        // TODO: Do we want more settings here?
+        } else if ( linesDisplay.value === 'allalgos' ) {
+            if ( selectedFixation.value >= 0 )
+                annotations.value.forEach( l => {
+                    if ( l.fixationId === selectedFixation.value )
                         drawLine( l );
                 } );
         }

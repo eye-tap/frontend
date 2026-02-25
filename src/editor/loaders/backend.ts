@@ -71,6 +71,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
+            // TODO: Need algorithm name. Editor's Annotation object already supports it
             const ann: EditorAnnotation = {
                 'fixationId': getFixIdxFromId( annotation.fixation!.id! ),
                 'boxId': getBoxIdxFromId( annotation.characterBoundingBox!.id! )

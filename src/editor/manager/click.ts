@@ -18,8 +18,14 @@ import {
     annotationManager
 } from './annotations';
 import {
+    distanceBetweenPoints
+} from '../util/arithmetic';
+import {
     getBoxIdFromCoordinate
 } from '../association/boxes';
+import {
+    moveThresholdForAssign
+} from '../config';
 import {
     watch
 } from 'vue';
@@ -51,13 +57,15 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
 
             renderer.renderIO.render();
         } else {
+            if ( distanceBetweenPoints( lineStart.value, mousePos.value ) > moveThresholdForAssign ) {
             // Get bounding box that was hovered at mouseUp
-            const bb = getBoxIdFromCoordinate( mousePos.value );
+                const bb = getBoxIdFromCoordinate( mousePos.value );
 
-            // Try to delete the annotation if it was present
-            annotation.deleteByFixID( selectedFixation.value );
+                // Try to delete the annotation if it was present
+                annotation.deleteByFixID( selectedFixation.value );
 
-            annotation.create( bb, selectedFixation.value );
+                annotation.create( bb, selectedFixation.value );
+            }
         }
     };
 

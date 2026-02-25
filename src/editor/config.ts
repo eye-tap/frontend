@@ -23,6 +23,9 @@ export const autoSaveInterval = ref( 60000 );
 // Colors
 export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
+// TODO: Do we want this setting?
+export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
+
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
 export const boundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
@@ -51,6 +54,9 @@ export const hoveredFixationRadius = ref( 10 );
 export const selectedFixationRadius = ref( 8 );
 
 export const lineWidth = ref( 3 );
+
+// TODO: Do we want this setting?
+export const machineAssignedLineWidth = ref( 3 );
 
 export const indicesFontSize = ref( 14 );
 
@@ -128,8 +134,12 @@ export const boxesDisplay = ref<BoxesDisplay>( 'letters' );
 export const linesDisplayOptions = [
     'all',
     'previous',
+    'surrounding', // TODO: this enables the config option below
+    'allalgos',
     'none'
 ] as const;
+
+export const numberOfLinesToRenderInSurroundingMode = ref( 10 );
 
 export type LinesDisplay = typeof linesDisplayOptions[number];
 
@@ -174,6 +184,8 @@ export const boundingBoxOnHoverRadius = ref( 100 );
 export const disableKeyHandler = ref( false );
 
 export const moveThresholdForDrag = 3;
+
+export const moveThresholdForAssign = 3;
 
 export const keyboardZoomStep = ref( 0.25 );
 
