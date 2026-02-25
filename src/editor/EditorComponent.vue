@@ -19,7 +19,6 @@
         goToNextAnnotation, isAnnotationComplete
     } = useAnnotationNavigation();
     const {
-        tour,
         steps,
         showWelcomeTour,
         startFullTour

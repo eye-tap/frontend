@@ -11,6 +11,9 @@
     import auth from '@/ts/auth';
     import router from '@/ts/router';
     import {
+        useAnnotationNavigation
+    } from '@/editor/composables/useAnnotationNavigation';
+    import {
         useStatusStore
     } from '@/ts/stores/status';
 
@@ -55,7 +58,9 @@
         'isComplete'?: boolean,
         'mode'?: 'standard' | 'editor'
     }>();
-    const emit = defineEmits( [ 'next' ] );
+    const {
+        goToNextAnnotation
+    } = useAnnotationNavigation();
 
     const admin = () => {
         router.push( '/admin' );
@@ -79,7 +84,7 @@
             </transition>
         </div>
         <div v-if="props.mode === 'editor'" class="next-action-wrapper">
-            <button class="button primary next-btn" @click="emit('next')">
+            <button class="button primary next-btn" @click="goToNextAnnotation">
                 Next Annotation <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>

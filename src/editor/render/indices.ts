@@ -5,6 +5,11 @@ import {
 } from 'vue';
 import {
     assignedFixationColor,
+    dropShadowFontScale,
+    dropShadowOpacityEnd,
+    dropShadowOpacityStart,
+    dropShadowPasses,
+    dropShadowSize,
     fixationDisplay,
     fixationIndexDisplay,
     fixationRadius,
@@ -71,8 +76,26 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
     };
 
     const draw = ( fixation: EditorFixation, idx: number, col: string ) => {
+        ctx!.font = scale( indicesFontSize.value * dropShadowFontScale.value ) + 'px ' + indicesFontFamily.value;
+
+        // Drop shadow
+        if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 ) {
+            const movePerIter = dropShadowSize.value / dropShadowPasses.value;
+            const opacityPerStep = ( dropShadowOpacityStart.value - dropShadowOpacityEnd.value ) / dropShadowPasses.value;
+
+            for ( let i = 0; i < dropShadowPasses.value; i++ ) {
+                ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
+                ctx!.fillText(
+                    ( idx + 1 ).toString(),
+                    scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) + ( movePerIter * i ), 'x' ) ),
+                    scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIter * i ), 'y' ) )
+                );
+            }
+        }
+
+        ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
         ctx!.fillStyle = col;
-        ctx!.font = scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
+
         ctx!.fillText(
             ( idx + 1 ).toString(),
             scale( originalToCanvasCoordinates( fixation.x! + fixationRadius.value, 'x' ) ),
@@ -86,7 +109,12 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         unassignedFixationColor,
         machineAssignedFixationColor,
         fixationDisplay,
-        selectedFixation
+        selectedFixation,
+        dropShadowFontScale,
+        dropShadowOpacityStart,
+        dropShadowOpacityEnd,
+        dropShadowPasses,
+        dropShadowSize
     ], render );
 
     onMounted( () => {
