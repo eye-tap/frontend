@@ -15,7 +15,9 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import { RouterLink } from 'vue-router';
+    import {
+        RouterLink
+    } from 'vue-router';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
