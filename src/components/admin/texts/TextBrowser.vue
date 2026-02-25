@@ -15,6 +15,7 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
+    import { RouterLink } from 'vue-router';
 
     interface Text {
         'sessions': ShallowReadingSessionDto[];
@@ -88,6 +89,11 @@
                 <span>
                     <i class="fa-lg fa-solid fa-arrows-rotate refresh-icon" @click="loadTexts"></i>
                 </span>
+                <RouterLink to="texts-upload">
+                    <span>
+                        <i class="fa-lg fa-solid fa-plus add-icon"></i>
+                    </span>
+                </RouterLink>
             </div>
         </div>
         <div class="survey-list">
@@ -143,10 +149,6 @@
 
     td {
         cursor: default;
-    }
-
-    .bar-buttons {
-        width: 50px;
     }
 
     >.survey-list {

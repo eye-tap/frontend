@@ -155,29 +155,17 @@ export const routes = [
                     'title': 'Admin',
                     'authRequired': true,
                     'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                },
-                'children': [
-                    {
-                        'path': '',
-                        'name': 'texts-options',
-                        'component': () => import( '@/components/admin/texts/TextUpload.vue' ),
-                        'meta': {
-                            'title': 'Admin',
-                            'authRequired': true,
-                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                        }
-                    },
-                    {
-                        'path': 'options',
-                        'name': 'texts-create',
-                        'component': () => import( '@/components/admin/texts/TextUploadOptions.vue' ),
-                        'meta': {
-                            'title': 'Admin',
-                            'authRequired': true,
-                            'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
-                        }
-                    }
-                ]
+                }
+            },
+            {
+                'path': 'texts-upload',
+                'name': 'texts-upload',
+                'component': () => import( '@/components/admin/TextUploadManager.vue' ),
+                'meta': {
+                    'title': 'Admin',
+                    'authRequired': true,
+                    'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
+                }
             }
         ]
     },

@@ -28,7 +28,7 @@
     <div class="content">
         <div class="top-bar">
             <h2 class="title">
-                Upload Options
+                Options
             </h2>
         </div>
         <p class="subtitle">

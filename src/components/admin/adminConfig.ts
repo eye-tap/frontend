@@ -32,10 +32,18 @@ export const adminContent: Array<sidebarSection> = [
     },
     {
         'name': 'texts',
-        'content': [ {
-            'text': 'View Texts',
-            'route': 'texts',
-            'id': 2
-        } ]
+        'content':
+        [
+            {
+                'text': 'View Texts',
+                'route': 'texts',
+                'id': 2
+            },
+            {
+                'text': 'Upload Texts',
+                'route': 'texts-upload',
+                'id': 3
+            }
+        ]
     }
 ];

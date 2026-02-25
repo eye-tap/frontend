@@ -147,7 +147,7 @@
     };
 
     const goToOptions = () => {
-        router.push( adminBaseRoute + 'texts/options' );
+        router.push( adminBaseRoute + 'texts-options' );
     };
 
     const annotationsLoadTrigger = () => {
@@ -273,10 +273,18 @@
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
-    max-height: 80vh;
 
-    .top-bar {
-        justify-content: left;
+    height: 85vh;
+
+    padding-right: 1rem;
+    margin-right: 2rem;
+
+    border-style: solid;
+    border-color: var(--theme-bg-3-shade);
+    border-width: 0px 2px 0px 0px;
+
+    .bar-buttons {
+        width: 50px;
     }
 
     label>button {

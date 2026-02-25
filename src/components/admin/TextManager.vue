@@ -1,13 +1,11 @@
 <script setup lang="ts">
     import TextBrowser from './texts/TextBrowser.vue';
-    // import TextUpload from './texts/TextUpload.vue';
-    // import TextUploadOptions from './texts/TextUploadOptions.vue';
 </script>
 
 <template>
-    <div class="text-manager">
+    <div>
         <TextBrowser />
-        <!-- TODO: Fix alignment -->
+        <!-- Currently, this router does't do anything, but maybe at some point it can display metadata -->
         <div>
             <router-view v-slot="{ Component, route }">
                 <transition :name="route.meta.transition ? String( route.meta.transition ) : 'fade'" mode="out-in">

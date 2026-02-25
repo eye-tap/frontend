@@ -28,6 +28,7 @@
 
 
 ## Admin
+- [ ] "Select All" on Survey-creation doesn't work
 - [ ] Upload pre-assigned points with multi-file select button on Text creation
 - [X] Design
 - [ ] Bug testing
