@@ -100,8 +100,11 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 } catch { /* empty */ }
             } else if ( ev.key === 'Delete' ) {
                 // TODO: Update this keybind if needed
+                ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );
             } else if ( ev.key === 'Enter' ) {
+                ev.preventDefault();
+
                 if ( linesDisplay.value !== 'allalgos' ) {
                     prevSelectedDisplayMode = linesDisplay.value;
                     linesDisplay.value = 'allalgos';
@@ -112,6 +115,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
 
     const keyUpHandler = ( ev: KeyboardEvent ) => {
         if ( ev.key === 'Enter' ) {
+            ev.preventDefault();
             linesDisplay.value = prevSelectedDisplayMode;
         }
     };

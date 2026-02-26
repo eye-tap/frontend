@@ -21,11 +21,11 @@ import {
     distanceBetweenPoints
 } from '../util/arithmetic';
 import {
+    fixationRadius
+} from '../config';
+import {
     getBoxIdFromCoordinate
 } from '../association/boxes';
-import {
-    moveThresholdForAssign
-} from '../config';
 import {
     watch
 } from 'vue';
@@ -57,7 +57,10 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
 
             renderer.renderIO.render();
         } else {
-            if ( distanceBetweenPoints( lineStart.value, mousePos.value ) > moveThresholdForAssign ) {
+            if ( distanceBetweenPoints( {
+                'x': fixations.value[selectedFixation.value]!.x!,
+                'y': fixations.value[ selectedFixation.value ]!.y!
+            }, mousePos.value ) > fixationRadius.value ) {
             // Get bounding box that was hovered at mouseUp
                 const bb = getBoxIdFromCoordinate( mousePos.value );
 

@@ -118,7 +118,8 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     watch( [
         lineWidth,
         assignedLineColor,
-        selectedFixation
+        selectedFixation,
+        linesDisplay
     ], render );
 
     return {

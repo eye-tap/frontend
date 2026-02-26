@@ -206,8 +206,6 @@ export const disableKeyHandler = ref( false );
 
 export const moveThresholdForDrag = 3;
 
-export const moveThresholdForAssign = 10;
-
 export const keyboardZoomStep = ref( 0.25 );
 
 export const keyboardZoomPanStep: Ref<EditorPoint> = ref( {
