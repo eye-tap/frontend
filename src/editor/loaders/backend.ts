@@ -86,9 +86,19 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     selectedFixation.value = 0;
 
+    // If none found that is unassigned, annotation is soft complete
     if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
         for ( let i = 1; i < fixations.value.length; i++ ) {
             if ( fixations.value[ i ]!.assigned === 'unassigned' ) {
+                selectedFixation.value = i;
+                break;
+            }
+        }
+    }
+
+    if ( fixations.value[ selectedFixation.value ]!.assigned !== 'unassigned' ) {
+        for ( let i = 1; i < fixations.value.length; i++ ) {
+            if ( fixations.value[ i ]!.assigned === 'machine' ) {
                 selectedFixation.value = i;
                 break;
             }
@@ -101,8 +111,10 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // let title = data.title ? `${ data.title }, reader ${ data.reader }` : 'EyeTAP';
     let title = data.desc ?? 'EyeTAP';
 
-    if ( fixations.value[ selectedFixation.value ]!.assigned !== 'unassigned' )
+    if ( fixations.value[ selectedFixation.value ]!.assigned === 'assigned' )
         title += ' (complete)';
+    else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
+        title += ' (soft complete)';
 
     sendLoadEvent( title );
 };
