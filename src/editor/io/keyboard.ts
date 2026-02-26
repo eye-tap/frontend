@@ -1,15 +1,17 @@
 import {
+    type LinesDisplay,
+    disableKeyHandler,
+    keyboardZoomPanStep,
+    keyboardZoomStep,
+    linesDisplay
+} from '../config';
+import {
     algorithmsList,
     annotations,
     fixations,
     selectedAlgorithm,
     selectedFixation
 } from '../data';
-import {
-    disableKeyHandler,
-    keyboardZoomPanStep,
-    keyboardZoomStep
-} from '../config';
 import {
     onMounted,
     onUnmounted
@@ -36,6 +38,8 @@ import zoom from '../manager/zoom';
 export const keyboardHandler = ( renderer: Renderer ) => {
     const annotation = annotationManager( renderer );
 
+    let prevSelectedDisplayMode: LinesDisplay = linesDisplay.value;
+
     const handler = ( ev: KeyboardEvent ) => {
         if ( !disableKeyHandler.value ) {
             if ( isCharacterKey( ev.key ) && !ev.ctrlKey && !ev.metaKey && !ev.altKey ) {
@@ -46,7 +50,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     false,
                     true
                 );
-            } else if ( isUndoCmd( ev ) || ev.key === 'Backspace' || ev.key === 'Delete' ) {
+            } else if ( isUndoCmd( ev ) || ev.key === 'Backspace' ) {
                 ev.preventDefault();
                 undo();
             } else if ( isRedoCmd( ev ) ) {
@@ -94,17 +98,36 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                         false
                     );
                 } catch { /* empty */ }
+            } else if ( ev.key === 'Delete' ) {
+                // TODO: Update this keybind if needed
+                annotation.markAsInvalid( selectedFixation.value );
+            } else if ( ev.key === 'Enter' ) {
+                if ( linesDisplay.value !== 'allalgos' ) {
+                    prevSelectedDisplayMode = linesDisplay.value;
+                    linesDisplay.value = 'allalgos';
+                }
             }
+        }
+    };
+
+    const keyUpHandler = ( ev: KeyboardEvent ) => {
+        if ( ev.key === 'Enter' ) {
+            linesDisplay.value = prevSelectedDisplayMode;
         }
     };
 
     onMounted( () => {
         document.addEventListener( 'keydown', handler );
+        document.addEventListener( 'keyup', keyUpHandler );
     } );
 
     onUnmounted( () => {
         try {
             document.removeEventListener( 'keydown', handler );
+        } catch { /* empty */ }
+
+        try {
+            document.removeEventListener( 'keyup', keyUpHandler );
         } catch { /* empty */ }
     } );
 };

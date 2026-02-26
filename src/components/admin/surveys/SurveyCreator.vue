@@ -133,6 +133,7 @@
         ).then( links => {
             surveyStore.setLinks( links );
             router.push( adminBaseRoute + 'surveys/magiclinks' );
+            document.dispatchEvent( new CustomEvent( 'eyetap:survey:create' ) );
         } );
     };
 

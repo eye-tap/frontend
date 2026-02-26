@@ -14,10 +14,11 @@
 - [X] Gradients with three points
 - [ ] Legend displaying what the colours mean
 - [ ] Pick default algorithm
-- [ ] Space to confirm current assignment (i.e. create annotation for it)
-- [ ] Keybind to flag as invalid
+- [X] Space to confirm current assignment (i.e. create annotation for it)
+- [X] Keybind to flag as invalid
+- [X] Shift to show all algorithms for current fixation
+- [ ] Use other combination for the above, as shift key cannot be detected (neither all other modifiers)
 - [ ] Do we need more settings for the above?
-- [ ] Shift to show all algorithms for current fixation
 - [X] Fixation click on fixation in box directly assigning it
 - [ ] Test the above, may need to be changed to a more complex handler
 - [X] Filter annotations by algorithms

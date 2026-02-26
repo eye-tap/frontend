@@ -1,13 +1,15 @@
 <script setup lang="ts">
     import {
+        onMounted,
+        onUnmounted,
+        ref
+    } from 'vue';
+    import {
         adminBaseRoute
     } from '../adminConfig';
     import {
         listSurveys
     } from '@/ts/surveys';
-    import {
-        ref
-    } from 'vue';
     import testData from '@/ts/dev/SurveyTesData.json';
     import {
         useNotification
@@ -67,7 +69,16 @@
         router.push( adminBaseRoute + 'surveys/create' );
     };
 
-    reloadFromServer();
+    onMounted( () => {
+        reloadFromServer();
+        document.addEventListener( 'eyetap:survey:create', reloadFromServer );
+    } );
+
+    onUnmounted( () => {
+        try {
+            document.removeEventListener( 'eyetap:survey:create', reloadFromServer );
+        } catch { /* empty */ }
+    } );
 </script>
 
 <template>

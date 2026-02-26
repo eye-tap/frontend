@@ -22,5 +22,6 @@ declare global {
         'eyetap:keys:next': CustomEvent<void>;
         'eyetap:keys:prev': CustomEvent<void>;
         'eyetap:theme': CustomEvent<void>;
+        'eyetap:survey:create': CustomEvent<void>;
     }
 }

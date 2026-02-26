@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
     import {
         boxesDisplay,
         boxesDisplayOptions,
@@ -17,6 +16,7 @@
     <div class="options-pane">
         <div class="options-container">
             <div class="options-section">
+                {{ linesDisplay }}
                 <p> Display </p>
                 <SliderOptions
                     v-model="boxesDisplay"

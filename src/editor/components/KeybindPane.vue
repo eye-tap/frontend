@@ -29,7 +29,7 @@
             'function': 'Undo'
         },
         {
-            'keybind': 'Delete / Backspace',
+            'keybind': 'Backspace',
             'function': 'Undo'
         },
         {
@@ -51,6 +51,10 @@
         {
             'keybind': 'Letters',
             'function': 'Assign the current fixation to the closest box of this letter'
+        },
+        {
+            'keybind': 'Delete',
+            'function': 'Mark fixation as invalid'
         }
     ];
     const show = defineModel<boolean>();
