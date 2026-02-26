@@ -3,5 +3,5 @@ import type {
 } from '@/types/dtos/FixationDto';
 
 export interface EditorFixation extends FixationDto {
-    'assigned': 'assigned' | 'unassigned' | 'machine';
+    'assigned': 'assigned' | 'unassigned' | 'machine' | 'invalid';
 }

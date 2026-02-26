@@ -27,6 +27,10 @@ export const hoveredFixation = ref( -1 );
 
 export const isSideBarCollapsed = ref( false );
 
+export const algorithmsList: Ref<string[]> = ref( [] );
+
+export const selectedAlgorithm = ref( -1 );
+
 // ┌                                               ┐
 // │                Zoom utilities                 │
 // └                                               ┘

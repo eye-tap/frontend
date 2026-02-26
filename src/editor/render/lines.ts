@@ -4,10 +4,12 @@ import {
     watch
 } from 'vue';
 import {
+    algorithmsList,
     annotations,
     boundingBoxes,
     canvasSize,
     fixations,
+    selectedAlgorithm,
     selectedFixation
 } from '../data';
 import {
@@ -40,35 +42,56 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         // Render
         if ( linesDisplay.value === 'all' ) {
             annotations.value.forEach( l => {
-                // TODO: Filter algorithm
-                drawLine( l );
+                filterAlgorithms( l, drawLine );
             } );
         } else if ( linesDisplay.value === 'previous' ) {
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
-                    // TODO: Filter algorithm
-                    if ( l.fixationId === selectedFixation.value )
-                        drawLine( l );
-                    else if ( l.fixationId === selectedFixation.value - 1 )
-                        drawLine( l );
+                    filterAlgorithms( l, previousDrawer );
                 } );
         } else if ( linesDisplay.value === 'surrounding' ) {
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
-                    // TODO: Filter algorithm
-                    if ( l.fixationId > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
-                        || l.fixationId < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
-                        drawLine( l );
+                    filterAlgorithms( l, surroundingDrawer );
                 } );
-
-        // TODO: Do we want more settings here?
         } else if ( linesDisplay.value === 'allalgos' ) {
+            // TODO: Do we want more settings here?
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
                     if ( l.fixationId === selectedFixation.value )
                         drawLine( l );
                 } );
         }
+    };
+
+    // TODO: Filter algorithm (also do not display if invalid fixation)
+    const filterAlgorithms = ( l: EditorAnnotation, drawFunc: ( l: EditorAnnotation ) => void ) => {
+        const assignType = fixations.value[ l.fixationId ]!.assigned;
+
+        if ( assignType === 'invalid' ) return;
+
+        if ( assignType === 'assigned' ) drawFunc( l );
+
+        if ( !l.algorithm ) {
+            if ( selectedAlgorithm.value > -1 ) return;
+            else drawFunc( l );
+        } else {
+            if ( l.algorithm === algorithmsList.value[ selectedAlgorithm.value ]! )
+                drawFunc( l );
+        }
+    };
+
+    const previousDrawer = ( l: EditorAnnotation ) => {
+        if ( l.fixationId === selectedFixation.value )
+            drawLine( l );
+        else if ( l.fixationId === selectedFixation.value - 1 )
+            drawLine( l );
+    };
+
+    const surroundingDrawer = ( l: EditorAnnotation ) => {
+        if ( l.fixationId > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
+            || l.fixationId < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
+            drawLine( l );
     };
 
     const drawLine = ( line: EditorAnnotation ) => {

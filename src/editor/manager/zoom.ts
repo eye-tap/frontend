@@ -97,7 +97,7 @@ const setFactor = ( factor: number ) => {
 
     zoomFactor.value = Math.min( Math.max( factor, 1 ), 3 );
 
-    // TODO: If you want to do relative to mouse position,
+    // NOTE: If you want to do relative to mouse position,
     // add a mouse position in here and use setViewPortOriginFromCenter
     setViewPortOrigin( getViewPortOrigin() );
 };
