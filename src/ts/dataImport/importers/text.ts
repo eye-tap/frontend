@@ -15,14 +15,15 @@ export const importText = async (
     image: HTMLInputElement,
     boundingBoxesCSV: HTMLInputElement,
     textId: string,
-    textName: string
+    textName: string,
+    lang: string
 ): Promise<ImportTextDto> => {
-    const boundingBoxes = await importBoundingBoxes( boundingBoxesCSV, textId );
+    const boundingBoxes = await importBoundingBoxes( boundingBoxesCSV, textId, lang );
 
     return {
         'title': textName,
         'backgroundImage': uint8ArrayToBase64( await ( await loadFileFromDisk( image ) ).bytes() ),
-        'language': boundingBoxes.lang,
+        'language': lang,
         'characterBoundingBoxes': boundingBoxes.characters,
         'wordBoundingBoxes': boundingBoxes.words,
         'foreignId': Number( textId )

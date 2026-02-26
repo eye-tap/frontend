@@ -14,6 +14,9 @@ import type {
     ImportReadingSessionDto
 } from '@/types/dtos/ImportReadingSessionDto';
 import {
+    determineCorrectParserSettings
+} from '../../util/parserSettingsGenerator';
+import {
     fileLoaderString
 } from '../../util/fileLoader';
 
@@ -21,41 +24,41 @@ export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSession
     'display': 'Multiple readers in a file',
     'options': {
         ...fixationsOpts,
-        'textID': {
+        'reader': {
+            'display': 'Reader',
+            'value': 'reader',
             'input': 'string',
-            'value': 'text',
-            'display': 'Text ID'
+            'searchTerms': [ 'reader' ]
         }
     },
-    'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportReadingSessionDto[]> => {
+    'parse': async ( inputElement: HTMLInputElement, textId: string, lang ): Promise<ImportReadingSessionDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
-        return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId );
+        return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId, lang );
     },
 
     // used for parser selection
     'canParse': ( header: string[] ) => {
-        return header.includes( 'reader' );
+        return determineCorrectParserSettings( header, fixationsMultiplePerFileImporter );
     }
 };
 
-const runParse = async ( data: string, textId: string ): Promise<ImportReadingSessionDto[]> => {
+const runParse = async ( data: string, textId: string, lang: string ): Promise<ImportReadingSessionDto[]> => {
     const conf = preprocessor( data, fixationsMultiplePerFileImporter.options );
 
     if ( conf.textIndex < 0 )
         throw new InvalidIndexNameError( 'text ID' );
 
-    const lang = fixationsMultiplePerFileImporter.options.lang!.value;
     const points: {
         [reader: string]: ImportReadingSessionDto
     } = {};
-    const addPointForReader = usePointAdder( conf, fixationsMultiplePerFileImporter.options.factor!.value as number, points, textId );
+    const addPointForReader = usePointAdder( conf, fixationsMultiplePerFileImporter.options.factor!.value as number, points, textId, lang );
 
     for ( let i = 0; i < conf.lines.length; i++ ) {
         const cols = conf.lines[i]!.split( ',' );
 
         // Language filtering
-        if ( lang || cols[ conf.langIndex ] === lang ) {
+        if ( lang === 'undefined' || ( conf.langIndex > -1 ? cols[conf.langIndex]! === lang : true ) ) {
             if ( cols[conf.textIndex] === textId ) {
                 addPointForReader( cols[ conf.readerIndex ]!, cols );
             }

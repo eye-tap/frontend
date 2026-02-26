@@ -126,10 +126,10 @@
             </table>
             <div v-else class="placeholder">
                 <p>No texts available yet</p>
-                <button class="button primary">
+                <RouterLink class="button primary" to="/admin/texts-upload">
                     <i class="fa-solid fa-plus"></i>
                     Add Text
-                </button>
+                </RouterLink>
             </div>
         </div>
     </div>

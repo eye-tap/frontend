@@ -12,7 +12,8 @@ export const selectBestParser = async <T> (
     parsers: Ref<ImportConfig<T[]>[]>,
     selectedIdx: Ref<number>,
     csvElement: HTMLInputElement,
-    textId: string
+    textId: string,
+    lang?: string
 ): Promise<T[]> => {
     if ( selectedIdx.value > -1 ) {
         return await parsers.value[
@@ -33,7 +34,14 @@ export const selectBestParser = async <T> (
     if ( !parser )
         throw new NoSuitableParserError( 'No suitable parser found.' );
 
+
     console.log( '[Parser selector] Using parser', parser );
 
-    return await parser.parse( csvElement, textId );
+    try {
+        return await parser.parse( csvElement, textId, lang );
+    } catch ( error ) {
+        selectedIdx.value = parsers.value.indexOf( parser );
+
+        throw error;
+    }
 };

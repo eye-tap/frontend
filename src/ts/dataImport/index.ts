@@ -17,14 +17,16 @@ export const importDatasetFromCSV = async (
     annotationsCSVInputElement: HTMLInputElement,
     imageInputElement: HTMLInputElement,
     textId: string,
-    textName: string
+    textName: string,
+    lang: string
 ): Promise<void> => {
     const notifications = useNotification();
 
     console.debug( '[Bench] Starting import' );
     const importStart = performance.now();
-    const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName );
-    const readingSession = await importReadingSession( fixationsCSVInputElement, annotationsCSVInputElement, textId );
+    const language = lang === '' ? 'undefined' : lang;
+    const text = await importText( imageInputElement, boundingBoxesCSVInputElement, textId, textName, language );
+    const readingSession = await importReadingSession( fixationsCSVInputElement, annotationsCSVInputElement, textId, language );
     const loadTime = performance.now() - importStart;
 
     console.debug( '[Bench] Parsing took', loadTime, 'ms' );
@@ -39,6 +41,7 @@ export const importDatasetFromCSV = async (
             } );
         }, 2000 );
 
+    console.log( text, readingSession );
     const backendProcessingStart = performance.now();
 
     try {

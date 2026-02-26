@@ -26,12 +26,13 @@ export const selectedAnnotationParserIndex = ref( -1 );
 
 export const importPreAnnotations = async (
     annotationsCSVElement: HTMLInputElement,
-    textId: string
+    textId: string,
+    lang: string
 ): Promise<ImportPreAnnotationDto[]> => {
     if ( selectedAnnotationParserIndex.value > -1 ) {
-        return await annotationParsers.value[ selectedAnnotationParserIndex.value ]!.parse( annotationsCSVElement, textId );
+        return await annotationParsers.value[ selectedAnnotationParserIndex.value ]!.parse( annotationsCSVElement, textId, lang );
     } else {
         // Find best parser based on header
-        return await selectBestParser( annotationParsers, selectedAnnotationParserIndex, annotationsCSVElement, textId );
+        return await selectBestParser( annotationParsers, selectedAnnotationParserIndex, annotationsCSVElement, textId, lang );
     }
 };

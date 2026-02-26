@@ -12,32 +12,46 @@ export const annotationOpts: ParserOptsList<unknown> = {
     'fixid': {
         'display': 'Fixation ID',
         'value': 'fix_uid',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'fix' ]
     },
     'id': {
         'display': 'Annotation ID',
-        'value': 'fixid',
-        'input': 'string'
+        'value': 'annot_id',
+        'input': 'string',
+        'searchTerms': [ 'annot' ]
     },
     'charid': {
         'display': 'Character ID',
         'value': 'char_uid',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'char' ]
     },
     'dgeom': {
         'display': 'Geometric Mean',
         'value': 'D_geom_mean',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [
+            'D_geom',
+            'd_geom',
+            'dgeom'
+        ]
     },
     'pshare': {
         'display': 'P share', // TODO: Update these names
         'value': 'P_share_mean',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [
+            'P_share',
+            'p_share',
+            'pshare'
+        ]
     },
     'algo': {
         'display': 'Algorithm',
         'value': 'algorithm_id',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'algo' ]
     }
 };
 
@@ -46,6 +60,7 @@ export const mainParser = (
     data: string,
     opts: ParserOptsList<unknown>,
     textId: string,
+    lang: string,
     reassociationMap?: Map<string, string>
 ): ImportPreAnnotationDto[] => {
     const lines = data.split( /\r?\n/ ).filter( l => l.trim() !== '' );
@@ -60,6 +75,7 @@ export const mainParser = (
     const dgeomIndex = header.indexOf( opts.dgeom!.value as string );
     const pshareIndex = header.indexOf( opts.pshare!.value as string );
     const algoIndex = header.indexOf( opts.algo!.value as string );
+    const langIndex = opts.lang ? header.indexOf( opts.lang.value as string ) : -1;
     const parsed: {
         [algo: string]: ImportPreAnnotationDto
     } = {};
@@ -76,7 +92,7 @@ export const mainParser = (
             actualTextID = reassociationMap.get( cols[ textIndex ]! ) ?? '';
         }
 
-        if ( actualTextID === textId ) {
+        if ( actualTextID === textId && ( lang === 'undefined' || ( langIndex > -1 ? cols[langIndex]! === lang : true ) ) ) {
             if ( !parsed[ cols[ algoIndex ]! ] )
                 parsed[ cols[ algoIndex ]! ] = {
                     'title': cols[ algoIndex ]!,

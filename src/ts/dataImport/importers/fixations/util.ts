@@ -23,42 +23,47 @@ export const fixationsOpts: ParserOptsList<unknown> = {
     'x': {
         'display': 'X coordinate',
         'value': 'x',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'x' ]
     },
     'y': {
         'display': 'Y coordinate',
         'value': 'y',
-        'input': 'string'
-    },
-    'reader': {
-        'display': 'Reader',
-        'value': 'reader',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'y' ]
     },
     'id': {
         'display': 'Fixation ID',
         'value': 'fixid',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [
+            'fix',
+            'id'
+        ]
     },
     'lang': {
         'display': 'Language',
         'value': 'lang',
-        'input': 'string'
+        'input': 'string',
+        'searchTerms': [ 'lang' ],
+        'optional': true
     },
     'factor': {
         'display': 'Factor',
         'value': 100,
         'input': 'number'
     },
-    'dgeom': {
-        'display': 'Geometric Mean',
-        'value': 'D_geom_mean',
-        'input': 'number'
-    },
-    'pshare': {
-        'display': 'P share', // TODO: Update these names
-        'value': 'P_share_mean',
-        'input': 'number'
+    'disagreement': {
+        'display': 'Language',
+        'value': 'disagreement',
+        'input': 'string',
+        'searchTerms': [
+            'disag',
+            'dgeom',
+            'd_geom',
+            'D_geom'
+        ],
+        'optional': true
     }
 };
 
@@ -69,13 +74,13 @@ export const preprocessor = (
     const lines = data.split( /\r?\n/ ).filter( l => l.trim() !== '' );
     const header = lines.shift()!.split( ',' )
         .map( h => h.trim() );
-    const readerIndex = header.indexOf( opts.reader!.value as string );
+    const readerIndex = opts.reader ? header.indexOf( opts.reader!.value as string ) : -1;
     const textIndex = opts.textID ? header.indexOf( opts.textID!.value as string ) : -1;
     const xIndex = header.indexOf( opts.x!.value as string );
     const yIndex = header.indexOf( opts.y!.value as string );
     const idIndex = header.indexOf( opts.id!.value as string );
     const langIndex = header.indexOf( opts.lang!.value as string );
-    const disagreementIndex = header.indexOf( opts.dgeom!.value as string );
+    const disagreementIndex = header.indexOf( opts.disagreement!.value as string );
 
     if ( xIndex < 0 )
         throw new InvalidIndexNameError( 'X coordinate' );
@@ -102,7 +107,8 @@ export const usePointAdder = (
     points: {
         [key: string]: ImportReadingSessionDto
     },
-    textId: string
+    textId: string,
+    lang: string
 ) => {
     return (
         reader: string,
@@ -117,7 +123,7 @@ export const usePointAdder = (
                 'readerForeignId': Number( reader ),
                 'fixations': [],
                 'preAnnotations': [],
-                'language': indices.langIndex > -1 ? cols[ indices.langIndex ]! : 'undefined'
+                'language': lang
             };
         }
 

@@ -6,7 +6,8 @@
     import {
         InvalidIndexNameError,
         MissingFilesError,
-        MultipleTextIDsWithoutSpecifiedTextIDError
+        MultipleTextIDsWithoutSpecifiedTextIDError,
+        NoSuitableParserError
     } from '@/ts/dataImport/util/errors';
     import {
         type Ref,
@@ -28,6 +29,7 @@
     const annotationsInput: Ref<HTMLInputElement | null> = ref( null );
     const index = ref( 0 );
     const textID = ref( '' );
+    const lang = ref( '' );
     const showError = ref( false );
     const errorMessage = ref( '' );
     const notifications = useNotification();
@@ -80,7 +82,8 @@
                 annotationsInput.value,
                 imageInput.value,
                 textID.value,
-                baseName.value
+                baseName.value,
+                lang.value
             );
         } catch ( error ) {
             if ( status.devMode )
@@ -107,6 +110,12 @@
             else if ( error instanceof MissingFilesError )
                 notifications.notify( {
                     'text': 'A required file was not uploaded',
+                    'type': 'error',
+                    'title': 'File Upload'
+                } );
+            else if ( error instanceof NoSuitableParserError )
+                notifications.notify( {
+                    'text': 'A suitable parser could not be determined automatically. Please select manually',
                     'type': 'error',
                     'title': 'File Upload'
                 } );
@@ -143,7 +152,7 @@
     };
 
     const annotationsLoadTrigger = () => {
-        // TODO import
+        // TODO: import --> Likely not needed
         notifications.notify( {
             'text': 'Machine generated annotations successfuly imported.',
             'type': 'success',
@@ -176,6 +185,13 @@
                 <input
                     v-model="textID"
                     placeholder="Text ID"
+                    type="text"
+                >
+            </label>
+            <label class="metadata">
+                <input
+                    v-model="lang"
+                    placeholder="Language (Optional)"
                     type="text"
                 >
             </label>

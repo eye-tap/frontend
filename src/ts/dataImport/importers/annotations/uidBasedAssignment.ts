@@ -18,6 +18,9 @@ import {
 import {
     createUidLookupMap
 } from '../../util/char_text_map';
+import {
+    determineCorrectParserSettings
+} from '../../util/parserSettingsGenerator';
 
 export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
     'display': 'UID based reverse association',
@@ -26,7 +29,11 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
         'textuid': {
             'display': 'Text UID',
             'value': 'text_uid',
-            'input': 'string'
+            'input': 'string',
+            'searchTerms': [
+                'text_uid',
+                'textuid'
+            ]
         },
         'association': {
             'display': 'Text to generate associations from', // TODO: Update name, this is for texts.csv file
@@ -42,9 +49,14 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
             'display': 'Text ID', // TODO: Update name, this is for texts.csv file
             'value': 'text_id',
             'input': 'string'
+        },
+        'assLang': {
+            'display': 'Language', // TODO: Update name, this is for texts.csv file
+            'value': 'lang',
+            'input': 'string'
         }
     },
-    'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportPreAnnotationDto[]> => {
+    'parse': async ( inputElement: HTMLInputElement, textId: string, lang ): Promise<ImportPreAnnotationDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
         const association = createUidLookupMap(
@@ -59,6 +71,7 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
                 data,
                 uidBasedTextAnnotationImporter.options,
                 textId,
+                lang,
                 association
             );
 
@@ -70,7 +83,6 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
         return store;
     },
     'canParse': ( header: string[] ) => {
-        // TODO: Update the canParse functions of most parsers
-        return header.includes( 'text_uid' );
+        return determineCorrectParserSettings( header, uidBasedTextAnnotationImporter );
     }
 };

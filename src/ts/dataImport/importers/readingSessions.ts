@@ -15,10 +15,11 @@ import {
 export const importReadingSession = async (
     fixationsCSVElement: HTMLInputElement,
     annotationsCSVElement: HTMLInputElement,
-    textId: string
+    textId: string,
+    lang: string
 ): Promise<ImportReadingSessionDto[]> => {
-    const fix = await importFixations( fixationsCSVElement, textId );
-    const annotations = await importPreAnnotations( annotationsCSVElement, textId );
+    const fix = await importFixations( fixationsCSVElement, textId, lang );
+    const annotations = await importPreAnnotations( annotationsCSVElement, textId, lang );
 
     return addPreAnnotationsToReadingSessions( fix, annotations );
 };

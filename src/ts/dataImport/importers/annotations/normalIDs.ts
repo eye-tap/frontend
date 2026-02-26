@@ -12,6 +12,9 @@ import {
     MissingFilesError
 } from '../../util/errors';
 import {
+    determineCorrectParserSettings
+} from '../../util/parserSettingsGenerator';
+import {
     loadAllFilesOfElementAsStringWithCallback
 } from '../../util/fileLoader';
 
@@ -23,16 +26,24 @@ export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = 
         'textid': {
             'display': 'Text ID',
             'value': 'text_id',
-            'input': 'string'
+            'input': 'string',
+            'searchTerms': [ 'text' ]
+        },
+        'lang': {
+            'display': 'Language',
+            'value': 'lang',
+            'input': 'string',
+            'searchTerms': [ 'lang' ],
+            'optional': true
         }
     },
-    'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportPreAnnotationDto[]> => {
+    'parse': async ( inputElement: HTMLInputElement, textId: string, lang ): Promise<ImportPreAnnotationDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
         const store: ImportPreAnnotationDto[] = [];
 
         await loadAllFilesOfElementAsStringWithCallback( inputElement, async ( data: string ) => {
-            const parsed = mainParser( data, normalAnnotationImporter.options, textId );
+            const parsed = mainParser( data, normalAnnotationImporter.options, textId, lang );
 
             parsed.forEach( val => {
                 store.push( val );
@@ -42,6 +53,6 @@ export const normalAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = 
         return store;
     },
     'canParse': ( header: string[] ) => {
-        return !header.includes( 'text_uid' );
+        return !header.includes( 'text_uid' ) && determineCorrectParserSettings( header, normalAnnotationImporter );
     }
 };

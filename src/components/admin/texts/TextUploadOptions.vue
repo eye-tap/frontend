@@ -20,8 +20,6 @@
     const goBack = () => {
         router.push( adminBaseRoute + 'texts' );
     };
-
-    // TODO: If any errors from src/ts/dataImport/util/errors.ts are raised, open this popup automatically
 </script>
 
 <template>
@@ -31,17 +29,7 @@
                 Options
             </h2>
         </div>
-        <p class="subtitle">
-            FIXATIONS
-        </p>
         <div class="options-container">
-            <div class="options-section">
-                <TextUploadOptionsOptionRenderer
-                    v-model="selectedReadingSessionParserIndex"
-                    :parsers="readingSessionParsers"
-                />
-            </div>
-
             <div class="options-section">
                 <p class="subtitle">
                     BOUNDING BOXES
@@ -51,6 +39,17 @@
                     :parsers="characterBoxParsers"
                 />
             </div>
+
+            <div class="options-section">
+                <p class="subtitle">
+                    FIXATIONS
+                </p>
+                <TextUploadOptionsOptionRenderer
+                    v-model="selectedReadingSessionParserIndex"
+                    :parsers="readingSessionParsers"
+                />
+            </div>
+
 
             <div class="options-section">
                 <p class="subtitle">

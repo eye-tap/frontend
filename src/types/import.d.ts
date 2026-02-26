@@ -7,7 +7,7 @@ export interface ImportConfig<T> {
     'display': string;
     'desc'?: string;
     'options': ParserOptsList<unknown>,
-    'parse': ( inputElement: HTMLInputElement, textId: string ) => Promise<T>
+    'parse': ( inputElement: HTMLInputElement, textId: string, lang: string ) => Promise<T>
     'canParse'?: ( header: string[] ) => boolean;
 }
 
@@ -35,6 +35,17 @@ export interface ParserOption<T> {
      * Set to default on initialization
      */
     'value': T;
+
+    /**
+     * Terms that can be searched for in the header to autoamtically generate assignment
+     */
+    'searchTerms'?: string[];
+
+    /**
+     * Whether it is required to have a valid assignment for the parser to be usable.
+     * Thus: If true, assignment not required
+     */
+    'optional'?: boolean;
 }
 
 export interface ImportAnnotation {

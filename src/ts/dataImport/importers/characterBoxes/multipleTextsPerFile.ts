@@ -5,7 +5,7 @@ import {
 import {
     boundingBoxesOpts,
     preprocessor
-} from './preprocessor';
+} from './util';
 import type {
     ImportCharacterBoundingBoxDto
 } from '@/types/dtos/ImportCharacterBoundingBoxDto';
@@ -13,8 +13,8 @@ import type {
     ImportConfig
 } from '@/types/import';
 import {
-    currentTextLang
-} from '.';
+    determineCorrectParserSettings
+} from '../../util/parserSettingsGenerator';
 import {
     fileLoaderString
 } from '../../util/fileLoader';
@@ -26,20 +26,21 @@ export const characterBoxMultipleTextImporter: ImportConfig<ImportCharacterBound
         'textID': {
             'display': 'Text ID',
             'value': 'text_id',
-            'input': 'string'
+            'input': 'string',
+            'searchTerms': [ 'text' ]
         }
     },
-    'parse': async ( inputElement: HTMLInputElement, textId: string ): Promise<ImportCharacterBoundingBoxDto[]> => {
+    'parse': async ( inputElement: HTMLInputElement, textId: string, lang: string ): Promise<ImportCharacterBoundingBoxDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
-        return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId );
+        return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId, lang );
     },
     'canParse': ( header: string[] ) => {
-        return header.includes( 'text' );
+        return determineCorrectParserSettings( header, characterBoxMultipleTextImporter );
     }
 };
 
-const runParse = async ( data: string, textId: string ): Promise<ImportCharacterBoundingBoxDto[]> => {
+const runParse = async ( data: string, textId: string, lang: string ): Promise<ImportCharacterBoundingBoxDto[]> => {
     const conf = preprocessor( data, characterBoxMultipleTextImporter.options );
     const boxes: ImportCharacterBoundingBoxDto[] = [];
 
@@ -49,8 +50,7 @@ const runParse = async ( data: string, textId: string ): Promise<ImportCharacter
     for ( let i = 0; i < conf.lines.length; i++ ) {
         const cols = conf.lines[i]!.split( ',' );
 
-        if ( cols[conf.textIndex] === textId ) {
-            currentTextLang.lang = conf.langIndex > -1 ? cols[conf.langIndex]! : 'undefined';
+        if ( cols[conf.textIndex] === textId && ( lang === 'undefined' || ( conf.langIndex > -1 ? cols[conf.langIndex]! === lang : true ) ) ) {
             const x1 = Number( cols[conf.xMinIndex] );
             const x2 = Number( cols[conf.xMaxIndex] );
             const y1 = Number( cols[conf.yMinIndex] );

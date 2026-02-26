@@ -26,11 +26,12 @@ export const selectedReadingSessionParserIndex = ref( -1 );
 
 export const importFixations = async (
     fixationsCSVElement: HTMLInputElement,
-    textId: string
+    textId: string,
+    lang: string
 ): Promise<ImportReadingSessionDto[]> => {
     if ( selectedReadingSessionParserIndex.value > -1 ) {
-        return await readingSessionParsers.value[ selectedReadingSessionParserIndex.value ]!.parse( fixationsCSVElement, textId );
+        return await readingSessionParsers.value[ selectedReadingSessionParserIndex.value ]!.parse( fixationsCSVElement, textId, lang );
     } else {
-        return await selectBestParser( readingSessionParsers, selectedReadingSessionParserIndex, fixationsCSVElement, textId );
+        return await selectBestParser( readingSessionParsers, selectedReadingSessionParserIndex, fixationsCSVElement, textId, lang );
     }
 };

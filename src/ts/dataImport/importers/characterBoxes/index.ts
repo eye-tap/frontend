@@ -30,28 +30,20 @@ export const characterBoxParsers: Ref<ImportConfig<ImportCharacterBoundingBoxDto
 
 export const selectedCharacterBoxParserIndex = ref( -1 );
 
-export const currentTextLang: {
-    'lang': string
-} = {
-    'lang': 'undefined'
-};
-
-export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputElement, textId: string ): Promise<{
+export const importBoundingBoxes = async ( boundingBoxesCSVElement: HTMLInputElement, textId: string, lang: string ): Promise<{
     'characters': ImportCharacterBoundingBoxDto[],
     'words': ImportWordBoundingBoxDto[],
-    'lang': string
 }> => {
     let cbb: ImportCharacterBoundingBoxDto[] = [];
 
     if ( selectedCharacterBoxParserIndex.value > -1 ) {
-        cbb = await characterBoxParsers.value[ selectedCharacterBoxParserIndex.value ]!.parse( boundingBoxesCSVElement, textId );
+        cbb = await characterBoxParsers.value[ selectedCharacterBoxParserIndex.value ]!.parse( boundingBoxesCSVElement, textId, lang );
     } else {
-        cbb = await selectBestParser( characterBoxParsers, selectedCharacterBoxParserIndex, boundingBoxesCSVElement, textId );
+        cbb = await selectBestParser( characterBoxParsers, selectedCharacterBoxParserIndex, boundingBoxesCSVElement, textId, lang );
     }
 
     return {
         'characters': cbb,
-        'words': generateWordBoxesFromCharacterBoxes( cbb ),
-        'lang': currentTextLang.lang
+        'words': generateWordBoxesFromCharacterBoxes( cbb )
     };
 };
