@@ -39,6 +39,8 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
                 'boxId': boundingBoxIndex
             };
 
+            deleteByFixID( annotation.fixationId );
+
             annotations.value.push( annotation );
 
             // Add to history
