@@ -79,17 +79,24 @@
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
-                <span class="clickable-icon" @click="editor.undo">
-                    <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
-                    <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
+                <span class="clickable-icon" :class="undoAvailable ? '' : 'unavailable'" @click="editor.undo">
+                    <i class="fa-lg fa-solid fa-rotate-left"></i>
                 </span>
-                <span class="clickable-icon" title="Redo your last undone action" @click="editor.redo">
-                    <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
-                    <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
+                <span
+                    class="clickable-icon"
+                    :class="redoAvailable ? '' : 'unavailable'"
+                    title="Redo your last undone action"
+                    @click="editor.redo"
+                >
+                    <i class="fa-lg fa-solid fa-rotate-right"></i>
                 </span>
-                <span class="clickable-icon" title="Save" @click="editor.save">
-                    <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
-                    <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
+                <span
+                    class="clickable-icon"
+                    :class="saveNeeded ? '' : 'unavailable'"
+                    title="Save"
+                    @click="save"
+                >
+                    <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
             </div>
             <div class="options-bar-right">
@@ -175,6 +182,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .button.unavailable {
+            background-color: var(--theme-bg-1);
+            color: gray;
+            cursor: not-allowed;
+        }
     }
 
     .options-bar-sm {
@@ -220,14 +233,18 @@
         .clickable-icon {
             cursor: pointer;
 
+            &.unavailable {
+                color:  var(--theme-bg-3-20);
+                cursor: not-allowed;
+
+                :hover {
+                    color: var( --theme-bg-3-20 );
+                }
+            }
+
             :hover {
                 color: var(--theme-bg-4-20);
             }
-        }
-
-        .unavailable {
-            color:  var(--theme-bg-3-20);
-            cursor: not-allowed;
         }
 
         .options-bar-left {

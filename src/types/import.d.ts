@@ -46,6 +46,11 @@ export interface ParserOption<T> {
      * Thus: If true, assignment not required
      */
     'optional'?: boolean;
+
+    /**
+     * Notes to display on the parser details page
+     */
+    'notes'?: string;
 }
 
 export interface ImportAnnotation {
