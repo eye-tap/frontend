@@ -56,6 +56,14 @@ export const dropShadowOpacityStart = ref( 1 );
 
 export const dropShadowOpacityEnd = ref( 0 );
 
+export const dropShadowMinBoldness = ref( 200 );
+
+export const dropShadowMaxBoldness = ref( 2000 );
+
+export const dropShadowOffsetX = ref( 1 );
+
+export const dropShadowOffsetY = ref( 2 );
+
 
 // Stroke width
 export const boundingBoxStrokeWidth = ref( 2 );
@@ -198,7 +206,7 @@ export const disableKeyHandler = ref( false );
 
 export const moveThresholdForDrag = 3;
 
-export const moveThresholdForAssign = 3;
+export const moveThresholdForAssign = 10;
 
 export const keyboardZoomStep = ref( 0.25 );
 

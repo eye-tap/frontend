@@ -6,6 +6,10 @@ import {
 import {
     assignedFixationColor,
     dropShadowInnerSize,
+    dropShadowMaxBoldness,
+    dropShadowMinBoldness,
+    dropShadowOffsetX,
+    dropShadowOffsetY,
     dropShadowOpacityEnd,
     dropShadowOpacityStart,
     dropShadowPasses,
@@ -83,6 +87,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         const fontScaleUpPerIterOutside = 2 * movePerIterOutside;
         const fontScaleUpPerIterInside = 2 * movePerIterInside;
         const numberToShow = ( idx + 1 ).toString();
+        const boldnessStep = ( dropShadowMaxBoldness.value - dropShadowMinBoldness.value ) / dropShadowPasses.value;
 
         let totalOffset = 0;
 
@@ -95,14 +100,14 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
                     const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
 
-                    ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
+                    ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
-                    const aspect = ctx!.measureText( toDisplay ).width / fontSize;
+                    const w = ctx!.measureText( toDisplay ).width / width;
 
                     ctx!.fillText(
                         toDisplay,
-                        scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) - ( movePerIterOutside * i * aspect ), 'x' ) ) + totalOffset,
-                        scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIterOutside * i ), 'y' ) )
+                        scale( originalToCanvasCoordinates( ( fixation.x! + fixationRadius.value ) + ( w / 2 ), 'x' ) ) + totalOffset + dropShadowOffsetX.value,
+                        scale( originalToCanvasCoordinates( ( fixation.y! - fixationRadius.value ) + ( movePerIterOutside * i ) + dropShadowOffsetY.value, 'y' ) )
                     );
                 }
 
@@ -112,7 +117,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                     const fontSize = scale( indicesFontSize.value
                         - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
 
-                    ctx!.font = fontSize + 'px ' + indicesFontFamily.value;
+                    ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityEnd.value - ( opacityPerStep * i ) } )`;
                     const aspect = ctx!.measureText( toDisplay ).width / fontSize;
 
@@ -147,7 +152,11 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         dropShadowOpacityStart,
         dropShadowOpacityEnd,
         dropShadowPasses,
-        dropShadowSize
+        dropShadowSize,
+        dropShadowOffsetX,
+        dropShadowOffsetY,
+        dropShadowMinBoldness,
+        dropShadowMaxBoldness
     ], render );
 
     onMounted( () => {

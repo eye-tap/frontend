@@ -81,7 +81,12 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         fixationsOpacity,
         fixationRadius,
         selectedFixation,
-        hoveredFixation
+        hoveredFixation,
+        assignedFixationColor,
+        unassignedFixationColor,
+        hoveredFixationColor,
+        selectedFixationColor,
+        machineAssignedFixationColor
     ], render );
 
     return {

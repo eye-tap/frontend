@@ -86,7 +86,7 @@
                             Assigned by
                         </p>
                         <p class="content">
-                            {{ fixations[ selectedFixation ]!.assigned }}
+                            {{ fixations[ selectedFixation ]?.assigned }}
                         </p>
                     </td>
                     <td>
@@ -94,7 +94,7 @@
                             Fixation number
                         </p>
                         <p class="content">
-                            {{ fixations[ selectedFixation ]!.id }}
+                            {{ fixations[ selectedFixation ]?.id ? fixations[ selectedFixation ]!.id! + 1 : 'N/A' }}
                         </p>
                     </td>
                 </tr>
@@ -119,7 +119,7 @@
                             Reader
                         </p>
                         <p class="content">
-                            {{ session.sessionIds[ session.sessionIdx ]!.reader }}
+                            {{ session.sessionIds[ session.sessionIdx ] ? session.sessionIds[ session.sessionIdx ]!.reader : 'N/A' }}
                         </p>
                     </td>
                 </tr>

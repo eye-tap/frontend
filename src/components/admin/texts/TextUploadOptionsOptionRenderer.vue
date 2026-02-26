@@ -23,14 +23,17 @@
 
 <template>
     <div>
-        <select v-model="selected">
-            <option :value="-1">
-                Auto
-            </option>
-            <option v-for="parser, idx in props.parsers" :key="idx" :value="idx">
-                {{ parser.display }}
-            </option>
-        </select>
+        <div class="parser-select">
+            <p>Data parser</p>
+            <select v-model="selected">
+                <option :value="-1">
+                    Auto
+                </option>
+                <option v-for="parser, idx in props.parsers" :key="idx" :value="idx">
+                    {{ parser.display }}
+                </option>
+            </select>
+        </div>
         <div v-if="selected >= 0">
             <div v-for="opt, idx in props.parsers[ selected ]!.options" :key="idx">
                 <input
@@ -63,6 +66,17 @@
 
 <style scoped lang="scss">
     @use '@/scss/admin/general';
+
+    .parser-select {
+        display: flex;
+        align-items: center;
+
+        >p {
+            margin: 0;
+            margin-left: 1rem;
+            color: var( --theme-background-text-20 );
+        }
+    }
 
     select {
         margin: 1rem;
