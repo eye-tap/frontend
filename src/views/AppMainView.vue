@@ -17,7 +17,7 @@
 
     document.addEventListener( 'eyetap:annotation-done', () => {
         if ( pageTitle.value.includes( 'soft complete' ) )
-            pageTitle.value = pageTitle.value.slice( 0, pageTitle.value.indexOf( 'soft complete' ) - 1 ) + ' complete';
+            pageTitle.value = pageTitle.value.slice( 0, pageTitle.value.indexOf( 'soft complete' ) - 1 ) + 'complete';
         else if ( !pageTitle.value.includes( 'complete' ) )
             pageTitle.value += ' (complete)';
     } );
