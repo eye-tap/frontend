@@ -1,12 +1,15 @@
 import {
+    algorithmsList,
+    annotations,
+    fixations,
+    selectedAlgorithm,
+    selectedFixation
+} from '../data';
+import {
     disableKeyHandler,
     keyboardZoomPanStep,
     keyboardZoomStep
 } from '../config';
-import {
-    fixations,
-    selectedFixation
-} from '../data';
 import {
     onMounted,
     onUnmounted
@@ -80,13 +83,17 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 }
             } else if ( ev.key === 'Space' ) {
                 ev.preventDefault();
-                annotation.create(
-                    // TODO: Get current algorithm's selected fixation
-                    0,
-                    selectedFixation.value,
-                    false,
-                    false
-                );
+
+                try {
+                    annotation.create(
+                        annotations.value.indexOf(
+                            annotations.value.find( val => val.algorithm === algorithmsList.value[ selectedAlgorithm.value ]! )!
+                        ),
+                        selectedFixation.value,
+                        false,
+                        false
+                    );
+                } catch { /* empty */ }
             }
         }
     };

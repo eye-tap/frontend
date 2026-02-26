@@ -55,7 +55,7 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
                     filterAlgorithms( l, surroundingDrawer );
                 } );
         } else if ( linesDisplay.value === 'allalgos' ) {
-            // TODO: Do we want more settings here?
+            // TODO: Do we want more settings here? (like )
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
                     if ( l.fixationId === selectedFixation.value )
@@ -64,13 +64,13 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         }
     };
 
-    // TODO: Filter algorithm (also do not display if invalid fixation)
     const filterAlgorithms = ( l: EditorAnnotation, drawFunc: ( l: EditorAnnotation ) => void ) => {
         const assignType = fixations.value[ l.fixationId ]!.assigned;
 
         if ( assignType === 'invalid' ) return;
 
-        if ( assignType === 'assigned' ) drawFunc( l );
+        if ( assignType === 'assigned' ) drawFunc( l ); // TODO: This is not good yet (will render all assignments)
+
 
         if ( !l.algorithm ) {
             if ( selectedAlgorithm.value > -1 ) return;
