@@ -13,12 +13,12 @@ export const selectBestParser = async <T> (
     selectedIdx: Ref<number>,
     csvElement: HTMLInputElement,
     textId: string,
-    lang?: string
+    lang: string
 ): Promise<T[]> => {
     if ( selectedIdx.value > -1 ) {
         return await parsers.value[
             selectedIdx.value
-        ]!.parse( csvElement, textId );
+        ]!.parse( csvElement, textId, lang );
     }
 
     if ( !csvElement.files?.[0] )
