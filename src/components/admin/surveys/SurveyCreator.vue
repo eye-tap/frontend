@@ -41,6 +41,7 @@
     const title = ref( '' );
     const desc = ref( '' );
     const userCount = ref( null );
+    const creating = ref( false );
 
     const dismiss = () => {
         surveyStore.selectedSurveyIndex = -2;
@@ -125,16 +126,34 @@
             } );
         }
 
+        creating.value = true;
+
         createSurvey(
             userCount.value!,
             title.value,
             desc.value,
             surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
-        ).then( links => {
-            surveyStore.setLinks( links );
-            router.push( adminBaseRoute + 'surveys/magiclinks' );
-            document.dispatchEvent( new CustomEvent( 'eyetap:survey:create' ) );
-        } );
+        )
+            .then( links => {
+                surveyStore.setLinks( links );
+                router.push( adminBaseRoute + 'surveys/magiclinks' );
+                document.dispatchEvent( new CustomEvent( 'eyetap:survey:create' ) );
+                creating.value = true;
+                notifications.notify( {
+                    'text': 'Survey created successfully',
+                    'type': 'success',
+                    'title': 'Survey creation'
+                } );
+            } )
+            .catch( err => {
+                console.error( err );
+                notifications.notify( {
+                    'text': 'Unable to create survey right now. Please try again later',
+                    'type': 'success',
+                    'title': 'Survey creation'
+                } );
+                creating.value = true;
+            } );
     };
 
     const useTestData = () => {
@@ -263,8 +282,11 @@
                     <p>Please select a text</p>
                 </div>
             </div>
-            <button class="button primary" @click="save">
+            <button class="button primary long-action" @click="save">
                 Save
+                <div v-if="creating">
+                    <i class="fa-solid fa-lg fa-arrows-rotate"></i>
+                </div>
             </button>
             <button class="button secondary" @click="dismiss">
                 Back
