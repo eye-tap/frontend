@@ -1,4 +1,4 @@
 export interface AnnotationsMetaDataDto {
-    'total'?: number;
-    'done'?: number;
+  total?: number;
+  done?: number;
 }
