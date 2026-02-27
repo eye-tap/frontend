@@ -150,15 +150,6 @@
     const fileLoadTrigger = () => {
         index.value++;
     };
-
-    const annotationsLoadTrigger = () => {
-        // TODO: import --> Likely not needed
-        notifications.notify( {
-            'text': 'Machine generated annotations successfuly imported.',
-            'type': 'success',
-            'title': 'Annotations imported'
-        } );
-    };
 </script>
 
 <template>
@@ -241,7 +232,6 @@
                     type="file"
                     accept="text/csv"
                     multiple
-                    @change="annotationsLoadTrigger"
                 >
             </label>
         </div>
