@@ -150,7 +150,7 @@
             <OptionsPane />
         </div>
         <div v-if="!isSideBarCollapsed" class="bottom-buttons">
-            <!-- TODO: Unavailable class needed here too -->
+            <!-- TODO: Unavailable class might need a bit of a better design -->
             <button class="button primary long-action" :class="saveNeeded ? '' : 'unavailable'" @click="save">
                 Save
                 <div v-if="saving">

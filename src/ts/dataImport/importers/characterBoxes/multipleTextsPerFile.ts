@@ -35,8 +35,8 @@ export const characterBoxMultipleTextImporter: ImportConfig<ImportCharacterBound
 
         return runParse( await fileLoaderString( inputElement.files[ 0 ] ), textId, lang );
     },
-    'canParse': ( header: string[] ) => {
-        return determineCorrectParserSettings( header, characterBoxMultipleTextImporter );
+    'canParse': ( header: string[], fileCount: number ) => {
+        return fileCount === 1 && determineCorrectParserSettings( header, characterBoxMultipleTextImporter );
     }
 };
 

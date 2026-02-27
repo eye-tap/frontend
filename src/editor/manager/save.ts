@@ -4,10 +4,18 @@ import {
     fixations
 } from '../data';
 import {
+    createDiff,
+    createNumberDiff
+} from '@/ts/annotations/diff';
+import {
     onMounted,
     onUnmounted,
     ref
 } from 'vue';
+import {
+    sessionData,
+    userAnnotations
+} from '../loaders/backend';
 import type {
     EditAnnotationsDto
 } from '@/types/dtos/EditAnnotationsDto';
@@ -25,14 +33,36 @@ export const useSaveFunction = () => {
 
     const save = async () => {
         const data: EditAnnotationsDto = {
-            'annotations': {}
+            'annotations': {},
+            'annotationsToRemove': {}
         };
 
         try {
-        // Translate to correct ids
-            annotations.value.forEach( val => {
-                data.annotations![ fixations.value[ val.fixationId ]!.id! ] = boundingBoxes.value[ val.boxId ]!.id!;
+            // Translate to correct ids
+            const ann = createDiff( userAnnotations.value, annotations.value );
+
+            ann.added.forEach( val => {
+                data.annotations![ fixations.value[ val.fixationIdx ]!.id! ] = boundingBoxes.value[ val.boxIdx ]!.id!;
             } );
+
+            ann.removed.forEach( val => {
+                data.annotationsToRemove![ fixations.value[ val.fixationIdx ]!.id! ] = boundingBoxes.value[ val.boxIdx ]!.id!;
+            } );
+
+            // Process fixations marked as invalid
+            const invalidMarked = fixations.value
+                .map( val => {
+                    return {
+                        'state': val.assigned === 'invalid',
+                        'id': val.id!
+                    };
+                } )
+                .filter( val => val.state )
+                .map( val => val.id );
+            const diff = createNumberDiff( sessionData.value.removedFixations ?? [], invalidMarked );
+
+            data.fixationsToRemove = diff.added;
+            data.fixationsToUndoRemove = diff.removed;
         } catch ( e ) {
             document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
                 'detail': {

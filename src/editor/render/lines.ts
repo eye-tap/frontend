@@ -58,18 +58,18 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
             // TODO: Do we want more settings here? (like )
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
-                    if ( l.fixationId === selectedFixation.value )
+                    if ( l.fixationIdx === selectedFixation.value )
                         drawLine( l );
                 } );
         }
     };
 
     const filterAlgorithms = ( l: EditorAnnotation, drawFunc: ( l: EditorAnnotation ) => void ) => {
-        const assignType = fixations.value[ l.fixationId ]!.assigned;
+        const assignType = fixations.value[ l.fixationIdx ]!.assigned;
 
         if ( assignType === 'invalid' ) return;
 
-        if ( assignType === 'assigned' ) drawFunc( l ); // TODO: This is not good yet (will render all assignments)
+        if ( assignType === 'assigned' ) drawFunc( l );
 
 
         if ( !l.algorithm ) {
@@ -82,21 +82,21 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     };
 
     const previousDrawer = ( l: EditorAnnotation ) => {
-        if ( l.fixationId === selectedFixation.value )
+        if ( l.fixationIdx === selectedFixation.value )
             drawLine( l );
-        else if ( l.fixationId === selectedFixation.value - 1 )
+        else if ( l.fixationIdx === selectedFixation.value - 1 )
             drawLine( l );
     };
 
     const surroundingDrawer = ( l: EditorAnnotation ) => {
-        if ( l.fixationId > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
-            || l.fixationId < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
+        if ( l.fixationIdx > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
+            || l.fixationIdx < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
             drawLine( l );
     };
 
     const drawLine = ( line: EditorAnnotation ) => {
-        const fix = fixations.value[ line.fixationId ]!;
-        const box = boundingBoxes.value[ line.boxId ]!;
+        const fix = fixations.value[ line.fixationIdx ]!;
+        const box = boundingBoxes.value[ line.boxIdx ]!;
 
         ctx!.beginPath();
         ctx!.moveTo(

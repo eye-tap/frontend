@@ -5,10 +5,11 @@ import type {
 export interface HistoryEntry {
     'annotation': EditorAnnotation;
     'selectedFixation': number;
+    'action': 'add' | 'delete';
 }
 
 export interface AnnotationManager {
-    'deleteByFixID': ( fixationId: number ) => void;
+    'deleteByFixID': ( fixationId: number, addActionToHistory: boolean = false ) => void;
     'deleteByBoxID': ( boxId: number ) => void;
     'markAsInvalid': ( fixationId: number ) => void;
     'create': ( boundingBoxIndex: number, fixationIndex: number, skipHistory?: boolean, highlight?: boolean ) => void;

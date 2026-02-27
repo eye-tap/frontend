@@ -49,12 +49,14 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
 
         undoHistory.value.push( last );
         selectedFixation.value = last.selectedFixation;
-        annotation.create( last.annotation.boxId, last.annotation.fixationId, true, false );
 
-        if ( last.annotation.boxId !== undefined ) {
-            fixations.value[ last.annotation.fixationId ]!.assigned = 'assigned';
+        if ( last.action === 'delete' ) annotation.deleteByFixID( last.annotation.fixationIdx );
+        else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
+
+        if ( last.annotation.boxIdx !== undefined ) {
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'assigned';
         } else {
-            fixations.value[ last.annotation.fixationId ]!.assigned = 'unassigned';
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'unassigned';
         }
     };
 
@@ -65,7 +67,26 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
             'annotation': {
                 ...annotation
             },
-            'selectedFixation': selectedFixation
+            'selectedFixation': selectedFixation,
+            'action': 'add'
+        } );
+        clearRedo();
+    };
+
+    /**
+     * Add a remove event to the history
+     * @param annotation - The annotation that was removed
+     * @param selectedFixation - The fixation that was selected
+     */
+    const remove = ( annotation: EditorAnnotation, selectedFixation: number ) => {
+        revision.value++;
+
+        undoHistory.value.push( {
+            'annotation': {
+                ...annotation
+            },
+            'selectedFixation': selectedFixation,
+            'action': 'delete'
         } );
         clearRedo();
     };
@@ -79,13 +100,13 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
 
         redoHistory.value.push( last );
 
-        // Check that everything still works properly
-        annotation.deleteByFixID( last.annotation.fixationId );
+        if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
+        else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
-        if ( last.annotation.boxId !== undefined ) {
-            fixations.value[ last.annotation.fixationId ]!.assigned = 'assigned';
+        if ( last.annotation.boxIdx !== undefined ) {
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'assigned';
         } else {
-            fixations.value[ last.annotation.fixationId ]!.assigned = 'unassigned';
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'unassigned';
         }
 
         selectedFixation.value = last.selectedFixation + 1;
@@ -105,6 +126,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
 
     return {
         add,
+        remove,
         clearRedo,
         clear
     };

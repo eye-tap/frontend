@@ -2,12 +2,12 @@ export interface EditorAnnotation {
     /**
      * The fixation index, i.e. index in the fixations array
      */
-    'fixationId': number;
+    'fixationIdx': number;
 
     /**
      * The box index, i.e. index in the boundingBoxes array
      */
-    'boxId': number;
+    'boxIdx': number;
 
     /**
      * The algorithm that created it. If not set, assumes it's user-created

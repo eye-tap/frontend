@@ -38,8 +38,8 @@ export const fixationsMultiplePerFileImporter: ImportConfig<ImportReadingSession
     },
 
     // used for parser selection
-    'canParse': ( header: string[] ) => {
-        return determineCorrectParserSettings( header, fixationsMultiplePerFileImporter );
+    'canParse': ( header: string[], fileCount: number ) => {
+        return fileCount === 1 && determineCorrectParserSettings( header, fixationsMultiplePerFileImporter );
     }
 };
 

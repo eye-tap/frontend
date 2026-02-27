@@ -31,6 +31,8 @@ import {
 
 export const sessionData: Ref<AnnotationSessionDto> = ref( {} );
 
+export const userAnnotations: Ref<EditorAnnotation[]> = ref( [] );
+
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
@@ -45,11 +47,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     fixations.value = [];
     fix.forEach( f => {
+        const isInavlid = sessionData.value.removedFixations?.includes( f.id! ) ?? false;
+
         fixations.value.push( {
             'x': f.x!,
             'y': f.y!,
             'id': f.id!,
-            'assigned': 'unassigned',
+            'assigned': isInavlid ? 'invalid' : 'unassigned',
             'disagreement': f.disagreement
         } );
     } );
@@ -72,16 +76,21 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const annotationLoad = sessionData.value.annotations!;
 
     annotations.value = [];
+    userAnnotations.value = [];
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
             // TODO: Need algorithm name. Editor's Annotation object already supports it
             const ann: EditorAnnotation = {
-                'fixationId': getFixIdxFromId( annotation.fixation!.id! ),
-                'boxId': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
+                'fixationIdx': getFixIdxFromId( annotation.fixation!.id! ),
+                'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
 
-            fixations.value[ ann.fixationId ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+            fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+
+            if ( annotation.annotationType === 'MACHINE_ANNOTATED' ) {
+                userAnnotations.value.push( ann );
+            }
 
             annotations.value.push( ann );
 
@@ -98,12 +107,12 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         algos.forEach( algo => {
             const details = additionalAnnotationLoad[ algo ]! as AnnotationDto;
             const ann: EditorAnnotation = {
-                'fixationId': getFixIdxFromId( details.fixation!.id! ),
-                'boxId': getBoxIdxFromId( details.characterBoundingBox!.id! ),
+                'fixationIdx': getFixIdxFromId( details.fixation!.id! ),
+                'boxIdx': getBoxIdxFromId( details.characterBoundingBox!.id! ),
                 'algorithm': algo
             };
 
-            fixations.value[ ann.fixationId ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+            fixations.value[ ann.fixationIdx ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
             annotations.value.push( ann );
         } );

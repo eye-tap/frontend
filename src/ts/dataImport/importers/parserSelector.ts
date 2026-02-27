@@ -29,7 +29,7 @@ export const selectBestParser = async <T> (
     const header = ( text.split( /\r?\n/ )[0] ?? '' )
         .split( ',' )
         .map( h => h.trim() );
-    const parser = parsers.value.find( p => p.canParse?.( header ) );
+    const parser = parsers.value.find( p => p.canParse?.( header, csvElement.files?.length ?? 0 ) );
 
     if ( !parser )
         throw new NoSuitableParserError( 'No suitable parser found.' );

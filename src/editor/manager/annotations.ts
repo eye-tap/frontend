@@ -35,11 +35,11 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             boundingBoxIndex > -1 && fixationIndex > -1
         ) {
             const annotation: EditorAnnotation = {
-                'fixationId': fixationIndex,
-                'boxId': boundingBoxIndex
+                'fixationIdx': fixationIndex,
+                'boxIdx': boundingBoxIndex
             };
 
-            deleteByFixID( annotation.fixationId );
+            deleteByFixID( annotation.fixationIdx );
 
             annotations.value.push( annotation );
 
@@ -86,12 +86,12 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
      * Delete an annotation by fixation ID. Note that it will not re-render
      * @param fixationId - The fixationId to remove for
      */
-    const deleteByFixID = ( fixationId: number ) => {
+    const deleteByFixID = ( fixationId: number, addActionToHistory: boolean = false ) => {
         let idx = -1;
 
         if ( fixations.value[ fixationId ]!.assigned === 'assigned' ) {
             for ( let i = 0; i < annotations.value.length; i++ ) {
-                if ( annotations.value[ i ]!.fixationId === fixationId ) {
+                if ( annotations.value[ i ]!.fixationIdx === fixationId ) {
                     idx = i;
                     break;
                 }
@@ -100,7 +100,10 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             if ( idx > -1 ) {
                 const d = annotations.value.splice( idx, 1 );
 
-                highlightBox( d[ 0 ]!.boxId, 3000 );
+                if ( addActionToHistory )
+                    history.remove( d[ 0 ]!, selectedFixation.value );
+
+                highlightBox( d[ 0 ]!.boxIdx, 3000 );
             }
         }
     };
@@ -113,17 +116,17 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         let idx = -1;
 
         for ( let i = 0; i < annotations.value.length; i++ ) {
-            if ( annotations.value[ i ]!.boxId === boxId ) {
+            if ( annotations.value[ i ]!.boxIdx === boxId ) {
                 idx = i;
                 break;
             }
         }
 
         if ( idx > -1 ) {
-            if ( fixations.value[ annotations.value[ idx ]!.fixationId ]!.assigned === 'assigned' ) {
+            if ( fixations.value[ annotations.value[ idx ]!.fixationIdx ]!.assigned === 'assigned' ) {
                 const d = annotations.value.splice( idx, 1 );
 
-                highlightBox( d[ 0 ]!.boxId, 3000 );
+                highlightBox( d[ 0 ]!.boxIdx, 3000 );
             }
         }
     };
