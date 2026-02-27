@@ -43,14 +43,14 @@
 - [X] Upload pre-assigned points with multi-file select button on Text creation
 - [X] Design
 - [ ] Bug testing
-- [ ] Reload surveys on create
+- [X] Reload surveys on create
 - [ ] New Survey options
 - [ ] Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing
 - [ ] Pre-annotations: One file for each algorithm, filename is the algo name (minus extension).
 - [ ] Define file contents specs somewhere
 - [ ] Magic link regen
 - [ ] Magic link panel close warning
-- [ ] survey delete -- TODO: Testing
-- [ ] survey export -- TODO: Testing
+- [X] survey delete -- TODO: Testing
+- [X] survey export -- TODO: Testing
 - [X] on index errors open parser settings panel
 - [X] How to get reader id for one file per reader import scheme for fixations?
