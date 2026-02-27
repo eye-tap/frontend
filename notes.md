@@ -14,6 +14,7 @@
 - [X] Gradients with three points
 - [ ] Legend displaying what the colours mean
 - [ ] Pick default algorithm
+- [ ] Loading of new data
 - [X] Space to confirm current assignment (i.e. create annotation for it)
 - [X] Keybind to flag as invalid
 - [X] Shift to show all algorithms for current fixation
