@@ -100,8 +100,14 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             if ( idx > -1 ) {
                 const d = annotations.value.splice( idx, 1 );
 
-                if ( addActionToHistory )
+                fixations.value[ fixationId ]!.assigned = 'unassigned';
+
+                if ( addActionToHistory ) {
                     history.remove( d[ 0 ]!, selectedFixation.value );
+                    renderer.renderLines.render();
+                    renderer.renderFixations.render();
+                    renderer.renderIndices.render();
+                }
 
                 highlightBox( d[ 0 ]!.boxIdx, 3000 );
             }
@@ -132,8 +138,8 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
     };
 
     const markAsInvalid = ( fixationIndex: number ) => {
-        deleteByFixID( fixationIndex );
         fixations.value[ fixationIndex ]!.assigned = 'invalid';
+        deleteByFixID( fixationIndex, true );
     };
 
     const funcs: AnnotationManager = {

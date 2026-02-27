@@ -60,9 +60,9 @@ export const dropShadowMinBoldness = ref( 200 );
 
 export const dropShadowMaxBoldness = ref( 2000 );
 
-export const dropShadowOffsetX = ref( 1 );
+export const dropShadowOffsetX = ref( 0 );
 
-export const dropShadowOffsetY = ref( 2 );
+export const dropShadowOffsetY = ref( 1 );
 
 
 // Stroke width

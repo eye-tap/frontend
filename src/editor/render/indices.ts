@@ -102,7 +102,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
 
                     ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
-                    const w = ctx!.measureText( toDisplay ).width / width;
+                    const w = ( ctx!.measureText( toDisplay ).width - width ) / 2;
 
                     ctx!.fillText(
                         toDisplay,

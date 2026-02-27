@@ -9,16 +9,25 @@ import {
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
+import {
+    useNotification
+} from '@kyvg/vue3-notification';
 
 export function useAnnotationNavigation () {
     const isAnnotationComplete = ref( false );
     const nextAnnotationId = ref<number | null>( null );
     const store = useAnnotationSessionStore();
+    const notifications = useNotification();
 
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
 
         if ( !nextAnnotationId.value ) {
+            notifications.notify( {
+                'text': 'No further annotation session available!',
+                'type': 'warn',
+                'title': 'Next Annotatation'
+            } );
             console.warn( 'No next annotation ID available.' );
 
             return;

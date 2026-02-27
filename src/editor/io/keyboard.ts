@@ -54,7 +54,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 ev.preventDefault();
                 undo();
             } else if ( ev.key === 'Backspace' ) {
-                annotation.deleteByFixID( selectedFixation.value );
+                annotation.deleteByFixID( selectedFixation.value, true );
             } else if ( isRedoCmd( ev ) ) {
                 ev.preventDefault();
                 redo();
