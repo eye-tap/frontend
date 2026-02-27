@@ -6,8 +6,12 @@ import {
     annotations,
     boundingBoxes,
     fixations,
+    selectedAlgorithm,
     selectedFixation
 } from '../data';
+import type {
+    AnnotationDto
+} from '@/types/dtos/AnnotationDto';
 import type {
     AnnotationSessionDto
 } from '@/types/dtos/AnnotationSessionDto';
@@ -83,6 +87,27 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
             // NOTE: To use other disagreement measures, compute here
         } );
+
+    // Load additional algorithmic assignments
+    const additionalAnnotationLoad = sessionData.value.inactiveMachineAnnotations!;
+
+    if ( additionalAnnotationLoad ) {
+        selectedAlgorithm.value = 0;
+        const algos = Object.keys( additionalAnnotationLoad );
+
+        algos.forEach( algo => {
+            const details = additionalAnnotationLoad[ algo ]! as AnnotationDto;
+            const ann: EditorAnnotation = {
+                'fixationId': getFixIdxFromId( details.fixation!.id! ),
+                'boxId': getBoxIdxFromId( details.characterBoundingBox!.id! ),
+                'algorithm': algo
+            };
+
+            fixations.value[ ann.fixationId ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+
+            annotations.value.push( ann );
+        } );
+    }
 
     selectedFixation.value = 0;
 
