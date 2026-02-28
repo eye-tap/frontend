@@ -58,7 +58,7 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
             renderer.renderIO.render();
         } else {
             if ( distanceBetweenPoints( {
-                'x': fixations.value[selectedFixation.value]!.x!,
+                'x': fixations.value[ selectedFixation.value ]!.x!,
                 'y': fixations.value[ selectedFixation.value ]!.y!
             }, mousePos.value ) > fixationRadius.value ) {
             // Get bounding box that was hovered at mouseUp

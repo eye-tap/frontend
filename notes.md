@@ -47,6 +47,7 @@
 - [ ] Bug testing
 - [X] Reload surveys on create
 - [X] New Survey options
+- [ ] Add parser for char bounding boxes for the uid based format (take inspiration from the annotations one)
 - [ ] Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing
 - [ ] Pre-annotations: One file for each algorithm, filename is the algo name (minus extension).
 - [ ] **Define file contents specs somewhere** -> Needs integration & design, see `src/components/admin/FileSpecs.vue`

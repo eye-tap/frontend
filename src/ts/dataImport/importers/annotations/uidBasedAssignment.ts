@@ -23,7 +23,7 @@ import {
 } from '../../util/parserSettingsGenerator';
 
 export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto[]> = {
-    'display': 'UID based reverse association',
+    'display': 'Text UID based reverse association',
     'options': {
         ...annotationOpts,
         'textuid': {
@@ -58,6 +58,9 @@ export const uidBasedTextAnnotationImporter: ImportConfig<ImportPreAnnotationDto
     },
     'parse': async ( inputElement: HTMLInputElement, textId: string, lang ): Promise<ImportPreAnnotationDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
+
+        if ( !uidBasedTextAnnotationImporter.options.association!.value )
+            throw new MissingFilesError();
 
         const association = createUidLookupMap(
             await fileLoaderString( uidBasedTextAnnotationImporter.options.association!.value as File ),

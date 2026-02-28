@@ -11,7 +11,7 @@ export const createUidLookupMap = ( csvText: string, textUidCSVName: string, tex
     const lookup = new Map<string, string>();
 
     if ( charUid < 0 )
-        throw new InvalidIndexNameError( 'Text UID' );
+        throw new InvalidIndexNameError( 'Text UID (for association)' );
     else if ( textUid < 0 )
         throw new InvalidIndexNameError( 'Text ID (for association)' );
 

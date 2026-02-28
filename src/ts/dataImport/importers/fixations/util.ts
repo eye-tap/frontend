@@ -83,11 +83,11 @@ export const preprocessor = (
     const disagreementIndex = header.indexOf( opts.disagreement!.value as string );
 
     if ( xIndex < 0 )
-        throw new InvalidIndexNameError( 'X coordinate' );
+        throw new InvalidIndexNameError( 'X coordinate (for fixations)' );
     else if ( yIndex < 0 )
-        throw new InvalidIndexNameError( 'Y coordinate' );
+        throw new InvalidIndexNameError( 'Y coordinate (for fixations)' );
     else if ( idIndex < 0 )
-        throw new InvalidIndexNameError( 'fixation ID' );
+        throw new InvalidIndexNameError( 'fixation ID (for fixations)' );
 
     return {
         lines,

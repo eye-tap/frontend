@@ -81,7 +81,9 @@ export const mainParser = (
     } = {};
 
     if ( textIndex < 0 )
-        throw new InvalidIndexNameError( 'text ID' );
+        throw new InvalidIndexNameError( 'text ID (for Annotations)' );
+    else if ( algoIndex < 0 )
+        throw new InvalidIndexNameError( 'algorithm name (for Annotations)' );
 
     for ( let i = 0; i < lines.length; i++ ) {
         const cols = lines[i]!.split( ',' );
