@@ -80,7 +80,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
-            // TODO: Need algorithm name. Editor's Annotation object already supports it
             const ann: EditorAnnotation = {
                 'fixationIdx': getFixIdxFromId( annotation.fixation!.id! ),
                 'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
@@ -90,6 +89,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
             if ( annotation.annotationType === 'MACHINE_ANNOTATED' ) {
                 userAnnotations.value.push( ann );
+                ann.algorithm = 'default';
             }
 
             annotations.value.push( ann );

@@ -101,7 +101,6 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     );
                 } catch { /* empty */ }
             } else if ( ev.key === 'Delete' ) {
-                // TODO: Update this keybind if needed
                 ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );
             } else if ( ev.key === 'Enter' ) {

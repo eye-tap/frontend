@@ -58,6 +58,9 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         } else {
             fixations.value[ last.annotation.fixationIdx ]!.assigned = 'unassigned';
         }
+
+        renderer.renderLines.render();
+        renderer.renderFixations.render();
     };
 
     const add = ( annotation: EditorAnnotation, selectedFixation: number ) => {
@@ -112,6 +115,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         selectedFixation.value = last.selectedFixation + 1;
 
         renderer.renderLines.render();
+        renderer.renderFixations.render();
     };
 
     onMounted( () => {

@@ -30,7 +30,7 @@
         },
         {
             'keybind': 'Backspace',
-            'function': 'Undo'
+            'function': 'Delete annotation'
         },
         {
             'keybind': 'CTRL + SHIFT + Z',
@@ -55,6 +55,10 @@
         {
             'keybind': 'Delete',
             'function': 'Mark fixation as invalid'
+        },
+        {
+            'keybind': 'Enter',
+            'function': '(hold) Show assignments of all algorithms'
         }
     ];
     const show = defineModel<boolean>();

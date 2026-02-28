@@ -7,6 +7,9 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
+        computed
+    } from 'vue';
+    import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
 
@@ -14,6 +17,11 @@
         'session': ShallowAnnotationSessionDto
     }>();
     const annotationSessionStore = useAnnotationSessionStore();
+    const unassignedCount = computed( () => {
+        return props.session.annotationsMetaData
+            ? props.session.annotationsMetaData.total! - props.session.annotationsMetaData.done!
+            : -1;
+    } );
 </script>
 
 <template>
@@ -35,7 +43,7 @@
                             Word count
                         </p>
                         <p class="content">
-                            {{ 'N/A' }}
+                            N/A
                         </p>
                     </td>
                     <td>
@@ -53,7 +61,7 @@
                             Last modified on
                         </p>
                         <p class="content">
-                            {{ $props.session.lastEdited ? formatDateTime(new Date($props.session.lastEdited)) : 'N/A' }}
+                            {{ props.session.lastEdited ? formatDateTime(new Date(props.session.lastEdited)) : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -61,20 +69,18 @@
                             Assigned
                         </p>
                         <p class="content">
-                            {{ props.session.annotationsMetaData ? $props.session.annotationsMetaData?.done : 'N/A' }}
+                            {{ props.session.annotationsMetaData ? props.session.annotationsMetaData?.done : 'N/A' }}
                         </p>
                     </td>
                     <td>
                         <p class="title">
                             Unassigned
                         </p>
-                        <!-- TODO: Set color class depending on value. (success on 0, warning > 0) -->
-                        <!-- Using v-if on props currently crashes after reload -->
                         <p
                             class="content information"
+                            :class="unassignedCount > 0 || unassignedCount == -1 ? 'warning' : 'sucess'"
                         >
-                            {{ $props.session.annotationsMetaData
-                                ? $props.session.annotationsMetaData.total! - $props.session.annotationsMetaData.done! : 'N/A' }}
+                            {{ unassignedCount > -1 ? unassignedCount : 'N/A' }}
                         </p>
                     </td>
                 </tr>
