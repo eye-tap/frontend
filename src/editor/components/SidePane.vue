@@ -79,8 +79,8 @@
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
-                <span 
-                    class="clickable-icon" 
+                <span
+                    class="clickable-icon"
                     :class="undoAvailable ? 'undo-icon' : 'unavailable'"
                     @click="editor.undo"
                 >
@@ -116,8 +116,8 @@
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span 
-                class="clickable-icon" 
+            <span
+                class="clickable-icon"
                 :class="undoAvailable ? 'undo-icon' : 'unavailable'"
                 title="Undo your last action"
                 @click="editor.undo"
@@ -127,7 +127,7 @@
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span 
+            <span
                 class="clickable-icon"
                 :class="redoAvailable ? 'redo-icon' : 'unavailable'"
                 title="Redo your last undone action"
@@ -138,10 +138,10 @@
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span 
+            <span
                 class="clickable-icon"
                 :class="saveNeeded ? '' : 'unavailable'"
-                title="Save" 
+                title="Save"
                 @click="save"
             >
                 <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>

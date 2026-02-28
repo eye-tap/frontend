@@ -1,6 +1,8 @@
 
 <script setup lang="ts">
-import { isSideBarCollapsed } from '../data';
+    import {
+        isSideBarCollapsed
+    } from '../data';
 
     const dismiss = () => {
         localStorage.setItem( 'welcomeTourViewed', 'true' );

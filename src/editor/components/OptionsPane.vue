@@ -11,7 +11,9 @@
     } from '../config';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
-import { isAutoSaveEnabled } from '..';
+    import {
+        isAutoSaveEnabled
+    } from '..';
 </script>
 
 <template>
@@ -38,7 +40,7 @@ import { isAutoSaveEnabled } from '..';
                     :options="fixationIndexDisplayOptions"
                     text="Fixation Index"
                 />
-                <SwitchOption text="Autosave" v-model="isAutoSaveEnabled" />
+                <SwitchOption v-model="isAutoSaveEnabled" text="Autosave" />
             </div>
         </div>
     </div>

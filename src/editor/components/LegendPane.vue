@@ -7,7 +7,9 @@
         EditorPoint
     } from '../types/annotation';
     import ColorOption from '@/components/settings/ColorOption.vue';
-    import { assignedFixationColor, machineAssignedFixationColor, selectedFixationColor, unassignedFixationColor } from '../config';
+    import {
+        assignedFixationColor, machineAssignedFixationColor, selectedFixationColor, unassignedFixationColor
+    } from '../config';
 
     const props = defineProps<{
         'show': boolean,
