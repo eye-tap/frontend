@@ -10,13 +10,14 @@
         linesDisplayOptions
     } from '../config';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
+    import SwitchOption from '@/components/settings/SwitchOption.vue';
+import { isAutoSaveEnabled } from '..';
 </script>
 
 <template>
     <div class="options-pane">
         <div class="options-container">
             <div class="options-section">
-                <p> Display </p>
                 <SliderOptions
                     v-model="boxesDisplay"
                     :options="boxesDisplayOptions"
@@ -37,6 +38,7 @@
                     :options="fixationIndexDisplayOptions"
                     text="Fixation Index"
                 />
+                <SwitchOption text="Autosave" v-model="isAutoSaveEnabled" />
             </div>
         </div>
     </div>
@@ -70,6 +72,7 @@
         justify-content: space-between;
 
         .options-section {
+            padding-top: 1rem;
 
             .slider-option {
                 width: 16rem;

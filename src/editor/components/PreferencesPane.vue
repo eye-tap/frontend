@@ -25,7 +25,6 @@
     };
 
     const show = defineModel<boolean>();
-    // TODO: Think about which options should go where
 </script>
 
 <template>
@@ -38,7 +37,7 @@
             <div>
                 <div class="options-container">
                     <div class="options-section">
-                        <p>Advanced</p>
+                        <p>Display</p>
                         <SliderOptions
                             v-model="boxesDisplay"
                             :options="boxesDisplayOptions"
@@ -91,7 +90,7 @@
                     </div>
 
                     <div class="options-section">
-                        <p>Further display</p>
+                        <p>Details</p>
 
                         <div class="slider-option">
                             <p>Line width</p>

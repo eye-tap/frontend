@@ -1,10 +1,9 @@
 # Improvement ideas
 ## Editor
-- [ ] Bug testing (I can't recall the issues we had previously)
 - [ ] Possibly: Resize listener on canvas container
-- [ ] **Move advanced options into a popover instead of the sidebar**
-- [ ] **Autosave -- TODO: Add button to disable (`src/editor/index.ts` exports the option to do so)**
-- [ ] **Legend displaying what the colours mean**
+- [X] Move advanced options into a popover instead of the sidebar -> default collapsed, expanded
+- [X] Autosave
+- [X] Legend displaying what the colours mean
 - [X] Fix animation for sidebar collapse
 - [X] Heatmap i.e. points are coloured based on the entropy
 - [X] Loading of disagreement metrics from backend
@@ -20,7 +19,6 @@
 - [X] Keybind to flag as invalid
 - [X] Shift to show all algorithms for current fixation
 - [X] Use other combination for the above, as shift key cannot be detected (neither all other modifiers)
-- [ ] **Do we need more settings for the above?**
 - [X] Fixation click on fixation in box directly assigning it
 - [X] Test the above, may need to be changed to a more complex handler
 - [X] Filter annotations by algorithms
@@ -31,12 +29,12 @@
 
 ## General
 - [X] Deployment
-- [ ] **Update theme colours (currently primarily the blue and black themes look good)**
+- [X] Update theme colours 
 - [X] Better error handling for backend errors (i.e. better notifications)
 - [ ] **RWD fixes (Signup and Login views)**
 - [X] Block if device is too small (also touch devices don't work!) -> Design?
 - [ ] Take care of all TODOs in the code
-- [ ] **Buttons with long actions need spinners or other progress indicator** (I can also do that)
+- [ ] **Buttons with long actions need spinners or other progress indicator** (I can also do that) (then do it?)
 
 
 
@@ -52,7 +50,7 @@
 - [ ] Pre-annotations: One file for each algorithm, filename is the algo name (minus extension).
 - [ ] **Define file contents specs somewhere** -> Needs integration & design, see `src/components/admin/FileSpecs.vue`
 - [ ] Magic link regen
-- [ ] Magic link panel close warning
+- [X] Magic link panel close warning
 - [X] survey delete -- TODO: Testing
 - [X] survey export -- TODO: Testing
 - [X] on index errors open parser settings panel

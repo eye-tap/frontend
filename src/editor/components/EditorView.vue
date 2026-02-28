@@ -3,7 +3,7 @@
     import {
         type Ref, ref
     } from 'vue';
-    import PropertyPane from './PropertyPane.vue';
+    import LegendPane from './LegendPane.vue';
     import editor from '..';
     import {
         editorDataLoadingLocal
@@ -40,8 +40,8 @@
             Image: <input type="file" accept="image/*" @change="e => loader.loadImage( e as InputEvent )">
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">
         </div>
-        <PropertyPane
-            :show-property-pane="true"
+        <LegendPane
+            :show="true"
         />
         <div class="canvas-wrapper">
             <canvas id="text" ref="textCanvas"></canvas>

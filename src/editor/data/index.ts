@@ -25,7 +25,8 @@ export const selectedFixation = ref( -1 );
 
 export const hoveredFixation = ref( -1 );
 
-export const isSideBarCollapsed = ref( false );
+// default collapsed, by popular demand 
+export const isSideBarCollapsed = ref( true );
 
 export const algorithmsList: Ref<string[]> = ref( [] );
 

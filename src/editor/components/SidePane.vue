@@ -79,12 +79,16 @@
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
-                <span class="clickable-icon" :class="undoAvailable ? '' : 'unavailable'" @click="editor.undo">
+                <span 
+                    class="clickable-icon" 
+                    :class="undoAvailable ? 'undo-icon' : 'unavailable'"
+                    @click="editor.undo"
+                >
                     <i class="fa-lg fa-solid fa-rotate-left"></i>
                 </span>
                 <span
                     class="clickable-icon"
-                    :class="redoAvailable ? '' : 'unavailable'"
+                    :class="redoAvailable ? 'redo-icon' : 'unavailable'"
                     title="Redo your last undone action"
                     @click="editor.redo"
                 >
@@ -107,19 +111,39 @@
         </div>
         <!-- Collapsed -->
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Undo your last action" @click="editor.undo">
+            <span class="clickable-icon gear-icon" title="Options" @click="togglePreferences">
+                <i class="fa-lg fa-solid fa-gear"></i>
+            </span>
+        </div>
+        <div v-if="isSideBarCollapsed" class="options-bar">
+            <span 
+                class="clickable-icon" 
+                :class="undoAvailable ? 'undo-icon' : 'unavailable'"
+                title="Undo your last action"
+                @click="editor.undo"
+            >
                 <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Redo you last undone action" @click="editor.redo">
+            <span 
+                class="clickable-icon"
+                :class="redoAvailable ? 'redo-icon' : 'unavailable'"
+                title="Redo your last undone action"
+                @click="editor.redo"
+            >
                 <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
                 <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon" title="Save" @click="save">
+            <span 
+                class="clickable-icon"
+                :class="saveNeeded ? '' : 'unavailable'"
+                title="Save" 
+                @click="save"
+            >
                 <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
                 <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
             </span>
@@ -178,6 +202,33 @@
         margin-top: 1rem;
     }
 
+    .gear-icon {
+        i{
+            transition: rotate 0.1s;
+        }
+        i:hover {
+            rotate: 40deg;
+        }
+    }
+
+    .undo-icon {
+        i{
+            transition: rotate 0.1s;
+        }
+        i:hover {
+            rotate: -45deg;
+        }
+    }
+
+    .redo-icon {
+        i{
+            transition: rotate 0.1s;
+        }
+        i:hover {
+            rotate: 45deg;
+        }
+    }
+
     .bottom-buttons {
         display: flex;
         align-items: center;
@@ -208,15 +259,6 @@
             height: 20px;
             i:hover {
                 color: var(--theme-bg-4-20);
-            }
-        }
-
-        .gear-icon {
-            i{
-                transition: rotate 0.1s;
-            }
-            i:hover {
-                rotate: 40deg;
             }
         }
 
@@ -261,8 +303,18 @@
     }
 
     &.collapsed {
-        width: 100px;
+        width: 120px;
         min-width: 0;
+
+        >div.options-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 80px;
+            width: 80x;
+            padding: 0px;
+        }
     }
 
     >div {

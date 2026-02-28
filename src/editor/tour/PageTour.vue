@@ -1,5 +1,7 @@
 
 <script setup lang="ts">
+import { isSideBarCollapsed } from '../data';
+
     const dismiss = () => {
         localStorage.setItem( 'welcomeTourViewed', 'true' );
         show.value = false;
@@ -13,6 +15,7 @@
     }>();
 
     const startFullTour = () => {
+        isSideBarCollapsed.value = false;
         emit( 'launch-tour' );
         dismiss();
     };
