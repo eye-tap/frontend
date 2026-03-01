@@ -22,10 +22,14 @@ import {
 import {
     selectBestParser
 } from '../parserSelector';
+import {
+    uidBasedCharacterBoundingBoxImporter
+} from './uidBasedCharacterBoxes';
 
 export const characterBoxParsers: Ref<ImportConfig<ImportCharacterBoundingBoxDto[]>[]> = ref( [
     characterBoxSingleTextImporter,
-    characterBoxMultipleTextImporter
+    characterBoxMultipleTextImporter,
+    uidBasedCharacterBoundingBoxImporter
 ] );
 
 export const selectedCharacterBoxParserIndex = ref( -1 );

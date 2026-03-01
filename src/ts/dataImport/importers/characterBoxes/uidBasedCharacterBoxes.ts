@@ -2,16 +2,6 @@ import {
     fileLoaderString,
     loadAllFilesOfElementAsStringWithCallback
 } from '../../util/fileLoader';
-import {
-    boundingBoxesOpts
-
-} from './util';
-import {
-    createUidLookupMap
-} from '../../util/char_text_map';
-import {
-    determineCorrectParserSettings
-} from '../../util/parserSettingsGenerator';
 import type {
     ImportCharacterBoundingBoxDto
 } from '@/types/dtos/ImportCharacterBoundingBoxDto';
@@ -21,8 +11,17 @@ import type {
 import {
     MissingFilesError
 } from '../../util/errors';
+import {
+    boundingBoxesOpts
+} from './util';
+import {
+    createUidLookupMap
+} from '../../util/char_text_map';
+import {
+    determineCorrectParserSettings
+} from '../../util/parserSettingsGenerator';
 
-export const boundingBoxImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> = {
+export const uidBasedCharacterBoundingBoxImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> = {
     'display': 'Text UID based Bounding Box Creation ',
     'options': {
         ...boundingBoxesOpts,
@@ -49,19 +48,14 @@ export const boundingBoxImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> 
             'display': 'Text ID', // TODO: Update name, this is for texts.csv file
             'value': 'text_id',
             'input': 'string'
-        },
-        'assLang': {
-            'display': 'Language', // TODO: Update name, this is for texts.csv file
-            'value': 'lang',
-            'input': 'string'
         }
     },
     'parse': async ( inputElement: HTMLInputElement, _textId: string, lang: string ): Promise<ImportCharacterBoundingBoxDto[]> => {
         if ( !inputElement.files || !inputElement.files[0] ) throw new MissingFilesError();
 
-        const assocFile = boundingBoxImporter.options.association?.value as File | null;
-        const uidCol = boundingBoxImporter.options.assTextUID?.value as string | undefined;
-        const idCol = boundingBoxImporter.options.assTextID?.value as string | undefined;
+        const assocFile = uidBasedCharacterBoundingBoxImporter.options.association?.value as File | null;
+        const uidCol = uidBasedCharacterBoundingBoxImporter.options.assTextUID?.value as string | undefined;
+        const idCol = uidBasedCharacterBoundingBoxImporter.options.assTextID?.value as string | undefined;
 
         if ( !assocFile || !uidCol || !idCol ) {
             throw new MissingFilesError();
@@ -78,7 +72,7 @@ export const boundingBoxImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> 
         await loadAllFilesOfElementAsStringWithCallback( inputElement, async ( data: string ) => {
             const lines = data.split( /\r?\n/ ).filter( l => l.trim() !== '' );
             const header = lines.shift()!.split( ',' ).map( h => h.trim() );
-            const textUidIndex = header.indexOf( boundingBoxImporter.options.textuid!.value as string );
+            const textUidIndex = header.indexOf( uidBasedCharacterBoundingBoxImporter.options.textuid!.value as string );
             const charIndex = header.indexOf( boundingBoxesOpts.char!.value as string );
             const xMinIndex = header.indexOf( boundingBoxesOpts.xMin!.value as string );
             const xMaxIndex = header.indexOf( boundingBoxesOpts.xMax!.value as string );
@@ -124,6 +118,6 @@ export const boundingBoxImporter: ImportConfig<ImportCharacterBoundingBoxDto[]> 
         return boundingBoxStore;
     },
     'canParse': ( header: string[] ) => {
-        return determineCorrectParserSettings( header, boundingBoxImporter );
+        return determineCorrectParserSettings( header, uidBasedCharacterBoundingBoxImporter );
     }
 };
