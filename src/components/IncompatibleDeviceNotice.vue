@@ -11,6 +11,7 @@
 
     const show = ref( false );
     const isTouchDevice = ref( false );
+    const hasMouseSupport = ref( false );
     const isTooSmall = ref( false );
     const isUnsuitableAspectRatio = ref( false );
     const notifications = useNotification();
@@ -27,6 +28,7 @@
 
         isTouchDevice.value = ( 'ontouchstart' in window )
             || ( navigator.maxTouchPoints > 0 );
+        hasMouseSupport.value = matchMedia( '(hover:hover)' ).matches;
         isTooSmall.value = window.innerHeight < 400 || window.innerWidth < 400;
         isUnsuitableAspectRatio.value = window.innerWidth / window.innerWidth > 1.1;
 
@@ -64,7 +66,7 @@
                 <LogoRenderer kind="full" class="logo" />
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
-            <div v-if="isTouchDevice || isTooSmall || isUnsuitableAspectRatio" class="popup-body">
+            <div v-if="( isTouchDevice && !hasMouseSupport ) || isTooSmall || isUnsuitableAspectRatio" class="popup-body">
                 <h2 class="title">
                     Unsupported Device
                 </h2>
