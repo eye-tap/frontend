@@ -39,6 +39,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
                 'boxIdx': boundingBoxIndex
             };
 
+            // Try to delete by fix id
             deleteByFixID( annotation.fixationIdx );
 
             annotations.value.push( annotation );

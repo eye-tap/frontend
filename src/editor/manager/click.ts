@@ -9,6 +9,7 @@ import {
 import {
     isMouseDragging,
     lineStart,
+    mouseDragEnd,
     mousePos
 } from '../data/io';
 import type {
@@ -57,15 +58,14 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
 
             renderer.renderIO.render();
         } else {
-            if ( distanceBetweenPoints( {
+            const distance = distanceBetweenPoints( {
                 'x': fixations.value[ selectedFixation.value ]!.x!,
                 'y': fixations.value[ selectedFixation.value ]!.y!
-            }, mousePos.value ) > fixationRadius.value ) {
-            // Get bounding box that was hovered at mouseUp
-                const bb = getBoxIdFromCoordinate( mousePos.value );
+            }, mouseDragEnd.value );
 
-                // Try to delete the annotation if it was present
-                annotation.deleteByFixID( selectedFixation.value );
+            if ( distance > fixationRadius.value ) {
+                // Get bounding box that was hovered at mouseUp
+                const bb = getBoxIdFromCoordinate( mousePos.value );
 
                 annotation.create( bb, selectedFixation.value );
             }

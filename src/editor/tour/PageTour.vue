@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
     import {
         isSideBarCollapsed
@@ -10,8 +9,6 @@
     };
 
     const show = defineModel<boolean>();
-
-    show.value = true;
     const emit = defineEmits<{
         ( e: 'launch-tour' ): void
     }>();

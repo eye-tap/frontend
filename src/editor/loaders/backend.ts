@@ -47,13 +47,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     fixations.value = [];
     fix.forEach( f => {
-        const isInavlid = sessionData.value.removedFixations?.includes( f.id! ) ?? false;
+        const isInvalid = sessionData.value.removedFixations?.includes( f.id! ) ?? false;
 
         fixations.value.push( {
             'x': f.x!,
             'y': f.y!,
             'id': f.id!,
-            'assigned': isInavlid ? 'invalid' : 'unassigned',
+            'assigned': isInvalid ? 'invalid' : 'unassigned',
             'disagreement': f.disagreement
         } );
     } );
@@ -106,15 +106,18 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
         algos.forEach( algo => {
             const details = additionalAnnotationLoad[ algo ]! as AnnotationDto;
-            const ann: EditorAnnotation = {
-                'fixationIdx': getFixIdxFromId( details.fixation!.id! ),
-                'boxIdx': getBoxIdxFromId( details.characterBoundingBox!.id! ),
-                'algorithm': algo
-            };
 
-            fixations.value[ ann.fixationIdx ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+            if ( details.fixation && details.characterBoundingBox ) {
+                const ann: EditorAnnotation = {
+                    'fixationIdx': getFixIdxFromId( details.fixation!.id! ),
+                    'boxIdx': getBoxIdxFromId( details.characterBoundingBox!.id! ),
+                    'algorithm': algo
+                };
 
-            annotations.value.push( ann );
+                fixations.value[ ann.fixationIdx ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+
+                annotations.value.push( ann );
+            }
         } );
     }
 

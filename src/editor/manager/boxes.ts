@@ -22,6 +22,7 @@ import {
 } from '../render/manager';
 
 let previousIdx = -1;
+let previouslyRendered = false;
 
 export const boxHighlightHandler = ( renderer: Renderer ) => {
     return ( pos: EditorPoint, highlightCurrent: boolean ) => {
@@ -36,7 +37,7 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
                 setHighlightClass( previousIdx, 'none' );
             }
         } else {
-            if ( idx !== previousIdx ) {
+            if ( idx !== previousIdx || ( !previouslyRendered && highlightCurrent ) ) {
                 needToRedraw = true;
 
                 if ( previousIdx > -1 )
@@ -46,8 +47,11 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
             }
 
             if ( highlightCurrent === false ) {
+                previouslyRendered = false;
                 setHighlightClass( idx, 'none' );
                 needToRedraw = true;
+            } else {
+                previouslyRendered = true;
             }
         }
 

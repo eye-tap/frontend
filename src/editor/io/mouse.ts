@@ -10,7 +10,8 @@ import {
 } from '../data';
 import {
     canvasToOriginalCoordinates,
-    scaleInverse
+    scaleInverse,
+    scalingFactor
 } from '../render/scaling';
 import {
     isMouseDragging,
@@ -35,8 +36,6 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     let rect: DOMRect = new DOMRect( 0, 0, 0, 0 );
 
     const mouseDownHandler = ( ev: MouseEvent ) => {
-        updateRect();
-
         if ( ev.ctrlKey )
             zoomPanStartHandler( ev );
         else if ( ev.button === 0 ) {
@@ -49,8 +48,6 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     };
 
     const mouseUpHandler = ( ev: MouseEvent ) => {
-        updateRect();
-
         if ( ev.button === 0 ) {
             isMouseDragging.value = false;
             isZoomDragging.value = false;
@@ -134,7 +131,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         } catch { /* empty */ }
     } );
 
-    watch( canvasSize, updateRect );
+    watch( [
+        canvasSize,
+        scalingFactor
+    ], updateRect );
     watch( isSideBarCollapsed, () => {
         setTimeout( () => {
             updateRect();

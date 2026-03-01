@@ -55,3 +55,5 @@
 - [X] survey export -- TODO: Testing
 - [X] on index errors open parser settings panel
 - [X] How to get reader id for one file per reader import scheme for fixations?
+
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJCcmlza1NlYWwyMDklMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMiUzRE9Ccy03cEIlMjIlN0Q=

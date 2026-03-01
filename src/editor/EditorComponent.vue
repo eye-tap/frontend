@@ -1,12 +1,17 @@
 <script setup lang="ts">
     import '../scss/components/tour.scss';
+    import {
+        type Ref,
+        ref
+    } from 'vue';
+    import {
+        VTour,
+        type VTourExposedMethods
+    } from '@globalhive/vuejs-tour';
     import AnnotationCompletion from './components/AnnotationCompletion.vue';
     import EditorView from './components/EditorView.vue';
     import PageTour from './tour/PageTour.vue';
     import SidePane from './components/SidePane.vue';
-    import {
-        VTour
-    } from '@globalhive/vuejs-tour';
     import {
         useAnnotationNavigation
     } from './composables/useAnnotationNavigation';
@@ -18,11 +23,12 @@
     const {
         goToNextAnnotation, isAnnotationComplete
     } = useAnnotationNavigation();
+    const tour: Ref<VTourExposedMethods | null> = ref( null );
     const {
         steps,
         showWelcomeTour,
         startFullTour
-    } = useEditorTour();
+    } = useEditorTour( tour );
 
 </script>
 

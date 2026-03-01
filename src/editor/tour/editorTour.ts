@@ -9,8 +9,7 @@ import {
 // TODO: To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
 
 
-export const useEditorTour = () => {
-    const tour: Ref<VTourExposedMethods | null> = ref( null );
+export const useEditorTour = ( tour: Ref<VTourExposedMethods | null> ) => {
     const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
     const steps: ITourStep[] = [
         {
@@ -72,11 +71,12 @@ export const useEditorTour = () => {
             tour.value.startTour();
             localStorage.setItem( 'welcomeTourViewed', 'true' );
             showWelcomeTour.value = false;
+        } else {
+            console.log( 'Tour element missing' );
         }
     };
 
     return {
-        tour,
         steps,
         showWelcomeTour,
         startFullTour

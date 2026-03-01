@@ -95,10 +95,7 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
         canvasPosition
     ], renderer.renderAll );
 
-    const observer = new ResizeObserver( () => {
-        console.log( 'scaling' );
-        scaler();
-    } );
+    const observer = new ResizeObserver( scaler );
 
     onMounted( () => {
         target = elementToGetParentFrom.value!.parentElement!;
