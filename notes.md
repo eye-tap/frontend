@@ -34,7 +34,7 @@
 - [ ] **RWD fixes (Signup and Login views)**
 - [X] Block if device is too small (also touch devices don't work!) -> Design?
 - [ ] Take care of all TODOs in the code
-- [ ] **Buttons with long actions need spinners or other progress indicator** (I can also do that) (then do it?)
+- [X] Buttons with long actions need spinners or other progress indicator
 
 
 
