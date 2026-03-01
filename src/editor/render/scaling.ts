@@ -8,7 +8,6 @@ import {
 import {
     canvasPosition,
     canvasSize,
-    isSideBarCollapsed,
     originalSize,
     zoomFactor
 } from '../data';
@@ -80,13 +79,13 @@ export const scaleInverse = ( value: number ) => {
 export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, renderer: Renderer ) => {
     const image = renderer.textImage;
 
-    const scaler = () => {
-        const target = elementToGetParentFrom.value!.parentElement!;
+    let target: HTMLElement | null = null;
 
+    const scaler = () => {
         if ( image.src !== '' && image.complete )
-            computeScaleFactor( image.width, target.clientWidth, image.height / image.width );
+            computeScaleFactor( image.width, target!.clientWidth, image.height / image.width );
         else
-            computeScaleFactor( referenceCanvasSize.width, target.clientWidth, referenceCanvasSize.height / referenceCanvasSize.width );
+            computeScaleFactor( referenceCanvasSize.width, target!.clientWidth, referenceCanvasSize.height / referenceCanvasSize.width );
 
         renderer.renderAll();
     };
@@ -96,14 +95,16 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
         canvasPosition
     ], renderer.renderAll );
 
-    watch( isSideBarCollapsed, () => {
-        setTimeout( () => {
-            scaler();
-        }, 500 );
+    const observer = new ResizeObserver( () => {
+        console.log( 'scaling' );
+        scaler();
     } );
 
     onMounted( () => {
+        target = elementToGetParentFrom.value!.parentElement!;
+
         window.addEventListener( 'resize', scaler );
+        observer.observe( target );
         image.onload = scaler;
 
         scaler();

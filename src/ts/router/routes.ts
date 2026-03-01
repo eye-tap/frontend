@@ -44,9 +44,6 @@ export const routes = [
         'path': '/app',
         'name': 'app',
         'component': () => import( '@/views/AppMainView.vue' ),
-        'meta': {
-            'transition': 'scale'
-        },
         'children': [
             {
                 'path': '',
