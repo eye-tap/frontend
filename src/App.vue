@@ -44,7 +44,6 @@
     }
 }
 
-/* TODO: Update this colour (maybe add a separate variable to the theme) */
 ::selection {
     background-color: #7c8cec;
     color: white;

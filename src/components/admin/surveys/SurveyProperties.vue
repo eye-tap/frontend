@@ -1,7 +1,12 @@
 <script setup lang="ts">
     import {
-        deleteSurvey, exportSurvey
+        deleteSurvey,
+        exportSurvey
     } from '@/ts/surveys';
+    import {
+        ref,
+        watch
+    } from 'vue';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
@@ -14,53 +19,74 @@
     import {
         useSurveyStore
     } from '@/ts/stores/admin';
-    import {
-        watch
-    } from 'vue';
-
-    // TODO: Download magic links from server to display (if this is supported)
-    // --> Likely won't be due to bcrypt or the like being used for passwords
 
     const route = useRoute();
     const surveyStore = useSurveyStore();
     const maxSurveyLength = 50;
     const notifications = useNotification();
     const status = useStatusStore();
+    const deleting = ref( false );
+    const exporting = ref( false );
 
     const removeSurvey = () => {
-        deleteSurvey( surveyStore.getSelectedSurveyID! ).then( ( success: boolean ) => {
-            if ( success ) {
-                notifications.notify( {
-                    'text': 'Survey was deleted successfuly',
-                    'type': 'success',
-                    'title': 'Survey Deleted'
-                } );
-                window.location.reload();
-            } else {
+        deleting.value = true;
+        deleteSurvey( surveyStore.getSelectedSurveyID! )
+            .then( ( success: boolean ) => {
+                if ( success ) {
+                    notifications.notify( {
+                        'text': 'Survey was deleted successfuly',
+                        'type': 'success',
+                        'title': 'Survey Deleted'
+                    } );
+                    window.location.reload();
+                } else {
+                    deleting.value = false;
+                    notifications.notify( {
+                        'text': 'Survey could not be deleted',
+                        'type': 'error',
+                        'title': 'Error: Survey Deletion'
+                    } );
+                }
+            } )
+            .catch( e => {
+                console.debug( e );
+                deleting.value = false;
                 notifications.notify( {
                     'text': 'Survey could not be deleted',
                     'type': 'error',
                     'title': 'Error: Survey Deletion'
                 } );
-            }
-        } );
+            } );
     };
 
     const exportThisSurvey = () => {
-        exportSurvey( surveyStore.getSelectedSurveyID! ).then( ( success: boolean ) => {
-            if ( success )
-                notifications.notify( {
-                    'text': 'Survey exported successfuly',
-                    'type': 'success',
-                    'title': 'Survey Export'
-                } );
-            else
+        exporting.value = true;
+        exportSurvey( surveyStore.getSelectedSurveyID! )
+            .then( ( success: boolean ) => {
+                exporting.value = false;
+
+                if ( success )
+                    notifications.notify( {
+                        'text': 'Survey exported successfuly',
+                        'type': 'success',
+                        'title': 'Survey Export'
+                    } );
+                else
+                    notifications.notify( {
+                        'text': 'Survey could not be exported',
+                        'type': 'error',
+                        'title': 'Error: Survey Export'
+                    } );
+            } )
+            .catch( e => {
+                console.debug( e );
+                exporting.value = false;
                 notifications.notify( {
                     'text': 'Survey could not be exported',
                     'type': 'error',
                     'title': 'Error: Survey Export'
                 } );
-        } );
+            } );
     };
 
     const truncate = ( text: string, limit: number ) => {
@@ -119,13 +145,17 @@
                 v-if="surveyStore.selectedSurveyIndex >= 0"
                 class="bar-buttons"
             >
-                <span>
+                <span
+                    :class="deleting ? 'progress-active' : ''"
+                >
                     <i
                         class="fa-solid fa-trash fa-lg trash-icon"
                         @click="removeSurvey"
                     ></i>
                 </span>
-                <span>
+                <span
+                    :class="exporting ? 'progress-active' : ''"
+                >
                     <i
                         class="fa-solid fa-download fa-lg dl-icon"
                         @click="exportThisSurvey"
@@ -164,6 +194,26 @@
 <style scoped lang="scss">
 @use '@/scss/admin/general';
 @use '@/scss/admin/top-bar';
+
+@keyframes progressing-bounce {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.25);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+}
+
+.progress-active {
+    animation: progressing-bounce 0.5s linear infinite;
+}
+
 
 .survey-properties {
   // Mainly for wide displays

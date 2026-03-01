@@ -9,9 +9,6 @@
         useSurveyStore
     } from '@/ts/stores/admin';
 
-    // TODO: Download magic links from server to display (if this is supported)
-    // --> Likely won't be due to bcrypt or the like being used for passwords
-
     const surveyStore = useSurveyStore();
     const notifications = useNotification();
     const status = useStatusStore();
