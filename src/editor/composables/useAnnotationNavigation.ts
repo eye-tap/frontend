@@ -22,7 +22,7 @@ export function useAnnotationNavigation () {
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
 
-        if ( !nextAnnotationId.value ) {
+        if ( nextAnnotationId.value == null ) {
             notifications.notify( {
                 'text': 'No further annotation session available!',
                 'type': 'warn',
@@ -33,10 +33,7 @@ export function useAnnotationNavigation () {
             return;
         }
 
-        const nextIdx = store.sessionIds
-            .filter( val => val.sessionId === nextAnnotationId.value )
-            .map( val => val.sessionId )
-            .reduce( ( prev, curr ) => prev + curr );
+        const nextIdx = store.sessionIds.findIndex( s => s.sessionId === nextAnnotationId.value );
 
         if ( nextIdx !== -1 ) {
             store.setActive( nextIdx );
