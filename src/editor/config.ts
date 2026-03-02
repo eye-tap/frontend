@@ -23,7 +23,6 @@ export const autoSaveInterval = ref( 60000 );
 // Colors
 export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
-// TODO: Do we want this setting?
 export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
 
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );

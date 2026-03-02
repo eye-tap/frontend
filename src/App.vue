@@ -29,8 +29,6 @@
 @include gen-theme('.theme-blue', $theme-blue);
 @include gen-theme('.theme-black', $theme-black);
 @include gen-theme('.theme-purple', $theme-purple);
-// NOTE: Simply add a new one like above to the list here, template is theme-<theme-name here> for the first arg,
-// second arg simply has to correspond to scss var in src/scss/_theme.scss
 
 .notifications {
     .vue-notification {

@@ -4,7 +4,6 @@ import {
     watch
 } from 'vue';
 
-// TODO: Add more themes
 const themes: Ref<string[]> = ref( [
     'Blue',
     'Red',
