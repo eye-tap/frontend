@@ -7,7 +7,8 @@
         fixationIndexDisplay,
         fixationIndexDisplayOptions,
         linesDisplay,
-        linesDisplayOptions
+        linesDisplayOptions,
+        renderScanPath
     } from '../config';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
     import SwitchOption from '@/components/settings/SwitchOption.vue';
@@ -41,6 +42,7 @@
                     text="Fixation Index"
                 />
                 <SwitchOption v-model="isAutoSaveEnabled" text="Autosave" />
+                <SwitchOption v-model="renderScanPath" text="Show scan path" />
             </div>
         </div>
     </div>

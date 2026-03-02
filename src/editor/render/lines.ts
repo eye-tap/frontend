@@ -17,8 +17,7 @@ import {
     lineWidth,
     linesDisplay,
     machineAssignedLineColor,
-    machineAssignedLineWidth,
-    numberOfLinesToRenderInSurroundingMode
+    machineAssignedLineWidth
 } from '../config';
 import {
     originalToCanvasCoordinates,
@@ -50,11 +49,6 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
                     filterAlgorithms( l, previousDrawer );
-                } );
-        } else if ( linesDisplay.value === 'surrounding' ) {
-            if ( selectedFixation.value >= 0 )
-                annotations.value.forEach( l => {
-                    filterAlgorithms( l, surroundingDrawer );
                 } );
         } else if ( linesDisplay.value === 'allalgos' ) {
             ctx.lineWidth = scale( machineAssignedLineWidth.value );
@@ -92,12 +86,6 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         if ( l.fixationIdx === selectedFixation.value )
             drawLine( l );
         else if ( l.fixationIdx === selectedFixation.value - 1 )
-            drawLine( l );
-    };
-
-    const surroundingDrawer = ( l: EditorAnnotation ) => {
-        if ( l.fixationIdx > selectedFixation.value - numberOfLinesToRenderInSurroundingMode.value
-            || l.fixationIdx < selectedFixation.value + numberOfLinesToRenderInSurroundingMode.value )
             drawLine( l );
     };
 

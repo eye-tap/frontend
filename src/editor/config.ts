@@ -25,6 +25,8 @@ export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-
 
 export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
 
+export const scanPathLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
+
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
 export const boundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
@@ -76,6 +78,8 @@ export const selectedFixationRadius = ref( 8 );
 export const lineWidth = ref( 3 );
 
 export const machineAssignedLineWidth = ref( 1 );
+
+export const scanPathLineWidth = ref( 1 );
 
 export const indicesFontSize = ref( 14 );
 
@@ -153,12 +157,13 @@ export const boxesDisplay = ref<BoxesDisplay>( 'letters' );
 export const linesDisplayOptions = [
     'all',
     'previous',
-    'surrounding', // TODO: this enables the config option below
     'allalgos',
     'none'
 ] as const;
 
-export const numberOfLinesToRenderInSurroundingMode = ref( 10 );
+export const numberOfFixationsToConnectInScanPathRendering = ref( 10 );
+
+export const renderScanPath = ref( true );
 
 export type LinesDisplay = typeof linesDisplayOptions[number];
 
