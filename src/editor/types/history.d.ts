@@ -6,6 +6,7 @@ export interface HistoryEntry {
     'annotation': EditorAnnotation;
     'selectedFixation': number;
     'action': 'add' | 'delete';
+    'fixationState': 'assigned' | 'unassigned' | 'machine' | 'invalid';
 }
 
 export interface AnnotationManager {

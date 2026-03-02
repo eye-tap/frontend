@@ -53,17 +53,17 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         if ( last.action === 'delete' ) annotation.deleteByFixID( last.annotation.fixationIdx );
         else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
-        if ( last.annotation.boxIdx !== undefined ) {
-            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'assigned';
-        } else {
-            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'unassigned';
-        }
+        fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
 
         renderer.renderLines.render();
         renderer.renderFixations.render();
     };
 
-    const add = ( annotation: EditorAnnotation, selectedFixation: number ) => {
+    const add = (
+        annotation: EditorAnnotation,
+        selectedFixation: number,
+        oldState: 'assigned' | 'unassigned' | 'machine' | 'invalid'
+    ) => {
         revision.value++;
 
         undoHistory.value.push( {
@@ -71,6 +71,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
                 ...annotation
             },
             'selectedFixation': selectedFixation,
+            'fixationState': oldState,
             'action': 'add'
         } );
         clearRedo();
@@ -81,7 +82,11 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
      * @param annotation - The annotation that was removed
      * @param selectedFixation - The fixation that was selected
      */
-    const remove = ( annotation: EditorAnnotation, selectedFixation: number ) => {
+    const remove = (
+        annotation: EditorAnnotation,
+        selectedFixation: number,
+        oldState: 'assigned' | 'unassigned' | 'machine' | 'invalid'
+    ) => {
         revision.value++;
 
         undoHistory.value.push( {
@@ -89,6 +94,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
                 ...annotation
             },
             'selectedFixation': selectedFixation,
+            'fixationState': oldState,
             'action': 'delete'
         } );
         clearRedo();
@@ -106,13 +112,9 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
         else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
-        if ( last.annotation.boxIdx !== undefined ) {
-            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'assigned';
-        } else {
-            fixations.value[ last.annotation.fixationIdx ]!.assigned = 'unassigned';
-        }
+        fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
 
-        selectedFixation.value = last.selectedFixation + 1;
+        selectedFixation.value = last.selectedFixation;
 
         renderer.renderLines.render();
         renderer.renderFixations.render();

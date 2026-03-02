@@ -46,7 +46,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
 
             // Add to history
             if ( !skipHistory )
-                history.add( annotation, fixationIndex );
+                history.add( annotation, fixationIndex, fixations.value[ fixationIndex ]!.assigned );
 
             if ( highlight )
                 highlightBox( boundingBoxIndex, 1000 );
@@ -92,7 +92,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
 
         if ( fixations.value[ fixationId ]!.assigned === 'assigned' ) {
             for ( let i = 0; i < annotations.value.length; i++ ) {
-                if ( annotations.value[ i ]!.fixationIdx === fixationId ) {
+                if ( annotations.value[ i ]!.fixationIdx === fixationId && !annotations.value[ i ]!.algorithm ) {
                     idx = i;
                     break;
                 }
@@ -101,14 +101,18 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             if ( idx > -1 ) {
                 const d = annotations.value.splice( idx, 1 );
 
-                fixations.value[ fixationId ]!.assigned = 'unassigned';
+                console.log( 'Removing annotation', d, 'with fix idx', fixationId );
+
 
                 if ( addActionToHistory ) {
-                    history.remove( d[ 0 ]!, selectedFixation.value );
-                    renderer.renderLines.render();
-                    renderer.renderFixations.render();
-                    renderer.renderIndices.render();
+                    history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
                 }
+
+                fixations.value[ fixationId ]!.assigned = 'unassigned';
+
+                renderer.renderIndices.render();
+                renderer.renderFixations.render();
+                renderer.renderLines.render();
 
                 highlightBox( d[ 0 ]!.boxIdx, 3000 );
             }
@@ -123,7 +127,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         let idx = -1;
 
         for ( let i = 0; i < annotations.value.length; i++ ) {
-            if ( annotations.value[ i ]!.boxIdx === boxId ) {
+            if ( annotations.value[ i ]!.boxIdx === boxId && !annotations.value[ i ]!.algorithm ) {
                 idx = i;
                 break;
             }

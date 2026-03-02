@@ -105,19 +105,21 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         const algos = Object.keys( additionalAnnotationLoad );
 
         algos.forEach( algo => {
-            const details = additionalAnnotationLoad[ algo ]! as AnnotationDto;
+            const details = additionalAnnotationLoad[ algo ]! as AnnotationDto[];
 
-            if ( details.fixation && details.characterBoundingBox ) {
-                const ann: EditorAnnotation = {
-                    'fixationIdx': getFixIdxFromId( details.fixation!.id! ),
-                    'boxIdx': getBoxIdxFromId( details.characterBoundingBox!.id! ),
-                    'algorithm': algo
-                };
+            details.forEach( annotation => {
+                if ( annotation.fixation && annotation.characterBoundingBox ) {
+                    const ann: EditorAnnotation = {
+                        'fixationIdx': getFixIdxFromId( annotation.fixation!.id! ),
+                        'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! ),
+                        'algorithm': algo
+                    };
 
-                fixations.value[ ann.fixationIdx ]!.assigned = details.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+                    fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
-                annotations.value.push( ann );
-            }
+                    annotations.value.push( ann );
+                }
+            } );
         } );
     }
 

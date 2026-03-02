@@ -24,7 +24,7 @@ export const autoSaveInterval = ref( 60000 );
 export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
 // TODO: Do we want this setting?
-export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
+export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
 
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
@@ -76,8 +76,7 @@ export const selectedFixationRadius = ref( 8 );
 
 export const lineWidth = ref( 3 );
 
-// TODO: Do we want this setting?
-export const machineAssignedLineWidth = ref( 3 );
+export const machineAssignedLineWidth = ref( 1 );
 
 export const indicesFontSize = ref( 14 );
 

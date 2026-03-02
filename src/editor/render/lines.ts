@@ -16,6 +16,8 @@ import {
     assignedLineColor,
     lineWidth,
     linesDisplay,
+    machineAssignedLineColor,
+    machineAssignedLineWidth,
     numberOfLinesToRenderInSurroundingMode
 } from '../config';
 import {
@@ -55,10 +57,12 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
                     filterAlgorithms( l, surroundingDrawer );
                 } );
         } else if ( linesDisplay.value === 'allalgos' ) {
-            // TODO: Do we want more settings here? (like )
+            ctx.lineWidth = scale( machineAssignedLineWidth.value );
+            ctx.strokeStyle = machineAssignedLineColor.value;
+
             if ( selectedFixation.value >= 0 )
                 annotations.value.forEach( l => {
-                    if ( l.fixationIdx === selectedFixation.value )
+                    if ( l.fixationIdx === selectedFixation.value && l.algorithm )
                         drawLine( l );
                 } );
         }
@@ -69,7 +73,10 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
 
         if ( assignType === 'invalid' ) return;
 
-        if ( assignType === 'assigned' ) drawFunc( l );
+        if ( assignType === 'assigned' ) {
+            if ( !l.algorithm )
+                drawFunc( l );
+        }
 
 
         if ( !l.algorithm ) {
