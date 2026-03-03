@@ -1,6 +1,6 @@
 # Improvement ideas
 ## Editor
-- [ ] Possibly: Resize listener on canvas container
+- [X] Possibly: Resize listener on canvas container
 - [X] Move advanced options into a popover instead of the sidebar -> default collapsed, expanded
 - [X] Autosave
 - [X] Legend displaying what the colours mean
@@ -24,6 +24,7 @@
 - [X] Filter annotations by algorithms
 - [X] Drop shadow for fixations
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
+- [X] Scan path rendering
 - [ ] ~~Indices rendering outside box if possible?~~
 
 

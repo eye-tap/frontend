@@ -93,8 +93,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             }
 
             annotations.value.push( ann );
-
-            // NOTE: To use other disagreement measures, compute here
         } );
 
     // Load additional algorithmic assignments
