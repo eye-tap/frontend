@@ -101,6 +101,7 @@ export const undo = () => {
 const start = (
     textCanvas: Ref<HTMLCanvasElement | null>,
     boxesCanvas: Ref<HTMLCanvasElement | null>,
+    scanpathCanvas: Ref<HTMLCanvasElement | null>,
     linesCanvas: Ref<HTMLCanvasElement | null>,
     fixationsCanvas: Ref<HTMLCanvasElement | null>,
     indicesCanvas: Ref<HTMLCanvasElement | null>,
@@ -108,7 +109,7 @@ const start = (
 ) => {
     const session = useAnnotationSessionStore();
     const status = useStatusStore();
-    const draw = renderer( textCanvas, boxesCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
+    const draw = renderer( textCanvas, boxesCanvas, scanpathCanvas, linesCanvas, fixationsCanvas, indicesCanvas, clickTarget );
     const io = ioHandler( clickTarget, draw );
 
     editorSessionManager( draw );

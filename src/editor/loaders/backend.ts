@@ -156,6 +156,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         title += ' (soft complete)';
 
     sendLoadEvent( title );
+    renderer.renderAll();
 };
 
 const getBoxIdxFromId = ( id: number ) => {

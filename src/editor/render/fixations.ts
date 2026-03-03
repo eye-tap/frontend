@@ -41,9 +41,6 @@ import type {
 import type {
     EditorFixation
 } from '../types/fixations';
-import {
-    scanPathRenderer
-} from './scanpath';
 
 export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
@@ -60,7 +57,6 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         // Render points
         if ( fixationDisplay.value === 'all' ) {
             fixations.value.forEach( allFixationsRenderer( ctx ) );
-            scanPathRenderer( ctx );
         } else if ( fixationDisplay.value === 'surrounding' ) {
             fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
         } else if ( fixationDisplay.value === 'assigned' ) {

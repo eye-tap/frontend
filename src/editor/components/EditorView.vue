@@ -14,6 +14,7 @@
 
     const textCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const boxesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
+    const scanpathCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const linesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const fixationsCanvas: Ref<HTMLCanvasElement | null> = ref( null );
     const indicesCanvas: Ref<HTMLCanvasElement | null> = ref( null );
@@ -21,6 +22,7 @@
     const editorInstance = editor.start(
         textCanvas,
         boxesCanvas,
+        scanpathCanvas,
         linesCanvas,
         fixationsCanvas,
         indicesCanvas,
@@ -45,6 +47,7 @@
         />
         <div class="canvas-wrapper">
             <canvas id="text" ref="textCanvas"></canvas>
+            <canvas id="scanpath" ref="scanpathCanvas" class="canvas-layer"></canvas>
             <canvas id="boxes" ref="boxesCanvas" class="canvas-layer"></canvas>
             <canvas id="lines" ref="linesCanvas" class="canvas-layer"></canvas>
             <canvas id="fixations" ref="fixationsCanvas" class="canvas-layer"></canvas>

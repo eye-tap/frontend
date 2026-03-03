@@ -3,6 +3,7 @@ export interface Renderer {
     'renderFixations': RenderType;
     'renderIndices': RenderType;
     'renderBoxes': RenderType;
+    'renderScanpath': RenderType;
     'renderLines': RenderType;
     'renderIO': RenderType;
     'renderAll': () => void;

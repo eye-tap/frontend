@@ -20,6 +20,9 @@ import {
     linesRenderer
 } from './lines';
 import {
+    scanPathRenderer
+} from './scanpath';
+import {
     setRenderer
 } from './manager';
 import {
@@ -32,6 +35,7 @@ import {
 export const renderer = (
     textCanvas: Ref<HTMLCanvasElement | null>,
     boxesCanvas: Ref<HTMLCanvasElement | null>,
+    scanpathCanvas: Ref<HTMLCanvasElement | null>,
     linesCanvas: Ref<HTMLCanvasElement | null>,
     fixationsCanvas: Ref<HTMLCanvasElement | null>,
     indicesCanvas: Ref<HTMLCanvasElement | null>,
@@ -42,6 +46,7 @@ export const renderer = (
     const fix = fixationRenderer( fixationsCanvas );
     const indices = indicesRenderer( indicesCanvas );
     const box = boxesRenderer( boxesCanvas, textImage );
+    const scanpath = scanPathRenderer( scanpathCanvas );
     const lines = linesRenderer( linesCanvas );
     const io = ioRenderer( clickTaragetCanvas );
 
@@ -52,6 +57,7 @@ export const renderer = (
         indices.render();
         lines.render();
         io.render();
+        scanpath.render();
     };
 
     io.render();
@@ -63,6 +69,7 @@ export const renderer = (
         'renderBoxes': box,
         'renderLines': lines,
         'renderIO': io,
+        'renderScanpath': scanpath,
         renderAll,
         textImage
     };
