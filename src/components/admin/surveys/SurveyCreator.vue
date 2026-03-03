@@ -149,10 +149,10 @@
                 console.error( err );
                 notifications.notify( {
                     'text': 'Unable to create survey right now. Please try again later',
-                    'type': 'success',
+                    'type': 'error',
                     'title': 'Survey creation'
                 } );
-                creating.value = true;
+                creating.value = false;
             } );
     };
 
