@@ -25,6 +25,7 @@
 - [X] Drop shadow for fixations
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [X] Scan path rendering
+- [ ] Good colours
 - [ ] ~~Indices rendering outside box if possible?~~
 
 

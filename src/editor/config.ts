@@ -123,32 +123,40 @@ export const hoveredFixationRadius = ref( 10 );
 export const selectedFixationRadius = ref( 8 );
 
 // Color
+// FIXME: Color
 export const heatMapMinColor: Ref<Color> = ref( {
     'r': 0,
     'g': 0,
     'b': 0
 } );
 
+// FIXME: Color
 export const heatMapMidColor: Ref<Color> = ref( {
     'r': 0,
     'g': 0,
     'b': 0
 } );
 
+// FIXME: Color
 export const heatMapMaxColor: Ref<Color> = ref( {
     'r': 255,
     'g': 0,
     'b': 0
 } );
 
+// FIXME: Color
 export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
+// FIXME: Color
 export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-success' ) );
 
+// FIXME: Color
 export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-warning' ) );
 
+// FIXME: Color
 export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shade' ) );
 
+// FIXME: Color
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-information' ) );
 
 // Heat map config
@@ -182,6 +190,7 @@ export const indicesFontSize = ref( 14 );
 export const indicesFontFamily = ref( 'sans-serif' );
 
 // Drop shadow
+// FIXME: Styling (for all the below)
 export const dropShadowSize = ref( 2 ); // Zero disables it
 
 export const dropShadowInnerSize = ref( 1 );
@@ -205,6 +214,8 @@ export const dropShadowOffsetY = ref( 1 );
 // ┌                                               ┐
 // │                   Scan Path                   │
 // └                                               ┘
+// FIXME: If you want to render the scan path more in the fore- or background,
+// move the canvas up/down src/editor/components/EditorView.vue
 export const scanpathOpacity = ref( 1 );
 
 export const numberOfFixationsToConnectInScanPathRendering = ref( 10 );
@@ -213,6 +224,8 @@ export const renderScanPath = ref( true );
 
 export const scanPathLineWidth = ref( 1 );
 
+// FIXME: Color
+export const scanPathLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
 
 
 // ┌                                               ┐
@@ -233,13 +246,13 @@ export const linesDisplay = ref<LinesDisplay>( 'previous' );
 
 export const lineWidth = ref( 3 );
 
+// FIXME: Size
 export const machineAssignedLineWidth = ref( 1 );
 
 // Color
 export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
+// FIXME: Color
 export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
-
-export const scanPathLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
 
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
