@@ -22,7 +22,9 @@ export function useAnnotationNavigation () {
     const goToNextAnnotation = () => {
         console.log( 'Navigating to next...' );
 
-        if ( nextAnnotationId.value == null ) {
+        const nextIdx = store.sessionIdx + 1;
+
+        if ( nextIdx >= store.sessionIds.length ) {
             notifications.notify( {
                 'text': 'No further annotation session available!',
                 'type': 'warn',
@@ -33,14 +35,7 @@ export function useAnnotationNavigation () {
             return;
         }
 
-        const nextIdx = store.sessionIds.findIndex( s => s.sessionId === nextAnnotationId.value );
-
-        if ( nextIdx !== -1 ) {
-            store.setActive( nextIdx );
-        } else {
-            console.warn( 'Next session ID not found in store.' );
-        }
-
+        store.setActive( nextIdx );
         isAnnotationComplete.value = false;
         nextAnnotationId.value = null;
     };
