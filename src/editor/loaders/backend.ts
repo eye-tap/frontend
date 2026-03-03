@@ -9,6 +9,11 @@ import {
     selectedAlgorithm,
     selectedFixation
 } from '../data';
+import {
+    heatMapMaxValue,
+    heatMapMidValue,
+    heatMapMinValue
+} from '../config';
 import type {
     AnnotationDto
 } from '@/types/dtos/AnnotationDto';
@@ -45,6 +50,10 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // Load fixations
     const fix = sessionData.value.readingSession!.fixations!;
 
+    let max = Number.MIN_VALUE;
+    let min = Number.MAX_VALUE;
+    let avg = 0;
+
     fixations.value = [];
     fix.forEach( f => {
         const isInvalid = sessionData.value.removedFixations?.includes( f.id! ) ?? false;
@@ -56,7 +65,20 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'assigned': isInvalid ? 'invalid' : 'unassigned',
             'disagreement': f.disagreement
         } );
+
+        if ( f.disagreement ) {
+            if ( max < f.disagreement ) max = f.disagreement!;
+
+            if ( min > f.disagreement ) min = f.disagreement!;
+
+            avg += f.disagreement;
+        }
     } );
+
+    // Update heatmap bounds
+    heatMapMaxValue.value = max;
+    heatMapMinValue.value = min;
+    heatMapMidValue.value = avg / fix.length;
 
     // Load bounding boxes
     const bb = sessionData.value.readingSession!.textDto!.characterBoundingBoxes!;
