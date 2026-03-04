@@ -35,7 +35,7 @@
 - [X] Trackpad zoom & move
 - [ ] Highlighting current fixation (probably add colour change back, or some outline?)
 - [X] Highlight box for all algos visualization
-- [ ] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
+- [X] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
 - [ ] Keybind panel (possible to keep open)
 - [ ] Put button to open it in collapsed sidebar
 - [ ] Quick guide instead of always visible keybind panel choosable (or none ofc)
@@ -43,7 +43,7 @@
 - [X] Invalid fixation keybind -> shift delete or shift backspace
 - [ ] Add button to mark fixation as invalid
 - [X] Backspace moves backwards if no annotation present
-- [ ] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
+- [X] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
 - [ ] Optional: Show zoom box if lots of fixations close by
 - [ ] Zoom to fixation
 - [ ] Move to fixation when moving around (and zoom factor > 1)
