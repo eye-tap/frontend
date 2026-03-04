@@ -16,6 +16,9 @@ import {
     useSaveFunction
 } from './manager/save';
 import {
+    useExportFunction
+} from './manager/export';
+import {
     autoSaveInterval
 } from './config';
 import {
@@ -76,6 +79,10 @@ export const save = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );
 };
 
+export const exportAnnotations = () => {
+    document.dispatchEvent( new CustomEvent( 'eyetap:export' ) );
+};
+
 export const redoAvailable = computed( () => {
     return redoHistory.value.length > 0;
 } );
@@ -114,6 +121,7 @@ const start = (
 
     editorSessionManager( draw );
     useSaveFunction();
+    useExportFunction();
 
     if ( !status.devMode ) {
         loadEditorDataFromBackend( draw );
@@ -143,6 +151,7 @@ const start = (
 
 export default {
     save,
+    exportAnnotations,
     redo,
     undo,
     start,

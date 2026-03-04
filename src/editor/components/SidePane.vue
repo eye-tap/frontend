@@ -43,6 +43,10 @@
         editor.save();
     };
 
+    const exportCsv = () => {
+        editor.exportAnnotations();
+    };
+
     const saveSuccessHandler = () => {
         notifications.notify( {
             'text': 'Your progress was saved',
@@ -102,6 +106,13 @@
                 >
                     <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
+                <span
+                    class="clickable-icon"
+                    title="Export annotations as CSV"
+                    @click="exportCsv"
+                >
+                    <i class="fa-xl fa-solid fa-file-csv"></i>
+                </span>
             </div>
             <div class="options-bar-right">
                 <span class="clickable-icon" @click="toggleCollapse()">
@@ -146,6 +157,15 @@
             >
                 <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
                 <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
+            </span>
+        </div>
+        <div v-if="isSideBarCollapsed" class="options-bar">
+            <span
+                class="clickable-icon"
+                title="Export annotations as CSV"
+                @click="exportCsv"
+            >
+                <i class="fa-xl fa-solid fa-file-csv"></i>
             </span>
         </div>
         <!-- Content -->
