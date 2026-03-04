@@ -80,8 +80,6 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             fixations.value[ fixationIndex ]!.assigned = 'assigned';
 
             renderer.renderLines.render();
-        } else {
-            console.log( 'Missing index. Indices:', boundingBoxIndex, fixationIndex );
         }
     };
 

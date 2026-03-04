@@ -95,10 +95,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                         false,
                         false
                     );
-                // } catch { /* empty */ }
-                } catch {
-                    console.log( 'Could not confirm' );
-                }
+                } catch { /* empty */ }
             } else if ( ev.key === 'Delete' ) {
                 ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );
