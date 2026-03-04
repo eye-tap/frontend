@@ -11,9 +11,9 @@
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import UserCard from '@/components/home/UserCard.vue';
     import annotations from '@/ts/annotations';
-    import {
+    /*     import {
         exportSurvey
-    } from '@/ts/surveys';
+    } from '@/ts/surveys'; */
     import router from '@/ts/router';
     import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
     import {
@@ -111,11 +111,11 @@
         if ( annotationSessionStore.selected )
             router.push( '/app/editor' );
     };
-
+/*
     const exportFile = () => {
         if ( annotationSessionStore.selected )
             exportSurvey( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]!.sessionId );
-    };
+    }; */
 </script>
 
 <template>

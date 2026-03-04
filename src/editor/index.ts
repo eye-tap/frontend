@@ -16,9 +16,6 @@ import {
     useSaveFunction
 } from './manager/save';
 import {
-    useExportFunction
-} from './manager/export';
-import {
     autoSaveInterval
 } from './config';
 import {
@@ -42,6 +39,9 @@ import {
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
+import {
+    useExportFunction
+} from './manager/export';
 import {
     useStatusStore
 } from '@/ts/stores/status';
