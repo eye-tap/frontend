@@ -41,12 +41,7 @@
 
     const dragHandler = ( ev: MouseEvent ) => {
         if ( !isDragging.value && ev.buttons === 1 ) {
-            isDragging.value = true;
-            oldPos = {
-                ...pos.value
-            };
-            clickPos.x = ev.x;
-            clickPos.y = ev.y;
+            startDrag( ev );
         } else if ( isDragging.value ) {
             pos.value = {
                 'x': oldPos.x + ( clickPos.x - ev.x ),
@@ -57,6 +52,15 @@
 
     const mouseUp = () => {
         isDragging.value = false;
+    };
+
+    const startDrag = ( ev: MouseEvent ) => {
+        isDragging.value = true;
+        oldPos = {
+            ...pos.value
+        };
+        clickPos.x = ev.x;
+        clickPos.y = ev.y;
     };
 
     const minHeatMapColor = automatedColourMapper( heatMapMinColor );
@@ -73,7 +77,15 @@
         @mousemove="dragHandler"
         @mouseup="mouseUp"
     >
-        <h2>Legend</h2>
+        <div
+            class="drag-helper"
+            :class="isDragging ? 'active' : ''"
+            @mousemove="dragHandler"
+            @mouseup="mouseUp"
+        ></div>
+        <h2 @mousedown="startDrag">
+            Legend
+        </h2>
         <div>
             <p class="top">
                 Fixation Colors
@@ -101,6 +113,21 @@
     box-shadow: 0px 0px 10px var(--theme-bg-1);
 
     user-select: none;
+
+    >.drag-helper {
+        position: fixed;
+        background: none;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
 
     >h2 {
         margin: 0px;
