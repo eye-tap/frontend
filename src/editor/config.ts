@@ -214,7 +214,7 @@ export const dropShadowOffsetY = ref( 1 );
 // └                                               ┘
 // FIXME: If you want to render the scan path more in the fore- or background,
 // move the canvas up/down src/editor/components/EditorView.vue
-export const scanpathOpacity = ref( 1 );
+export const scanpathOpacity = ref( 0.35 );
 
 export const numberOfFixationsToConnectInScanPathRendering = ref( 10 );
 
@@ -222,8 +222,7 @@ export const renderScanPath = ref( true );
 
 export const scanPathLineWidth = ref( 1 );
 
-// FIXME: Color
-export const scanPathLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
+export const scanPathLineColor = ref( 'rgb(133, 133, 133)' );
 
 
 // ┌                                               ┐
