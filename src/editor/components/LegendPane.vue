@@ -8,9 +8,7 @@
         heatMapMaxColor,
         heatMapMidColor,
         heatMapMinColor,
-        machineAssignedFixationColor,
-        selectedFixationColor,
-        unassignedFixationColor
+        selectedFixationColor
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import type {
@@ -93,7 +91,7 @@
             <ColorOption v-model="selectedFixationColor" text="Selected" />
             <ColorOption v-model="assignedFixationColor" text="User-assigned" />
             <!-- <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
-            <ColorOption v-model="unassignedFixationColor" text="Unassigned" /> -->
+                <ColorOption v-model="unassignedFixationColor" text="Unassigned" /> -->
             <p>
                 Entropy Heatmap
             </p>
