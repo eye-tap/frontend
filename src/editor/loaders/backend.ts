@@ -146,18 +146,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     selectedFixation.value = 0;
 
     // If none found that is unassigned, annotation is soft complete
-    if ( fixations.value[ 0 ]!.assigned !== 'unassigned' ) {
+    if ( fixations.value[ 0 ]!.assigned === 'assigned' ) {
         for ( let i = 1; i < fixations.value.length; i++ ) {
-            if ( fixations.value[ i ]!.assigned === 'unassigned' ) {
-                selectedFixation.value = i;
-                break;
-            }
-        }
-    }
-
-    if ( fixations.value[ selectedFixation.value ]!.assigned !== 'unassigned' ) {
-        for ( let i = 1; i < fixations.value.length; i++ ) {
-            if ( fixations.value[ i ]!.assigned === 'machine' ) {
+            if ( fixations.value[ i ]!.assigned !== 'assigned' ) {
                 selectedFixation.value = i;
                 break;
             }
