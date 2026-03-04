@@ -6,10 +6,8 @@ import {
     linesDisplay
 } from '../config';
 import {
-    algorithmsList,
     annotations,
     fixations,
-    selectedAlgorithm,
     selectedFixation
 } from '../data';
 import {
@@ -87,19 +85,20 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 if ( selectedFixation.value > -1 ) {
                     selectedFixation.value = ( selectedFixation.value - 1 ) % fixations.value.length;
                 }
-            } else if ( ev.key === 'Space' ) {
+            } else if ( ev.key === ' ' ) {
                 ev.preventDefault();
 
                 try {
                     annotation.create(
-                        annotations.value.indexOf(
-                            annotations.value.find( val => val.algorithm === algorithmsList.value[ selectedAlgorithm.value ]! )!
-                        ),
+                        annotations.value.find( val => val.algorithm === 'default' && val.fixationIdx === selectedFixation.value )!.boxIdx,
                         selectedFixation.value,
                         false,
                         false
                     );
-                } catch { /* empty */ }
+                // } catch { /* empty */ }
+                } catch {
+                    console.log( 'Could not confirm' );
+                }
             } else if ( ev.key === 'Delete' ) {
                 ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );

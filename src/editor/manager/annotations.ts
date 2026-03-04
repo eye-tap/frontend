@@ -80,6 +80,8 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
             fixations.value[ fixationIndex ]!.assigned = 'assigned';
 
             renderer.renderLines.render();
+        } else {
+            console.log( 'Missing index. Indices:', boundingBoxIndex, fixationIndex );
         }
     };
 
@@ -100,9 +102,6 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
 
             if ( idx > -1 ) {
                 const d = annotations.value.splice( idx, 1 );
-
-                console.log( 'Removing annotation', d, 'with fix idx', fixationId );
-
 
                 if ( addActionToHistory ) {
                     history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
