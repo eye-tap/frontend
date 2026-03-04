@@ -267,7 +267,7 @@
                                 :key="index"
                             >
                                 <td class="left-td">
-                                    {{ session.reader }}
+                                    {{ session.foreignReaderId }}
                                 </td>
                                 <td class="select-all">
                                     <div>
