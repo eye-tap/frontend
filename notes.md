@@ -25,29 +25,29 @@
 - [X] Drop shadow for fixations
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [X] Scan path rendering
-- [ ] Good colours
-- [ ] Clean up options (remove some, add some others)
+- [ ] **Good colours** (I believe mostly done)
+- [ ] ***Clean up options (remove some, add some others)***
 - [X] Colour picker for Color objects
 - [X] Moving back all the way with arrows -> arrow right stops working -> JS was dumb (mod of negative number is negative number wtf)
 - [X] T1 R552, popeye slice point 2 assigns to multiple?
 - [X] Multiple lines showing from annotations
 - [X] Cmd-starting commands (cmd + +, etc) should also be a thing
 - [X] Trackpad zoom & move
-- [ ] Highlighting current fixation (probably add colour change back, or some outline?)
+- [ ] **Highlighting current fixation (probably add colour change back, or some outline?)**
 - [X] Highlight box for all algos visualization
 - [X] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
-- [ ] Keybind panel (possible to keep open)
-- [ ] Put button to open it in collapsed sidebar
-- [ ] Quick guide instead of always visible keybind panel choosable (or none ofc)
-- [ ] Download annotations button -> export to CSV
+- [ ] **Keybind panel (possible to keep open)**
+- [ ] **Put button to open it in collapsed sidebar**
+- [ ] **Quick guide instead of always visible keybind panel choosable (or none ofc)** -> See below for more details
+- [ ] **Download annotations button** -> *export to CSV*
 - [X] Invalid fixation keybind -> shift delete or shift backspace
-- [ ] Add button to mark fixation as invalid
+- [ ] **Add button to mark fixation as invalid** -> annotations.markFixationAsInvalid is func to be called
 - [X] Backspace moves backwards if no annotation present
 - [X] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
 - [ ] Optional: Show zoom box if lots of fixations close by
 - [ ] Zoom to fixation
 - [ ] Move to fixation when moving around (and zoom factor > 1)
-- [ ] Render hovered boxes above everything else (to make it more legible, maybe add condition to this)
+- [ ] **Render hovered boxes above everything else (to make it more legible, maybe add condition to this)**
 
 
 ## General
