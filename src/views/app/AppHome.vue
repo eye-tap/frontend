@@ -142,14 +142,6 @@
                         <i class="fa-lg fa-regular fa-pen-to-square"></i>
                         Edit
                     </button>
-                    <button
-                        :class="annotationSessionStore.selected ? undefined : 'disabled' "
-                        class="button primary has-icon"
-                        @click="exportFile()"
-                    >
-                        <i class="fa-lg fa-solid fa-file-arrow-down"></i>
-                        Export
-                    </button>
                 </div>
             </div>
         </div>
