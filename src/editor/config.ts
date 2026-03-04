@@ -82,6 +82,8 @@ export const boundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
 export const highlightedBoundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
+export const allAlgorithmsBoundingBoxHighlightColor = ref( rs.getPropertyValue( '--theme-bg-2' ) );
+
 export const proximityBoundingBoxColor = ref( rs.getPropertyValue( '--theme-bg-3-20' ) );
 
 export const hoveredTextColor: Ref<Color> = ref( {
@@ -91,6 +93,8 @@ export const hoveredTextColor: Ref<Color> = ref( {
 } );
 
 export const boundingBoxStrokeWidth = ref( 2 );
+
+export const highlightAllAlgosAssignedBoxes = ref( true );
 
 
 

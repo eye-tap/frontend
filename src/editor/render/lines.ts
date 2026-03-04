@@ -6,6 +6,7 @@ import {
 import {
     algorithmsList,
     annotations,
+    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
     fixations,
@@ -40,6 +41,10 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
 
+        annotationsForCurrentFixation.value = annotations.value.filter( l => {
+            return l.fixationIdx === selectedFixation.value && l.algorithm;
+        } );
+
         // Render
         if ( linesDisplay.value === 'all' ) {
             annotations.value.forEach( l => {
@@ -55,9 +60,8 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
             ctx.strokeStyle = machineAssignedLineColor.value;
 
             if ( selectedFixation.value >= 0 )
-                annotations.value.forEach( l => {
-                    if ( l.fixationIdx === selectedFixation.value && l.algorithm )
-                        drawLine( l );
+                annotationsForCurrentFixation.value.forEach( l => {
+                    drawLine( l );
                 } );
         }
     };

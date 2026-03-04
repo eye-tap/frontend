@@ -34,7 +34,7 @@
 - [X] Cmd-starting commands (cmd + +, etc) should also be a thing
 - [X] Trackpad zoom & move
 - [ ] Highlighting current fixation (probably add colour change back, or some outline?)
-- [ ] Highlight box for all algos visualization
+- [X] Highlight box for all algos visualization
 - [ ] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
 - [ ] Keybind panel (possible to keep open)
 - [ ] Put button to open it in collapsed sidebar
@@ -46,7 +46,7 @@
 - [ ] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
 - [ ] Optional: Show zoom box if lots of fixations close by
 - [ ] Zoom to fixation
-- [ ] Move to fixation when moving around
+- [ ] Move to fixation when moving around (and zoom factor > 1)
 - [ ] Render hovered boxes above everything else (to make it more legible, maybe add condition to this)
 
 

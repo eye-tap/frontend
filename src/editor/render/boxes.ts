@@ -4,15 +4,19 @@ import {
     watch
 } from 'vue';
 import {
+    allAlgorithmsBoundingBoxHighlightColor,
     boundingBoxColor,
     boundingBoxStrokeWidth,
     boundingBoxesOpacity,
     boxesDisplay,
+    highlightAllAlgosAssignedBoxes,
     highlightedBoundingBoxColor,
     hoveredTextColor,
+    linesDisplay,
     proximityBoundingBoxColor
 } from '../config';
 import {
+    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize
 } from '../data';
@@ -67,6 +71,13 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
                 }
             } );
         }
+
+        // Render all algos boxes
+        if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value ) {
+            annotationsForCurrentFixation.value.forEach( b => {
+                drawBox( allAlgorithmsBoundingBoxHighlightColor.value, boundingBoxes.value[ b.boxIdx ]!, ctx! );
+            } );
+        }
     };
 
     onMounted( () => {
@@ -81,7 +92,9 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boundingBoxStrokeWidth,
         boundingBoxesOpacity,
         boxesDisplay,
-        scalingFactor
+        scalingFactor,
+        highlightAllAlgosAssignedBoxes,
+        annotationsForCurrentFixation
     ], render );
 
     return {
