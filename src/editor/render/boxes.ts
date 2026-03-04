@@ -8,17 +8,23 @@ import {
     boundingBoxColor,
     boundingBoxStrokeWidth,
     boundingBoxesOpacity,
+    boxSuggestionRenderingThresholdFactor,
     boxesDisplay,
+    heatMapMaxValue,
     highlightAllAlgosAssignedBoxes,
+    highlightSuggestedBox,
     highlightedBoundingBoxColor,
     hoveredTextColor,
     linesDisplay,
-    proximityBoundingBoxColor
+    proximityBoundingBoxColor,
+    suggestedBoundingBoxColor
 } from '../config';
 import {
     annotationsForCurrentFixation,
     boundingBoxes,
-    canvasSize
+    canvasSize,
+    fixations,
+    selectedFixation
 } from '../data';
 import {
     imgDataToImageObject,
@@ -74,8 +80,17 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 
         // Render all algos boxes
         if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value ) {
-            annotationsForCurrentFixation.value.forEach( b => {
-                drawBox( allAlgorithmsBoundingBoxHighlightColor.value, boundingBoxes.value[ b.boxIdx ]!, ctx! );
+            annotationsForCurrentFixation.value.forEach( a => {
+                drawBox( allAlgorithmsBoundingBoxHighlightColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
+            } );
+        } else if (
+            highlightSuggestedBox.value
+            && ( fixations.value[ selectedFixation.value ]?.disagreement ?? 200 )
+            < heatMapMaxValue.value * boxSuggestionRenderingThresholdFactor.value
+        ) {
+            annotationsForCurrentFixation.value.forEach( a => {
+                if ( a.algorithm === 'default' )
+                    drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
             } );
         }
     };
