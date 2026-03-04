@@ -8,7 +8,7 @@
     } from '../types/annotation';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import {
-        assignedFixationColor, machineAssignedFixationColor, selectedFixationColor, unassignedFixationColor
+        assignedFixationColor, heatMapMidColor, heatMapMinColor, machineAssignedFixationColor, selectedFixationColor, unassignedFixationColor
     } from '../config';
 
     const props = defineProps<{
@@ -67,6 +67,9 @@
             <ColorOption v-model="assignedFixationColor" text="User-assigned" />
             <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
             <ColorOption v-model="unassignedFixationColor" text="Unassigned" />
+            <!-- <ColorOption v-model="heatMapMinColor" text="Low Entropy" />
+            <ColorOption v-model="heatMapMidColor" text="Medium Entropy" />
+            <ColorOption v-model="heatMapMaxColor" text="High Entropy" /> -->
         </div>
     </div>
 </template>

@@ -123,41 +123,39 @@ export const hoveredFixationRadius = ref( 10 );
 export const selectedFixationRadius = ref( 8 );
 
 // Color
-// FIXME: Color
+// 101, 242, 138 (theme-success)
 export const heatMapMinColor: Ref<Color> = ref( {
-    'r': 0,
-    'g': 0,
-    'b': 0
+    'r': 101,
+    'g': 242,
+    'b': 138
 } );
 
-// FIXME: Color
+// 226, 226, 86 (theme-information)
 export const heatMapMidColor: Ref<Color> = ref( {
-    'r': 0,
-    'g': 0,
-    'b': 0
+    'r': 226,
+    'g': 226,
+    'b': 86
 } );
 
-// FIXME: Color
+// 234, 115, 115 (theme-warning)
 export const heatMapMaxColor: Ref<Color> = ref( {
-    'r': 255,
-    'g': 0,
-    'b': 0
+    'r': 234,
+    'g': 115,
+    'b': 115
 } );
 
-// FIXME: Color
+// Make this keep the entropy color
 export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-// FIXME: Color
-export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-success' ) );
+export const assignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
 
-// FIXME: Color
 export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-warning' ) );
 
-// FIXME: Color
+// Ideally current entropy color, but ~20% brighter
 export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shade' ) );
 
-// FIXME: Color
-export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-information' ) );
+// likely not used anymore
+export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
 // Heat map config
 export const heatMapMinValue = ref( 0 );
