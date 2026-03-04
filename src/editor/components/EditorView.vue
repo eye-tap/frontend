@@ -69,6 +69,7 @@
         width: 95%;
         max-height: 100%;
         overflow-y: scroll;
+        overflow-x: hidden;
         position: relative;
 
         #text {

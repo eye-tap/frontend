@@ -87,33 +87,30 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
      * Delete an annotation by fixation ID. Note that it will not re-render
      * @param fixationId - The fixationId to remove for
      */
-    const deleteByFixID = ( fixationId: number, addActionToHistory: boolean = false ) => {
-        let idx = -1;
-
+    const deleteByFixID = ( fixationId: number, addActionToHistory: boolean = false ): boolean => {
         if ( fixations.value[ fixationId ]!.assigned === 'assigned' ) {
             for ( let i = 0; i < annotations.value.length; i++ ) {
                 if ( annotations.value[ i ]!.fixationIdx === fixationId && !annotations.value[ i ]!.algorithm ) {
-                    idx = i;
-                    break;
+                    const d = annotations.value.splice( i, 1 );
+
+                    if ( addActionToHistory ) {
+                        history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
+                    }
+
+                    fixations.value[ fixationId ]!.assigned = 'unassigned';
+
+                    renderer.renderIndices.render();
+                    renderer.renderFixations.render();
+                    renderer.renderLines.render();
+
+                    highlightBox( d[ 0 ]!.boxIdx, 3000 );
+
+                    return true;
                 }
-            }
-
-            if ( idx > -1 ) {
-                const d = annotations.value.splice( idx, 1 );
-
-                if ( addActionToHistory ) {
-                    history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
-                }
-
-                fixations.value[ fixationId ]!.assigned = 'unassigned';
-
-                renderer.renderIndices.render();
-                renderer.renderFixations.render();
-                renderer.renderLines.render();
-
-                highlightBox( d[ 0 ]!.boxIdx, 3000 );
             }
         }
+
+        return false;
     };
 
     /**

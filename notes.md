@@ -26,21 +26,24 @@
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [X] Scan path rendering
 - [ ] Good colours
+- [ ] Clean up options (remove some, add some others)
 - [X] Colour picker for Color objects
 - [X] Moving back all the way with arrows -> arrow right stops working -> JS was dumb (mod of negative number is negative number wtf)
-- [ ] T1 R552, popeye slice point 2 assigns to multiple?
-- [ ] Multiple lines showing from annotations
-- [ ] Cmd-starting commands (cmd + +, etc) should also be a thing
-- [ ] Trackpad zoom
-- [ ] Highlighting current fixation (probably colour change back)
+- [X] T1 R552, popeye slice point 2 assigns to multiple?
+- [X] Multiple lines showing from annotations
+- [X] Cmd-starting commands (cmd + +, etc) should also be a thing
+- [X] Trackpad zoom & move
+- [ ] Highlighting current fixation (probably add colour change back, or some outline?)
 - [ ] Highlight box for all algos visualization
 - [ ] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
 - [ ] Keybind panel (possible to keep open)
-- [ ] Quick guide
+- [ ] Put button to open it in collapsed sidebar
+- [ ] Quick guide instead of always visible keybind panel choosable (or none ofc)
 - [ ] Download annotations button -> export to CSV
-- [ ] Invalid fixation keybind (add button as well) -> shift delete or shift backspace
-- [ ] Backspace moves backwards if no annotation present
-- [ ] Space bar assignment doesn't work (on Mac at least)
+- [X] Invalid fixation keybind -> shift delete or shift backspace
+- [ ] Add button to mark fixation as invalid
+- [X] Backspace moves backwards if no annotation present
+- [ ] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
 - [ ] Optional: Show zoom box if lots of fixations close by
 - [ ] Zoom to fixation
 - [ ] Move to fixation when moving around

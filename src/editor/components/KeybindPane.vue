@@ -30,7 +30,7 @@
         },
         {
             'keybind': 'Backspace',
-            'function': 'Delete annotation'
+            'function': 'Delete annotation / move back'
         },
         {
             'keybind': 'CTRL + SHIFT + Z',
@@ -53,7 +53,11 @@
             'function': 'Assign the current fixation to the closest box of this letter'
         },
         {
-            'keybind': 'Delete',
+            'keybind': 'Shift + Backspace',
+            'function': 'Mark fixation as invalid'
+        },
+        {
+            'keybind': 'Shift + Delete',
             'function': 'Mark fixation as invalid'
         },
         {

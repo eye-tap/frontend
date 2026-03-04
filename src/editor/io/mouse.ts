@@ -81,7 +81,15 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     const scrollHandler = ( ev: WheelEvent ) => {
         if ( ev.ctrlKey ) {
             ev.preventDefault();
-            zoom.zoom( ev.deltaY / zoomScrollWheelDivideFactor.value, 'add' );
+            zoom.zoom( -ev.deltaY / zoomScrollWheelDivideFactor.value, 'add' );
+        } else {
+            ev.preventDefault();
+            const pos = zoom.getViewPortOrigin();
+
+            zoom.setViewPortOrigin( {
+                'x': pos.x + ev.deltaX,
+                'y': pos.y + ev.deltaY
+            } );
         }
     };
 

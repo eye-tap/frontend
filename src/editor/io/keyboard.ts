@@ -52,7 +52,11 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 ev.preventDefault();
                 undo();
             } else if ( ( ev.key === 'Backspace' || ev.key === 'Delete' ) && !ev.shiftKey ) {
-                annotation.deleteByFixID( selectedFixation.value, true );
+                if ( !annotation.deleteByFixID( selectedFixation.value, true ) ) {
+                    if ( selectedFixation.value > -1 ) {
+                        selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
+                    }
+                }
             } else if ( isRedoCmd( ev ) ) {
                 ev.preventDefault();
                 redo();
@@ -85,8 +89,6 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 if ( selectedFixation.value > -1 ) {
                     selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
                 }
-
-                console.log( 'New fixation', selectedFixation.value );
             } else if ( ev.key === ' ' || ev.key === 'Space' || ev.code === 'Space' ) {
                 ev.preventDefault();
 

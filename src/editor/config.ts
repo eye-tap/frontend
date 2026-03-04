@@ -41,6 +41,8 @@ export const keyboardZoomPanStep: Ref<EditorPoint> = ref( {
 
 export const zoomScrollWheelDivideFactor = ref( 100 );
 
+export const zoomTouchAndTrackpadDivideFactor = ref( 100 );
+
 export const overScrollDistanceForZoom = ref( 20 );
 
 
