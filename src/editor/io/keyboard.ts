@@ -51,21 +51,21 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             } else if ( isUndoCmd( ev ) ) {
                 ev.preventDefault();
                 undo();
-            } else if ( ev.key === 'Backspace' ) {
+            } else if ( ( ev.key === 'Backspace' || ev.key === 'Delete' ) && !ev.shiftKey ) {
                 annotation.deleteByFixID( selectedFixation.value, true );
             } else if ( isRedoCmd( ev ) ) {
                 ev.preventDefault();
                 redo();
-            } else if ( ev.key === 's' && ev.ctrlKey ) {
+            } else if ( ev.key === 's' && ( ev.ctrlKey || ev.metaKey ) ) {
                 ev.preventDefault();
                 save();
-            } else if ( ev.key === '+' && ev.ctrlKey ) {
+            } else if ( ev.key === '+' && ( ev.ctrlKey || ev.metaKey ) ) {
                 ev.preventDefault();
                 zoom.zoom( keyboardZoomStep.value, 'add' );
-            } else if ( ev.key === '-' && ev.ctrlKey ) {
+            } else if ( ev.key === '-' && ( ev.ctrlKey || ev.metaKey ) ) {
                 ev.preventDefault();
                 zoom.zoom( -keyboardZoomStep.value, 'add' );
-            } else if ( ev.key.includes( 'Arrow' ) && ev.ctrlKey ) {
+            } else if ( ev.key.includes( 'Arrow' ) && ( ev.ctrlKey || ev.metaKey ) ) {
                 ev.preventDefault();
 
                 if ( ev.key === 'ArrowLeft' ) {
@@ -79,13 +79,15 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 }
             } else if ( ev.key === 'ArrowRight' ) {
                 if ( selectedFixation.value > -1 ) {
-                    selectedFixation.value = ( selectedFixation.value + 1 ) % fixations.value.length;
+                    selectedFixation.value = mod( selectedFixation.value + 1, fixations.value.length );
                 }
             } else if ( ev.key === 'ArrowLeft' ) {
                 if ( selectedFixation.value > -1 ) {
-                    selectedFixation.value = ( selectedFixation.value - 1 ) % fixations.value.length;
+                    selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
                 }
-            } else if ( ev.key === ' ' ) {
+
+                console.log( 'New fixation', selectedFixation.value );
+            } else if ( ev.key === ' ' || ev.key === 'Space' || ev.code === 'Space' ) {
                 ev.preventDefault();
 
                 try {
@@ -96,7 +98,8 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                         false
                     );
                 } catch { /* empty */ }
-            } else if ( ev.key === 'Delete' ) {
+            } else if ( ( ev.key === 'Delete' || ev.key === 'Backspace' ) && ev.shiftKey ) {
+                // TODO: Update keymap panel
                 ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );
             } else if ( ev.key === 'Enter' ) {
@@ -156,4 +159,12 @@ const isUndoCmd = ( event: KeyboardEvent ) => {
 const isRedoCmd = ( event: KeyboardEvent ) => {
     return ( ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'y' )
         || ( ( event.ctrlKey || event.metaKey ) && event.shiftKey && event.key.toLowerCase() === 'z' );
+};
+
+/**
+ * Computes the modulo of a number because JS is too stupid to do it properly
+ * @param val - The value to compute for
+ */
+const mod = ( val: number, mod: number ) => {
+    return ( ( val % mod ) + mod ) % mod;
 };

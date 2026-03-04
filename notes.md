@@ -26,23 +26,25 @@
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [X] Scan path rendering
 - [ ] Good colours
-- [ ] Moving back all the way with arrows -> arrow right stops working
+- [X] Colour picker for Color objects
+- [X] Moving back all the way with arrows -> arrow right stops working -> JS was dumb (mod of negative number is negative number wtf)
 - [ ] T1 R552, popeye slice point 2 assigns to multiple?
 - [ ] Multiple lines showing from annotations
 - [ ] Cmd-starting commands (cmd + +, etc) should also be a thing
 - [ ] Trackpad zoom
-- [ ] Highlighting current fixation
+- [ ] Highlighting current fixation (probably colour change back)
 - [ ] Highlight box for all algos visualization
-- [ ] If high agreement, render the corresponding box only and user can then (obviously) press space to confirm
+- [ ] If high agreement, highlight the corresponding box only and user can then (obviously) press space to confirm, else show all options (togglable via setting ofc)
 - [ ] Keybind panel (possible to keep open)
 - [ ] Quick guide
 - [ ] Download annotations button -> export to CSV
-- [ ] Invalid fixation keybind (plus button) -> shift delete or shift backspace
+- [ ] Invalid fixation keybind (add button as well) -> shift delete or shift backspace
 - [ ] Backspace moves backwards if no annotation present
 - [ ] Space bar assignment doesn't work (on Mac at least)
 - [ ] Optional: Show zoom box if lots of fixations close by
 - [ ] Zoom to fixation
 - [ ] Move to fixation when moving around
+- [ ] Render hovered boxes above everything else (to make it more legible, maybe add condition to this)
 
 
 ## General

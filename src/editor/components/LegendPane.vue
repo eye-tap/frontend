@@ -3,13 +3,22 @@
         type Ref,
         ref
     } from 'vue';
+    import {
+        assignedFixationColor,
+        heatMapMaxColor,
+        heatMapMidColor,
+        heatMapMinColor,
+        machineAssignedFixationColor,
+        selectedFixationColor,
+        unassignedFixationColor
+    } from '../config';
+    import ColorOption from '@/components/settings/ColorOption.vue';
     import type {
         EditorPoint
     } from '../types/annotation';
-    import ColorOption from '@/components/settings/ColorOption.vue';
     import {
-        assignedFixationColor, heatMapMidColor, heatMapMinColor, machineAssignedFixationColor, selectedFixationColor, unassignedFixationColor
-    } from '../config';
+        automatedColourMapper
+    } from '../util/colour';
 
     const props = defineProps<{
         'show': boolean,
@@ -49,6 +58,10 @@
     const mouseUp = () => {
         isDragging.value = false;
     };
+
+    const minHeatMapColor = automatedColourMapper( heatMapMinColor );
+    const midHeatMapColor = automatedColourMapper( heatMapMidColor );
+    const maxHeatMapColor = automatedColourMapper( heatMapMaxColor );
 </script>
 
 <template>
@@ -67,9 +80,9 @@
             <ColorOption v-model="assignedFixationColor" text="User-assigned" />
             <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
             <ColorOption v-model="unassignedFixationColor" text="Unassigned" />
-            <!-- <ColorOption v-model="heatMapMinColor" text="Low Entropy" />
-            <ColorOption v-model="heatMapMidColor" text="Medium Entropy" />
-            <ColorOption v-model="heatMapMaxColor" text="High Entropy" /> -->
+            <ColorOption v-model="minHeatMapColor" text="Low Entropy" />
+            <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
+            <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
         </div>
     </div>
 </template>
