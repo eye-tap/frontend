@@ -154,7 +154,6 @@ export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-warnin
 // Ideally current entropy color, but ~20% brighter
 export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shade' ) );
 
-// likely not used anymore
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
 // Heat map config
@@ -187,8 +186,6 @@ export const indicesFontSize = ref( 14 );
 
 export const indicesFontFamily = ref( 'sans-serif' );
 
-// Drop shadow
-// FIXME: Styling (for all the below)
 export const dropShadowSize = ref( 2 ); // Zero disables it
 
 export const dropShadowInnerSize = ref( 1 );
@@ -212,8 +209,6 @@ export const dropShadowOffsetY = ref( 1 );
 // ┌                                               ┐
 // │                   Scan Path                   │
 // └                                               ┘
-// FIXME: If you want to render the scan path more in the fore- or background,
-// move the canvas up/down src/editor/components/EditorView.vue
 export const scanpathOpacity = ref( 0.35 );
 
 export const numberOfFixationsToConnectInScanPathRendering = ref( 10 );
@@ -243,13 +238,10 @@ export const linesDisplay = ref<LinesDisplay>( 'previous' );
 
 export const lineWidth = ref( 3 );
 
-// FIXME: Size
 export const machineAssignedLineWidth = ref( 1 );
 
-// Color
-export const assignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
+export const assignedLineColor = ref( rs.getPropertyValue( '--theme-success-shade' ) );
 
-// FIXME: Color
-export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-warning-shade' ) );
+export const machineAssignedLineColor = ref( rs.getPropertyValue( '--theme-information-shade' ) );
 
 export const cursorLineColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );

@@ -74,12 +74,17 @@
         @mouseup="mouseUp"
     >
         <h2>Legend</h2>
-        <div class="placeholder">
-            <p>Fixation Colors</p>
+        <div>
+            <p class="top">
+                Fixation Colors
+            </p>
             <ColorOption v-model="selectedFixationColor" text="Selected" />
             <ColorOption v-model="assignedFixationColor" text="User-assigned" />
-            <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
-            <ColorOption v-model="unassignedFixationColor" text="Unassigned" />
+            <!-- <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
+            <ColorOption v-model="unassignedFixationColor" text="Unassigned" /> -->
+            <p>
+                Entropy Heatmap
+            </p>
             <ColorOption v-model="minHeatMapColor" text="Low Entropy" />
             <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
             <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
@@ -92,7 +97,6 @@
 .legend {
     position: absolute;
     width: 15rem;
-    height: 16rem;
     z-index: 1;
     box-shadow: 0px 0px 10px var(--theme-bg-1);
 
@@ -111,6 +115,11 @@
             color: var(--theme-background-text-20);
             margin: 0px;
             padding-bottom: 1rem;
+            padding-top: 1rem;
+        }
+
+        >p.top {
+            padding-top: 0rem;
         }
     }
 
