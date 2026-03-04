@@ -1,8 +1,8 @@
 export interface ShallowReadingSessionDto {
-  id?: number;
-  reader?: number;
-  textId?: number;
-  textTitle?: string;
-  uploadedAt?: string;
-  foreignReaderId?: number;
+    'id'?: number;
+    'reader'?: number;
+    'textId'?: number;
+    'textTitle'?: string;
+    'uploadedAt'?: string;
+    'foreignReaderId'?: number;
 }
