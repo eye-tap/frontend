@@ -10,7 +10,7 @@
         fixationIndexDisplay,
         fixationIndexDisplayOptions,
         fixationRadius,
-        hoveredFixationRadius,
+        highlightSuggestedBox,
         hoveredTextColor,
         lineWidth,
         linesDisplay,
@@ -24,9 +24,11 @@
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
+    import SwitchOption from '@/components/settings/SwitchOption.vue';
     import {
         automatedColourMapper
     } from '../util/colour';
+    import inputFilter from '@/ts/util/inputFilter';
 
     const dismiss = () => {
         show.value = false;
@@ -69,24 +71,18 @@
                             :options="fixationIndexDisplayOptions"
                             text="Fixation Index"
                         />
+                        <SwitchOption v-model="highlightSuggestedBox" text="Highlight suggested assignment" />
                     </div>
 
                     <div class="options-section">
-                        <p> Nearby Box Distance </p>
-                        <input
-                            v-model.number="hoveredFixationRadius"
-                            type="text"
-                            placeholder="Distance"
-                            min="0"
-                            step="10"
-                        >
-                        <p> Scan Path Length </p>
+                        <p>Scan Path Length</p>
                         <input
                             v-model.number="numberOfFixationsToConnectInScanPathRendering"
                             type="text"
                             placeholder="Length"
                             min="0"
                             step="10"
+                            @keydown="inputFilter.numeric"
                         >
                     </div>
                     <div class="options-section">
@@ -94,39 +90,39 @@
 
                         <ColorOption
                             v-model="assignedLineColor"
-                            text="Line color"
+                            text="Assigned Line"
                         />
 
                         <ColorOption
                             v-model="mappedUnfocusedTextColor"
-                            text="Text color"
+                            text="Text"
                         />
 
                         <ColorOption
                             v-model="mappedhoveredTextColor"
-                            text="Hovered Text color"
+                            text="Hovered Text"
                         />
 
                         <ColorOption
                             v-model="boundingBoxColor"
-                            text="Box color"
+                            text="Bounding box"
                         />
 
                         <ColorOption
                             v-model="unassignedFixationColor"
-                            text="Point color"
+                            text="Unassigned fixation"
                         />
                         <ColorOption
                             v-model="scanPathLineColor"
-                            text="Scan Path Line color"
+                            text="Scan Path Line"
                         />
                     </div>
 
                     <div class="options-section">
-                        <p>Details</p>
+                        <p>Sizes</p>
 
                         <div class="slider-option">
-                            <p>Line width</p>
+                            <p>Assigned Line</p>
                             <Slider
                                 v-model="lineWidth"
                                 show-tooltip="drag"
@@ -135,7 +131,7 @@
                             />
                         </div>
                         <div class="slider-option">
-                            <p>Scan Path Line Width</p>
+                            <p>Scan Path Line</p>
                             <Slider
                                 v-model="scanPathLineWidth"
                                 show-tooltip="drag"
