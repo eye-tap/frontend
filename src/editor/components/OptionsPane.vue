@@ -1,7 +1,5 @@
 <script setup lang="ts">
     import {
-        boxesDisplay,
-        boxesDisplayOptions,
         fixationDisplay,
         fixationDisplayOptions,
         fixationIndexDisplay,
@@ -22,14 +20,9 @@
         <div class="options-container">
             <div class="options-section">
                 <SliderOptions
-                    v-model="boxesDisplay"
-                    :options="boxesDisplayOptions"
-                    text="Boxes"
-                />
-                <SliderOptions
                     v-model="linesDisplay"
                     :options="linesDisplayOptions"
-                    text="Lines"
+                    text="Annotation Lines"
                 />
                 <SliderOptions
                     v-model="fixationDisplay"

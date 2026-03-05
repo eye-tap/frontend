@@ -50,7 +50,7 @@ export const overScrollDistanceForZoom = ref( 20 );
 // ┌                                               ┐
 // │                Background Text                │
 // └                                               ┘
-export const unfocusedTextColor: Ref<Color> = ref( {
+export const unfocusedTextColor = ref( {
     'r': 175,
     'g': 175,
     'b': 175
@@ -198,7 +198,7 @@ export const indicesFontSize = ref( 14 );
 
 export const indicesFontFamily = ref( 'sans-serif' );
 
-export const dropShadowSize = ref( 2 ); // Zero disables it
+export const dropShadowSize = ref( 1 ); // Zero disables it
 
 export const dropShadowInnerSize = ref( 1 );
 

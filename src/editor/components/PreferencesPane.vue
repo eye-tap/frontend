@@ -11,20 +11,31 @@
         fixationIndexDisplayOptions,
         fixationRadius,
         hoveredFixationRadius,
+        hoveredTextColor,
         lineWidth,
         linesDisplay,
         linesDisplayOptions,
-        unassignedFixationColor
+        numberOfFixationsToConnectInScanPathRendering,
+        scanPathLineColor,
+        scanPathLineWidth,
+        unassignedFixationColor,
+        unfocusedTextColor
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
+    import {
+        automatedColourMapper
+    } from '../util/colour';
 
     const dismiss = () => {
         show.value = false;
     };
 
     const show = defineModel<boolean>();
+    const mappedhoveredTextColor = automatedColourMapper( hoveredTextColor );
+    const mappedUnfocusedTextColor = automatedColourMapper( unfocusedTextColor );
+
 </script>
 
 <template>
@@ -69,6 +80,14 @@
                             min="0"
                             step="10"
                         >
+                        <p> Scan Path Length </p>
+                        <input
+                            v-model.number="numberOfFixationsToConnectInScanPathRendering"
+                            type="text"
+                            placeholder="Length"
+                            min="0"
+                            step="10"
+                        >
                     </div>
                     <div class="options-section">
                         <p>Colours</p>
@@ -79,6 +98,16 @@
                         />
 
                         <ColorOption
+                            v-model="mappedUnfocusedTextColor"
+                            text="Text color"
+                        />
+
+                        <ColorOption
+                            v-model="mappedhoveredTextColor"
+                            text="Hovered Text color"
+                        />
+
+                        <ColorOption
                             v-model="boundingBoxColor"
                             text="Box color"
                         />
@@ -86,6 +115,10 @@
                         <ColorOption
                             v-model="unassignedFixationColor"
                             text="Point color"
+                        />
+                        <ColorOption
+                            v-model="scanPathLineColor"
+                            text="Scan Path Line color"
                         />
                     </div>
 
@@ -99,6 +132,15 @@
                                 show-tooltip="drag"
                                 :min="1"
                                 :max="5"
+                            />
+                        </div>
+                        <div class="slider-option">
+                            <p>Scan Path Line Width</p>
+                            <Slider
+                                v-model="scanPathLineWidth"
+                                show-tooltip="drag"
+                                :min="1"
+                                :max="10"
                             />
                         </div>
 
