@@ -27,7 +27,7 @@ import type {
 /**
  * Render the scan path
  * @param scanpathCanvas - The canvas to render into
- * @returns [TODO:return]
+ * @returns The render trigger function
  */
 export const scanPathRenderer = ( scanpathCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;

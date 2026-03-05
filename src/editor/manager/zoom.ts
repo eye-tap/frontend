@@ -111,8 +111,6 @@ const setFactor = ( factor: number ) => {
 
     zoomFactor.value = Math.min( Math.max( factor, 1 ), 3 );
 
-    // NOTE: If you want to do relative to mouse position,
-    // add a mouse position in here and use setViewPortOriginFromCenter
     if ( selectedFixation.value < 0 )
         setViewPortOrigin( getViewPortOrigin() );
     else
