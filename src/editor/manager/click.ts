@@ -35,6 +35,7 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
     const annotation = annotationManager( renderer );
 
     const clickHandler = ( state: boolean ) => {
+        // This handles click state changes to click down
         if ( fixations.value.length <= 0 ) return;
 
         if ( state ) {

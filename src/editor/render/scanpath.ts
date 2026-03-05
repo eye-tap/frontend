@@ -24,6 +24,11 @@ import type {
     EditorFixation
 } from '../types/fixations';
 
+/**
+ * Render the scan path
+ * @param scanpathCanvas - The canvas to render into
+ * @returns [TODO:return]
+ */
 export const scanPathRenderer = ( scanpathCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
 
@@ -36,12 +41,15 @@ export const scanPathRenderer = ( scanpathCanvas: Ref<HTMLCanvasElement | null> 
         ctx.canvas.height = canvasSize.value.height;
         ctx.globalAlpha = scanpathOpacity.value;
 
+        // Only draw the scan path if enabled and all fixations are displayed
         if ( fixationDisplay.value !== 'all' || !renderScanPath.value ) return;
 
         const draw = drawScanPathLine( ctx );
+        // Compute the minimum fixation index to display
         const min = selectedFixation.value - numberOfFixationsToConnectInScanPathRendering.value >= 0
             ? -numberOfFixationsToConnectInScanPathRendering.value
             : -selectedFixation.value;
+        // Compute the maximum fixation index to display
         const max = selectedFixation.value + numberOfFixationsToConnectInScanPathRendering.value + 1 < fixations.value.length
             ? numberOfFixationsToConnectInScanPathRendering.value
             : fixations.value.length - 1 - selectedFixation.value;

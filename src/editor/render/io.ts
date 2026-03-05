@@ -21,6 +21,11 @@ import {
     canvasSize
 } from '../data';
 
+/**
+ * Renders the mouse drag line
+ * @param ioCanvas - The canvas to render into
+ * @returns Render trigger function
+ */
 export const ioRenderer = ( ioCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
 

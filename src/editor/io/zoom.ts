@@ -15,6 +15,7 @@ let zoomClickPos: EditorPoint = {
     'y': -1
 };
 
+/** configure zoom start */
 export const zoomPanStartHandler = ( ev: MouseEvent ) => {
     if ( ev.button === 0 ) {
         isZoomDragging.value = true;
@@ -33,6 +34,8 @@ let originalCanvasPosition = {
     'y': 0
 };
 
+/** Zoom panning is somewhat challenging,
+* especially with the different coordinates we have */
 export const moveHandler = ( ev: MouseEvent ) => {
     if ( !isZoomDragging.value ) {
         zoomPanStartHandler( ev );
@@ -49,6 +52,7 @@ export const moveHandler = ( ev: MouseEvent ) => {
     } );
 };
 
+/** Handles keyboard-based movement of the viewport */
 export const providedOffsetHandler = ( diffX: number, diffY: number ) => {
     const curr = zoom.getViewPortOrigin();
 

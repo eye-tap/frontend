@@ -44,10 +44,22 @@ export const computeOffset = ( coordinate: 'x' | 'y' ) => {
     return Math.round( canvasPosition.value[ coordinate ] * originalSize.value[ coordinate === 'x' ? 'width' : 'height' ] );
 };
 
+/**
+ * Apply offset to the coordinate in the canvas to get the coordinate in the data
+ * @param val - The value to convert
+ * @param coordinate - the coordinate it affects
+ * @returns The computed coordinate
+ */
 export const canvasToOriginalCoordinates = ( val: number, coordinate: 'x' | 'y' ) => {
     return val + computeOffset( coordinate );
 };
 
+/**
+ * Apply offset to the coordinate in the data to get the coordinate in the canvas
+ * @param val - The value to convert
+ * @param coordinate - the coordinate it affects
+ * @returns The computed coordinate
+ */
 export const originalToCanvasCoordinates = ( val: number, coordinate: 'x' | 'y' ) => {
     return val - computeOffset( coordinate );
 };
@@ -82,6 +94,7 @@ export const useScaler = ( elementToGetParentFrom: Ref<HTMLElement | null>, rend
     let target: HTMLElement | null = null;
 
     const scaler = () => {
+        // Compute the target size of the canvas
         if ( image.src !== '' && image.complete )
             computeScaleFactor( image.width, target!.clientWidth, image.height / image.width );
         else

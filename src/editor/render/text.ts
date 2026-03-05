@@ -19,6 +19,12 @@ import {
     canvasSize
 } from '../data';
 
+/**
+ * This draws the text layer (i.e. the text image) into the canvas
+ * @param textCanvas - The canvas to draw the text into
+ * @param image - a text image in an HTMLImageElement
+ * @returns The render trigger function
+ */
 export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
     const updatedTextCache = document.createElement( 'img' );
 
@@ -31,11 +37,14 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
         if ( image.complete && image.src !== '' ) {
+            // If image is loaded, we can safely draw it
             ctx.canvas.width = canvasSize.value.width;
             ctx.canvas.height = canvasSize.value.height;
 
             if ( boxesDisplay.value === 'letters' ) {
                 if ( full || !updatedTextCache.src ) {
+                    // Need to regenerate the image colour replacement
+                    // because either forced or cache expired
                     const imgData = setImageTextColour( image, unfocusedTextColor.value, {
                         'x': 0,
                         'y': 0,
@@ -44,6 +53,7 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
                         'scale': false
                     } );
 
+                    // Convert to image element and draw it
                     imageDataToProvidedImageElement( imgData, image.width, image.height, updatedTextCache )
                         .then( () => drawImage( updatedTextCache ) );
                 } else {
@@ -53,12 +63,15 @@ export const textRenderer = ( textCanvas: Ref<HTMLCanvasElement | null>, image: 
                 drawImage( image );
             }
         } else {
+            // If image is not laoded, set canvas size anyway,
+            // as otherwise it will look bad
             ctx.canvas.width = canvasSize.value.width;
             ctx.canvas.height = canvasSize.value.height;
         }
     };
 
     const drawImage = ( image: HTMLImageElement ) => {
+        // Draws the image into the canvas
         ctx!.drawImage(
             image,
             canvasToOriginalCoordinates( 0, 'x' ),

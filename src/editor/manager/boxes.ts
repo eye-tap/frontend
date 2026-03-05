@@ -31,12 +31,15 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
         let needToRedraw = false;
 
         if ( idx < 0 ) {
+            // No box found, not highlighting anything
             if ( previousIdx > -1 ) {
                 needToRedraw = true;
 
                 setHighlightClass( previousIdx, 'none' );
             }
         } else {
+            // highlightCurrent can be set to disable highlighting the current box,
+            // e.g. if it happens to coincide with a fixation
             if ( idx !== previousIdx || ( !previouslyRendered && highlightCurrent ) ) {
                 needToRedraw = true;
 
@@ -65,6 +68,7 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
                     && ( Math.sqrt( Math.pow( bb.centerX - pos.x, 2 )
                         + Math.pow( bb.centerY - pos.y, 2 ) ) < boundingBoxOnHoverRadius.value )
                 ) {
+                    // Set box to in proximity
                     if ( bb.highlightClass !== 'proximity' ) {
                         setHighlightClass( i, 'proximity' );
 
@@ -87,6 +91,8 @@ export const boxHighlightHandler = ( renderer: Renderer ) => {
     };
 };
 
+// The below code does some optimizations to reduce the time to complete all operations
+// by the previous highlight class of each box
 const setHighlightClass = ( idx: number, highlightClass: HighlightClass ) => {
     if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
         setPreviosHighlightClassForBoxIndex( idx, highlightClass );

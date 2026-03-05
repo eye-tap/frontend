@@ -41,6 +41,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
     const handler = ( ev: KeyboardEvent ) => {
         if ( !disableKeyHandler.value ) {
             if ( isCharacterKey( ev.key ) && !ev.ctrlKey && !ev.metaKey && !ev.altKey ) {
+                // Character-based assignment
                 ev.preventDefault();
                 annotation.create(
                     getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key ),
@@ -48,28 +49,47 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     false,
                     true
                 );
+            } else if ( ev.key === ' ' || ev.key === 'Space' || ev.code === 'Space' ) {
+                // Confirm algorithm's suggested annotation
+                ev.preventDefault();
+
+                try {
+                    annotation.create(
+                        annotations.value.find( val => val.algorithm === 'default' && val.fixationIdx === selectedFixation.value )!.boxIdx,
+                        selectedFixation.value,
+                        false,
+                        false
+                    );
+                } catch { /* empty */ }
             } else if ( isUndoCmd( ev ) ) {
+                // Undo
                 ev.preventDefault();
                 undo();
+            } else if ( isRedoCmd( ev ) ) {
+                // redo
+                ev.preventDefault();
+                redo();
             } else if ( ( ev.key === 'Backspace' || ev.key === 'Delete' ) && !ev.shiftKey ) {
+                // Delete annotation or move back
                 if ( !annotation.deleteByFixID( selectedFixation.value, true ) ) {
                     if ( selectedFixation.value > -1 ) {
                         selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
                     }
                 }
-            } else if ( isRedoCmd( ev ) ) {
-                ev.preventDefault();
-                redo();
             } else if ( ev.key === 's' && ( ev.ctrlKey || ev.metaKey ) ) {
+                // Save
                 ev.preventDefault();
                 save();
             } else if ( ev.key === '+' && ( ev.ctrlKey || ev.metaKey ) ) {
+                // Zoom in
                 ev.preventDefault();
                 zoom.zoom( keyboardZoomStep.value, 'add' );
             } else if ( ev.key === '-' && ( ev.ctrlKey || ev.metaKey ) ) {
+                // Zoom out
                 ev.preventDefault();
                 zoom.zoom( -keyboardZoomStep.value, 'add' );
             } else if ( ev.key.includes( 'Arrow' ) && ( ev.ctrlKey || ev.metaKey ) ) {
+                // Pan zoomed view
                 ev.preventDefault();
 
                 if ( ev.key === 'ArrowLeft' ) {
@@ -82,29 +102,21 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     providedOffsetHandler( keyboardZoomPanStep.value.y, 0 );
                 }
             } else if ( ev.key === 'ArrowRight' ) {
+                // Move to next fixation
                 if ( selectedFixation.value > -1 ) {
                     selectedFixation.value = mod( selectedFixation.value + 1, fixations.value.length );
                 }
             } else if ( ev.key === 'ArrowLeft' ) {
+                // Move to previous fixation
                 if ( selectedFixation.value > -1 ) {
                     selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
                 }
-            } else if ( ev.key === ' ' || ev.key === 'Space' || ev.code === 'Space' ) {
-                ev.preventDefault();
-
-                try {
-                    annotation.create(
-                        annotations.value.find( val => val.algorithm === 'default' && val.fixationIdx === selectedFixation.value )!.boxIdx,
-                        selectedFixation.value,
-                        false,
-                        false
-                    );
-                } catch { /* empty */ }
             } else if ( ( ev.key === 'Delete' || ev.key === 'Backspace' ) && ev.shiftKey ) {
-                // TODO: Update keymap panel
+                // Mark a fixation as invalid
                 ev.preventDefault();
                 annotation.markAsInvalid( selectedFixation.value );
             } else if ( ev.key === 'Enter' ) {
+                // Show all algorithm's suggested annotations
                 ev.preventDefault();
 
                 if ( linesDisplay.value !== 'allalgos' ) {
@@ -117,6 +129,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
 
     const keyUpHandler = ( ev: KeyboardEvent ) => {
         if ( ev.key === 'Enter' ) {
+            // Disable the algorithm's suggested annotations
             ev.preventDefault();
             linesDisplay.value = prevSelectedDisplayMode;
         }

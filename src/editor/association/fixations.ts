@@ -8,6 +8,11 @@ import {
     hoveredFixationRadius
 } from '../config';
 
+/**
+ * Get the fixation that is hit exactly at this point
+ * @param pos - The position to calculate from
+ * @returns The index of the fixation that is exactly hit, or -1 if none
+ */
 export const getFixationIdByCoodianate = ( pos: EditorPoint ): number => {
     for ( let i = 0; i < fixations.value.length; i++ ) {
         const fix = fixations.value[i]!;
@@ -20,6 +25,11 @@ export const getFixationIdByCoodianate = ( pos: EditorPoint ): number => {
     return -1;
 };
 
+/**
+ * Get the closest fixation to passed in point
+ * @param pos - The position to calculate from
+ * @returns The index of closest fixation
+ */
 export const getClosestFixationIdByCoordinate = ( pos: EditorPoint ): number => {
     let minDistanceIndex = -1;
     let minDistance = Number.MAX_VALUE;

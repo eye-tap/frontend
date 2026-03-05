@@ -48,6 +48,7 @@ import {
 
 export const isAutoSaveEnabled = ref( true );
 
+/** Register auto-save capabilities. Auto-Save is disabled unless this function is called */
 const useAutoSave = () => {
     let interval: number | undefined = undefined;
 

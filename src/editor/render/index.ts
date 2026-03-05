@@ -50,6 +50,7 @@ export const renderer = (
     const lines = linesRenderer( linesCanvas );
     const io = ioRenderer( clickTaragetCanvas );
 
+    /** Render all types of elements */
     const renderAll = async () => {
         text.render();
         box.render();
@@ -74,8 +75,10 @@ export const renderer = (
         textImage
     };
 
+    // Store renderer to be used by other functions
     setRenderer( renderer );
 
+    // Enable scaler
     useScaler( textCanvas, renderer );
 
     return renderer;

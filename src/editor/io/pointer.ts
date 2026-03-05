@@ -6,6 +6,12 @@ import {
     zoomTouchAndTrackpadDivideFactor
 } from '../config';
 
+
+// NOTE: This is *not* integrated anywhere currently.
+// I wrote it before realizing that it doesn't even work like this... yeah
+// The thing is: The browser abstracts pinch gestures on trackpad into Ctrl + Scroll automatically,
+// so we don't need a special handler. It is in here just to make sure that if we still need it, we can
+// quickly integrate it.
 // Quite a bit of this code is from https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events/Pinch_zoom_gestures
 export const touchAndTrackpadHandler = ( target: Ref<HTMLElement | null> ) => {
     const eventCache: PointerEvent[] = [];

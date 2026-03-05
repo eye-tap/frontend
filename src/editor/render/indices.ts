@@ -36,6 +36,11 @@ import type {
     EditorFixation
 } from '../types/fixations';
 
+/**
+ * Render the indices numbers
+ * @param indicesCanvas - The canvas to render into
+ * @returns the render trigger function
+ */
 export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
 
@@ -100,6 +105,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
                     const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
 
+                    // scale font
                     ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityStart.value + ( opacityPerStep * i ) } )`;
                     const w = ( ctx!.measureText( toDisplay ).width - width ) / 2;
@@ -117,6 +123,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                     const fontSize = scale( indicesFontSize.value
                         - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
 
+                    // scale font
                     ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
                     ctx!.fillStyle = `rgba( 0, 0, 0, ${ dropShadowOpacityEnd.value - ( opacityPerStep * i ) } )`;
                     const aspect = ctx!.measureText( toDisplay ).width / fontSize;

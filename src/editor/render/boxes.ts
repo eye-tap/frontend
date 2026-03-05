@@ -39,6 +39,13 @@ import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
 
+
+/**
+ * Initialize and start the bounding box renderer.
+ * @param boxesCanvas - The canvas to draw the boxes into
+ * @param image - The image to use for rendering in lettered mode
+ * @returns A reference to this renderer instance
+ */
 export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image: HTMLImageElement ) => {
     let ctx: CanvasRenderingContext2D | null = null;
 
@@ -52,13 +59,18 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         ctx.lineWidth = scale( boundingBoxStrokeWidth.value );
         ctx.globalAlpha = boundingBoxesOpacity.value;
 
+        // Different renderer for different settings settings
         if ( boxesDisplay.value === 'always' ) {
+            // Render all boxes
             boundingBoxes.value.forEach( normalModeRendering( ctx ) );
         } else if ( boxesDisplay.value === 'proximity' ) {
+            // Draw boxes around all boxes in promimity
             boundingBoxes.value.forEach( proximityModeRendering( ctx ) );
         } else if ( boxesDisplay.value === 'letters' ) {
+            // Same as hovered, but instead of a box, the letter is rendered in different colour
             boundingBoxes.value.forEach( letteredModeRendering( ctx, image ) );
         } else if ( boxesDisplay.value === 'hovered' ) {
+            // Just the hovered box
             boundingBoxes.value.forEach( bb => {
                 if ( bb.highlightClass === 'hovered' ) {
                     // Draw box
@@ -100,6 +112,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         render();
     } );
 
+    // Watch for changes to config
     watch( [
         highlightedBoundingBoxColor,
         proximityBoundingBoxColor,
@@ -118,6 +131,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 };
 
 const drawBox = ( col: string, bb: EditorCharacterBoundingBox, ctx: CanvasRenderingContext2D ) => {
+    // Actual box drawing function
     ctx.strokeStyle = col;
     ctx.strokeRect(
         scale( originalToCanvasCoordinates( bb.xMin!, 'x' ) ),
@@ -132,7 +146,8 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
         if ( bb.highlightClass === 'hovered' ) {
             const w = Math.abs( bb.xMax! - bb.xMin! );
             const h = Math.abs( bb.yMax! - bb.yMin! );
-            // Not working fully yet (only this)
+            // Use image magic to replace the colour of the text for just this letter
+            // (we get back image data using this function)
             const imgData = setImageTextColour( image, hoveredTextColor.value, {
                 'x': originalToCanvasCoordinates( bb.xMin!, 'x' ),
                 'y': originalToCanvasCoordinates( bb.yMin!, 'y' ),
@@ -143,8 +158,11 @@ const letteredModeRendering = ( ctx: CanvasRenderingContext2D, image: HTMLImageE
 
 
             ( async () => {
+                // Get the image as a normal image element instead of image data
+                // This makes handling easier
                 const img = await imgDataToImageObject( imgData, scale( w ), scale( h ) );
 
+                // Draw background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(
                     scale( originalToCanvasCoordinates( bb.xMin! - 2, 'x' ) ),

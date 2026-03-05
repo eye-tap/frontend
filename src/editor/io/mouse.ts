@@ -37,6 +37,7 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     const mouseDownHandler = ( ev: MouseEvent ) => {
         if ( ev.ctrlKey )
+            // Zoom move is done using CTRL + drag
             zoomPanStartHandler( ev );
         else if ( ev.button === 0 ) {
             isMouseDragging.value = true;
@@ -49,6 +50,7 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     const mouseUpHandler = ( ev: MouseEvent ) => {
         if ( ev.button === 0 ) {
+            // End drag
             isMouseDragging.value = false;
             isZoomDragging.value = false;
             mouseDragEnd.value = {
@@ -60,13 +62,14 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     const mouseMoveHandler = ( ev: MouseEvent ) => {
         if ( ev.ctrlKey && ev.buttons === 1 ) {
+            // Zoomed drag (to move view)
             moveHandler( ev );
         } else {
+            // Set mouse position to use for rendering the drag line and also highlighting the boxes
             isZoomDragging.value = false;
 
             if ( ev.x < 0 || ev.y < 0 ) {
                 isMouseDragging.value = false;
-                isZoomDragging.value = false;
 
                 return;
             }
@@ -80,9 +83,11 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     const scrollHandler = ( ev: WheelEvent ) => {
         if ( ev.ctrlKey ) {
+            // Ctrl + Scroll for zooming in / out
             ev.preventDefault();
             zoom.zoom( -ev.deltaY / zoomScrollWheelDivideFactor.value, 'add' );
         } else {
+            // Moving around in the canvas with scrolling
             ev.preventDefault();
             const pos = zoom.getViewPortOrigin();
 
@@ -94,10 +99,12 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
     };
 
     const updateRect = () => {
+        // Updates the canvas bounding rect (used for offset computation)
         rect = target.value!.getBoundingClientRect();
     };
 
     const mouseLeaveHandler = () => {
+        // If mouse leaves the canvas, reset the highlighting
         resetAllBoxes();
         isMouseDragging.value = false;
         isZoomDragging.value = false;
@@ -143,6 +150,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
         canvasSize,
         scalingFactor
     ], updateRect );
+
+    // Canvas rect update trigger (to make sure it is correct, even if one of the other functions messed up)
     watch( isSideBarCollapsed, () => {
         setTimeout( () => {
             updateRect();

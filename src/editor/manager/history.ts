@@ -59,6 +59,12 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         renderer.renderFixations.render();
     };
 
+    /**
+     * Add an add event to the history
+     * @param annotation - The annotation that was added
+     * @param selectedFixation - The fixation that was selected
+     * @param oldState - The state that the fixation that was assigned had before assignment
+     */
     const add = (
         annotation: EditorAnnotation,
         selectedFixation: number,
@@ -81,6 +87,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
      * Add a remove event to the history
      * @param annotation - The annotation that was removed
      * @param selectedFixation - The fixation that was selected
+     * @param oldState - The state that the fixation that was assigned had before assignment
      */
     const remove = (
         annotation: EditorAnnotation,
@@ -112,6 +119,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
         else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
+        // Handle state of fixation (i.e. to make it display correctly)
         fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
 
         selectedFixation.value = last.selectedFixation;

@@ -4,6 +4,7 @@ import type {
 
 let renderer: Renderer | null = null;
 
+// Used to give other functions easier access to the renderer
 export const setRenderer = ( rendererObj: Renderer ) => {
     renderer = rendererObj;
 };

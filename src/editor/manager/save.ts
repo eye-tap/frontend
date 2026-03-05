@@ -28,6 +28,7 @@ export const revision = ref( 0 );
 
 export const savedAtRevision = ref( 0 );
 
+/** Save manager (i.e. manages saving to backend) */
 export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
 
@@ -73,7 +74,10 @@ export const useSaveFunction = () => {
         }
 
         try {
+            // Try to save to backend
             await annotation.save( data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
+            // This is used to track the last saved revision,
+            // which is then used to show to user if saving is needed
             savedAtRevision.value = revision.value;
             document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
         } catch ( e ) {

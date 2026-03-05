@@ -28,6 +28,11 @@ import type {
     EditorAnnotation
 } from '../types/annotation';
 
+/**
+ * Render the annotation lines
+ * @param linesCanvas - The canvas to render into
+ * @returns Render trigger function
+ */
 export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     let ctx: CanvasRenderingContext2D | null = null;
 
@@ -67,6 +72,9 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
     };
 
     const filterAlgorithms = ( l: EditorAnnotation, drawFunc: ( l: EditorAnnotation ) => void ) => {
+        // Filter out the algorithms that should not be displayed
+        // I did however just realize that there are issues with this function (i.e. it makes very little sense)
+        // so an update to it may happen eventually
         const assignType = fixations.value[ l.fixationIdx ]!.assigned;
 
         if ( assignType === 'invalid' ) return;

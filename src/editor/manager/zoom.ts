@@ -59,16 +59,20 @@ const setViewPortOrigin = ( target: EditorPoint ) => {
 };
 
 
+/** Rounds to 2 digits */
 const roundToDigits = ( val: number ) => Math.round( val * 100 ) / 100;
 
+/** Get the percentage offset from the original position */
 const toPercentageOfOriginal = ( val: number, side: 'width' | 'height' ) => {
     return val / originalSize.value[ side ];
 };
 
+/** Get the origin coordinate of the text from the center */
 const originFromCenter = ( val: number, side: 'width' | 'height' ) => {
     return val - ( originalSize.value[ side ] / 2 );
 };
 
+/** Sets limits for the zoom move (i.e. so you can't move the entire text out of view */
 const limiter = ( val: number, side: 'width' | 'height' ) => {
     return Math.min(
         Math.max(
@@ -80,6 +84,8 @@ const limiter = ( val: number, side: 'width' | 'height' ) => {
     );
 };
 
+
+/** Resets the zoom */
 const reset = () => {
     canvasPosition.value = {
         'x': 0,
@@ -88,6 +94,7 @@ const reset = () => {
     zoomFactor.value = 1;
 };
 
+/** Sets the zoom factor, using guards */
 const setFactor = ( factor: number ) => {
     if ( factor < 1 ) {
         console.warn( '[ ZOOM ] New zoom level not set due to invalid value (< 1)' );
@@ -102,10 +109,12 @@ const setFactor = ( factor: number ) => {
     setViewPortOrigin( getViewPortOrigin() );
 };
 
+/** Returns the zoom factor */
 const getFactor = () => {
     return zoomFactor.value;
 };
 
+/** Apply zoom with diff, i.e. how much to add / subtract or multiply / divide by */
 const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
     if ( mode === 'add' )
         setFactor( getFactor() + diff );

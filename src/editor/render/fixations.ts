@@ -103,6 +103,8 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
 const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, color: string, radius: number ) => {
         if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined ) {
+            // Heat map rendering
+            // Below splits up into the two segments on the colour scale
             if ( fixation.disagreement < heatMapMidValue.value ) {
                 const percentage = fixation.disagreement / ( heatMapMidValue.value - heatMapMinValue.value );
                 const col: Color = {

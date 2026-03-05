@@ -11,6 +11,8 @@ import {
     mouseHandler
 } from './mouse';
 
+
+/** Starts the IO handler  */
 export const ioHandler = ( clickTarget: Ref<HTMLElement | null>, renderer: Renderer ) => {
     mouseHandler( clickTarget );
     keyboardHandler( renderer );
