@@ -3,8 +3,7 @@ import {
     ref
 } from 'vue';
 import type {
-    EditorAnnotation,
-    EditorPoint
+    EditorAnnotation
 } from '../types/annotation';
 import type {
     EditorCharacterBoundingBox
