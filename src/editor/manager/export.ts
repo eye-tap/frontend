@@ -11,14 +11,54 @@ import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
-const CSV_HEADER = 'fixation_id,box_id';
+const CSV_HEADER = [
+    'fixation_id',
+    'box_id',
+    'fixation_idx',
+    'box_idx',
+    'fixation_x',
+    'fixation_y',
+    'fixation_entropy',
+    'fixation_state',
+    'annotation_source',
+    'box_char',
+    'box_x_min',
+    'box_x_max',
+    'box_y_min',
+    'box_y_max'
+].join( ',' );
 
 const createCsv = () => {
     const rows = annotations.value.map( annotation => {
-        const fixationId = fixations.value[ annotation.fixationIdx ]?.id ?? annotation.fixationIdx;
-        const boxId = boundingBoxes.value[ annotation.boxIdx ]?.id ?? annotation.boxIdx;
+        const fixation = fixations.value[ annotation.fixationIdx ];
+        const box = boundingBoxes.value[ annotation.boxIdx ];
+        const fixationId = fixation?.id ?? annotation.fixationIdx;
+        const boxId = box?.id ?? annotation.boxIdx;
+        const fixationEntropy = fixation?.disagreement ?? '';
+        const fixationState = fixation?.assigned ?? '';
+        const annotationSource = annotation.algorithm ? `machine:${ annotation.algorithm }` : 'user';
+        const boxChar = box?.character ?? '';
+        const boxXMin = box?.xMin ?? '';
+        const boxXMax = box?.xMax ?? '';
+        const boxYMin = box?.yMin ?? '';
+        const boxYMax = box?.yMax ?? '';
 
-        return `${ fixationId },${ boxId }`;
+        return [
+            fixationId,
+            boxId,
+            annotation.fixationIdx,
+            annotation.boxIdx,
+            fixation?.x ?? '',
+            fixation?.y ?? '',
+            fixationEntropy,
+            fixationState,
+            annotationSource,
+            boxChar,
+            boxXMin,
+            boxXMax,
+            boxYMin,
+            boxYMax
+        ].join( ',' );
     } );
 
     return [
