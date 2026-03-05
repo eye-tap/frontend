@@ -28,15 +28,33 @@ const CSV_HEADER = [
     'box_y_max'
 ].join( ',' );
 
+const getPreferredAnnotationForFixation = ( fixationIdx: number ) => {
+    const candidates = annotations.value.filter( annotation => annotation.fixationIdx === fixationIdx );
+
+    if ( candidates.length === 0 ) return undefined;
+
+    const userAnnotation = candidates.find( annotation => !annotation.algorithm );
+
+    if ( userAnnotation ) return userAnnotation;
+
+    const defaultMachine = candidates.find( annotation => annotation.algorithm === 'default' );
+
+    if ( defaultMachine ) return defaultMachine;
+
+    return candidates.sort( ( a, b ) => ( a.algorithm ?? '' ).localeCompare( b.algorithm ?? '' ) )[0];
+};
+
 const createCsv = () => {
-    const rows = annotations.value.map( annotation => {
-        const fixation = fixations.value[ annotation.fixationIdx ];
-        const box = boundingBoxes.value[ annotation.boxIdx ];
-        const fixationId = fixation?.id ?? annotation.fixationIdx;
-        const boxId = box?.id ?? annotation.boxIdx;
+    const rows = fixations.value.map( ( fixation, fixationIdx ) => {
+        const annotation = getPreferredAnnotationForFixation( fixationIdx );
+        const box = annotation ? boundingBoxes.value[ annotation.boxIdx ] : undefined;
+        const fixationId = fixation?.id ?? fixationIdx;
+        const boxId = annotation ? ( box?.id ?? annotation.boxIdx ) : '';
         const fixationEntropy = fixation?.disagreement ?? '';
         const fixationState = fixation?.assigned ?? '';
-        const annotationSource = annotation.algorithm ? `machine:${ annotation.algorithm }` : 'user';
+        const annotationSource = !annotation
+            ? 'none'
+            : annotation.algorithm ? `machine:${ annotation.algorithm }` : 'user';
         const boxChar = box?.character ?? '';
         const boxXMin = box?.xMin ?? '';
         const boxXMax = box?.xMax ?? '';
@@ -46,8 +64,8 @@ const createCsv = () => {
         return [
             fixationId,
             boxId,
-            annotation.fixationIdx,
-            annotation.boxIdx,
+            fixationIdx,
+            annotation?.boxIdx ?? '',
             fixation?.x ?? '',
             fixation?.y ?? '',
             fixationEntropy,
