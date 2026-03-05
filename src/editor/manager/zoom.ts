@@ -1,6 +1,8 @@
 import {
     canvasPosition,
+    fixations,
     originalSize,
+    selectedFixation,
     zoomFactor
 } from '../data';
 import {
@@ -36,9 +38,12 @@ const setViewPortOriginFromCenter = ( target: EditorPoint ) => {
     // translate to percentages (canvasPosition is in percentages)
     // Try to center target in the viewport
     canvasPosition.value = {
-        'x': toPercentageOfOriginal( limiter( originFromCenter( target.x, 'width' ), 'width' ), 'width' ),
-        'y': toPercentageOfOriginal( limiter( originFromCenter( target.y, 'height' ), 'height' ), 'height' )
+        'x': roundToDigits( toPercentageOfOriginal( limiter( centerCoordinateInViewPort( target.x, 'width' ), 'width' ), 'width' ) ),
+        'y': roundToDigits( toPercentageOfOriginal( limiter( centerCoordinateInViewPort( target.y, 'height' ), 'height' ), 'height' ) )
     };
+    console.log( {
+        ...canvasPosition.value
+    } );
 };
 
 /**
@@ -68,8 +73,10 @@ const toPercentageOfOriginal = ( val: number, side: 'width' | 'height' ) => {
 };
 
 /** Get the origin coordinate of the text from the center */
-const originFromCenter = ( val: number, side: 'width' | 'height' ) => {
-    return val - ( originalSize.value[ side ] / 2 );
+const centerCoordinateInViewPort = ( val: number, side: 'width' | 'height' ) => {
+    const shownPixels = originalSize.value[ side ] / zoomFactor.value;
+
+    return val - ( shownPixels / 2 );
 };
 
 /** Sets limits for the zoom move (i.e. so you can't move the entire text out of view */
@@ -106,7 +113,13 @@ const setFactor = ( factor: number ) => {
 
     // NOTE: If you want to do relative to mouse position,
     // add a mouse position in here and use setViewPortOriginFromCenter
-    setViewPortOrigin( getViewPortOrigin() );
+    if ( selectedFixation.value < 0 )
+        setViewPortOrigin( getViewPortOrigin() );
+    else
+        setViewPortOriginFromCenter( {
+            'x': fixations.value[ selectedFixation.value ]!.x!,
+            'y': fixations.value[ selectedFixation.value ]!.y!
+        } );
 };
 
 /** Returns the zoom factor */

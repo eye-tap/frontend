@@ -3,7 +3,8 @@ import {
     ref
 } from 'vue';
 import type {
-    EditorAnnotation
+    EditorAnnotation,
+    EditorPoint
 } from '../types/annotation';
 import type {
     EditorCharacterBoundingBox
@@ -52,6 +53,9 @@ export const canvasSize = ref( {
     ...referenceCanvasSize
 } );
 
-export const originalSize = ref( {
+export const originalSize: Ref<{
+    'width': number;
+    'height': number;
+}> = ref( {
     ...referenceCanvasSize
 } );

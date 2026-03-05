@@ -45,8 +45,8 @@
 - [X] Backspace moves backwards if no annotation present
 - [X] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify
 - [ ] Optional: Show zoom box if lots of fixations close by
-- [ ] Zoom to fixation
-- [ ] Move to fixation when moving around (and zoom factor > 1)
+- [X] Zoom to fixation
+- [X] Move to fixation when moving around (and zoom factor > 1)
 - [ ] **Render hovered boxes above everything else (to make it more legible, maybe add condition to this)**
 
 

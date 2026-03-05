@@ -7,9 +7,12 @@ import {
 } from '../config';
 import {
     annotations,
-    fixations,
     selectedFixation
 } from '../data';
+import {
+    goToNextFixation,
+    goToPrevFixation
+} from '../manager/fixations';
 import {
     onMounted,
     onUnmounted
@@ -72,9 +75,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             } else if ( ( ev.key === 'Backspace' || ev.key === 'Delete' ) && !ev.shiftKey ) {
                 // Delete annotation or move back
                 if ( !annotation.deleteByFixID( selectedFixation.value, true ) ) {
-                    if ( selectedFixation.value > -1 ) {
-                        selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
-                    }
+                    goToPrevFixation();
                 }
             } else if ( ev.key === 's' && ( ev.ctrlKey || ev.metaKey ) ) {
                 // Save
@@ -103,14 +104,10 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 }
             } else if ( ev.key === 'ArrowRight' ) {
                 // Move to next fixation
-                if ( selectedFixation.value > -1 ) {
-                    selectedFixation.value = mod( selectedFixation.value + 1, fixations.value.length );
-                }
+                goToNextFixation();
             } else if ( ev.key === 'ArrowLeft' ) {
                 // Move to previous fixation
-                if ( selectedFixation.value > -1 ) {
-                    selectedFixation.value = mod( selectedFixation.value - 1, fixations.value.length );
-                }
+                goToPrevFixation();
             } else if ( ( ev.key === 'Delete' || ev.key === 'Backspace' ) && ev.shiftKey ) {
                 // Mark a fixation as invalid
                 ev.preventDefault();
@@ -174,12 +171,4 @@ const isUndoCmd = ( event: KeyboardEvent ) => {
 const isRedoCmd = ( event: KeyboardEvent ) => {
     return ( ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'y' )
         || ( ( event.ctrlKey || event.metaKey ) && event.shiftKey && event.key.toLowerCase() === 'z' );
-};
-
-/**
- * Computes the modulo of a number because JS is too stupid to do it properly
- * @param val - The value to compute for
- */
-const mod = ( val: number, mod: number ) => {
-    return ( ( val % mod ) + mod ) % mod;
 };
