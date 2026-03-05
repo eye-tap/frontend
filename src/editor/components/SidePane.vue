@@ -16,6 +16,9 @@
         isSideBarCollapsed
     } from '../data';
     import {
+        showExportButton
+    } from '../config';
+    import {
         useNotification
     } from '@kyvg/vue3-notification';
 
@@ -107,6 +110,7 @@
                     <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
                 <span
+                    v-if="showExportButton"
                     class="clickable-icon"
                     title="Export annotations as CSV"
                     @click="exportCsv"
@@ -161,6 +165,7 @@
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
             <span
+                v-if="showExportButton"
                 class="clickable-icon"
                 title="Export annotations as CSV"
                 @click="exportCsv"

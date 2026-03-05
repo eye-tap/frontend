@@ -26,7 +26,7 @@
 - [X] Completion handler improvements (soft complete (not all manually done), complete (all manually done))
 - [X] Scan path rendering
 - [ ] **Good colours** (I believe mostly done)
-- [ ] ***Clean up options (remove some, add some others)***
+- [X] ***Clean up options (remove some, add some others)***
 - [X] Colour picker for Color objects
 - [X] Moving back all the way with arrows -> arrow right stops working -> JS was dumb (mod of negative number is negative number wtf)
 - [X] T1 R552, popeye slice point 2 assigns to multiple?
