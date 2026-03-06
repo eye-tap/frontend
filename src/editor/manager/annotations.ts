@@ -3,6 +3,10 @@ import {
     fixations,
     selectedFixation
 } from '../data';
+import {
+    onMounted,
+    onUnmounted
+} from 'vue';
 import type {
     AnnotationManager
 } from '../types/history';
@@ -12,6 +16,9 @@ import type {
 import type {
     Renderer
 } from '../types/renderer';
+import {
+    goToNextFixation
+} from './fixations';
 import {
     highlightBox
 } from './boxes';
@@ -142,6 +149,7 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
 
     const markAsInvalid = ( fixationIndex: number ) => {
         fixations.value[ fixationIndex ]!.assigned = 'invalid';
+        goToNextFixation();
         deleteByFixID( fixationIndex, true );
     };
 
@@ -152,6 +160,13 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
         deleteByBoxID
     };
     const history = startHistoryTracker( renderer, funcs );
+
+    onMounted( () => {
+        document.addEventListener( 'eyetap:keys:invalid', ( ev: CustomEvent ) => markAsInvalid( ev.detail ) );
+    } );
+    onUnmounted( () => {
+        document.addEventListener( 'eyetap:keys:invalid', ( ev: CustomEvent ) => markAsInvalid( ev.detail ) );
+    } );
 
     return funcs;
 };

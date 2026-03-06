@@ -6,7 +6,8 @@ import {
 } from 'vue';
 import {
     canvasSize,
-    isSideBarCollapsed
+    isSideBarCollapsed,
+    zoomFactor
 } from '../data';
 import {
     canvasToOriginalCoordinates,
@@ -148,7 +149,8 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
 
     watch( [
         canvasSize,
-        scalingFactor
+        scalingFactor,
+        zoomFactor
     ], updateRect );
 
     // Canvas rect update trigger (to make sure it is correct, even if one of the other functions messed up)

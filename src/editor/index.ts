@@ -106,6 +106,12 @@ export const undo = () => {
     document.dispatchEvent( new CustomEvent( 'eyetap:undo' ) );
 };
 
+export const markFixationAsInvalid = ( fixationIdx: number ) => {
+    document.dispatchEvent( new CustomEvent( 'eyetap:keys:invalid', {
+        'detail': fixationIdx
+    } ) );
+};
+
 const start = (
     textCanvas: Ref<HTMLCanvasElement | null>,
     boxesCanvas: Ref<HTMLCanvasElement | null>,

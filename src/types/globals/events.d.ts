@@ -18,6 +18,7 @@ declare global {
         'eyetap:undo': CustomEvent<void>;
         'eyetap:redo': CustomEvent<void>;
         'eyetap:annotation-done': CustomEvent<AnnotationDoneEvent>;
+        'eyetap:keys:invalid': CustomEvent<number>;
         'eyetap:keys:char': CustomEvent<void>;
         'eyetap:keys:next': CustomEvent<void>;
         'eyetap:keys:prev': CustomEvent<void>;

@@ -1,9 +1,14 @@
 <script setup lang="ts">
     import editor, {
+        markFixationAsInvalid,
         redoAvailable,
         saveNeeded,
         undoAvailable
     } from '..';
+    import {
+        isSideBarCollapsed,
+        selectedFixation
+    } from '../data';
     import {
         onMounted,
         onUnmounted,
@@ -12,9 +17,6 @@
     import KeybindPane from './KeybindPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
-    import {
-        isSideBarCollapsed
-    } from '../data';
     import {
         showExportButton
     } from '../config';
@@ -110,6 +112,13 @@
                     <i class="fa-xl fa-solid fa-floppy-disk"></i>
                 </span>
                 <span
+                    class="clickable-icon"
+                    title="Mark as invalid"
+                    @click="() => markFixationAsInvalid( selectedFixation )"
+                >
+                    <i class="fa-xl fa-solid fa-circle-xmark"></i>
+                </span>
+                <span
                     v-if="showExportButton"
                     class="clickable-icon"
                     title="Export annotations as CSV"
@@ -161,6 +170,15 @@
             >
                 <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
                 <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
+            </span>
+        </div>
+        <div v-if="isSideBarCollapsed" class="options-bar">
+            <span
+                class="clickable-icon"
+                title="Mark as invalid"
+                @click="() => markFixationAsInvalid( selectedFixation )"
+            >
+                <i class="fa-xl fa-solid fa-circle-xmark"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
