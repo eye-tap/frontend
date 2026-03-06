@@ -41,6 +41,8 @@
 - [ ] **Quick guide instead of always visible keybind panel choosable (or none ofc)** -> See below for more details
 - [X] **Download annotations button** -> *export to CSV*
 - [X] Invalid fixation keybind -> shift delete or shift backspace
+- [X] Fix delete annotation bind (doesn't fully unassign, also requires two backspaces)
+- [X] Invalid fixation rendering
 - [ ] **Add button to mark fixation as invalid** -> annotations.markFixationAsInvalid is func to be called -> On hover show keybind
 - [X] Backspace moves backwards if no annotation present
 - [X] Space bar assignment doesn't work (on Mac at least) --> TODO: Verify

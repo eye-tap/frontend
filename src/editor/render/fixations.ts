@@ -16,6 +16,8 @@ import {
     heatMapMinValue,
     hoveredFixationColor,
     hoveredFixationRadius,
+    invalidFixationColor,
+    invalidFixationCrossLineWidth,
     machineAssignedFixationColor,
     renderFixationHeatMapInsteadOfDefaultColour,
     renderScanPath,
@@ -92,7 +94,9 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         machineAssignedFixationColor,
         renderScanPath,
         scanPathLineColor,
-        scanPathLineWidth
+        scanPathLineWidth,
+        invalidFixationCrossLineWidth,
+        invalidFixationColor
     ], render );
 
     return {
@@ -100,8 +104,47 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
     };
 };
 
+const drawInvalid = ( ctx: CanvasRenderingContext2D ) => {
+    return ( fix: EditorFixation, idx: number ) => {
+        let radius = fixationRadius.value / Math.SQRT2;
+
+        if ( idx === selectedFixation.value ) {
+            radius = selectedFixationRadius.value / Math.SQRT2;
+            ctx.fillStyle = selectedFixationColor.value;
+        } else {
+            ctx.fillStyle = invalidFixationColor.value;
+        }
+
+        ctx.lineWidth = invalidFixationCrossLineWidth.value;
+        ctx.beginPath();
+        ctx.moveTo(
+            scale( originalToCanvasCoordinates( fix.x! + radius, 'x' ) ),
+            scale( originalToCanvasCoordinates( fix.y! + radius, 'y' ) )
+        );
+        ctx.lineTo(
+            scale( originalToCanvasCoordinates( fix.x! - radius, 'x' ) ),
+            scale( originalToCanvasCoordinates( fix.y! - radius, 'y' ) )
+        );
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(
+            scale( originalToCanvasCoordinates( fix.x! - radius, 'x' ) ),
+            scale( originalToCanvasCoordinates( fix.y! + radius, 'y' ) )
+        );
+        ctx.lineTo(
+            scale( originalToCanvasCoordinates( fix.x! + radius, 'x' ) ),
+            scale( originalToCanvasCoordinates( fix.y! - radius, 'y' ) )
+        );
+        ctx.stroke();
+    };
+};
+
 const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
+    const invalidDrawer = drawInvalid( ctx );
+
     return ( fixation: EditorFixation, idx: number, color: string, radius: number ) => {
+        if ( fixation.assigned === 'invalid' ) return invalidDrawer( fixation, idx );
+
         if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined && selectedFixation.value !== idx ) {
             // Heat map rendering
             // Below splits up into the two segments on the colour scale
@@ -142,6 +185,7 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
 
 const surroundingFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
+    const invalidDrawer = drawInvalid( ctx );
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
@@ -156,12 +200,15 @@ const surroundingFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
             }
         } else if ( hoveredFixation.value === idx ) {
             draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+        } else {
+            invalidDrawer( fix, idx );
         }
     };
 };
 
 const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
+    const invalidDrawer = drawInvalid( ctx );
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
@@ -175,6 +222,8 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
                 draw( fix, idx, unassignedFixationColor.value, fixationRadius.value );
             } else if ( fix.assigned === 'machine' ) {
                 draw( fix, idx, machineAssignedFixationColor.value, fixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
             }
         }
     };
@@ -182,6 +231,7 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
 const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
+    const invalidDrawer = drawInvalid( ctx );
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
@@ -193,6 +243,8 @@ const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
                 draw( fix, idx, assignedFixationColor.value, fixationRadius.value );
             } else if ( fix.assigned === 'machine' ) {
                 draw( fix, idx, machineAssignedFixationColor.value, fixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
             }
         }
     };
@@ -200,6 +252,7 @@ const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
 const unassignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
     const draw = drawPoint( ctx );
+    const invalidDrawer = drawInvalid( ctx );
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
@@ -208,6 +261,8 @@ const unassignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
             draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
         } else if ( fix.assigned === 'unassigned' ) {
             draw( fix, idx, unassignedFixationColor.value, fixationRadius.value );
+        } else {
+            invalidDrawer( fix, idx );
         }
     };
 };

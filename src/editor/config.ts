@@ -132,6 +132,8 @@ export const fixationDisplay = ref<FixationDisplay>( 'all' );
 // Size
 export const fixationRadius = ref( 5 );
 
+export const invalidFixationCrossLineWidth = ref( 2 );
+
 export const hoveredFixationRadius = ref( 10 );
 
 export const selectedFixationRadius = ref( 8 );
@@ -169,6 +171,9 @@ export const unassignedFixationColor = ref( rs.getPropertyValue( '--theme-warnin
 export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shade' ) );
 
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
+
+// FIXME: Color
+export const invalidFixationColor = ref( rs.getPropertyValue( '--theme-warning' ) );
 
 // Heat map config
 export const heatMapMinValue = ref( 0 );

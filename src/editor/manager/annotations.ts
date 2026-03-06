@@ -105,7 +105,8 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
                         history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
                     }
 
-                    if ( annotations.value.map( a => a.algorithm !== undefined ).reduce( ( res, val ) => res || val ) )
+                    if ( annotations.value.length > 0
+                        && annotations.value.map( a => a.algorithm !== undefined ).reduce( ( res, val ) => res || val ) )
                         fixations.value[ fixationId ]!.assigned = 'machine';
                     else
                         fixations.value[ fixationId ]!.assigned = 'unassigned';
