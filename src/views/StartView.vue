@@ -67,6 +67,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: row;
+        overflow: hidden;
 
         >.top-bar {
             height: 8vh;
@@ -99,6 +100,10 @@
                     justify-content: space-between;
                     width: 25rem;
 
+                    @media screen and (max-width: 800px) {
+                        margin-left: 1rem;
+                    }
+
                     >button {
                         margin-bottom: 1rem;
                         width: 12rem;
@@ -112,6 +117,13 @@
                         justify-content: left;
                         margin-bottom: 1rem;
 
+                        @media screen and (max-width: 800px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            height: 6rem;
+                        }
+
                         >button {
                             width: 12rem;
                         }
@@ -121,11 +133,18 @@
                 .tagline {
                     margin-top: 0px;
                     margin-bottom: 6vh;
+
+                    @media screen and (max-width: 800px) {
+                        margin-left: 1rem;
+                    }
                 }
 
                 .logo {
                     height: 15vh;
                     justify-content: left;
+                    @media screen and (max-width: 800px) {
+                        margin-left: 1rem;
+                    }
                 }
             }
 

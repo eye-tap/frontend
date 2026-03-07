@@ -48,13 +48,13 @@
         @include rwd-ratio("square", "standard") {
           /* border-color: green; */
           width: 55vw;
-          height: 55vh;
+          height: 70vh;
         }
 
         @include rwd-ratio("standard", "wide") {
           /* border-color: lightcoral; */
           width: 35vw;
-          height: 60vh;
+          height: 70vh;
         }
 
         @include rwd-ratio("wide", "ultrawide") {

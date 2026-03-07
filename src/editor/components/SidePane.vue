@@ -118,14 +118,6 @@
                 >
                     <i class="fa-xl fa-solid fa-circle-xmark"></i>
                 </span>
-                <span
-                    v-if="showExportButton"
-                    class="clickable-icon"
-                    title="Export annotations as CSV"
-                    @click="exportCsv"
-                >
-                    <i class="fa-xl fa-solid fa-file-csv"></i>
-                </span>
             </div>
             <div class="options-bar-right">
                 <span class="clickable-icon" @click="toggleCollapse()">
@@ -134,11 +126,6 @@
             </div>
         </div>
         <!-- Collapsed -->
-        <div v-if="isSideBarCollapsed" class="options-bar">
-            <span class="clickable-icon gear-icon" title="Options" @click="togglePreferences">
-                <i class="fa-lg fa-solid fa-gear"></i>
-            </span>
-        </div>
         <div v-if="isSideBarCollapsed" class="options-bar">
             <span
                 class="clickable-icon"
@@ -191,6 +178,20 @@
                 <i class="fa-xl fa-solid fa-file-csv"></i>
             </span>
         </div>
+        <div v-if="isSideBarCollapsed" class="options-bar bottom">
+            <span
+                class="clickable-icon"
+                title="Show keybinds"
+                @click="toggleKeybinds"
+            >
+                <i class="fa-xl fa-solid fa-circle-question"></i>
+            </span>
+        </div>
+        <div v-if="isSideBarCollapsed" class="options-bar">
+            <span class="clickable-icon gear-icon" title="Options" @click="togglePreferences">
+                <i class="fa-lg fa-solid fa-gear"></i>
+            </span>
+        </div>
         <!-- Content -->
         <div v-if="!isSideBarCollapsed">
             <div id="tour-options" class="options-bar-sm">
@@ -203,6 +204,14 @@
                         @click="toggleKeybinds()"
                     >
                         <i class="fa-lg fa-regular fa-circle-question"></i>
+                    </span>
+                    <span
+                        v-if="showExportButton"
+                        class="clickable-icon"
+                        title="Export annotations as CSV"
+                        @click="exportCsv"
+                    >
+                        <i class="fa-lg fa-solid fa-file-csv"></i>
                     </span>
                     <span
                         id="tour-preferences"
@@ -237,7 +246,6 @@
     width: 400px;       // Hardcoded, scalable sidebar (that looks good) is much work
     min-width: 400px;
     max-width: 22vw;
-    display: block;
     overflow-x: hidden;
     transition: width 0.25s, min-width 0.25s;
 
@@ -294,7 +302,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 60px;
+            width: 90px;
         }
 
         .clickable-icon {

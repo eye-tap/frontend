@@ -295,7 +295,15 @@
         }
     }
 
+    .buttons {
+        margin-top: 1rem;
+    }
+
     .inputs {
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
+
         >.desc {
             color: var(--theme-bg-3-20);
             font-size: 0.85rem;
