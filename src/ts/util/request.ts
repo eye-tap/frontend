@@ -1,3 +1,6 @@
+import {
+    backend
+} from './url';
 import router from '@/ts/router';
 import {
     useNotification
@@ -104,7 +107,7 @@ const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): 
         return Promise.reject( 'NO_AUTH' );
     }
 
-    const baseUrl = localStorage.getItem( 'url' );
+    const baseUrl = backend.url;
 
     if ( !baseUrl ) {
         return Promise.reject( 'NO_URL' );

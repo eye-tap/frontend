@@ -1,6 +1,9 @@
 import type {
     JWT
 } from '@/types/jwt';
+import {
+    backend
+} from '../util/url';
 import magicLinks from './magic-links';
 import {
     ref
@@ -23,7 +26,7 @@ const login = async ( id: string, password: string ): Promise<void> => {
     const status = useStatusStore();
 
     try {
-        const res = await fetch( localStorage.getItem( 'url' ) + '/auth/login', {
+        const res = await fetch( backend.url + '/auth/login', {
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json'
@@ -166,7 +169,7 @@ const logout = (): void => {
 
 const signup = ( username: string, email: string, pw: string, type: 'SURVEY_ADMIN' | 'CROWD_SOURCE' ): Promise<boolean> => {
     return new Promise( ( resolve, reject ) => {
-        fetch( localStorage.getItem( 'url' ) + '/auth/register', {
+        fetch( backend.url + '/auth/register', {
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json'
