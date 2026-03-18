@@ -47,7 +47,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 // Character-based assignment
                 ev.preventDefault();
                 annotation.create(
-                    getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key ),
+                    getClosestBoxIdByCharacterAndFixId( selectedFixation.value, ev.key, ev.shiftKey ? 2 : 1 ),
                     selectedFixation.value,
                     false,
                     true
