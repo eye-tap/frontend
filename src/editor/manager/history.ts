@@ -107,6 +107,30 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         clearRedo();
     };
 
+    /**
+     * Add a invalidate fixation event to the history
+     * @param annotation - The annotation that was removed
+     * @param selectedFixation - The fixation that was selected
+     * @param oldState - The state that the fixation that was assigned had before assignment
+     */
+    const invalidate = (
+        selectedFixation: number,
+        oldState: 'assigned' | 'unassigned' | 'machine' | 'invalid'
+    ) => {
+        revision.value++;
+
+        undoHistory.value.push( {
+            'annotation': {
+                'fixationIdx': -1,
+                'boxIdx': -1
+            },
+            'selectedFixation': selectedFixation,
+            'fixationState': oldState,
+            'action': 'invalidate'
+        } );
+        clearRedo();
+    };
+
     const undo = () => {
         if ( undoHistory.value.length === 0 ) return;
 
@@ -117,10 +141,13 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         redoHistory.value.push( last );
 
         if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
-        else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
+        else if ( last.action === 'delete' ) annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
         // Handle state of fixation (i.e. to make it display correctly)
-        fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
+        if ( last.action !== 'invalidate' )
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
+        else
+            fixations.value[ last.selectedFixation ]!.assigned = last.fixationState;
 
         selectedFixation.value = last.selectedFixation;
 
@@ -141,6 +168,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
     return {
         add,
         remove,
+        invalidate,
         clearRedo,
         clear
     };

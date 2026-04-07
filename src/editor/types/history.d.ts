@@ -5,7 +5,7 @@ import type {
 export interface HistoryEntry {
     'annotation': EditorAnnotation;
     'selectedFixation': number;
-    'action': 'add' | 'delete';
+    'action': 'add' | 'delete' | 'invalidate';
     'fixationState': 'assigned' | 'unassigned' | 'machine' | 'invalid';
 }
 

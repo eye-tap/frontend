@@ -149,9 +149,11 @@ export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
     };
 
     const markAsInvalid = ( fixationIndex: number ) => {
-        fixations.value[ fixationIndex ]!.assigned = 'invalid';
         goToNextFixation();
-        deleteByFixID( fixationIndex, true );
+
+        if ( !deleteByFixID( fixationIndex, true ) ) history.invalidate( fixationIndex, fixations.value[ fixationIndex ]!.assigned );
+
+        fixations.value[ fixationIndex ]!.assigned = 'invalid';
     };
 
     const funcs: AnnotationManager = {
