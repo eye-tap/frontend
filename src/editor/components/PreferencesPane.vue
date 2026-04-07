@@ -177,7 +177,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    z-index: 1;     // To properly black out all of the Editor
+    z-index: 100;     // To properly black out all of the Editor
 
     >.preferences-box {
         >.top-bar {

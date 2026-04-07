@@ -5,6 +5,50 @@
 
     const keybindDescriptors = [
         {
+            'keybind': 'Letters',
+            'function': 'Assign the current fixation to the closest corresponding letter'
+        },
+        {
+            'keybind': 'Shift + Letters',
+            'function': 'Assign the current fixation to the second closest corresponding letter'
+        },
+        {
+            'keybind': 'Backspace',
+            'function': 'Delete annotation / move back'
+        },
+        {
+            'keybind': 'Arrows',
+            'function': 'Move to next / previous fixation'
+        },
+        {
+            'keybind': 'Enter',
+            'function': '(hold) Show assignments of all algorithms'
+        },
+        {
+            'keybind': 'Shift + Backspace',
+            'function': 'Mark fixation as invalid'
+        },
+        {
+            'keybind': 'Shift + Delete',
+            'function': 'Mark fixation as invalid'
+        },
+        {
+            'keybind': 'CTRL + Z',
+            'function': 'Undo'
+        },
+        {
+            'keybind': 'CTRL + SHIFT + Z',
+            'function': 'Redo'
+        },
+        {
+            'keybind': 'CTRL + Y',
+            'function': 'Redo'
+        },
+        {
+            'keybind': 'CTRL + S',
+            'function': 'Save'
+        },
+        {
             'keybind': 'CTRL + Drag',
             'function': 'Pan the view'
         },
@@ -23,46 +67,6 @@
         {
             'keybind': 'CTRL + Arrows',
             'function': 'Pan the view'
-        },
-        {
-            'keybind': 'CTRL + Z',
-            'function': 'Undo'
-        },
-        {
-            'keybind': 'Backspace',
-            'function': 'Delete annotation / move back'
-        },
-        {
-            'keybind': 'CTRL + SHIFT + Z',
-            'function': 'Redo'
-        },
-        {
-            'keybind': 'CTRL + Y',
-            'function': 'Redo'
-        },
-        {
-            'keybind': 'CTRL + S',
-            'function': 'Save'
-        },
-        {
-            'keybind': 'Arrows',
-            'function': 'Move to next / previous fixation'
-        },
-        {
-            'keybind': 'Letters',
-            'function': 'Assign the current fixation to the closest box of this letter'
-        },
-        {
-            'keybind': 'Shift + Backspace',
-            'function': 'Mark fixation as invalid'
-        },
-        {
-            'keybind': 'Shift + Delete',
-            'function': 'Mark fixation as invalid'
-        },
-        {
-            'keybind': 'Enter',
-            'function': '(hold) Show assignments of all algorithms'
         }
     ];
     const show = defineModel<boolean>();
@@ -127,7 +131,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    z-index: 1;     // To properly black out all of the Editor
+    z-index: 100;     // To properly black out all of the Editor
 
     .desc {
         color: var(--theme-background-text-20);
