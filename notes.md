@@ -49,6 +49,8 @@
 - [X] Zoom to fixation
 - [X] Move to fixation when moving around (and zoom factor > 1)
 - [ ] **Render hovered boxes above everything else (to make it more legible, maybe add condition to this)**
+- [ ] Next annotation button animation (currently no feedback at all)
+- [ ] Ask to save when moving next annotation or returning home
 
 ### ~~Quick guide~~
 A short summary for how to use the editor, preferrably graphical, with the most important keybinds on there.
