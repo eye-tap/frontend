@@ -67,6 +67,10 @@ I think adding more user guidance would end up being confusing (i.e. suppose I'm
 - [X] RWD fixes (Signup and Login views)
 - [X] Block if device is too small (also touch devices don't work!) -> Design?
 - [ ] Take care of all TODOs in the code
+- [ ] Logout timer
+- [ ] Improve tour and remove anything not strictly relevant
+- [ ] Settings (such as how long 'till account closure, enabled feature sets in editor)
+- [ ] Button to end prematurely
 - [X] Buttons with long actions need spinners or other progress indicator
 
 
