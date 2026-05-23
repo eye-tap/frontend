@@ -41,7 +41,6 @@ export const touchAndTrackpadHandler = ( target: Ref<HTMLElement | null> ) => {
         eventCache[index] = ev;
 
         if ( eventCache.length === 2 ) {
-            console.log( 'Hello world' );
             // Calculate the distance between the two pointers
             const curDiff = Math.hypot(
                 eventCache[0]!.clientX - eventCache[1]!.clientX,

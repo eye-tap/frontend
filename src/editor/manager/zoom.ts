@@ -9,12 +9,13 @@ import {
     computeOffset,
     scale
 } from '../render/scaling';
+import {
+    enableZoom,
+    overScrollDistanceForZoom
+} from '../config';
 import type {
     EditorPoint
 } from '../types/annotation';
-import {
-    overScrollDistanceForZoom
-} from '../config';
 
 /**
  * @returns The origin of the viewport in original size
@@ -35,15 +36,14 @@ const getViewPortOrigin = (): EditorPoint => {
  * @param target - The original size point to move to
  */
 const setViewPortOriginFromCenter = ( target: EditorPoint ) => {
+    if ( !enableZoom.value ) return;
+
     // translate to percentages (canvasPosition is in percentages)
     // Try to center target in the viewport
     canvasPosition.value = {
         'x': roundToDigits( toPercentageOfOriginal( limiter( centerCoordinateInViewPort( target.x, 'width' ), 'width' ), 'width' ) ),
         'y': roundToDigits( toPercentageOfOriginal( limiter( centerCoordinateInViewPort( target.y, 'height' ), 'height' ), 'height' ) )
     };
-    console.log( {
-        ...canvasPosition.value
-    } );
 };
 
 /**
@@ -55,6 +55,8 @@ const setViewPortOriginFromCenter = ( target: EditorPoint ) => {
  * @param target - The original size point to move to
  */
 const setViewPortOrigin = ( target: EditorPoint ) => {
+    if ( !enableZoom.value ) return;
+
     // translate to percentages (canvasPosition is in percentages)
     // Try to center target in the viewport
     canvasPosition.value = {
@@ -103,6 +105,8 @@ const reset = () => {
 
 /** Sets the zoom factor, using guards */
 const setFactor = ( factor: number ) => {
+    if ( !enableZoom.value ) return;
+
     if ( factor < 1 ) {
         console.warn( '[ ZOOM ] New zoom level not set due to invalid value (< 1)' );
     } else if ( factor > 3 ) {
@@ -127,6 +131,8 @@ const getFactor = () => {
 
 /** Apply zoom with diff, i.e. how much to add / subtract or multiply / divide by */
 const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
+    if ( !enableZoom.value ) return;
+
     if ( mode === 'add' )
         setFactor( getFactor() + diff );
     else

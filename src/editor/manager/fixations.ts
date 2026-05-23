@@ -8,6 +8,9 @@ import type {
     EditorPoint
 } from '../types/annotation';
 import {
+    enableZoom
+} from '../config';
+import {
     getFixationIdByCoodianate
 } from '../association/fixations';
 import {
@@ -37,7 +40,7 @@ const selectFixation = ( val: number ) => {
     if ( selectedFixation.value > -1 ) {
         selectedFixation.value = mod( val, fixations.value.length );
 
-        if ( zoomFactor.value > 1 ) {
+        if ( zoomFactor.value > 1 && enableZoom.value ) {
             zoom.setViewPortOriginFromCenter( {
                 'x': fixations.value[ selectedFixation.value ]!.x!,
                 'y': fixations.value[ selectedFixation.value ]!.y!

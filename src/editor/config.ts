@@ -41,6 +41,8 @@ export const keyboardZoomPanStep: Ref<EditorPoint> = ref( {
     'y': 20
 } );
 
+export const enableZoom = ref( true );
+
 export const zoomScrollWheelDivideFactor = ref( 100 );
 
 export const zoomTouchAndTrackpadDivideFactor = ref( 100 );
