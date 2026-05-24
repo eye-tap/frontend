@@ -1,7 +1,14 @@
 <script setup lang="ts">
     import {
+        type Ref,
+        ref
+    } from 'vue';
+    import {
         createSurvey, listReadingSessions
     } from '@/ts/surveys';
+    import type {
+        ConfigPreset
+    } from '@/editor/config-presets';
     import type {
         ShallowReadingSessionDto
     } from '@/types/dtos/ShallowReadingSessionDto';
@@ -10,9 +17,6 @@
         adminBaseRoute
     } from '../adminConfig';
     import inputFilter from '@/ts/util/inputFilter';
-    import {
-        ref
-    } from 'vue';
     import testData from '@/ts/dev/TextTestData.json';
     import {
         useNotification
@@ -35,6 +39,23 @@
     }
 
     const router = useRouter();
+    const presets: {
+        'internal': ConfigPreset,
+        'display': string,
+        'tooltip': string
+    }[] = [
+        {
+            'display': 'All Features',
+            'internal': 'full',
+            'tooltip': 'All features of the editor are available to the user'
+        },
+        {
+            'display': 'Basic Features',
+            'internal': 'basic',
+            'tooltip': 'None of the fancier rendering modes, very few settings and no keyboard shortcuts are available'
+        }
+    ];
+    const selectedPreset: Ref<ConfigPreset> = ref( 'full' );
     const notifications = useNotification();
     const surveyStore = useSurveyStore();
     const status = useStatusStore();
@@ -132,7 +153,10 @@
             userCount.value!,
             title.value,
             desc.value,
-            surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat()
+            surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat(),
+            JSON.stringify( {
+                'preset': selectedPreset.value
+            } )
         )
             .then( links => {
                 surveyStore.setLinks( links );
@@ -201,6 +225,16 @@
                     placeholder="Number of users"
                     @keydown="inputFilter.numeric()"
                 >
+                <select v-model="selectedPreset" title="Enabled features">
+                    <option
+                        v-for="val, idx in presets"
+                        :key="idx"
+                        :value="val.internal"
+                        :title="val.tooltip"
+                    >
+                        {{ val.display }}
+                    </option>
+                </select>
             </div>
             <textarea
                 v-model="desc"

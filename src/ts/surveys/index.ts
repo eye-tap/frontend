@@ -26,13 +26,15 @@ export const createSurvey = async (
     userCount: number,
     title: string,
     description: string,
-    readingSessionIds: number[]
+    readingSessionIds: number[],
+    furtherOptions?: string
 ): Promise<string[]> => {
     const config: CreateSurveyDto = {
         'users': userCount,
         'title': title,
         'description': description,
-        'readingSessionIds': readingSessionIds
+        'readingSessionIds': readingSessionIds,
+        'furtherOptions': furtherOptions
     };
     const surveyUsers = ( await ( await request.post( '/survey', config ) ).json() as SurveyCreatedDto ).users!;
     const links: string[] = [];

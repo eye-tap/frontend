@@ -31,6 +31,9 @@ import {
     sendLoadEvent
 } from './event';
 import {
+    setConfigPreset
+} from '../config-presets';
+import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -165,6 +168,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         title += ' (complete)';
     else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
         title += ' (soft complete)';
+
+    // Set the config preset
+    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ?? '{}' )['preset'] );
 
     sendLoadEvent( title );
     renderer.renderAll();

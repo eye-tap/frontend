@@ -19,8 +19,8 @@ export type ConfigPreset = 'basic' | 'full';
 
 export const configPreset: Ref<ConfigPreset> = ref( 'full' );
 
-export const setConfigPreset = ( preset: ConfigPreset ) => {
-    configPreset.value = preset;
+export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
+    if ( !preset ) return;
 
     if ( preset == 'basic' ) {
         disableKeyHandler.value = true;
@@ -34,4 +34,6 @@ export const setConfigPreset = ( preset: ConfigPreset ) => {
         linesDisplay.value = 'previous';
     }
     // TODO: Here we can configure config options for other presets
+
+    configPreset.value = preset;
 };

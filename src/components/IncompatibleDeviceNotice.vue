@@ -33,7 +33,7 @@
         isUnsuitableAspectRatio.value = window.innerWidth / window.innerWidth > 1.1;
 
         if ( !show.value && !sessionStorage.getItem( 'dismissed-incompatibility' ) )
-            show.value = isTooSmall.value || isTouchDevice.value || isUnsuitableAspectRatio.value;
+            show.value = isTooSmall.value || ( isTouchDevice.value && !hasMouseSupport.value ) || isUnsuitableAspectRatio.value;
     };
 
     const useTestData = () => {
