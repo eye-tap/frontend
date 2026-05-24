@@ -3,4 +3,5 @@ export interface CreateSurveyDto {
     'title'?: string;
     'description'?: string;
     'readingSessionIds'?: number[];
+    'furtherOptions'?: string;
 }

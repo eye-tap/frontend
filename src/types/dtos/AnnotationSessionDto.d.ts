@@ -17,4 +17,5 @@ export interface AnnotationSessionDto {
     'inactiveMachineAnnotations'?: Record<string, unknown>;
     'lastEdited'?: string;
     'removedFixations'?: number[];
+    'furtherOptions'?: string;
 }
