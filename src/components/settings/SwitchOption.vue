@@ -9,7 +9,6 @@
     const state = defineModel<boolean>();
     const emit = defineEmits<{
         ( e: 'change', newState: boolean ): void
-
     }>();
 
     watch( state, newState => {

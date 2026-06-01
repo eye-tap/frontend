@@ -2,6 +2,7 @@
     import {
         RouterLink, useRouter
     } from 'vue-router';
+    import EthicsApprovalPopup from '@/components/EthicsApprovalPopup.vue';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
     import auth from '@/ts/auth';
@@ -20,6 +21,7 @@
     const password = ref( '' );
     const errMsg = auth.errMsg;
     const loggingIn = auth.loggingIn;
+    const showEthicsApprovalPopup = ref( false );
     // Simple validation flags
     const idError = ref( false );
     const pwError = ref( false );
@@ -78,6 +80,7 @@
         if ( user ) {
             id.value = user.username;
             password.value = user.password;
+            showEthicsApprovalPopup.value = true;
 
             login();
         }
@@ -104,6 +107,7 @@
                 page-title=""
                 logo-click-target="/"
             />
+            <EthicsApprovalPopup v-model="showEthicsApprovalPopup" />
             <div class="applet">
                 <div class="logo-bar">
                     <LogoRenderer :kind="'full'" class="logo" />
