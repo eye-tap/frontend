@@ -170,7 +170,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         title += ' (soft complete)';
 
     // Set the config preset
-    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ?? '{}' )['preset'] );
+    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ? sessionData.value.furtherOptions : '{}' )['preset'] );
 
     sendLoadEvent( title );
     renderer.renderAll();

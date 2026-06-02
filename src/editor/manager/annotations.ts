@@ -29,7 +29,17 @@ import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
+let manager: AnnotationManager | null = null;
+
 export const annotationManager = ( renderer: Renderer ): AnnotationManager => {
+    if ( !manager ) {
+        manager = startAnnotationManager( renderer );
+    }
+
+    return manager;
+};
+
+const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
     const session = useAnnotationSessionStore();
 
     /**
