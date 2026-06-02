@@ -78,7 +78,7 @@
                         <div style="margin-top: 20px;">
                             <input id="confirm-ethics" v-model="hasConfirmed" type="checkbox">
                             <label for="confirm-ethics">
-                                I voluntarily constent to participate in this study. I have read and agree to the
+                                I voluntarily consent to participate in this study. I have read and agree to the
                                 <a href="/ethics-form.pdf" target="_blank">full ethics agreement</a>*
                             </label>
                         </div>
