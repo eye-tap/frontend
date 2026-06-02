@@ -28,6 +28,11 @@ export const revision = ref( 0 );
 
 export const savedAtRevision = ref( 0 );
 
+export const resetSave = () => {
+    revision.value = 0;
+    savedAtRevision.value = 0;
+};
+
 /** Save manager (i.e. manages saving to backend) */
 export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();

@@ -11,6 +11,7 @@ import {
     undoHistory
 } from './manager/history';
 import {
+    resetSave,
     revision,
     savedAtRevision,
     useSaveFunction
@@ -133,6 +134,7 @@ const start = (
     if ( !status.devMode ) {
         loadEditorDataFromBackend( draw );
         session.createWatchIdx( () => {
+            resetSave();
             loadEditorDataFromBackend( draw );
         } );
     }
@@ -140,21 +142,34 @@ const start = (
     onMounted( () => {
         document.addEventListener( 'eyetap:theme', reloadThemeColours );
         reloadThemeColours();
+        window.onbeforeunload = leaveHandler;
     } );
 
     onUnmounted( () => {
         sendEditorLeaveEvent();
+
+        window.onbeforeunload = () => {};
 
         try {
             document.removeEventListener( 'eyetap:theme', reloadThemeColours );
         } catch { /* empty */ }
     } );
 
+
     return {
         'renderer': draw,
         'io': io
     };
 };
+
+const leaveHandler = ( ev: Event ) => {
+    if ( saveNeeded.value ) {
+        ev.preventDefault();
+
+        return 'Do you really want to discard your changes?';
+    }
+};
+
 
 export default {
     save,
