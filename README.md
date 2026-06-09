@@ -4,7 +4,7 @@
 </div>
 
 A platform to connect fixations to bounding boxes of texts.
-Deployed version can be found [here](https://group-p23.webdev-25.ivia.isginf.ch/)
+Deployed version can be found [here](https://eyetap.ivia.ch/)
 
 ## Development
 Run the app in development mode normally.
