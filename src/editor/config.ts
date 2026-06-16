@@ -174,7 +174,6 @@ export const hoveredFixationColor = ref( rs.getPropertyValue( '--theme-bg-4-shad
 
 export const machineAssignedFixationColor = ref( rs.getPropertyValue( '--theme-bg-3' ) );
 
-// FIXME: Color
 export const invalidFixationColor = ref( rs.getPropertyValue( '--theme-warning' ) );
 
 // Heat map config
