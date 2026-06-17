@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { assignedFixationColor, heatMapMaxColor, heatMapMidColor, heatMapMinColor, selectedFixationColor } from '../config';
-import { automatedColourMapper } from '../util/colour';
-import ColorOption from '@/components/settings/ColorOption.vue';
+    import {
+        assignedFixationColor, heatMapMaxColor, heatMapMidColor, heatMapMinColor, selectedFixationColor
+    } from '../config';
+    import {
+        automatedColourMapper
+    } from '../util/colour';
+    import ColorOption from '@/components/settings/ColorOption.vue';
 
     const dismiss = () => {
         show.value = false;
@@ -110,7 +114,9 @@ import ColorOption from '@/components/settings/ColorOption.vue';
                             <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
                             <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
                         </div>
-                        <p class="title">Keybinds</p>
+                        <p class="title">
+                            Keybinds
+                        </p>
                         <table>
                             <thead>
                                 <tr>
