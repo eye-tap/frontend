@@ -14,7 +14,7 @@
         onUnmounted,
         ref
     } from 'vue';
-    import KeybindPane from './KeybindPane.vue';
+    import HelpPane from './HelpPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
@@ -83,7 +83,7 @@
 
 <template>
     <PreferencesPane v-model="showPreferences" />
-    <KeybindPane v-model="showKeybinds" />
+    <HelpPane v-model="showKeybinds" />
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
         <div id="tour-history" class="options-bar">

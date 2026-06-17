@@ -43,7 +43,7 @@
             Points: <input type="file" accept=".csv" @change="e => loader.loadPointsCSV( e as InputEvent )">
         </div>
         <LegendPane
-            :show="true"
+            :show="false"
         />
         <div class="canvas-wrapper">
             <canvas id="text" ref="textCanvas"></canvas>

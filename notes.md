@@ -4,7 +4,7 @@
 - [ ] **Next annotation button animation (currently no feedback at all)**
 - [ ] **Ask to save when moving next annotation or returning home**
 - [ ] **Tutorial per bucket**
-- [ ] **Legend popup**
+- [X] **Legend popup**
 
 ## General
 - [ ] Take care of all TODOs in the code
