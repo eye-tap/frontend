@@ -1,3 +1,7 @@
+import type {
+    UserOptionKeys,
+    UserOptions
+} from '@/types/UserOptions';
 import {
     backend
 } from './url';
@@ -23,6 +27,35 @@ const get = ( url: string, noRedirect = false ): Promise<string> => {
                 .catch( reject ) )
             .catch( reject );
     } );
+};
+
+let userOptions: UserOptions | null = null;
+
+const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
+    if ( userOptions == null ) {
+        const data = await get( '/user/options' );
+
+        if ( data ) {
+            userOptions = JSON.parse( data );
+        } else {
+            userOptions = {
+                'startTime': new Date().toISOString(),
+                'ended': 'false'
+            };
+        }
+    }
+
+    return userOptions![ item ];
+};
+
+const updateUserOptions = ( item: UserOptionKeys, data: string, noRedirect = false ): Promise<Response> => {
+    userOptions![ item ] = data;
+    const fetchOptions: RequestInit = {
+        'method': 'post',
+        'body': JSON.stringify( data )
+    };
+
+    return requestWithOpts( '/user/options', fetchOptions, noRedirect );
 };
 
 /**
@@ -164,7 +197,9 @@ const requestWithOpts = ( url: string, opts: RequestInit, noRedirect = false ): 
 export default {
     get,
     getRequest,
+    getUserOptions,
     post,
+    updateUserOptions,
     postFormData,
     deleteRequest
 };

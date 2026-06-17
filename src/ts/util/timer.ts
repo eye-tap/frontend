@@ -1,20 +1,27 @@
 import {
     ref
 } from 'vue';
+import request from './request';
 
 export const timer = ref( '' );
 
-export const startTimer = ( availableTime: number, name: string = '' ) => {
+export const startTimer = async ( availableTime: number, name: string = '' ) => {
     let startTime = new Date().getTime();
     let sentEvent = false;
+    let stored = sessionStorage.getItem( 'start-time' );
 
-    const stored = localStorage.getItem( 'start-time' );
+    if ( !stored ) {
+        stored = await request.getUserOptions( 'startTime' );
 
-    if ( stored ) {
-        startTime = new Date( stored ).getTime();
-    } else {
-        localStorage.setItem( 'start-time', new Date().toISOString() );
+        if ( stored ) {
+            sessionStorage.setItem( 'start-time', stored );
+        } else {
+            request.updateUserOptions( 'startTime', new Date().toISOString() );
+            sessionStorage.setItem( 'start-time', new Date().toISOString() );
+        }
     }
+
+    startTime = new Date( stored ).getTime();
 
     setInterval( () => {
         const remaining = availableTime - Math.round( ( new Date().getTime() - startTime ) / 1000 );
