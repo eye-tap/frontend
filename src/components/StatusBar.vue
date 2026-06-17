@@ -7,8 +7,15 @@
         selectedTheme,
         themes
     } from '@/ts/util/theme';
+    import {
+        startTimer,
+        timer
+    } from '@/ts/util/timer';
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth';
+    import {
+        availableTime
+    } from '@/editor/config-presets';
     import router from '@/ts/router';
     import {
         saveNeeded
@@ -70,6 +77,10 @@
     const admin = () => {
         router.push( '/admin' );
     };
+
+    document.addEventListener( 'eyetap:login', () => {
+        startTimer( availableTime.value );
+    } );
 </script>
 
 <template>
@@ -88,6 +99,7 @@
                 </span>
             </transition>
         </div>
+        <div>{{ timer }}</div>
         <div v-if="props.mode === 'editor'" class="next-action-wrapper">
             <button class="button primary next-btn" @click="goToNextAnnotation">
                 Next Annotation <i class="fa-solid fa-arrow-right"></i>

@@ -82,7 +82,7 @@
             password.value = user.password;
             showEthicsApprovalPopup.value = true;
 
-            login();
+            // login();
         }
     };
 
@@ -107,7 +107,7 @@
                 page-title=""
                 logo-click-target="/"
             />
-            <EthicsApprovalPopup v-model="showEthicsApprovalPopup" />
+            <EthicsApprovalPopup v-model="showEthicsApprovalPopup" @approve="login" />
             <div class="applet">
                 <div class="logo-bar">
                     <LogoRenderer :kind="'full'" class="logo" />

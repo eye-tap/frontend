@@ -24,6 +24,12 @@ export const useStatusStore = defineStore( 'user', {
     },
     'actions': {
         setAuth ( auth: boolean ) {
+            if ( auth ) {
+                setTimeout( () => {
+                    document.dispatchEvent( new CustomEvent( 'eyetap:login' ) );
+                }, 1000 );
+            }
+
             this.isAuth = auth;
         },
         setUsername ( username: string ) {

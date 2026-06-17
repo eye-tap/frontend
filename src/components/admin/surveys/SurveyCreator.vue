@@ -50,6 +50,11 @@
             'tooltip': 'All features of the editor are available to the user'
         },
         {
+            'display': 'All Features, no pre-annotations',
+            'internal': 'nopreannotations',
+            'tooltip': 'All features, apart from the pre-annotations are available to the user'
+        },
+        {
             'display': 'Basic Features',
             'internal': 'basic',
             'tooltip': 'None of the fancier rendering modes, very few settings and no keyboard shortcuts are available'

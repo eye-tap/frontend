@@ -10,6 +10,9 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
+        showPreAnnotations
+    } from '@/editor/config-presets';
+    import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
 
@@ -28,10 +31,20 @@
     const selectedFileIndex = ref( 0 );
     const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
-        if ( sortColumn.value === 'none' )
-            return props.files;
+        // Filter out sessions that have pre-annotations
+        let files = props.files;
 
-        const toSort = [ ...props.files ];
+        if ( !showPreAnnotations.value ) {
+            files = props.files.filter( val => {
+                // TODO: Check this works reliably
+                return val.description && val.description.includes( 'NO PRE-ANNOTATION' );
+            } );
+        }
+
+        if ( sortColumn.value === 'none' )
+            return files;
+
+        const toSort = [ ...files ];
 
         return toSort.sort( compareFunc );
     } );
