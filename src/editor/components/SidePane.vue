@@ -168,9 +168,8 @@
                 <i class="fa-xl fa-solid fa-circle-xmark"></i>
             </span>
         </div>
-        <div v-if="isSideBarCollapsed" class="options-bar">
+        <div v-if="isSideBarCollapsed && showExportButton" class="options-bar">
             <span
-                v-if="showExportButton"
                 class="clickable-icon"
                 title="Export annotations as CSV"
                 @click="exportCsv"

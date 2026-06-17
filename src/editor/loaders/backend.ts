@@ -14,6 +14,10 @@ import {
     heatMapMidValue,
     heatMapMinValue
 } from '../config';
+import {
+    setConfigPreset,
+    showPreAnnotations
+} from '../config-presets';
 import type {
     AnnotationDto
 } from '@/types/dtos/AnnotationDto';
@@ -31,9 +35,6 @@ import {
     sendLoadEvent
 } from './event';
 import {
-    setConfigPreset
-} from '../config-presets';
-import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -47,6 +48,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
+
+    // Set the config preset
+    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ? sessionData.value.furtherOptions : '{}' )['preset'] );
 
     renderer.textImage.src = 'data:image/jpg;base64,' + img;
 
@@ -110,11 +114,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                 'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
 
-            fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
+            if ( showPreAnnotations ) {
+                fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
-            if ( annotation.annotationType === 'MACHINE_ANNOTATED' ) {
-                userAnnotations.value.push( ann );
-                ann.algorithm = 'default';
+                if ( annotation.annotationType === 'MACHINE_ANNOTATED' ) {
+                    userAnnotations.value.push( ann );
+                    ann.algorithm = 'default';
+                }
             }
 
             annotations.value.push( ann );
@@ -123,7 +129,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // Load additional algorithmic assignments
     const additionalAnnotationLoad = sessionData.value.inactiveMachineAnnotations!;
 
-    if ( additionalAnnotationLoad ) {
+    if ( additionalAnnotationLoad && showPreAnnotations.value ) {
         selectedAlgorithm.value = 0;
         const algos = Object.keys( additionalAnnotationLoad );
 
@@ -168,9 +174,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         title += ' (complete)';
     else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
         title += ' (soft complete)';
-
-    // Set the config preset
-    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ? sessionData.value.furtherOptions : '{}' )['preset'] );
 
     sendLoadEvent( title );
     renderer.renderAll();

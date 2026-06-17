@@ -25,7 +25,12 @@ export const showPreAnnotations: Ref<boolean> = ref( false );
 export const availableTime: Ref<number> = ref( 300 );
 
 export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
-    if ( !preset ) return;
+    if ( !preset ) {
+        console.warn( '[EDITOR] No config preset found for user, falling back to full' );
+        showPreAnnotations.value = true;
+
+        return;
+    }
 
     if ( preset === 'basic' ) {
         disableKeyHandler.value = true;
@@ -41,6 +46,8 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
     } else if ( preset === 'full' ) {
         showPreAnnotations.value = true;
     }
+
+    console.debug( '[EDITOR] Loading preset', preset );
 
     configPreset.value = preset;
 };
