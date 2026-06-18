@@ -1,9 +1,8 @@
 # Improvement ideas
 ## Editor
-- [ ] **Render hovered boxes above everything else (to make it more legible, maybe add condition to this)**
 - [ ] **Next annotation button animation (currently no feedback at all)**
 - [ ] **Ask to save when moving next annotation or returning home**
-- [ ] **Tutorial per bucket**
+- [ ] **Tutorial per bucket** -> Improve
 - [X] **Legend popup**
 
 ## General
@@ -14,6 +13,7 @@
 - [ ] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
 - [ ] **Button to end prematurely**
 - [X] Buttons with long actions need spinners or other progress indicator
+- [ ] **Warning popup on Logout to confirm if user wants to end participation**
 
 
 ## Admin
