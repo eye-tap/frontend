@@ -15,6 +15,11 @@ export const start = async () => {
 
     let startTime = new Date().getTime();
     let sentEvent = false;
+
+    if ( await request.getUserOptions( 'ended' ) == 'true' ) {
+        document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
+    }
+
     let stored = await request.getUserOptions( 'startTime' );
 
     if ( !stored ) {
@@ -45,4 +50,8 @@ export const start = async () => {
 const stop = () => {
     clearInterval( timerInterval );
     timer.value = '';
+};
+
+export const markSessionAsEnded = () => {
+    request.updateUserOptions( 'ended', 'true' );
 };
