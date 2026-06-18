@@ -5,12 +5,13 @@ import type {
 declare global {
     interface GlobalEventHandlersEventMap {
         'eyetap:login': CustomEvent<void>;
-        'eyetap:timer-ended': CustomEvent<string>;
-        'eyetap:fileload': CustomEvent<{
+        'eyetap:logout': CustomEvent<void>;
+        'eyetap:timer-ended': CustomEvent<void>;
+        'eyetap:file:load': CustomEvent<{
             'idx': number;
             'title': string;
         }>;
-        'eyetap:fileunload': CustomEvent<void>;
+        'eyetap:file:unload': CustomEvent<void>;
         'eyetap:save': CustomEvent<void>;
         'eyetap:save:success': CustomEvent<void>;
         'eyetap:save:fail': CustomEvent<{

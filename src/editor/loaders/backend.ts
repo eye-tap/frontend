@@ -14,10 +14,6 @@ import {
     heatMapMidValue,
     heatMapMinValue
 } from '../config';
-import {
-    setConfigPreset,
-    showPreAnnotations
-} from '../config-presets';
 import type {
     AnnotationDto
 } from '@/types/dtos/AnnotationDto';
@@ -35,6 +31,9 @@ import {
     sendLoadEvent
 } from './event';
 import {
+    showPreAnnotations
+} from '../config-presets';
+import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -48,9 +47,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
-
-    // Set the config preset
-    setConfigPreset( JSON.parse( sessionData.value.furtherOptions ? sessionData.value.furtherOptions : '{}' )['preset'] );
 
     renderer.textImage.src = 'data:image/jpg;base64,' + img;
 

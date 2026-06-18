@@ -5,7 +5,7 @@ import {
 export const sendLoadEvent = ( title: string ) => {
     const session = useAnnotationSessionStore();
 
-    document.dispatchEvent( new CustomEvent( 'eyetap:fileload', {
+    document.dispatchEvent( new CustomEvent( 'eyetap:file:load', {
         'detail': {
             'idx': session.sessionIdx,
             'title': title
@@ -18,5 +18,5 @@ export const sendEditorLeaveEvent = () => {
 
     session.selected = false;
 
-    document.dispatchEvent( new CustomEvent( 'eyetap:fileunload' ) );
+    document.dispatchEvent( new CustomEvent( 'eyetap:file:unload' ) );
 };

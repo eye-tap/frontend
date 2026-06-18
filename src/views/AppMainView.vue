@@ -8,10 +8,10 @@
         ref
     } from 'vue';
 
-    const pageTitle = ref( 'Eye-TAP' );
+    const pageTitle = ref( 'EYE-TAP' );
     const router = useRoute();
 
-    document.addEventListener( 'eyetap:fileload', e => {
+    document.addEventListener( 'eyetap:file:load', e => {
         pageTitle.value = e.detail.title;
     } );
 
@@ -22,8 +22,8 @@
             pageTitle.value += ' (complete)';
     } );
 
-    document.addEventListener( 'eyetap:fileunload', () => {
-        pageTitle.value = 'Eye-TAP';
+    document.addEventListener( 'eyetap:file:unload', () => {
+        pageTitle.value = 'EYE-TAP';
     } );
 </script>
 

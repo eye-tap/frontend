@@ -5,7 +5,7 @@
  * @returns A KeyboardEvent handler
  */
 const numeric = () => {
-    return regex( /[0-9]/ );
+    return regex( /[0-9]|-/ );
 };
 
 /**

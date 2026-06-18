@@ -8,7 +8,8 @@
 
 ## General
 - [ ] Take care of all TODOs in the code
-- [ ] **Logout timer**
+- [X] **Logout timer**
+- [X] **Timer only added when enabled in study**
 - [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [ ] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
 - [ ] **Button to end prematurely**

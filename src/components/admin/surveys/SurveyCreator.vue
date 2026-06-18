@@ -68,6 +68,7 @@
     const desc = ref( '' );
     const userCount = ref( null );
     const creating = ref( false );
+    const logoutTimeout = ref( null );
 
     const dismiss = () => {
         surveyStore.selectedSurveyIndex = -2;
@@ -160,7 +161,8 @@
             desc.value,
             surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat(),
             JSON.stringify( {
-                'preset': selectedPreset.value
+                'preset': selectedPreset.value,
+                'timeout': logoutTimeout.value !== null ? logoutTimeout.value : -1
             } )
         )
             .then( links => {
@@ -240,6 +242,12 @@
                         {{ val.display }}
                     </option>
                 </select>
+                <input
+                    v-model.number="logoutTimeout"
+                    type="text"
+                    placeholder="Time to logout in seconds. Set to -1 or leave empty to disable"
+                    @keydown="inputFilter.numeric()"
+                >
             </div>
             <textarea
                 v-model="desc"

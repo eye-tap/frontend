@@ -19,17 +19,19 @@ import {
     renderScanPath,
     showExportButton
 } from './config';
+import {
+    start
+} from '@/ts/util/timer';
 
 
 
 // If we want to change these, can use smart rename of the LS.
 export type ConfigPreset = 'basic' | 'full' | 'nopreannotations';
 
-export const configPreset: Ref<ConfigPreset> = ref( 'basic' );
+export const configPreset: Ref<ConfigPreset> = ref( 'full' );
 
 export const showPreAnnotations: Ref<boolean> = ref( false );
 
-// TODO: Update this
 export const availableTime: Ref<number> = ref( 300 );
 
 const PRESET_VISIBLE_OPTIONS: Partial<Record<ConfigPreset, readonly ( OptionKey | SectionKey )[]>> = {
@@ -45,7 +47,9 @@ export const isOptionVisible = ( key: OptionKey | SectionKey ) => visibility.val
 
 export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectionVisible( key );
 
-export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
+export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number ) => {
+    availableTime.value = timeToLogout ? timeToLogout : -1;
+
     if ( !preset ) {
         console.warn( '[EDITOR] No config preset found for user, falling back to full' );
         showPreAnnotations.value = true;
@@ -73,4 +77,6 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
     console.debug( '[EDITOR] Loading preset', preset );
 
     configPreset.value = preset;
+
+    start();
 };
