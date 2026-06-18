@@ -13,6 +13,9 @@
     import {
         isAutoSaveEnabled
     } from '..';
+    import {
+        isOptionVisible
+    } from '../config-presets';
 </script>
 
 <template>
@@ -30,12 +33,13 @@
                     text="Fixation"
                 />
                 <SliderOptions
+                    v-if="isOptionVisible('fixationIndexDisplay')"
                     v-model="fixationIndexDisplay"
                     :options="fixationIndexDisplayOptions"
                     text="Fixation Index"
                 />
                 <SwitchOption v-model="isAutoSaveEnabled" text="Autosave" />
-                <SwitchOption v-model="renderScanPath" text="Show scan path" />
+                <SwitchOption v-if="isOptionVisible('scanPathLength')" v-model="renderScanPath" text="Show scan path" />
             </div>
         </div>
     </div>

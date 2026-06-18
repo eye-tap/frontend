@@ -22,7 +22,7 @@ export const nearbyBoxesDistanceThreshold = ref( 20 );
 
 export const autoSaveInterval = ref( 60000 );
 
-export const showExportButton = ref( true );
+export const showExportButton = ref( false );
 
 
 

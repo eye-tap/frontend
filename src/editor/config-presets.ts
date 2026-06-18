@@ -1,5 +1,11 @@
 import {
+    type OptionKey,
+    type SectionKey,
+    makeVisibility
+} from './config-options';
+import {
     type Ref,
+    computed,
     ref
 } from 'vue';
 import {
@@ -14,15 +20,30 @@ import {
     showExportButton
 } from './config';
 
+
+
 // If we want to change these, can use smart rename of the LS.
 export type ConfigPreset = 'basic' | 'full' | 'nopreannotations';
 
-export const configPreset: Ref<ConfigPreset> = ref( 'full' );
+export const configPreset: Ref<ConfigPreset> = ref( 'basic' );
 
 export const showPreAnnotations: Ref<boolean> = ref( false );
 
 // TODO: Update this
 export const availableTime: Ref<number> = ref( 300 );
+
+const PRESET_VISIBLE_OPTIONS: Partial<Record<ConfigPreset, readonly ( OptionKey | SectionKey )[]>> = {
+    'basic': [
+        'colours',
+        'boxStroke',
+        'pointRadius'
+    ]
+};
+const visibility = computed( () => makeVisibility( PRESET_VISIBLE_OPTIONS[ configPreset.value ] ) );
+
+export const isOptionVisible = ( key: OptionKey | SectionKey ) => visibility.value.isOptionVisible( key );
+
+export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectionVisible( key );
 
 export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
     if ( !preset ) {
@@ -45,6 +66,8 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined ) => {
         showPreAnnotations.value = false;
     } else if ( preset === 'full' ) {
         showPreAnnotations.value = true;
+    } else if ( preset === 'nopreannotations' ) {
+        showPreAnnotations.value = false;
     }
 
     console.debug( '[EDITOR] Loading preset', preset );

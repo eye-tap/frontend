@@ -1,4 +1,8 @@
 <script setup lang="ts">
+    import {
+        disableKeyHandler,
+        showExportButton
+    } from '../config';
     import editor, {
         markFixationAsInvalid,
         redoAvailable,
@@ -17,9 +21,6 @@
     import HelpPane from './HelpPane.vue';
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
-    import {
-        showExportButton
-    } from '../config';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
@@ -177,7 +178,7 @@
                 <i class="fa-xl fa-solid fa-file-csv"></i>
             </span>
         </div>
-        <div v-if="isSideBarCollapsed" class="options-bar bottom">
+        <div v-if="isSideBarCollapsed && !disableKeyHandler" class="options-bar bottom">
             <span
                 class="clickable-icon"
                 title="Show keybinds"
@@ -197,6 +198,7 @@
                 <h2>Options</h2>
                 <div>
                     <span
+                        v-if="!disableKeyHandler"
                         id="tour-keybinds"
                         class="clickable-icon"
                         title="Help"

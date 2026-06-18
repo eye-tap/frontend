@@ -21,6 +21,9 @@
         unassignedFixationColor,
         unfocusedTextColor
     } from '../config';
+    import {
+        isOptionVisible, isSectionVisible
+    } from '../config-presets';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import Slider from '@vueform/slider';
     import SliderOptions from '@/components/settings/SliderOptions.vue';
@@ -29,6 +32,7 @@
         automatedColourMapper
     } from '../util/colour';
     import inputFilter from '@/ts/util/inputFilter';
+
 
     const dismiss = () => {
         show.value = false;
@@ -49,32 +53,40 @@
             </div>
             <div>
                 <div class="options-container">
-                    <div class="options-section">
+                    <div v-if="isSectionVisible('display')" class="options-section">
                         <p>Display</p>
                         <SliderOptions
+                            v-if="isOptionVisible('boxesDisplay')"
                             v-model="boxesDisplay"
                             :options="boxesDisplayOptions"
                             text="Boxes"
                         />
                         <SliderOptions
+                            v-if="isOptionVisible('linesDisplay')"
                             v-model="linesDisplay"
                             :options="linesDisplayOptions"
                             text="Lines"
                         />
                         <SliderOptions
+                            v-if="isOptionVisible('fixationDisplay')"
                             v-model="fixationDisplay"
                             :options="fixationDisplayOptions"
                             text="Fixation"
                         />
                         <SliderOptions
+                            v-if="isOptionVisible('fixationIndexDisplay')"
                             v-model="fixationIndexDisplay"
                             :options="fixationIndexDisplayOptions"
                             text="Fixation Index"
                         />
-                        <SwitchOption v-model="highlightSuggestedBox" text="Highlight suggested assignment" />
+                        <SwitchOption
+                            v-if="isOptionVisible('highlightSuggestedBox')"
+                            v-model="highlightSuggestedBox"
+                            text="Highlight suggested assignment"
+                        />
                     </div>
 
-                    <div class="options-section">
+                    <div v-if="isSectionVisible('scanPathLength')" class="options-section">
                         <p>Scan Path Length</p>
                         <input
                             v-model.number="numberOfFixationsToConnectInScanPathRendering"
@@ -85,43 +97,50 @@
                             @keydown="inputFilter.numeric"
                         >
                     </div>
-                    <div class="options-section">
+
+                    <div v-if="isSectionVisible('colours')" class="options-section">
                         <p>Colours</p>
 
                         <ColorOption
+                            v-if="isOptionVisible('assignedLineColor')"
                             v-model="assignedLineColor"
                             text="Assigned Line"
                         />
 
                         <ColorOption
+                            v-if="isOptionVisible('mappedUnfocusedTextColor')"
                             v-model="mappedUnfocusedTextColor"
                             text="Text"
                         />
 
                         <ColorOption
+                            v-if="isOptionVisible('mappedHoveredTextColor')"
                             v-model="mappedhoveredTextColor"
                             text="Hovered Text"
                         />
 
                         <ColorOption
+                            v-if="isOptionVisible('boundingBoxColor')"
                             v-model="boundingBoxColor"
                             text="Bounding box"
                         />
 
                         <ColorOption
+                            v-if="isOptionVisible('unassignedFixationColor')"
                             v-model="unassignedFixationColor"
                             text="Unassigned fixation"
                         />
                         <ColorOption
+                            v-if="isOptionVisible('scanPathLineColor')"
                             v-model="scanPathLineColor"
                             text="Scan Path Line"
                         />
                     </div>
 
-                    <div class="options-section">
+                    <div v-if="isSectionVisible('sizes')" class="options-section">
                         <p>Sizes</p>
 
-                        <div class="slider-option">
+                        <div v-if="isOptionVisible('assignedLineSize')" class="slider-option">
                             <p>Assigned Line</p>
                             <Slider
                                 v-model="lineWidth"
@@ -130,7 +149,7 @@
                                 :max="5"
                             />
                         </div>
-                        <div class="slider-option">
+                        <div v-if="isOptionVisible('scanPathLineSize')" class="slider-option">
                             <p>Scan Path Line</p>
                             <Slider
                                 v-model="scanPathLineWidth"
@@ -140,7 +159,7 @@
                             />
                         </div>
 
-                        <div class="slider-option">
+                        <div v-if="isOptionVisible('boxStroke')" class="slider-option">
                             <p>Box stroke</p>
                             <Slider
                                 v-model="boundingBoxStrokeWidth"
@@ -150,7 +169,7 @@
                             />
                         </div>
 
-                        <div class="slider-option">
+                        <div v-if="isOptionVisible('pointRadius')" class="slider-option">
                             <p>Point radius</p>
                             <Slider
                                 v-model="fixationRadius"
