@@ -1,7 +1,7 @@
 # Improvement ideas
 ## Editor
 - [X] **Next annotation button animation** -> Verify that this works with a Backend
-- [ ] **Ask to save when moving next annotation or returning home**
+- [ ] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
 - [X] **Legend popup**
 

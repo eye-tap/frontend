@@ -40,7 +40,7 @@ export const start = async () => {
         } else {
             const sec = Math.round( remaining % 60 );
 
-            timer.value = `${ Math.floor( remaining / 60 ) }:${ sec }${ sec < 10 ? '0' : '' }`;
+            timer.value = `${ Math.floor( remaining / 60 ) }:${ sec < 10 ? '0' : '' }${ sec }`;
         }
     }, 500 );
 
