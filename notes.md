@@ -1,6 +1,6 @@
 # Improvement ideas
 ## Editor
-- [ ] **Next annotation button animation (currently no feedback at all)**
+- [X] **Next annotation button animation** -> Verify that this works with a Backend
 - [ ] **Ask to save when moving next annotation or returning home**
 - [ ] **Tutorial per bucket** -> Improve
 - [X] **Legend popup**

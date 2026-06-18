@@ -1,6 +1,8 @@
 <script setup lang="ts">
     import {
         computed,
+        onMounted,
+        onUnmounted,
         ref
     } from 'vue';
     import {
@@ -27,6 +29,7 @@
     const showUserMenu = ref( false );
     const showThemePickerMenu = ref( false );
     const maxUsernameLength = ref( 20 );
+    const showLoadingNextAnnotation = ref( false );
 
     const toggleMenu = () => {
         showUserMenu.value = !showUserMenu.value;
@@ -73,6 +76,21 @@
     const admin = () => {
         router.push( '/admin' );
     };
+
+    /** Toggles the spinner. */
+    const toggleLoadingNextAnnotation = ( show: boolean ) => {
+        showLoadingNextAnnotation.value = show;
+    };
+
+    onMounted( () => {
+        document.addEventListener( 'eyetap:file:loading', () => toggleLoadingNextAnnotation( true ) );
+        document.addEventListener( 'eyetap:file:load', () => toggleLoadingNextAnnotation( false ) );
+    } );
+
+    onUnmounted( () => {
+        document.removeEventListener( 'eyetap:file:loading', () => toggleLoadingNextAnnotation( true ) );
+        document.removeEventListener( 'eyetap:file:load', () => toggleLoadingNextAnnotation( false ) );
+    } );
 </script>
 
 <template>
@@ -94,7 +112,9 @@
         <div>{{ timer }}</div>
         <div v-if="props.mode === 'editor'" class="next-action-wrapper">
             <button class="button primary next-btn" @click="goToNextAnnotation">
-                Next Annotation <i class="fa-solid fa-arrow-right"></i>
+                Next Annotation
+                <i v-if="!showLoadingNextAnnotation" class="fa-solid fa-arrow-right"></i>
+                <i v-else class="fa-lg fa-solid fa-arrows-rotate loading-icon"></i>
             </button>
         </div>
         <div :class="[ 'theme-menu', showThemePickerMenu ? 'shown' : undefined , props.showAccount ? 'theme-menu-alt' : 'theme-menu' ]">
@@ -355,6 +375,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
+
+    i.loading-icon {
+        animation: spin 1s linear infinite;
+    }
 }
 
 

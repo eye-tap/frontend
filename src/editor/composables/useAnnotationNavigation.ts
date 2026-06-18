@@ -41,6 +41,7 @@ export function useAnnotationNavigation () {
         store.setActive( nextIdx );
         isAnnotationComplete.value = false;
         nextAnnotationId.value = null;
+        document.dispatchEvent( new CustomEvent( 'eyetap:file:loading' ) );
     };
 
     const handleAnnotationDone = ( event: Event ) => {

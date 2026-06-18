@@ -12,6 +12,7 @@ declare global {
             'title': string;
         }>;
         'eyetap:file:unload': CustomEvent<void>;
+        'eyetap:file:loading': CustomEvent<void>; // for showing loading spinner
         'eyetap:save': CustomEvent<void>;
         'eyetap:save:success': CustomEvent<void>;
         'eyetap:save:fail': CustomEvent<{
