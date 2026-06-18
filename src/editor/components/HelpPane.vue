@@ -2,10 +2,10 @@
     import {
         assignedFixationColor, heatMapMaxColor, heatMapMidColor, heatMapMinColor, selectedFixationColor
     } from '../config';
+    import ColorOption from '@/components/settings/ColorOption.vue';
     import {
         automatedColourMapper
     } from '../util/colour';
-    import ColorOption from '@/components/settings/ColorOption.vue';
 
     const dismiss = () => {
         show.value = false;

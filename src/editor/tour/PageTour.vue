@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import {
+        configPreset
+    } from '../config-presets';
+    import {
         isSideBarCollapsed
     } from '../data';
 
@@ -30,11 +33,13 @@
                 <h1>Welcome to the <span>Editor</span></h1>
                 <div class="box-content">
                     <p class="desc">
-                        Start by selecting a point, then there are three ways to annotate:
+                        Start by selecting a point, then there are {{ configPreset === 'basic' ? 'two' : 'three' }} ways to annotate:
                     </p>
                     <div class="ul-container">
                         <ul>
-                            <li><span>Press</span> a key on your keyboard to connect the point to the closest box with this character</li>
+                            <li v-if="configPreset !== 'basic'">
+                                <span>Press</span> a key on your keyboard to connect the point to the closest box with this character
+                            </li>
                             <li><span>Click</span> a box</li>
                             <li><span>Drag</span> a line from the point to a box</li>
                         </ul>
