@@ -50,7 +50,3 @@ const stop = () => {
     clearInterval( timerInterval );
     timer.value = '';
 };
-
-export const markSessionAsEnded = () => {
-    request.updateUserOptions( 'ended', 'true' );
-};

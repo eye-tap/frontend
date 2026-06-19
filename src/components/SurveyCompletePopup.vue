@@ -4,7 +4,6 @@
     import {
         ref
     } from 'vue';
-    import request from '@/ts/util/request';
     import {
         useStatusStore
     } from '@/ts/stores/status';
@@ -13,8 +12,6 @@
 
     const dismiss = async () => {
         show.value = false;
-
-        await request.updateUserOptions( 'ended', 'true' );
 
         const username = useStatusStore().username;
 
