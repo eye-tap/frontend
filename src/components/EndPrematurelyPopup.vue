@@ -40,14 +40,16 @@
                 <LogoRenderer kind="full" class="logo" />
             </div>
             <div class="popup-body">
-                <h2 class="title">
-                    End Session Prematurely
-                </h2>
                 <div class="desc">
-                    <div style="max-width: 80%;">
+                    <h2 class="title">
+                        Incomplete Session
+                    </h2>
+                    <div>
                         <p>
-                            Are you really sure you want to end participation early?
-                            You may not be eligible for the full payout if you end prematurely.
+                            Are you sure you want to end participation early?
+                        </p>
+                        <p>
+                            <strong>You may not be entitled to compensation if you end prematurely!</strong>
                         </p>
                     </div>
                 </div>
@@ -79,31 +81,41 @@
 
     .title {
         color: var(--theme-foreground-text);
+        font-size: 2rem;
         margin: 0px;
     }
 
     .desc {
-        color: var(--theme-background-text-20);
+        padding-top: 1rem;
         padding-bottom: 1rem;
+        color: var(--theme-background-text-20);
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        overflow-y: scroll;
+        overflow-y: auto;
+        scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
+
+        strong {
+            color: var(--theme-warning);
+        }
     }
 
     >.popup {
-        width: max(50vw, 400px);
-        height: 50vh;
-        padding: 1.5rem;
+        width: 50vw;
+        max-width: 600px;
+        max-height: 60vh;
+        padding: 1rem;
         position: relative;
         background-color: var( --theme-bg-2 );
         border-radius: 20px;
         display: flex;
         flex-direction: column;
+        text-align: left;
 
         >.top-bar {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
 
             >.logo {
@@ -130,14 +142,29 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 1rem;
             background-color: var( --theme-bg-1 );
             border-radius: 10px;
             height: 100%;
-            overflow: scroll;
+            overflow-y: auto;
+            scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
 
             >p {
                 text-align: center;
+            }
+        }
+
+        >.popup-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+
+            >.button {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+                border-radius: 10px;
+                cursor: pointer;
             }
         }
     }

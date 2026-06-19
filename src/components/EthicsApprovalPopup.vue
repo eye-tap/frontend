@@ -5,7 +5,7 @@
     } from 'vue';
     import request from '@/ts/util/request';
 
-    const show = ref( false );
+    const show = ref( true );
     const hasConfirmed = ref( false );
 
     const dismiss = () => {
@@ -35,21 +35,23 @@
             </div>
             <div class="popup-body">
                 <h2 class="title">
-                    Study Overview
+                    Eye-TAP Study
                 </h2>
                 <div class="desc">
-                    <div style="max-width: 80%;">
+                    <div>
                         <p>
-                            You are about to participate in a study that evaluates how the quality of
-                            annotation data and the user experience of it is affected by this platform.
-                            The data you are about to annotate are texts with points on them that correspond
-                            to where the reader looked.
-                            You do not need any special knowledge to take part.
+                            You are about to participate in a study evaluating how the quality of
+                            annotation data and the annotation user experience is affected by the Eye-TAP platform.
+                            The data you are about to annotate consists of texts with points displayed above which indicate
+                            where the reader was looking.
+                        </p>
+                        <p>
+                            You do not need any special knowledge to take part in this study.
                         </p>
                         <h3>Your task</h3>
                         <ol>
                             <li>
-                                You are presented with a list of <strong>annotation sets</strong>.
+                                You are given a list of <strong>annotation sets</strong>.
                                 Pick the first annotation set and click "Edit".
                             </li>
                             <li>
@@ -61,28 +63,34 @@
                                 the reader was <strong>looking at</strong> when reading the text.
                             </li>
                             <li>
-                                If for a point no box makes any sense (e.g. the first point is in the middle of the text),
-                                then <strong>mark them as invalid</strong>
+                                If no box makes sense for a point,
+                                then <strong>mark this point as invalid</strong>.
                             </li>
                             <li>
-                                When you are done with all fixations (points) for a text,
-                                click "next annotation set" in the top right corner,
-                                and repeat until the time runs out
+                                When you are done with all points,
+                                click "next annotation set"
+                                and repeat until the timer runs out.
                             </li>
                             <li>
-                                After the time has run out comes the most important part:
-                                Filling out the survey that you are then presented with.
-                                You are <strong>only eligible for the full compensation</strong> if you have also filled out the survey
+                                After the time has run out, please fill out the workload survey presented to you.
                             </li>
                         </ol>
+                        <p class="warning">
+                            You are <strong>only entitled to compensation</strong> 
+                            if you also fill out the workload survey!
+                        </p>
                         <h3>Important Notes</h3>
                         <ul>
-                            <li>Your <strong>timer starts immediately</strong> once you click the "Continue" button below.</li>
-                            <li>Use a device with a mouse or trackpad, with landscape screen of at least 1280x720 pixels</li>
-                            <li>Be sure to <strong>save regularly</strong></li>
-                            <li>Refreshing the page may cause you to <strong>lose progress</strong></li>
+                            <li>Your <strong>timer starts immediately</strong> once you click the "Continue" button.</li>
+                            <li>Use a device with a mouse or trackpad, with a landscape-format screen of at least 1280x720 pixels.</li>
+                            <li>Be sure to <strong>save regularly.</strong></li>
+                            <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
-                        <p>Thank you for your time participating in this study</p>
+                        <p class="warning">
+                            You are <strong>only entitled to compensation</strong> 
+                            if you complete the full duration of the study!
+                        </p>
+                        <p>Thank you for your time! You are contributing to active research.</p>
                         <div style="margin-top: 20px;">
                             <input id="confirm-ethics" v-model="hasConfirmed" type="checkbox">
                             <label for="confirm-ethics">
@@ -92,6 +100,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="popup-footer">
                 <button :class="['button', 'primary', hasConfirmed ? '' : 'disabled']" style="margin-top: 5px;" @click="dismiss">
                     Confirm
                 </button>
@@ -115,20 +125,33 @@
 
     .title {
         color: var(--theme-foreground-text);
+        font-size: 2rem;
         margin: 0px;
+        padding-top: 1rem;
     }
 
     .desc {
         color: var(--theme-background-text-20);
-        padding-bottom: 1rem;
+        padding: 1rem;
         display: flex;
         justify-content: center;
-        overflow-y: scroll;
+        overflow-y: auto;
+        scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
+
+        h3 {
+            color: var(--theme-bg-4);
+        }
+
+        p.warning {
+            color: var(--theme-warning);
+        }
     }
 
     >.popup {
         width: max(80vw, 500px);
+        max-width: 1000px;
         height: 80vh;
+        max-height: 800px;
         padding: 1.5rem;
         position: relative;
         background-color: var( --theme-bg-2 );
@@ -170,10 +193,25 @@
             background-color: var( --theme-bg-1 );
             border-radius: 10px;
             height: 100%;
-            overflow: scroll;
+            overflow-y: auto;
+            scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
 
             >p {
                 text-align: center;
+            }
+        }
+
+        >.popup-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+
+            >.button {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+                border-radius: 10px;
+                cursor: pointer;
             }
         }
     }
