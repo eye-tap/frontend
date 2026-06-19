@@ -56,6 +56,7 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
 };
 
 const updateUserOptions = ( item: UserOptionKeys, data: string, noRedirect = false ): Promise<Response> => {
+    console.debug( '[REQUESTS] Updating user data', item, 'to', data );
     userOptions![ item ] = data;
     const fetchOptions: RequestInit = {
         'method': 'post',

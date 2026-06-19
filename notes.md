@@ -12,11 +12,12 @@
 - [ ] Details pane on file explorer has wordcount in it, but no details on that
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
+- [X] **Timeout popup**
 - [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
-- [ ] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
+- [X] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
 - [ ] **Button to end prematurely**
 - [X] Buttons with long actions need spinners or other progress indicator
-- [ ] **Warning popup on Logout to confirm if user wants to end participation**
+- [X] **Warning popup on Logout to confirm if user wants to end participation**
 
 
 ## Admin

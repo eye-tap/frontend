@@ -82,6 +82,14 @@
         showLoadingNextAnnotation.value = show;
     };
 
+    const logout = () => {
+        if ( location.pathname.startsWith( '/admin' ) ) {
+            auth.logout();
+        } else {
+            document.dispatchEvent( new CustomEvent( 'eyetap:end' ) );
+        }
+    };
+
     onMounted( () => {
         document.addEventListener( 'eyetap:file:loading', () => toggleLoadingNextAnnotation( true ) );
         document.addEventListener( 'eyetap:file:load', () => toggleLoadingNextAnnotation( false ) );
@@ -142,7 +150,7 @@
             </h2>
             <p>Logged in</p>
             <div class="user-buttons">
-                <button class="button primary" @click="auth.logout">
+                <button class="button primary" @click="logout">
                     Log out
                 </button>
                 <button

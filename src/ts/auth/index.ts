@@ -162,8 +162,6 @@ const logout = (): void => {
         'title': 'Logout'
     } );
 
-    document.dispatchEvent( new CustomEvent( 'eyetap:logout' ) );
-
     // Redirect to home
     router.push( '/' );
 };

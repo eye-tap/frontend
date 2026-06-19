@@ -3,7 +3,9 @@
         RouterView,
         useRoute
     } from 'vue-router';
+    import EndPrematurelyPopup from '@/components/EndPrematurelyPopup.vue';
     import StatusBar from '@/components/StatusBar.vue';
+    import SurveyCompletePopup from '@/components/SurveyCompletePopup.vue';
     import {
         ref
     } from 'vue';
@@ -37,6 +39,8 @@
             :show-theme-picker="true"
             logo-click-target="/app"
         />
+        <SurveyCompletePopup />
+        <EndPrematurelyPopup />
         <router-view v-slot="{ Component, route }">
             <transition :name="route.meta.transition ? String( route.meta.transition ) : 'fade'" mode="out-in">
                 <component :is="Component" />

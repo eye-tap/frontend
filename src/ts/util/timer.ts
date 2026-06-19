@@ -11,15 +11,14 @@ export const timer = ref( '' );
 let timerInterval = 0;
 
 export const start = async () => {
-    if ( availableTime.value < 0 ) return;
-
-    let startTime = new Date().getTime();
-    let sentEvent = false;
-
     if ( await request.getUserOptions( 'ended' ) == 'true' ) {
         document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
     }
 
+    if ( availableTime.value < 0 ) return;
+
+    let startTime = new Date().getTime();
+    let sentEvent = false;
     let stored = await request.getUserOptions( 'startTime' );
 
     if ( !stored ) {
@@ -44,7 +43,7 @@ export const start = async () => {
         }
     }, 500 );
 
-    document.addEventListener( 'eyetap:logout', stop );
+    document.addEventListener( 'eyetap:end', stop );
 };
 
 const stop = () => {

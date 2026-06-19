@@ -50,6 +50,8 @@ export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectio
 export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number ) => {
     availableTime.value = timeToLogout ? timeToLogout : -1;
 
+    start();
+
     if ( !preset ) {
         console.warn( '[EDITOR] No config preset found for user, falling back to full' );
         showPreAnnotations.value = true;
@@ -77,6 +79,4 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
     console.debug( '[EDITOR] Loading preset', preset );
 
     configPreset.value = preset;
-
-    start();
 };
