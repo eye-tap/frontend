@@ -46,12 +46,8 @@
                 <div class="desc">
                     <div style="max-width: 80%;">
                         <p>
-                            You have just completed the annotation. Thank you very much.
-                            We now kindly ask you to participate in a workload survey,
-                            where you can share your experience using EYE-TAP
-                        </p>
-                        <p>
-                            <strong>This survey is just as important to our work as the annotation itself</strong>
+                            Are you really sure you want to end participation early?
+                            You may not be eligible for the full payout if you end prematurely.
                         </p>
                     </div>
                 </div>
