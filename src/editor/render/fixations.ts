@@ -189,7 +189,11 @@ const surroundingFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
-            draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else if ( idx === selectedFixation.value - 1 || idx === selectedFixation.value + 1 ) {
             if ( fix.assigned === 'assigned' ) {
                 draw( fix, idx, assignedFixationColor.value, fixationRadius.value );
@@ -197,11 +201,11 @@ const surroundingFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
                 draw( fix, idx, unassignedFixationColor.value, fixationRadius.value );
             } else if ( fix.assigned === 'machine' ) {
                 draw( fix, idx, machineAssignedFixationColor.value, fixationRadius.value );
+            } else if ( fix.assigned === 'invalid' ) {
+                invalidDrawer( fix, idx );
             }
         } else if ( hoveredFixation.value === idx ) {
             draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
-        } else {
-            invalidDrawer( fix, idx );
         }
     };
 };
@@ -212,9 +216,17 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
-            draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else {
             if ( fix.assigned === 'assigned' ) {
                 draw( fix, idx, assignedFixationColor.value, fixationRadius.value );
@@ -222,7 +234,7 @@ const allFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
                 draw( fix, idx, unassignedFixationColor.value, fixationRadius.value );
             } else if ( fix.assigned === 'machine' ) {
                 draw( fix, idx, machineAssignedFixationColor.value, fixationRadius.value );
-            } else {
+            } else if ( fix.assigned === 'invalid' ) {
                 invalidDrawer( fix, idx );
             }
         }
@@ -235,15 +247,23 @@ const assignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
-            draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else {
             if ( fix.assigned === 'assigned' ) {
                 draw( fix, idx, assignedFixationColor.value, fixationRadius.value );
             } else if ( fix.assigned === 'machine' ) {
                 draw( fix, idx, machineAssignedFixationColor.value, fixationRadius.value );
-            } else {
+            } else if ( fix.assigned === 'invalid' ) {
                 invalidDrawer( fix, idx );
             }
         }
@@ -256,12 +276,20 @@ const unassignedFixationsRenderer = ( ctx: CanvasRenderingContext2D ) => {
 
     return ( fix: EditorFixation, idx: number ) => {
         if ( idx === selectedFixation.value ) {
-            draw( fix, idx, selectedFixationColor.value, fixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else if ( hoveredFixation.value === idx ) {
-            draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            if ( fix.assigned !== 'invalid' ) {
+                draw( fix, idx, hoveredFixationColor.value, hoveredFixationRadius.value );
+            } else {
+                invalidDrawer( fix, idx );
+            }
         } else if ( fix.assigned === 'unassigned' ) {
             draw( fix, idx, unassignedFixationColor.value, fixationRadius.value );
-        } else {
+        } else if ( fix.assigned === 'invalid' ) {
             invalidDrawer( fix, idx );
         }
     };

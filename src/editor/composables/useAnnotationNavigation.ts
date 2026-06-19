@@ -21,9 +21,8 @@ export function useAnnotationNavigation () {
     const notifications = useNotification();
 
     const goToNextAnnotation = () => {
+        // TODO: Make this nicer?
         if ( saveNeeded.value && !confirm( 'Do you really want to discard your changes?' ) ) return;
-
-        console.log( 'Navigating to next...' );
 
         const nextIdx = store.sessionIdx + 1;
 

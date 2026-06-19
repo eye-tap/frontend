@@ -21,6 +21,8 @@
     document.addEventListener( 'eyetap:ethics:show', async () => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
             show.value = true;
+        } else {
+            document.dispatchEvent( new CustomEvent( 'eyetap:ethics:approve' ) );
         }
     } );
 </script>
