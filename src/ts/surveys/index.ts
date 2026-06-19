@@ -12,22 +12,11 @@ import type {
 } from '@/types/dtos/SurveyDto';
 import magicLinks from '../auth/magic-links';
 import request from '../util/request';
-import {
-    setConfigPreset
-} from '@/editor/config-presets';
 
 
 export const listReadingSessions = async (): Promise<ShallowReadingSessionDto[]> => {
     // Set the config preset
-    const data = await ( await request.getRequest( '/reading-session' ) ).json() as ShallowReadingSessionDto[];
-
-    if ( data[0] && data[0].furtherOptions ) {
-        const details = JSON.parse( data[0].furtherOptions );
-
-        setConfigPreset( details[ 'preset' ], details[ 'timeout' ] );
-    }
-
-    return data;
+    return await ( await request.getRequest( '/reading-session' ) ).json() as ShallowReadingSessionDto[];
 };
 
 export const listSurveys = async (): Promise<SurveyDto[]> => {

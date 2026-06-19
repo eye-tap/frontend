@@ -36,13 +36,20 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
         const data = await get( '/user/options' );
 
         if ( data ) {
-            userOptions = JSON.parse( data );
-        } else {
-            userOptions = {
-                'startTime': new Date().toISOString(),
-                'ended': 'false'
-            };
+            const parsed = JSON.parse( data );
+
+            if ( typeof parsed == 'object' ) {
+                userOptions = parsed;
+
+                return userOptions![ item ];
+            }
         }
+
+        userOptions = {
+            'startTime': new Date().toISOString(),
+            'ended': 'false',
+            'ethicsApproved': 'false'
+        };
     }
 
     return userOptions![ item ];
@@ -52,7 +59,10 @@ const updateUserOptions = ( item: UserOptionKeys, data: string, noRedirect = fal
     userOptions![ item ] = data;
     const fetchOptions: RequestInit = {
         'method': 'post',
-        'body': JSON.stringify( data )
+        'body': JSON.stringify( userOptions ),
+        'headers': {
+            'Content-Type': 'text/plain'
+        }
     };
 
     return requestWithOpts( '/user/options', fetchOptions, noRedirect );

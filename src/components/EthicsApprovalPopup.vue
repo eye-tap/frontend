@@ -3,20 +3,26 @@
     import {
         ref
     } from 'vue';
+    import request from '@/ts/util/request';
 
-    const show = defineModel<boolean>();
+    const show = ref( false );
     const hasConfirmed = ref( false );
 
     const dismiss = () => {
         if ( !hasConfirmed.value ) return;
 
         show.value = false;
-        emits( 'approve' );
+
+        request.updateUserOptions( 'ethicsApproved', 'true' );
+
+        document.dispatchEvent( new CustomEvent( 'eyetap:ethics:approve' ) );
     };
 
-    const emits = defineEmits<{
-        ( e: 'approve' ): void
-    }>();
+    document.addEventListener( 'eyetap:ethics:show', async () => {
+        if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
+            show.value = true;
+        }
+    } );
 </script>
 
 <template>
@@ -99,7 +105,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1000;
     background-color: var( --theme-overlay );
     display: flex;
     justify-content: center;

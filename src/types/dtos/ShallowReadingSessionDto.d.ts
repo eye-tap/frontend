@@ -5,5 +5,4 @@ export interface ShallowReadingSessionDto {
     'textTitle'?: string;
     'uploadedAt'?: string;
     'foreignReaderId'?: number;
-    'furtherOptions'?: string;
 }

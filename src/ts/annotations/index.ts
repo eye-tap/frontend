@@ -8,15 +8,31 @@ import type {
     ShallowAnnotationSessionDto
 } from '@/types/dtos/ShallowAnnotationSessionDto';
 import request from '../util/request';
+import {
+    setConfigPreset
+} from '@/editor/config-presets';
 
 /**
  * List all annotation sessions from the backend for current user
  * @returns A list of all AnnotationSessions for current user
  */
 const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
-    const data = await request.get( '/annotation/session' );
+    const data = JSON.parse( await request.get( '/annotation/session' ) ) as ShallowAnnotationSessionDto[];
 
-    return JSON.parse( data ) as ShallowAnnotationSessionDto[];
+    document.dispatchEvent( new CustomEvent( 'eyetap:ethics:show' ) );
+
+    if ( data[0] && data[0].furtherOptions ) {
+        const details = JSON.parse( data[0].furtherOptions );
+
+        document.addEventListener( 'eyetap:ethics:approve', () => {
+            console.debug( '[ETHICS] approval received' );
+            setConfigPreset( details[ 'preset' ], details[ 'timeout' ] );
+        } );
+    } else {
+        setConfigPreset( undefined, -1 );
+    }
+
+    return data;
 };
 
 /**

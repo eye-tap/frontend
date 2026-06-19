@@ -12,4 +12,5 @@ export interface ShallowAnnotationSessionDto {
     'readingSession'?: ShallowReadingSessionDto;
     'lastEdited'?: string;
     'description'?: string;
+    'furtherOptions'?: string;
 }
