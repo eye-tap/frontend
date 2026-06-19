@@ -4,9 +4,12 @@
 - [ ] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
 - [X] **Legend popup**
+- [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
 
 ## General
 - [ ] Take care of all TODOs in the code
+- [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
+- [ ] Details pane on file explorer has wordcount in it, but no details on that
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
 - [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
