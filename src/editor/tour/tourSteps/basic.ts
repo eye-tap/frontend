@@ -1,6 +1,9 @@
 import type {
     ITourStep
 } from '@globalhive/vuejs-tour';
+import {
+    isSideBarCollapsed
+} from '@/editor/data';
 
 export const stepsBasic: ITourStep[] = [
     {
@@ -12,12 +15,6 @@ export const stepsBasic: ITourStep[] = [
     {
         'target': '#tour-history',
         'content': '<h3>History</h3><p>Undo and redo your actions. <br> Do not forget to save. You can mark a fixation as invalid by clicking the cross symbol</p>',
-        'highlight': true,
-        'backdrop': true
-    },
-    {
-        'target': '#tour-options',
-        'content': '<h3>Options</h3><p>Here you can change the settings for the editor.</p>',
         'highlight': true,
         'backdrop': true
     },
@@ -35,6 +32,9 @@ export const stepsBasic: ITourStep[] = [
             </p>
             </div>
             `,
-        'backdrop': true
+        'backdrop': true,
+        'onAfter': () => {
+            isSideBarCollapsed.value = true;
+        }
     }
 ];

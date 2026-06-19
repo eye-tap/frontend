@@ -1,6 +1,9 @@
 import type {
     ITourStep
 } from '@globalhive/vuejs-tour';
+import {
+    isSideBarCollapsed
+} from '@/editor/data';
 
 export const stepsFull: ITourStep[] = [
     {
@@ -47,6 +50,9 @@ export const stepsFull: ITourStep[] = [
             </p>
             </div>
             `,
-        'backdrop': true
+        'backdrop': true,
+        'onAfter': () => {
+            isSideBarCollapsed.value = true;
+        }
     }
 ];

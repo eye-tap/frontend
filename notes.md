@@ -1,7 +1,7 @@
 # Improvement ideas
 ## Editor
 - [X] **Next annotation button animation** -> Verify that this works with a Backend
-- [ ] **Ask to save when moving next annotation or returning home** -> or autosave
+- [X] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
 - [X] **Legend popup**
 - [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
@@ -15,7 +15,7 @@
 - [X] **Timeout popup**
 - [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [X] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
-- [ ] **Button to end prematurely**
+- [X] **Button to end prematurely**
 - [X] Buttons with long actions need spinners or other progress indicator
 - [X] **Warning popup on Logout to confirm if user wants to end participation**
 
