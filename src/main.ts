@@ -42,4 +42,10 @@ if ( import.meta.env.VITE_DISABLE_LOGIN_CHECK || import.meta.env.VITE_DEV_MODE )
     console.warn( '[CORE] Env var VITE_DEV_MODE (or VITE_DISABLE_LOGIN_CHECK) set: Login disabled' );
 }
 
+if ( import.meta.env.VITE_DEV_TOOLS ) {
+    const status = useStatusStore();
+
+    status.setDevTools( true );
+}
+
 app.mount( '#app' );

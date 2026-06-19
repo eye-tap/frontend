@@ -10,6 +10,7 @@ interface Status {
     'username': string;
     'roles': UserRoles[];
     'devMode': boolean;
+    'devTools': boolean;
 }
 
 export const useStatusStore = defineStore( 'user', {
@@ -17,7 +18,8 @@ export const useStatusStore = defineStore( 'user', {
         'isAuth': false,
         'username': '',
         'roles': [],
-        'devMode': false
+        'devMode': false,
+        'devTools': false
     } ),
     'getters': {
         'getAuth': state => state.isAuth
@@ -40,6 +42,9 @@ export const useStatusStore = defineStore( 'user', {
         },
         setDevMode ( status: boolean ) {
             this.devMode = status;
+        },
+        setDevTools ( status: boolean ) {
+            this.devTools = status;
         }
     }
 } );

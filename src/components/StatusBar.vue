@@ -9,6 +9,7 @@
         selectedTheme,
         themes
     } from '@/ts/util/theme';
+    import DevConsole from './DevConsole.vue';
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth';
     import router from '@/ts/router';
@@ -181,6 +182,7 @@
                 <i v-else class="fa-xl fa-regular fa-user"></i>
             </button>
         </div>
+        <DevConsole v-if="status.devTools" />
     </div>
 </template>
 

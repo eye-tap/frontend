@@ -8,7 +8,7 @@
 
 ## General
 - [ ] Take care of all TODOs in the code
-- [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
+- [ ] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
 - [ ] Details pane on file explorer has wordcount in it, but no details on that
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
@@ -37,6 +37,7 @@ LIMITED FEATS: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJ
 
 LAPTOP: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhCYWRnZXI1MDclMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMnFwTU4lMjZYVS0lMjIlN0Q=
 
+LAPTOP FULL: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhLb2FsYTU0MyUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyJTI0OTI5JTI0SyhkJTIyJTdE
 
 # The workflow
 ## The editor

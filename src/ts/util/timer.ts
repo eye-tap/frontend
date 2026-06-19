@@ -8,14 +8,14 @@ import request from './request';
 
 export const timer = ref( '' );
 
-let timerInterval = 0;
+let timerInterval = -1;
 
 export const start = async () => {
     if ( await request.getUserOptions( 'ended' ) == 'true' ) {
         document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
     }
 
-    if ( availableTime.value < 0 ) return;
+    if ( availableTime.value < 0 || timerInterval > -1 ) return;
 
     let startTime = new Date().getTime();
     let sentEvent = false;
