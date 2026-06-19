@@ -110,12 +110,17 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                 'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
 
-            if ( showPreAnnotations ) {
+            if ( showPreAnnotations.value ) {
                 fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
-                if ( annotation.annotationType === 'MACHINE_ANNOTATED' ) {
+                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
                     userAnnotations.value.push( ann );
+                } else {
                     ann.algorithm = 'default';
+                }
+            } else {
+                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
+                    fixations.value[ ann.fixationIdx ]!.assigned = 'assigned';
                 }
             }
 
@@ -139,8 +144,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                         'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! ),
                         'algorithm': algo
                     };
-
-                    fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
 
                     annotations.value.push( ann );
                 }

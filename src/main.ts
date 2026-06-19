@@ -23,14 +23,14 @@ app.use( router );
 app.use( Notifications );
 
 if ( import.meta.env.VITE_BACKEND_URL ) {
-    console.warn( 'Env var VITE_BACKEND_URL set: Backend at', import.meta.env.VITE_BACKEND_URL );
+    console.warn( '[CORE] Env var VITE_BACKEND_URL set: Backend at', import.meta.env.VITE_BACKEND_URL );
     backend.url = import.meta.env.VITE_BACKEND_URL;
 } else if ( import.meta.env.MODE === 'production' || import.meta.env.VITE_OVERRIDE_PROD === 'true' ) {
     if ( import.meta.env.VITE_OVERRIDE_PROD === 'true' ) console.warn( 'Env var VITE_OVERRIDE_PROD set: using production backend' );
 
     backend.url = 'https://api.' + location.host;
 } else {
-    console.warn( 'Running against local backend' );
+    console.warn( '[CORE] Running against local backend' );
     backend.url = 'http://localhost:8080';
 }
 
@@ -39,7 +39,7 @@ if ( import.meta.env.VITE_DISABLE_LOGIN_CHECK || import.meta.env.VITE_DEV_MODE )
 
     status.setDevMode( true );
     status.setAuth( true );
-    console.warn( 'Env var VITE_DEV_MODE (or VITE_DISABLE_LOGIN_CHECK) set: Login disabled' );
+    console.warn( '[CORE] Env var VITE_DEV_MODE (or VITE_DISABLE_LOGIN_CHECK) set: Login disabled' );
 }
 
 app.mount( '#app' );

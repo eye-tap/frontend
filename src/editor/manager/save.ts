@@ -43,6 +43,8 @@ export const useSaveFunction = () => {
             'annotationsToRemove': {}
         };
 
+        console.log( userAnnotations.value, annotations.value );
+
         try {
             // Translate to correct ids
             const ann = createDiff( userAnnotations.value, annotations.value );
