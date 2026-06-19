@@ -76,7 +76,7 @@
                             </li>
                         </ol>
                         <p class="warning">
-                            You are <strong>only entitled to compensation</strong> 
+                            You are <strong>only entitled to compensation</strong>
                             if you also fill out the workload survey!
                         </p>
                         <h3>Important Notes</h3>
@@ -87,7 +87,7 @@
                             <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
                         <p class="warning">
-                            You are <strong>only entitled to compensation</strong> 
+                            You are <strong>only entitled to compensation</strong>
                             if you complete the full duration of the study!
                         </p>
                         <p>Thank you for your time! You are contributing to active research.</p>
