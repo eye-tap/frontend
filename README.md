@@ -17,6 +17,7 @@ The following environment variables are available:
 VITE_OVERRIDE_PROD=true # Makes the app use the prod backend, even if you are running dev server
 VITE_BACKEND_URL=<your URL> # Specify your own backend URL (highest priority)
 VITE_DEV_MDOE=true # Allows you to develop the frontend without a backend
+VITE_DEV_TOOLS=true # Enable dev tools. They can be opened using Ctrl + Shift + X
 ```
 
 To compile and typecheck the app, run
