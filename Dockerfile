@@ -1,7 +1,11 @@
 FROM node:25-alpine3.21 AS build
 
+ARG GIT_REF="eyetap"
+
 # Frontend Build stage
 WORKDIR /usr/src/build
+
+ENV VITE_GIT_REF="${GIT_REF}"
 
 COPY . /usr/src/build
 

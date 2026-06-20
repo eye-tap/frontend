@@ -14,6 +14,9 @@
     const create = () => {
         router.push( '/signup/admin' );
     };
+
+    const version = ( import.meta.env.VITE_GIT_REF ? ( import.meta.env.VITE_GIT_REF as string ).slice( 0, 10 ) : 'dev' ) + ( import.meta.env.PROD ? '-prod' : '-dev' );
+    const gitRef = import.meta.env.VITE_GIT_REF;
 </script>
 
 <template>
@@ -54,7 +57,10 @@
                 </p>
             </div>
         </div>
-        <div class="home">
+        <div class="version">
+            <a :href="gitRef ? 'https://github.com/eye-tap/frontend/commit/' + gitRef : 'https://github.com/eye-tap/'" target="_blank">
+                EYE-TAP Frontend {{ version }}
+            </a>
         </div>
     </div>
 </template>
@@ -68,6 +74,17 @@
         align-items: center;
         flex-direction: row;
         overflow: hidden;
+
+        >.version {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+
+            >a {
+                font-size: 0.8rem;
+                text-decoration: none;
+            }
+        }
 
         >.top-bar {
             height: 8vh;
