@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="version">
-            <a :href="gitRef ? 'https://github.com/eye-tap/frontend/compare/' + gitRef + '..main' : 'https://github.com/eye-tap/'" target="_blank">
+            <a :href="gitRef ? 'https://github.com/eye-tap/frontend/compare/' + gitRef + '...main' : 'https://github.com/eye-tap/'" target="_blank">
                 EYE-TAP Frontend {{ version }}
             </a>
         </div>
