@@ -14,7 +14,8 @@ export interface AnnotationSessionDto {
     'annotations'?: AnnotationDto[];
     'annotationsMetaData'?: AnnotationsMetaDataDto;
     'readingSession'?: ReadingSessionDto;
-    'inactiveMachineAnnotations'?: Record<string, unknown>;
+    'machineAnnotations'?: Record<string, unknown>;
+    'activeMachineAnnotations'?: string[];
     'lastEdited'?: string;
     'removedFixations'?: number[];
     'furtherOptions'?: string;
