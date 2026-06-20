@@ -74,9 +74,13 @@
     const cmdHandler = ( ev: KeyboardEvent ) => {
         if ( ev.key === 'Enter' ) {
             if ( cmd.value === 'help' ) {
-                alert( 'Available commands' + Object.keys( cmds ).reduce( ( vals, curr ) => {
-                    return vals + `\n- ${ curr }: ${ cmds[ curr ]!.desc }`;
-                } ) );
+                alert( 'Available commands' + Object.keys( cmds )
+                    .map( val => {
+                        return `\n- ${ val }: ${ cmds[ val ]!.desc }`;
+                    } )
+                    .reduce( ( prev, curr ) => {
+                        return prev + curr;
+                    } ) );
 
                 return;
             }
