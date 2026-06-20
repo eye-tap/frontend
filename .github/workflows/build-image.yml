@@ -15,7 +15,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: Build image
-        run: docker buildx build . --tag ghcr.io/eye-tap/frontend --build-arg GIT_REF="${{ github.ref }}"
+        run: docker buildx build . --tag ghcr.io/eye-tap/frontend --build-arg GIT_REF="$( git rev-parse HEAD )"
       - name: Login to registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
