@@ -23,6 +23,7 @@ import {
     annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
+    defaultAlgorithm,
     fixations,
     selectedFixation
 } from '../data';
@@ -101,7 +102,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
             < heatMapMaxValue.value * boxSuggestionRenderingThresholdFactor.value
         ) {
             annotationsForCurrentFixation.value.forEach( a => {
-                if ( a.algorithm === 'default' )
+                if ( a.algorithm === defaultAlgorithm() )
                     drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
             } );
         }

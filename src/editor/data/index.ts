@@ -21,18 +21,22 @@ export const boundingBoxes: Ref<EditorCharacterBoundingBox[]> = ref( [] );
 
 export const annotations: Ref<EditorAnnotation[]> = ref( [] );
 
+export const machineAnnotations: Ref<EditorAnnotation[]> = ref( [] );
+
+export const annotationsForCurrentFixation: Ref<EditorAnnotation[]> = ref( [] );
+
+export const algorithmsList: Ref<string[]> = ref( [] );
+
+export const selectedAlgorithm = ref( -1 );
+
+export const defaultAlgorithm = () => algorithmsList.value[ selectedAlgorithm.value ] ?? '';
+
 export const selectedFixation = ref( -1 );
 
 export const hoveredFixation = ref( -1 );
 
 // default collapsed, by popular demand
 export const isSideBarCollapsed = ref( true );
-
-export const algorithmsList: Ref<string[]> = ref( [] );
-
-export const selectedAlgorithm = ref( -1 );
-
-export const annotationsForCurrentFixation: Ref<EditorAnnotation[]> = ref( [] );
 
 // ┌                                               ┐
 // │                Zoom utilities                 │

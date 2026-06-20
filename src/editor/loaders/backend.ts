@@ -6,6 +6,7 @@ import {
     annotations,
     boundingBoxes,
     fixations,
+    machineAnnotations,
     selectedAlgorithm,
     selectedFixation
 } from '../data';
@@ -45,12 +46,15 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
+
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
 
     renderer.textImage.src = 'data:image/jpg;base64,' + img;
 
-    // Load fixations
+    // ┌                                               ┐
+    // │                Load fixations                 │
+    // └                                               ┘
     const fix = sessionData.value.readingSession!.fixations!;
 
     let max = Number.MIN_VALUE;
@@ -83,7 +87,10 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     heatMapMinValue.value = min;
     heatMapMidValue.value = avg / fix.length;
 
-    // Load bounding boxes
+    // ───────────────────────────────────────────────────────────────────
+    // ┌                                               ┐
+    // │              Load bounding boxes              │
+    // └                                               ┘
     const bb = sessionData.value.readingSession!.textDto!.characterBoundingBoxes!;
 
     boundingBoxes.value = [];
@@ -97,11 +104,16 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         } );
     } );
 
-    // Load annotations
+    // ───────────────────────────────────────────────────────────────────
+    // ┌                                               ┐
+    // │               Load annotations                │
+    // └                                               ┘
     const annotationLoad = sessionData.value.annotations!;
 
     annotations.value = [];
     userAnnotations.value = [];
+
+    console.log( sessionData.value );
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
@@ -110,32 +122,26 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                 'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
 
-            if ( showPreAnnotations.value ) {
-                fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
-
-                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
-                    userAnnotations.value.push( ann );
-                } else {
-                    ann.algorithm = 'default';
-                }
+            if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
+                fixations.value[ ann.fixationIdx ]!.assigned = 'assigned';
             } else {
-                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
-                    fixations.value[ ann.fixationIdx ]!.assigned = 'assigned';
-                }
+                throw new Error( 'Machine annotation found in annotations' );
             }
 
             annotations.value.push( ann );
         } );
 
-    // Load additional algorithmic assignments
-    const additionalAnnotationLoad = sessionData.value.inactiveMachineAnnotations!;
+    // ┌                                               ┐
+    // │           Load machine annotations            │
+    // └                                               ┘
+    const machineAnnotationsLoad = sessionData.value.machineAnnotations;
 
-    if ( additionalAnnotationLoad && showPreAnnotations.value ) {
+    if ( machineAnnotationsLoad && showPreAnnotations.value ) {
         selectedAlgorithm.value = 0;
-        const algos = Object.keys( additionalAnnotationLoad );
+        const algos = Object.keys( machineAnnotationsLoad );
 
         algos.forEach( algo => {
-            const details = additionalAnnotationLoad[ algo ]! as AnnotationDto[];
+            const details = machineAnnotationsLoad[ algo ]! as AnnotationDto[];
 
             details.forEach( annotation => {
                 if ( annotation.fixation && annotation.characterBoundingBox ) {
@@ -145,7 +151,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                         'algorithm': algo
                     };
 
-                    annotations.value.push( ann );
+                    machineAnnotations.value.push( ann );
                 }
             } );
         } );

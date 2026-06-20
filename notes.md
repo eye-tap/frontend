@@ -33,11 +33,8 @@
 
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJCcmlza1NlYWwyMDklMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMiUzRE9Ccy03cEIlMjIlN0Q=
 
-LIMITED FEATS: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJMdWNreVBlbGljYW4yMzElMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMlcyNSUyM3VYN3UlMjIlN0Q=
+LAPTOP: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJOaW1ibGVUdXJ0bGU5NjYlMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMnJTRjBfKjYwOXQlMjROQ1EhNCUyMiU3RA==
 
-LAPTOP: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhCYWRnZXI1MDclMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMnFwTU4lMjZYVS0lMjIlN0Q=
-
-LAPTOP FULL: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhLb2FsYTU0MyUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyJTI0OTI5JTI0SyhkJTIyJTdE
 
 # The workflow
 ## The editor

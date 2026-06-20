@@ -36,12 +36,6 @@ const getPreferredAnnotationForFixation = ( fixationIdx: number ) => {
     const userAnnotation = candidates.find( annotation => !annotation.algorithm );
 
     if ( userAnnotation ) return userAnnotation;
-
-    const defaultMachine = candidates.find( annotation => annotation.algorithm === 'default' );
-
-    if ( defaultMachine ) return defaultMachine;
-
-    return candidates.sort( ( a, b ) => ( a.algorithm ?? '' ).localeCompare( b.algorithm ?? '' ) )[0];
 };
 
 const createCsv = () => {

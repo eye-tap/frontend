@@ -6,10 +6,6 @@ import {
     linesDisplay
 } from '../config';
 import {
-    annotations,
-    selectedFixation
-} from '../data';
-import {
     goToNextFixation,
     goToPrevFixation
 } from '../manager/fixations';
@@ -34,6 +30,9 @@ import {
 import {
     providedOffsetHandler
 } from './zoom';
+import {
+    selectedFixation
+} from '../data';
 import zoom from '../manager/zoom';
 
 export const keyboardHandler = ( renderer: Renderer ) => {
@@ -56,14 +55,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 // Confirm algorithm's suggested annotation
                 ev.preventDefault();
 
-                try {
-                    annotation.create(
-                        annotations.value.find( val => val.algorithm === 'default' && val.fixationIdx === selectedFixation.value )!.boxIdx,
-                        selectedFixation.value,
-                        false,
-                        false
-                    );
-                } catch { /* empty */ }
+                annotation.confirmAnnotation();
             } else if ( isUndoCmd( ev ) ) {
                 // Undo
                 ev.preventDefault();

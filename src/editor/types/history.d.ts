@@ -14,4 +14,5 @@ export interface AnnotationManager {
     'deleteByBoxID': ( boxId: number ) => void;
     'markAsInvalid': ( fixationId: number ) => void;
     'create': ( boundingBoxIndex: number, fixationIndex: number, skipHistory?: boolean, highlight?: boolean ) => void;
+    'confirmAnnotation': ( skipHistory?: boolean, highlight?: boolean ) => void;
 }
