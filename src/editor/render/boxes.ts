@@ -36,7 +36,7 @@ import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
 import {
-    getAnnotationToConfirm
+    getPossibleAnnotations
 } from '../manager/annotations';
 
 
@@ -98,10 +98,12 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         } else if (
             highlightSuggestedBox.value
         ) {
-            const ann = getAnnotationToConfirm();
+            const ann = getPossibleAnnotations();
 
             if ( ann )
-                drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ ann.boxIdx ]!, ctx! );
+                ann.forEach( val => {
+                    drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ val.boxIdx ]!, ctx! );
+                } );
         }
     };
 

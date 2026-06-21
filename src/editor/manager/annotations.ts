@@ -212,8 +212,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
 };
 
 export const getAnnotationToConfirm = () => {
-    const candidates = machineAnnotations.value
-        .filter( val => val.fixationIdx === selectedFixation.value );
+    const candidates = getPossibleAnnotations();
 
     // Compare against first's block idx
     if ( candidates.length === 0 ) return;
@@ -225,4 +224,13 @@ export const getAnnotationToConfirm = () => {
     return check
         ? candidates[0]!
         : undefined;
+};
+
+export const getPossibleAnnotations = () => {
+    const candidates = machineAnnotations.value
+        .filter( val => val.fixationIdx === selectedFixation.value );
+
+    console.log( candidates );
+
+    return candidates;
 };
