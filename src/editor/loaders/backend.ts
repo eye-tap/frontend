@@ -161,7 +161,11 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                         fixations.value[ ann.fixationIdx ]!.assigned = 'machine';
                     }
 
-                    machineAnnotations.value.push( ann );
+                    if ( !machineAnnotations.value[ ann.fixationIdx ] ) {
+                        machineAnnotations.value[ ann.fixationIdx ] = [];
+                    }
+
+                    machineAnnotations.value[ ann.fixationIdx ]!.push( ann );
                 }
             } );
         } );

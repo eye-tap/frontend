@@ -21,9 +21,9 @@ export const boundingBoxes: Ref<EditorCharacterBoundingBox[]> = ref( [] );
 
 export const annotations: Ref<EditorAnnotation[]> = ref( [] );
 
-export const machineAnnotations: Ref<EditorAnnotation[]> = ref( [] );
-
-export const annotationsForCurrentFixation: Ref<EditorAnnotation[]> = ref( [] );
+export const machineAnnotations: Ref<{
+    [fix: number]: EditorAnnotation[]
+}> = ref( {} );
 
 export const algorithmsList: Ref<string[]> = ref( [] );
 

@@ -136,9 +136,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
                     }
 
                     // Mark as machine annotated, if there exists a machine annotation, and as unassigned if not.
-                    if ( machineAnnotations.value
-                        .some( a => a.fixationIdx === fixationId && a.algorithm !== undefined )
-                    )
+                    if ( machineAnnotations.value[ fixationId ]!.length > 0 )
                         fixations.value[ fixationId ]!.assigned = 'machine';
                     else
                         fixations.value[ fixationId ]!.assigned = 'unassigned';
@@ -215,7 +213,7 @@ export const getAnnotationToConfirm = () => {
     const candidates = getPossibleAnnotations();
 
     // Compare against first's block idx
-    if ( candidates.length === 0 ) return;
+    if ( !candidates || candidates.length === 0 ) return;
 
     const firstBox = candidates[0]!.boxIdx;
     const check = !candidates

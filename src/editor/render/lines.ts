@@ -5,7 +5,6 @@ import {
 } from 'vue';
 import {
     annotations,
-    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
     fixations,
@@ -14,7 +13,6 @@ import {
 } from '../data';
 import {
     assignedLineColor,
-    highlightAllAlgosAssignedBoxes,
     lineWidth,
     linesDisplay,
     machineAssignedLineColor,
@@ -46,11 +44,6 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
 
-        if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value )
-            annotationsForCurrentFixation.value = machineAnnotations.value.filter( l => {
-                return l.fixationIdx === selectedFixation.value;
-            } );
-
         // Render
         if ( linesDisplay.value === 'all' ) {
             annotations.value.forEach( drawLine );
@@ -62,7 +55,7 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
             ctx.strokeStyle = machineAssignedLineColor.value;
 
             if ( selectedFixation.value >= 0 )
-                annotationsForCurrentFixation.value.forEach( l => {
+                machineAnnotations.value[ selectedFixation.value ]!.forEach( l => {
                     drawLine( l );
                 } );
         }

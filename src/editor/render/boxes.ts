@@ -18,9 +18,9 @@ import {
     suggestedBoundingBoxColor
 } from '../config';
 import {
-    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
+    machineAnnotations,
     selectedFixation
 } from '../data';
 import {
@@ -92,7 +92,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 
         // Render all algos boxes
         if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value ) {
-            annotationsForCurrentFixation.value.forEach( a => {
+            machineAnnotations.value[ selectedFixation.value ]!.forEach( a => {
                 drawBox( allAlgorithmsBoundingBoxHighlightColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
             } );
         } else if (
@@ -122,7 +122,6 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boxesDisplay,
         scalingFactor,
         highlightAllAlgosAssignedBoxes,
-        annotationsForCurrentFixation,
         selectedFixation
     ], render );
 
