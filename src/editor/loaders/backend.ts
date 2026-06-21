@@ -120,6 +120,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     annotations.value = [];
     userAnnotations.value = [];
+    machineAnnotations.value = [];
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
