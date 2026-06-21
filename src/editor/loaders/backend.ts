@@ -3,11 +3,11 @@ import {
     ref
 } from 'vue';
 import {
+    algorithmsList,
     annotations,
     boundingBoxes,
     fixations,
     machineAnnotations,
-    selectedAlgorithm,
     selectedFixation
 } from '../data';
 import {
@@ -15,6 +15,10 @@ import {
     heatMapMidValue,
     heatMapMinValue
 } from '../config';
+import {
+    setConfigPreset,
+    showPreAnnotations
+} from '../config-presets';
 import type {
     AnnotationDto
 } from '@/types/dtos/AnnotationDto';
@@ -32,9 +36,6 @@ import {
     sendLoadEvent
 } from './event';
 import {
-    showPreAnnotations
-} from '../config-presets';
-import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -46,6 +47,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
+
+    // set config preset (for development mode)
+    if ( import.meta.env.VITE_DEV_TOOLS ) {
+        const otherData = JSON.parse( sessionData.value.furtherOptions ?? '{}' );
+
+        setConfigPreset( otherData[ 'preset' ] );
+    }
 
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
@@ -113,8 +121,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     annotations.value = [];
     userAnnotations.value = [];
 
-    console.log( sessionData.value );
-
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
             const ann: EditorAnnotation = {
@@ -137,10 +143,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const machineAnnotationsLoad = sessionData.value.machineAnnotations;
 
     if ( machineAnnotationsLoad && showPreAnnotations.value ) {
-        selectedAlgorithm.value = 0;
-        const algos = Object.keys( machineAnnotationsLoad );
+        algorithmsList.value = Object.keys( machineAnnotationsLoad );
 
-        algos.forEach( algo => {
+        algorithmsList.value.forEach( algo => {
             const details = machineAnnotationsLoad[ algo ]! as AnnotationDto[];
 
             details.forEach( annotation => {
@@ -150,6 +155,10 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                         'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! ),
                         'algorithm': algo
                     };
+
+                    if ( fixations.value[ ann.fixationIdx ]!.assigned === 'unassigned' ) {
+                        fixations.value[ ann.fixationIdx ]!.assigned = 'machine';
+                    }
 
                     machineAnnotations.value.push( ann );
                 }
@@ -172,13 +181,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // If you do not want to diplay the reader, delete it here
     const data = session.sessionIds[ session.sessionIdx ]!;
 
-    // let title = data.title ? `${ data.title }, reader ${ data.reader }` : 'EyeTAP';
     let title = data.desc ?? 'EyeTAP';
 
     if ( fixations.value[ selectedFixation.value ]!.assigned === 'assigned' )
         title += ' (complete)';
     else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
         title += ' (soft complete)';
+    // TODO: Do we really want the soft complete?
 
     sendLoadEvent( title );
     renderer.renderAll();

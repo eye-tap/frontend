@@ -15,7 +15,6 @@ import {
 import {
     assignedLineColor,
     highlightAllAlgosAssignedBoxes,
-    highlightSuggestedBox,
     lineWidth,
     linesDisplay,
     machineAssignedLineColor,
@@ -47,7 +46,7 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
 
-        if ( ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value ) || highlightSuggestedBox.value )
+        if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value )
             annotationsForCurrentFixation.value = machineAnnotations.value.filter( l => {
                 return l.fixationIdx === selectedFixation.value;
             } );

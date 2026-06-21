@@ -27,10 +27,6 @@ export const annotationsForCurrentFixation: Ref<EditorAnnotation[]> = ref( [] );
 
 export const algorithmsList: Ref<string[]> = ref( [] );
 
-export const selectedAlgorithm = ref( -1 );
-
-export const defaultAlgorithm = () => algorithmsList.value[ selectedAlgorithm.value ] ?? '';
-
 export const selectedFixation = ref( -1 );
 
 export const hoveredFixation = ref( -1 );

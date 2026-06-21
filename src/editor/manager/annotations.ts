@@ -1,6 +1,5 @@
 import {
     annotations,
-    defaultAlgorithm,
     fixations,
     machineAnnotations,
     selectedFixation
@@ -108,15 +107,17 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
      * @param highlight - Whether or not to highlight the changed box
      */
     const confirmAnnotation = ( skipHistory: boolean = false, highlight: boolean = false ) => {
-        try {
-            create(
-                machineAnnotations.value
-                    .find( val => val.algorithm === defaultAlgorithm() && val.fixationIdx === selectedFixation.value )!.boxIdx,
-                selectedFixation.value,
-                skipHistory,
-                highlight
-            );
-        } catch { /* empty */ }
+        const annotation = getAnnotationToConfirm();
+
+        if ( annotation )
+            try {
+                create(
+                    annotation!.boxIdx,
+                    selectedFixation.value,
+                    skipHistory,
+                    highlight
+                );
+            } catch { /* empty */ }
     };
 
     /**
@@ -208,4 +209,20 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
     } );
 
     return funcs;
+};
+
+export const getAnnotationToConfirm = () => {
+    const candidates = machineAnnotations.value
+        .filter( val => val.fixationIdx === selectedFixation.value );
+
+    // Compare against first's block idx
+    if ( candidates.length === 0 ) return;
+
+    const firstBox = candidates[0]!.boxIdx;
+    const check = !candidates
+        .some( val => val.boxIdx !== firstBox );
+
+    return check
+        ? candidates[0]!
+        : undefined;
 };

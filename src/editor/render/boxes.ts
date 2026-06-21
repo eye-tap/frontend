@@ -8,9 +8,7 @@ import {
     boundingBoxColor,
     boundingBoxStrokeWidth,
     boundingBoxesOpacity,
-    boxSuggestionRenderingThresholdFactor,
     boxesDisplay,
-    heatMapMaxValue,
     highlightAllAlgosAssignedBoxes,
     highlightSuggestedBox,
     highlightedBoundingBoxColor,
@@ -23,8 +21,6 @@ import {
     annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
-    defaultAlgorithm,
-    fixations,
     selectedFixation
 } from '../data';
 import {
@@ -39,6 +35,9 @@ import {
 import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
+import {
+    getAnnotationToConfirm
+} from '../manager/annotations';
 
 
 /**
@@ -98,13 +97,11 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
             } );
         } else if (
             highlightSuggestedBox.value
-            && ( fixations.value[ selectedFixation.value ]?.disagreement ?? 200 )
-            < heatMapMaxValue.value * boxSuggestionRenderingThresholdFactor.value
         ) {
-            annotationsForCurrentFixation.value.forEach( a => {
-                if ( a.algorithm === defaultAlgorithm() )
-                    drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
-            } );
+            const ann = getAnnotationToConfirm();
+
+            if ( ann )
+                drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ ann.boxIdx ]!, ctx! );
         }
     };
 
@@ -123,7 +120,8 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boxesDisplay,
         scalingFactor,
         highlightAllAlgosAssignedBoxes,
-        annotationsForCurrentFixation
+        annotationsForCurrentFixation,
+        selectedFixation
     ], render );
 
     return {
