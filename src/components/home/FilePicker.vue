@@ -28,6 +28,7 @@
     const selectedFileIndex = ref( 0 );
     const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
+        // TODO: Randomly sort the sessions
         // Filter out sessions that have pre-annotations
         if ( sortColumn.value === 'none' )
             return props.files;
