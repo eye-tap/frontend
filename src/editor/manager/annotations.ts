@@ -225,10 +225,5 @@ export const getAnnotationToConfirm = () => {
 };
 
 export const getPossibleAnnotations = () => {
-    const candidates = machineAnnotations.value
-        .filter( val => val.fixationIdx === selectedFixation.value );
-
-    console.log( candidates );
-
-    return candidates;
+    return machineAnnotations.value[ selectedFixation.value ];
 };
