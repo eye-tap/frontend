@@ -227,7 +227,6 @@
             <OptionsPane />
         </div>
         <div v-if="!isSideBarCollapsed" class="bottom-buttons">
-            <!-- TODO: Unavailable class might need a bit of a better design -->
             <button class="button primary long-action" :class="saveNeeded ? '' : 'unavailable'" @click="save">
                 Save
                 <div v-if="saving">
@@ -287,8 +286,8 @@
         justify-content: space-between;
 
         .button.unavailable {
-            background-color: var(--theme-bg-1);
-            color: gray;
+            background-color: var(--theme-bg-2-20);
+            color: var(--theme-bg-3-20);
             cursor: not-allowed;
         }
     }

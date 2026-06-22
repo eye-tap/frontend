@@ -190,9 +190,9 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
 
     if ( fixations.value[ selectedFixation.value ]!.assigned === 'assigned' )
         title += ' (complete)';
-    else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
-        title += ' (soft complete)';
-    // TODO: Do we really want the soft complete?
+    // else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
+    //     title += ' (soft complete)';
+    // User doesn't need to see this
 
     sendLoadEvent( title );
     renderer.renderAll();
