@@ -9,8 +9,8 @@ const shuffle = <T>( arr: T[] ): T[] => {
             arr[i],
             arr[j]
         ] = [
-            arr[j],
-            arr[i]
+            arr[j]!,
+            arr[i]!
         ];
     }
 
