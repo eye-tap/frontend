@@ -1,4 +1,7 @@
 <script setup lang="ts">
+    import type {
+        MagicLinkData
+    } from '@/ts/auth/magic-links';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
@@ -45,12 +48,18 @@
     };
 
     const useTestData = () => {
-        let links = [];
+        let links: MagicLinkData[] = [];
 
         for ( let i = 0; i < 20; i++ )
-            links.push( 'link' + String( i ) );
+            links.push( {
+                'link': 'link' + String( i ),
+                'user': 'username'
+            } );
 
-        links.push( 'linkWhichIsVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong' );
+        links.push( {
+            'link': 'linkWhichIsVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong',
+            'user': 'longlonglonglonglonglonglonglong'
+        } );
         surveyStore.setLinks( links );
 
         notifications.notify( {
@@ -84,11 +93,14 @@
                         <tr
                             v-for="link, index in surveyStore.links"
                             :key="index"
-                            @click="copyLinkToClipboard( link )"
+                            @click="copyLinkToClipboard( link.link )"
                         >
                             <td>
+                                {{ truncate(link.user, 20) }}
+                            </td>
+                            <td>
                                 <i class="fa-lg fa-regular fa-copy copy-icon"></i>
-                                {{ truncate(link, 50) }}
+                                {{ truncate(link.link, 50) }}
                             </td>
                         </tr>
                     </tbody>

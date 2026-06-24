@@ -1,3 +1,6 @@
+import magicLinks, {
+    type MagicLinkData
+} from '../auth/magic-links';
 import type {
     CreateSurveyDto
 } from '@/types/dtos/CreateSurveyDto';
@@ -10,9 +13,7 @@ import type {
 import type {
     SurveyDto
 } from '@/types/dtos/SurveyDto';
-import magicLinks from '../auth/magic-links';
 import request from '../util/request';
-
 
 export const listReadingSessions = async (): Promise<ShallowReadingSessionDto[]> => {
     // Set the config preset
@@ -29,7 +30,7 @@ export const createSurvey = async (
     description: string,
     readingSessionIds: number[],
     furtherOptions?: string
-): Promise<string[]> => {
+): Promise<MagicLinkData[]> => {
     const config: CreateSurveyDto = {
         'users': userCount,
         'title': title,
@@ -38,7 +39,7 @@ export const createSurvey = async (
         'furtherOptions': furtherOptions
     };
     const surveyUsers = ( await ( await request.post( '/survey', config ) ).json() as SurveyCreatedDto ).users!;
-    const links: string[] = [];
+    const links: MagicLinkData[] = [];
 
     for ( const username in surveyUsers ) {
         links.push( magicLinks.generate( username, surveyUsers[username] as string ) );

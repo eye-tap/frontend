@@ -2,13 +2,21 @@ import type {
     UserData
 } from '@/types/UserData';
 
-const generate = ( username: string, password: string ) => {
+export interface MagicLinkData {
+    'user': string;
+    'link': string;
+}
+
+const generate = ( username: string, password: string ): MagicLinkData => {
     const b64 = btoa( encodeURIComponent( JSON.stringify( {
         username,
         password
     } ) ) );
 
-    return location.protocol + '//' + location.host + '/login?magic=' + b64;
+    return {
+        'link': location.protocol + '//' + location.host + '/login?magic=' + b64,
+        'user': username
+    };
 };
 
 const getDecoded = (): UserData | null => {

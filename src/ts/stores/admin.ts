@@ -1,4 +1,7 @@
 import type {
+    MagicLinkData
+} from '../auth/magic-links';
+import type {
     ShallowReadingSessionDto
 } from '@/types/dtos/ShallowReadingSessionDto';
 import type {
@@ -21,7 +24,7 @@ interface Text {
 interface SurveyStore {
     'surveys': SurveyDto[],
     'selectedSurveyIndex': number,
-    'links': string[],
+    'links': MagicLinkData[],
     'texts': Text[],
     'selectedTextIndex': number,
 }
@@ -57,7 +60,7 @@ export const useSurveyStore = defineStore( 'surveys', {
         setSurveys ( surveys: SurveyDto[] ) {
             this.surveys = surveys;
         },
-        setLinks ( links: string[] ) {
+        setLinks ( links: MagicLinkData[] ) {
             this.links = links;
         },
         setTexts ( texts: Text[] ) {
