@@ -69,6 +69,7 @@
     const userCount = ref( null );
     const creating = ref( false );
     const logoutTimeout = ref( null );
+    const endSurveyLink: Ref<string> = ref( '' );
 
     const dismiss = () => {
         surveyStore.selectedSurveyIndex = -2;
@@ -151,6 +152,13 @@
                 'type': 'error',
                 'title': 'Survey creation'
             } );
+        } else if ( logoutTimeout.value !== null && endSurveyLink.value === '' ) {
+            if (
+                !confirm( 'You have added a logout timeout, without linking to a final survey.'
+                    + 'Press cancel if that was not intended. A default survey will be used' )
+            ) {
+                return;
+            }
         }
 
         creating.value = true;
@@ -162,7 +170,8 @@
             surveyStore.texts.map( val => val.sessions.map( val => val.id! ).filter( ( _v, idx ) => val.selected[ idx ] ) ).flat(),
             JSON.stringify( {
                 'preset': selectedPreset.value,
-                'timeout': logoutTimeout.value !== null ? logoutTimeout.value : -1
+                'timeout': logoutTimeout.value !== null ? logoutTimeout.value : -1,
+                'end-survey': endSurveyLink.value
             } )
         )
             .then( links => {
@@ -225,11 +234,13 @@
                     v-model="title"
                     type="text"
                     placeholder="Survey Title"
+                    title="Survey Title"
                 >
                 <input
                     v-model.number="userCount"
                     type="text"
                     placeholder="Number of users"
+                    title="Number of users"
                     @keydown="inputFilter.numeric()"
                 >
                 <select v-model="selectedPreset" title="Enabled features">
@@ -246,13 +257,23 @@
                     v-model.number="logoutTimeout"
                     type="text"
                     placeholder="Time to logout in seconds. Set to -1 or leave empty to disable"
+                    title="Time to logout in seconds. Set to -1 or leave empty to disable"
                     @keydown="inputFilter.numeric()"
+                >
+                <input
+                    v-if="logoutTimeout !== null && logoutTimeout > 0"
+                    v-model="endSurveyLink"
+                    type="text"
+                    placeholder="Link to survey at the end. Hover for details"
+                    title="Link to a (workload) survey at the end of the timer.
+                    Automatically populates LimeSurvey response ids quser and qgroup with the username and enabled feature set"
                 >
             </div>
             <textarea
                 v-model="desc"
                 type="text"
                 placeholder="Description"
+                title="Description"
                 rows="4"
             ></textarea>
 

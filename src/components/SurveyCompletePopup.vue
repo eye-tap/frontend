@@ -1,9 +1,10 @@
 <script setup lang="ts">
+    import {
+        configPreset,
+        endSurveyLink
+    } from '@/editor/config-presets';
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth';
-    import {
-        configPreset
-    } from '@/editor/config-presets';
     import {
         ref
     } from 'vue';
@@ -14,14 +15,15 @@
     const show = ref( false );
 
     const dismiss = async () => {
+        if ( !endSurveyLink.value ) return;
+
         show.value = false;
 
         const username = useStatusStore().username;
 
         auth.logout();
 
-        // TODO: Replace the URL here. Want to set the username directly in the forms
-        location.href = `https://survey.eyetap.ivia.ch/index.php/999838?quser=${ username }&qgroup=${ configPreset.value }`;
+        location.href = `${ endSurveyLink.value }?quser=${ username }&qgroup=${ configPreset.value }`;
     };
 
     document.addEventListener( 'eyetap:timer-ended', async () => {

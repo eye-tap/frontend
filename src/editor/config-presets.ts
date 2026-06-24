@@ -34,6 +34,8 @@ export const showPreAnnotations: Ref<boolean> = ref( false );
 
 export const availableTime: Ref<number> = ref( 300 );
 
+export const endSurveyLink: Ref<string> = ref( 'https://survey.eyetap.ivia.ch/index.php/999838' );
+
 const PRESET_VISIBLE_OPTIONS: Partial<Record<ConfigPreset, readonly ( OptionKey | SectionKey )[]>> = {
     'basic': [
         'colours',
@@ -47,8 +49,9 @@ export const isOptionVisible = ( key: OptionKey | SectionKey ) => visibility.val
 
 export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectionVisible( key );
 
-export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number ) => {
+export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number, endSurvey?: string ) => {
     availableTime.value = timeToLogout ? timeToLogout : -1;
+    endSurveyLink.value = endSurvey ?? 'https://survey.eyetap.ivia.ch/index.php/999838';
 
     start();
 

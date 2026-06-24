@@ -26,7 +26,7 @@ const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
 
         document.addEventListener( 'eyetap:ethics:approve', () => {
             console.debug( '[ETHICS] approval received' );
-            setConfigPreset( details[ 'preset' ], details[ 'timeout' ] );
+            setConfigPreset( details[ 'preset' ], details[ 'timeout' ], details[ 'end-survey' ] );
         } );
     } else {
         setConfigPreset( undefined, -1 );
