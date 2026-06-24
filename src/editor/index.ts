@@ -141,6 +141,7 @@ const start = (
 
     onMounted( () => {
         document.addEventListener( 'eyetap:theme', reloadThemeColours );
+        document.addEventListener( 'eyetap:timer-ended', save );
         reloadThemeColours();
         window.onbeforeunload = leaveHandler;
     } );
@@ -152,6 +153,10 @@ const start = (
 
         try {
             document.removeEventListener( 'eyetap:theme', reloadThemeColours );
+        } catch { /* empty */ }
+
+        try {
+            document.removeEventListener( 'eyetap:timer-ended', save );
         } catch { /* empty */ }
     } );
 
