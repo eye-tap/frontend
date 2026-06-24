@@ -12,10 +12,10 @@
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import UserCard from '@/components/home/UserCard.vue';
     import annotations from '@/ts/annotations';
-    /*     import {
-        exportSurvey
-    } from '@/ts/surveys'; */
     import router from '@/ts/router';
+    import {
+        shuffle
+    } from '@/ts/util/arrays';
     import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
     import {
         useAnnotationSessionStore
@@ -42,7 +42,6 @@
         loading.value = true;
         annotations.list()
             .then( list => {
-                sessions.value = list;
                 annotationSessionStore.setIds(
                     list.map( value => {
                         return {
@@ -54,13 +53,20 @@
                         };
                     } )
                 );
-                sessions.value.sort( ( a, b ) => {
-                    if ( a.readingSession!.textId! === b.readingSession!.textId! ) {
-                        return a.readingSession!.reader! - b.readingSession!.reader!;
-                    }
 
-                    return a.readingSession!.textId! - b.readingSession!.textId!;
-                } );
+                if ( list[ 0 ] && list[ 0 ].furtherOptions && JSON.parse( list[ 0 ].furtherOptions )[ 'shuffle' ] ) {
+                    sessions.value = shuffle( list );
+                } else {
+                    sessions.value = list;
+                    sessions.value.sort( ( a, b ) => {
+                        if ( a.readingSession!.textId! === b.readingSession!.textId! ) {
+                            return a.readingSession!.reader! - b.readingSession!.reader!;
+                        }
+
+                        return a.readingSession!.textId! - b.readingSession!.textId!;
+                    } );
+                }
+
                 loading.value = false;
             } )
             .catch( e => {
@@ -112,11 +118,6 @@
         if ( annotationSessionStore.selected )
             router.push( '/app/editor' );
     };
-/*
-    const exportFile = () => {
-        if ( annotationSessionStore.selected )
-            exportSurvey( annotationSessionStore.sessionIds[ annotationSessionStore.sessionIdx ]!.sessionId );
-    }; */
 </script>
 
 <template>

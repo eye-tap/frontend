@@ -1,5 +1,7 @@
-const shuffle = <T>( arr: T[] ): T[] => {
-    let i = arr.length;
+const shuffle = <T>( array: T[] ): T[] => {
+    let i = array.length;
+
+    const arr = [ ...array ];
 
     while ( i != 0 ) {
         const j = Math.floor( Math.random() * i );
