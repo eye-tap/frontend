@@ -46,7 +46,7 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
         }
 
         userOptions = {
-            'startTime': new Date().toISOString(),
+            'startTime': '',
             'ended': 'false',
             'ethicsApproved': 'false'
         };
