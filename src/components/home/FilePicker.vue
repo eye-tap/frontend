@@ -10,9 +10,6 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
-        shuffle
-    } from '@/ts/util/arrays';
-    import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
 
@@ -33,7 +30,7 @@
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
         // TODO: Filter out sessions that have pre-annotations (how to check if a session has pre-annotations?)
         if ( sortColumn.value === 'none' )
-            return shuffle( props.files );
+            return props.files;
 
         const toSort = [ ...props.files ];
 
