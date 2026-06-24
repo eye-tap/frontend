@@ -10,6 +10,9 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
+        shuffle
+    } from '@/ts/util/arrays';
+    import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
 
@@ -28,9 +31,9 @@
     const selectedFileIndex = ref( 0 );
     const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
-        // Filter out sessions that have pre-annotations
+        // TODO: Filter out sessions that have pre-annotations (how to check if a session has pre-annotations?)
         if ( sortColumn.value === 'none' )
-            return props.files;
+            return shuffle( props.files );
 
         const toSort = [ ...props.files ];
 

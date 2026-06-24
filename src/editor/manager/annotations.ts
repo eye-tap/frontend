@@ -1,6 +1,7 @@
 import {
     annotations,
     fixations,
+    machineAnnotations,
     selectedFixation
 } from '../data';
 import {
@@ -101,6 +102,25 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
     };
 
     /**
+     * Confirm an annotation to be the one from the algorithm, as suggested
+     * @param skipHistory - Whether or not to skip adding action to history
+     * @param highlight - Whether or not to highlight the changed box
+     */
+    const confirmAnnotation = ( skipHistory: boolean = false, highlight: boolean = false ) => {
+        const annotation = getAnnotationToConfirm();
+
+        if ( annotation )
+            try {
+                create(
+                    annotation!.boxIdx,
+                    selectedFixation.value,
+                    skipHistory,
+                    highlight
+                );
+            } catch { /* empty */ }
+    };
+
+    /**
      * Delete an annotation by fixation ID. Note that it will not re-render
      * @param fixationId - The fixationId to remove for
      */
@@ -115,8 +135,8 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
                         history.remove( d[ 0 ]!, selectedFixation.value, fixations.value[ fixationId ]!.assigned );
                     }
 
-                    if ( annotations.value.length > 0
-                        && annotations.value.map( a => a.algorithm !== undefined ).reduce( ( res, val ) => res || val ) )
+                    // Mark as machine annotated, if there exists a machine annotation, and as unassigned if not.
+                    if ( machineAnnotations.value[ fixationId ]!.length > 0 )
                         fixations.value[ fixationId ]!.assigned = 'machine';
                     else
                         fixations.value[ fixationId ]!.assigned = 'unassigned';
@@ -143,7 +163,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
         let idx = -1;
 
         for ( let i = 0; i < annotations.value.length; i++ ) {
-            if ( annotations.value[ i ]!.boxIdx === boxId && !annotations.value[ i ]!.algorithm ) {
+            if ( annotations.value[ i ]!.boxIdx === boxId ) {
                 idx = i;
                 break;
             }
@@ -158,6 +178,10 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
         }
     };
 
+    /**
+     * Mark a fixation as invalid
+     * @param fixationIndex - The fixation to mark
+     */
     const markAsInvalid = ( fixationIndex: number ) => {
         goToNextFixation();
 
@@ -170,7 +194,8 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
         create,
         markAsInvalid,
         deleteByFixID,
-        deleteByBoxID
+        deleteByBoxID,
+        confirmAnnotation
     };
     const history = startHistoryTracker( renderer, funcs );
 
@@ -182,4 +207,23 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
     } );
 
     return funcs;
+};
+
+export const getAnnotationToConfirm = () => {
+    const candidates = getPossibleAnnotations();
+
+    // Compare against first's block idx
+    if ( !candidates || candidates.length === 0 ) return;
+
+    const firstBox = candidates[0]!.boxIdx;
+    const check = !candidates
+        .some( val => val.boxIdx !== firstBox );
+
+    return check
+        ? candidates[0]!
+        : undefined;
+};
+
+export const getPossibleAnnotations = () => {
+    return machineAnnotations.value[ selectedFixation.value ];
 };

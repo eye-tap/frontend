@@ -3,10 +3,11 @@ import {
     ref
 } from 'vue';
 import {
+    algorithmsList,
     annotations,
     boundingBoxes,
     fixations,
-    selectedAlgorithm,
+    machineAnnotations,
     selectedFixation
 } from '../data';
 import {
@@ -14,6 +15,10 @@ import {
     heatMapMidValue,
     heatMapMinValue
 } from '../config';
+import {
+    setConfigPreset,
+    showPreAnnotations
+} from '../config-presets';
 import type {
     AnnotationDto
 } from '@/types/dtos/AnnotationDto';
@@ -31,9 +36,6 @@ import {
     sendLoadEvent
 } from './event';
 import {
-    showPreAnnotations
-} from '../config-presets';
-import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
 
@@ -45,12 +47,22 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
     sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
+
+    // set config preset (for development mode)
+    if ( import.meta.env.VITE_DEV_TOOLS ) {
+        const otherData = JSON.parse( sessionData.value.furtherOptions ?? '{}' );
+
+        setConfigPreset( otherData[ 'preset' ] );
+    }
+
     // Load image
     const img = sessionData.value.readingSession!.textDto!.backgroundImage!;
 
     renderer.textImage.src = 'data:image/jpg;base64,' + img;
 
-    // Load fixations
+    // ┌                                               ┐
+    // │                Load fixations                 │
+    // └                                               ┘
     const fix = sessionData.value.readingSession!.fixations!;
 
     let max = Number.MIN_VALUE;
@@ -83,7 +95,10 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     heatMapMinValue.value = min;
     heatMapMidValue.value = avg / fix.length;
 
-    // Load bounding boxes
+    // ───────────────────────────────────────────────────────────────────
+    // ┌                                               ┐
+    // │              Load bounding boxes              │
+    // └                                               ┘
     const bb = sessionData.value.readingSession!.textDto!.characterBoundingBoxes!;
 
     boundingBoxes.value = [];
@@ -97,11 +112,15 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
         } );
     } );
 
-    // Load annotations
+    // ───────────────────────────────────────────────────────────────────
+    // ┌                                               ┐
+    // │               Load annotations                │
+    // └                                               ┘
     const annotationLoad = sessionData.value.annotations!;
 
     annotations.value = [];
     userAnnotations.value = [];
+    machineAnnotations.value = [];
 
     if ( annotationLoad )
         annotationLoad.forEach( annotation => {
@@ -110,32 +129,25 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                 'boxIdx': getBoxIdxFromId( annotation.characterBoundingBox!.id! )
             };
 
-            if ( showPreAnnotations.value ) {
-                fixations.value[ ann.fixationIdx ]!.assigned = annotation.annotationType === 'ANNOTATED' ? 'assigned' : 'machine';
-
-                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
-                    userAnnotations.value.push( ann );
-                } else {
-                    ann.algorithm = 'default';
-                }
+            if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
+                fixations.value[ ann.fixationIdx ]!.assigned = 'assigned';
             } else {
-                if ( annotation.annotationType !== 'MACHINE_ANNOTATED' ) {
-                    fixations.value[ ann.fixationIdx ]!.assigned = 'assigned';
-                }
+                throw new Error( 'Machine annotation found in annotations' );
             }
 
             annotations.value.push( ann );
         } );
 
-    // Load additional algorithmic assignments
-    const additionalAnnotationLoad = sessionData.value.inactiveMachineAnnotations!;
+    // ┌                                               ┐
+    // │           Load machine annotations            │
+    // └                                               ┘
+    const machineAnnotationsLoad = sessionData.value.machineAnnotations;
 
-    if ( additionalAnnotationLoad && showPreAnnotations.value ) {
-        selectedAlgorithm.value = 0;
-        const algos = Object.keys( additionalAnnotationLoad );
+    if ( machineAnnotationsLoad && showPreAnnotations.value ) {
+        algorithmsList.value = Object.keys( machineAnnotationsLoad );
 
-        algos.forEach( algo => {
-            const details = additionalAnnotationLoad[ algo ]! as AnnotationDto[];
+        algorithmsList.value.forEach( algo => {
+            const details = machineAnnotationsLoad[ algo ]! as AnnotationDto[];
 
             details.forEach( annotation => {
                 if ( annotation.fixation && annotation.characterBoundingBox ) {
@@ -145,7 +157,15 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
                         'algorithm': algo
                     };
 
-                    annotations.value.push( ann );
+                    if ( fixations.value[ ann.fixationIdx ]!.assigned === 'unassigned' ) {
+                        fixations.value[ ann.fixationIdx ]!.assigned = 'machine';
+                    }
+
+                    if ( !machineAnnotations.value[ ann.fixationIdx ] ) {
+                        machineAnnotations.value[ ann.fixationIdx ] = [];
+                    }
+
+                    machineAnnotations.value[ ann.fixationIdx ]!.push( ann );
                 }
             } );
         } );
@@ -166,13 +186,13 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // If you do not want to diplay the reader, delete it here
     const data = session.sessionIds[ session.sessionIdx ]!;
 
-    // let title = data.title ? `${ data.title }, reader ${ data.reader }` : 'EyeTAP';
     let title = data.desc ?? 'EyeTAP';
 
     if ( fixations.value[ selectedFixation.value ]!.assigned === 'assigned' )
         title += ' (complete)';
-    else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
-        title += ' (soft complete)';
+    // else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
+    //     title += ' (soft complete)';
+    // User doesn't need to see this
 
     sendLoadEvent( title );
     renderer.renderAll();

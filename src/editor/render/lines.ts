@@ -4,13 +4,11 @@ import {
     watch
 } from 'vue';
 import {
-    algorithmsList,
     annotations,
-    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
     fixations,
-    selectedAlgorithm,
+    machineAnnotations,
     selectedFixation
 } from '../data';
 import {
@@ -46,54 +44,27 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
 
-        annotationsForCurrentFixation.value = annotations.value.filter( l => {
-            return l.fixationIdx === selectedFixation.value && l.algorithm;
-        } );
-
         // Render
         if ( linesDisplay.value === 'all' ) {
-            annotations.value.forEach( l => {
-                filterAlgorithms( l, drawLine );
-            } );
+            annotations.value.forEach( drawLine );
         } else if ( linesDisplay.value === 'previous' ) {
             if ( selectedFixation.value >= 0 )
-                annotations.value.forEach( l => {
-                    filterAlgorithms( l, previousDrawer );
-                } );
+                annotations.value.forEach( previousDrawer );
         } else if ( linesDisplay.value === 'allalgos' ) {
             ctx.lineWidth = scale( machineAssignedLineWidth.value );
             ctx.strokeStyle = machineAssignedLineColor.value;
 
             if ( selectedFixation.value >= 0 )
-                annotationsForCurrentFixation.value.forEach( l => {
+                machineAnnotations.value[ selectedFixation.value ]!.forEach( l => {
                     drawLine( l );
                 } );
         }
     };
 
-    const filterAlgorithms = ( l: EditorAnnotation, drawFunc: ( l: EditorAnnotation ) => void ) => {
-        // Filter out the algorithms that should not be displayed
-        // I did however just realize that there are issues with this function (i.e. it makes very little sense)
-        // so an update to it may happen eventually
-        const assignType = fixations.value[ l.fixationIdx ]!.assigned;
-
-        if ( assignType === 'invalid' ) return;
-
-        if ( assignType === 'assigned' ) {
-            if ( !l.algorithm )
-                drawFunc( l );
-        }
-
-
-        if ( !l.algorithm ) {
-            if ( selectedAlgorithm.value > -1 ) return;
-            else drawFunc( l );
-        } else {
-            if ( l.algorithm === algorithmsList.value[ selectedAlgorithm.value ]! )
-                drawFunc( l );
-        }
-    };
-
+    /**
+     * Draw the current or previous line
+     * @param l - The Annotation that is to be checked against the drawer
+     */
     const previousDrawer = ( l: EditorAnnotation ) => {
         if ( l.fixationIdx === selectedFixation.value )
             drawLine( l );

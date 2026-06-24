@@ -9,20 +9,18 @@ export const createDiff = ( old: EditorAnnotation[], updated: EditorAnnotation[]
     let offset = 0;
 
     updated.forEach( ( val, idx ) => {
-        if ( !val.algorithm ) {
-            for ( let i = 0; i < old.length; i++ ) {
-                const el = old[i]!;
+        for ( let i = 0; i < old.length; i++ ) {
+            const el = old[i]!;
 
-                if ( el.boxIdx === val.boxIdx && el.fixationIdx === val.fixationIdx ) {
-                    removed.splice( idx - offset, 1 );
-                    offset++;
+            if ( el.boxIdx === val.boxIdx && el.fixationIdx === val.fixationIdx ) {
+                removed.splice( idx - offset, 1 );
+                offset++;
 
-                    return;
-                }
+                return;
             }
-
-            added.push( val );
         }
+
+        added.push( val );
     } );
 
     return {

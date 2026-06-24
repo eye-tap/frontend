@@ -8,9 +8,7 @@ import {
     boundingBoxColor,
     boundingBoxStrokeWidth,
     boundingBoxesOpacity,
-    boxSuggestionRenderingThresholdFactor,
     boxesDisplay,
-    heatMapMaxValue,
     highlightAllAlgosAssignedBoxes,
     highlightSuggestedBox,
     highlightedBoundingBoxColor,
@@ -20,10 +18,9 @@ import {
     suggestedBoundingBoxColor
 } from '../config';
 import {
-    annotationsForCurrentFixation,
     boundingBoxes,
     canvasSize,
-    fixations,
+    machineAnnotations,
     selectedFixation
 } from '../data';
 import {
@@ -38,6 +35,9 @@ import {
 import type {
     EditorCharacterBoundingBox
 } from '../types/boxes';
+import {
+    getPossibleAnnotations
+} from '../manager/annotations';
 
 
 /**
@@ -92,18 +92,18 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
 
         // Render all algos boxes
         if ( linesDisplay.value === 'allalgos' && highlightAllAlgosAssignedBoxes.value ) {
-            annotationsForCurrentFixation.value.forEach( a => {
+            machineAnnotations.value[ selectedFixation.value ]!.forEach( a => {
                 drawBox( allAlgorithmsBoundingBoxHighlightColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
             } );
         } else if (
             highlightSuggestedBox.value
-            && ( fixations.value[ selectedFixation.value ]?.disagreement ?? 200 )
-            < heatMapMaxValue.value * boxSuggestionRenderingThresholdFactor.value
         ) {
-            annotationsForCurrentFixation.value.forEach( a => {
-                if ( a.algorithm === 'default' )
-                    drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ a.boxIdx ]!, ctx! );
-            } );
+            const ann = getPossibleAnnotations();
+
+            if ( ann )
+                ann.forEach( val => {
+                    drawBox( suggestedBoundingBoxColor.value, boundingBoxes.value[ val.boxIdx ]!, ctx! );
+                } );
         }
     };
 
@@ -122,7 +122,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boxesDisplay,
         scalingFactor,
         highlightAllAlgosAssignedBoxes,
-        annotationsForCurrentFixation
+        selectedFixation
     ], render );
 
     return {
