@@ -25,8 +25,8 @@
         } );
     };
 
-    const downloadMagicLinks = () => {
-        const textContent = surveyStore.links.join( '\n' );
+    const downloadMagicLinks = ( includeUsers: boolean ) => {
+        const textContent = surveyStore.links.map( val => ( includeUsers ? val.user + ': ' : '' ) + val.link ).join( '\n' );
         const blob = new Blob(
             [ textContent ],
             {
@@ -96,10 +96,10 @@
                             @click="copyLinkToClipboard( link.link )"
                         >
                             <td>
-                                {{ truncate(link.user, 20) }}
+                                <i class="fa-lg fa-regular fa-copy copy-icon"></i>
+                                {{ truncate(link.user, 15) }}
                             </td>
                             <td>
-                                <i class="fa-lg fa-regular fa-copy copy-icon"></i>
                                 {{ truncate(link.link, 50) }}
                             </td>
                         </tr>
@@ -112,15 +112,21 @@
             >
                 <p>Select a Survey to view properties</p>
             </div>
-            <a id="linkDownloadAnchor">
-                <button
-                    class="button primary"
-                    :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
-                    @click="surveyStore.links.length > 0 ? downloadMagicLinks() : 'undefined'"
-                >
-                    Download Links
-                </button>
-            </a>
+            <a id="linkDownloadAnchor"></a>
+            <button
+                class="button primary"
+                :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
+                @click="surveyStore.links.length > 0 ? downloadMagicLinks( false ) : 'undefined'"
+            >
+                Download Links
+            </button>
+            <button
+                class="button"
+                :class="surveyStore.links.length > 0 ? 'undefined' : 'disabled'"
+                @click="surveyStore.links.length > 0 ? downloadMagicLinks( true ) : 'undefined'"
+            >
+                Download Links with usernames
+            </button>
         </div>
     </div>
 </template>
@@ -162,7 +168,7 @@
             scrollbar-color: var( --theme-interactable-text ) var( --theme-bg-3 );
         }
 
-        >a>button {
+        >button {
             margin-left: 1rem;
             margin-top: 2rem;
         }
