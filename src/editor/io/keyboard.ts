@@ -25,6 +25,9 @@ import {
     annotationManager
 } from '../manager/annotations';
 import {
+    fixationsHidden
+} from '../data/io';
+import {
     getClosestBoxIdByCharacterAndFixId
 } from '../association/boxes';
 import {
@@ -112,6 +115,9 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     prevSelectedDisplayMode = linesDisplay.value;
                     linesDisplay.value = 'allalgos';
                 }
+            } else if ( ev.key === 'Tab' ) {
+                ev.preventDefault();
+                fixationsHidden.value = true;
             }
         }
     };
@@ -121,6 +127,9 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             // Disable the algorithm's suggested annotations
             ev.preventDefault();
             linesDisplay.value = prevSelectedDisplayMode;
+        } else if ( ev.key === 'Tab' ) {
+            ev.preventDefault();
+            fixationsHidden.value = false;
         }
     };
 

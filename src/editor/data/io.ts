@@ -31,3 +31,5 @@ export const lineStart: Ref<EditorPoint> = ref( {
 } );
 
 export const isZoomDragging = ref( false );
+
+export const fixationsHidden = ref( false );

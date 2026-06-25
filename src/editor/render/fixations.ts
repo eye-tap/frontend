@@ -34,6 +34,10 @@ import {
     selectedFixation
 } from '../data';
 import {
+    fixationsHidden,
+    isMouseDragging
+} from '../data/io';
+import {
     originalToCanvasCoordinates,
     scale
 } from './scaling';
@@ -57,21 +61,23 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         ctx.globalAlpha = fixationsOpacity.value;
 
         // Render points
-        if ( fixationDisplay.value === 'all' ) {
-            fixations.value.forEach( allFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'surrounding' ) {
-            fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'assigned' ) {
-            fixations.value.forEach( assignedFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'unassigned' ) {
-            fixations.value.forEach( unassignedFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'none' ) {
-            const draw = drawPoint( ctx );
+        if ( !isMouseDragging.value && !fixationsHidden.value ) {
+            if ( fixationDisplay.value === 'all' ) {
+                fixations.value.forEach( allFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'surrounding' ) {
+                fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'assigned' ) {
+                fixations.value.forEach( assignedFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'unassigned' ) {
+                fixations.value.forEach( unassignedFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'none' ) {
+                const draw = drawPoint( ctx );
 
-            fixations.value.forEach( ( fix, idx ) => {
-                if ( idx === selectedFixation.value )
-                    draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
-            } );
+                fixations.value.forEach( ( fix, idx ) => {
+                    if ( idx === selectedFixation.value )
+                        draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+                } );
+            }
         }
     };
 
@@ -96,7 +102,9 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         scanPathLineColor,
         scanPathLineWidth,
         invalidFixationCrossLineWidth,
-        invalidFixationColor
+        invalidFixationColor,
+        isMouseDragging,
+        fixationsHidden
     ], render );
 
     return {

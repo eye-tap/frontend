@@ -70,6 +70,8 @@ const useAutoSave = () => {
         clearInterval( interval );
     };
 
+    onUnmounted( stopHandler );
+
     console.debug( '[EDITOR] Auto-Save enabled' );
     startHandler();
 };
