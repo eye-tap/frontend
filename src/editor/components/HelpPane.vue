@@ -96,6 +96,10 @@
                         Editor Features
                     </p>
                     <div class="options-section">
+                        <p>
+                            Whenever a character is assigned, the chronologically next one is automatically selected. 
+                            It's recommended to go through the fixations chronologically
+                        </p>
                         <p class="subtitle">
                             <strong>Fixation color</strong> shows annotation state
                         </p>
