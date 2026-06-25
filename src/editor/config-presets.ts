@@ -26,13 +26,15 @@ import {
 
 
 // If we want to change these, can use smart rename of the LS.
-export type ConfigPreset = 'basic' | 'full' | 'nopreannotations';
+export type ConfigPreset = 'basic' | 'full' | 'nopreannotations' | 'unrestricted';
 
 export const configPreset: Ref<ConfigPreset> = ref( 'full' );
 
 export const showPreAnnotations: Ref<boolean> = ref( false );
 
 export const availableTime: Ref<number> = ref( 300 );
+
+export const fullSideBarAvailable: Ref<boolean> = ref( false );
 
 const PRESET_VISIBLE_OPTIONS: Partial<Record<ConfigPreset, readonly ( OptionKey | SectionKey )[]>> = {
     'basic': [
@@ -74,6 +76,9 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
         showPreAnnotations.value = true;
     } else if ( preset === 'nopreannotations' ) {
         showPreAnnotations.value = false;
+    } else if ( preset === 'unrestricted' ) {
+        showPreAnnotations.value = true;
+        fullSideBarAvailable.value = true;
     }
 
     console.debug( '[EDITOR] Loading preset', preset );

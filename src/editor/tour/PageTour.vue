@@ -2,9 +2,6 @@
     import {
         configPreset
     } from '../config-presets';
-    import {
-        isSideBarCollapsed
-    } from '../data';
 
     const dismiss = () => {
         localStorage.setItem( 'welcomeTourViewed', 'true' );
@@ -17,7 +14,6 @@
     }>();
 
     const startFullTour = () => {
-        isSideBarCollapsed.value = false;
         emit( 'launch-tour' );
         dismiss();
     };

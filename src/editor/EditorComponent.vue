@@ -29,7 +29,6 @@
         showWelcomeTour,
         startFullTour
     } = useEditorTour( tour );
-
 </script>
 
 <template>

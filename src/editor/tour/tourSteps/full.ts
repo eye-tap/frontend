@@ -1,38 +1,23 @@
 import type {
     ITourStep
 } from '@globalhive/vuejs-tour';
-import {
-    isSideBarCollapsed
-} from '@/editor/data';
 
 export const stepsFull: ITourStep[] = [
     {
-        'target': '#tour-editor',
-        'content': '<h3>Editor</h3><p>This is the Editor. Pressing a letter on your keyboard will assign the selected point to the closest occurrence of that letter. If you press shift and the letter, it will assign the <b>second</b> closest letter. Alternatively, you may click the desired letter, or drag the point to the correct letter.</p>',
-        'highlight': true,
-        'backdrop': true
-    },
-    {
         'target': '#tour-history',
-        'content': '<h3>History</h3><p>Undo (Ctrl + Z) and redo (Ctrl + Y) your actions. <br> Press (Ctrl + S) to save. You can mark a fixation as invalid by clicking the cross symbol (or Shift + Backspace).</p>',
+        'content': '<h3>History</h3><p>Undo (Ctrl + Z) and redo (Ctrl + Y) your actions. <br> Press (Ctrl + S) to save.</p>',
         'highlight': true,
         'backdrop': true
     },
     {
-        'target': '#tour-options',
-        'content': '<h3>Options</h3><p>Here you can change the settings for the editor.</p>',
+        'target': '#tour-invalidate',
+        'content': '<h3>Invalidate</h3><p>You can mark a fixation as invalid by clicking the cross symbol (or Shift + Backspace).</p>',
         'highlight': true,
         'backdrop': true
     },
     {
-        'target': '#tour-keybinds',
-        'content': '<h3>Keybinds</h3><p>Here you can get an overview over the provided keybinds.</p>',
-        'highlight': true,
-        'backdrop': true
-    },
-    {
-        'target': '#tour-preferences',
-        'content': '<h3>Preferences</h3><p>Click the gear icon to view advanced editor options.</p>',
+        'target': '#tour-help',
+        'content': '<h3>Keybinds</h3><p>Here you can get an overview over the provided keybinds, as well as an explanation of the colours and features</p>',
         'highlight': true,
         'backdrop': true
     },
@@ -50,9 +35,6 @@ export const stepsFull: ITourStep[] = [
             </p>
             </div>
             `,
-        'backdrop': true,
-        'onAfter': () => {
-            isSideBarCollapsed.value = true;
-        }
+        'backdrop': true
     }
 ];

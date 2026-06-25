@@ -16,8 +16,6 @@ import {
 
 
 // To change theme, follow this guide: https://globalhive.github.io/vuejs-tour/guide/css-theme.html
-
-
 export const useEditorTour = ( tour: Ref<VTourExposedMethods | null> ) => {
     const showWelcomeTour = ref( !localStorage.getItem( 'welcomeTourViewed' ) );
 

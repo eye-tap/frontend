@@ -7,12 +7,6 @@ import {
 
 export const stepsBasic: ITourStep[] = [
     {
-        'target': '#tour-editor',
-        'content': '<h3>Editor</h3><p>This is the Editor. You can assign points by clicking the desired letter, or dragging the point to the correct letter.</p>',
-        'highlight': true,
-        'backdrop': true
-    },
-    {
         'target': '#tour-history',
         'content': '<h3>History</h3><p>Undo and redo your actions. <br> Do not forget to save. You can mark a fixation as invalid by clicking the cross symbol</p>',
         'highlight': true,

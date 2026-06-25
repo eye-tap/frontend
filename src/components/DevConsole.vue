@@ -70,6 +70,13 @@
             'cmd': () => {
                 availableTime.value = parseInt( prompt( 'Enter the time in seconds to logout' )! );
             }
+        },
+        'tour:reset': {
+            'desc': 'Reset the tour',
+            'cmd': () => {
+                localStorage.removeItem( 'welcomeTourViewed' );
+                location.reload();
+            }
         }
     };
 
