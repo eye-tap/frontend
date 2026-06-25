@@ -90,14 +90,39 @@
                 <h1>Editor Help</h1>
                 <i class="fa-solid fa-close" @click="dismiss"></i>
             </div>
-            <p class="desc">
-                The editor provides several keybinds for quicker annotations. Colors can be modified by clicking on the icon.
-            </p>
-            <div>
+            <div class="box-content">
                 <div class="options-container">
+                    <p class="title">
+                        Editor Features
+                    </p>
                     <div class="options-section">
-                        <p class="title">
-                            Color Legend
+                        <p>
+                            <strong>Fixation color</strong> shows annotation state <br>
+                            See fixation colors for meaning.
+                        </p>
+                        <p>
+                            <strong>Indices</strong> show chronology <br>
+                            i.e. Fixation "3" was looked at right before Fixation "4".
+                        </p>
+                        <p>
+                            <strong>Lines</strong> show annotations <br>
+                            Annotated fixations are connected to the selected character.
+                        </p>
+                        <p>
+                            <strong>Boxes</strong> show annotation suggestions <br>
+                            They show which characters an annotation algorithm would have chosen.
+                        </p>
+                    </div>
+                </div>
+                <div class="options-container">
+                    <p class="title">
+                        Fixation Colors
+                    </p>
+                    <div class="options-section">
+                        <p>
+                            EyeTAP uses multiple algorithms to suggest annotations for each fixation.
+                            <strong>Entropy</strong> is lower, the more algorithms agree. Intuitively,
+                            higher entropy suggests a fixation is more difficult to annotate.
                         </p>
                         <div class="color-options">
                             <p class="top">
@@ -114,9 +139,13 @@
                             <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
                             <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
                         </div>
-                        <p class="title">
-                            Keybinds
-                        </p>
+                    </div>
+                </div>
+                <div class="options-container">
+                    <p class="title">
+                        Keybinds
+                    </p>
+                    <div class="options-section">
                         <table>
                             <thead>
                                 <tr>
@@ -171,6 +200,14 @@
     }
 
     >.box {
+        width: 90vw;
+        height: 90vh;
+        padding: 1px 1.5rem 1.5rem 1.5rem;
+        position: relative;
+        background-color: var( --theme-bg-2 );
+        border-radius: 20px;
+        scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
+
         >.top-bar {
             display: flex;
             flex-direction: row;
@@ -190,35 +227,27 @@
             >h1 {
                 font-size: 2rem;
             }
-
         }
 
-        width: 25vw;
-        height: max-content;
-        padding: 1px 1.5rem 1.5rem 1.5rem;
-        position: relative;
-        background-color: var( --theme-bg-2 );
-        border-radius: 20px;
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            height: 60vh;
-            padding: 1rem;
-            background-color: var(--theme-bg-1);
-            overflow-y: scroll;
+        .box-content {
+            height: 75vh;
+            overflow-y: auto;
             scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
 
+            .options-container {
+                display: flex;
+                flex-direction: column;
 
-            .options-section {
-                >p {
-                    color: var( --theme-bg-3 );
-                    font-weight: 400;
-                    font-size: 1rem;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
+                width: max-content;
+                max-width: 25rem;
+                height: max-content;
+                padding: 1rem;
+                margin: 1rem;
+
+                background-color: var(--theme-bg-1);
 
                 .title  {
                     color: var(--theme-bg-4);
@@ -227,53 +256,77 @@
                     margin-bottom: 1rem;
                 }
 
-                .color-options {
-                    margin-bottom: 1rem;
-                    margin-left: 1rem;
+                .options-section {
+                    overflow-y: auto;
+                    scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
                     >p {
                         color: var( --theme-bg-3-20 );
-                        font-weight: 600;
+                        font-weight: 400;
                         font-size: 1rem;
                         margin-top: 10px;
                         margin-bottom: 10px;
-                    }
-                }
 
-                >table {
-                    margin-left: 1rem;
-                    >thead>tr>th {
-                        padding-bottom: 1rem;
-                        text-align: left;
-                        color: var(--theme-bg-3-20);
+                        >strong {
+                            color: var(--theme-interactable-text);
+                        }
                     }
 
-                    >tbody>.keybinds {
-                        margin-left: 1rem;
-                        >td {
-
-                            .keybind {
-                                padding: 5px;
-                                border-radius: 5px;
-
+                    >ul {
+                        >li {
+                            color: var( --theme-bg-3-20 );
+                            >strong {
                                 color: var(--theme-interactable-text);
-
-                                background-color: var(--theme-bg-1-shade);
-
-                                border-style: solid;
-                                border-color: var(--theme-bg-1-shade);
-                                border-width: 4px;
-
-                                margin: 0px;
-                                margin-right: 1rem;
-
-                                width: fit-content;
                             }
                         }
+                    }
 
-                        >.keybind-desc {
+                    .color-options {
+                        margin: 1rem;
+                        >p {
                             color: var( --theme-bg-3-20 );
-                            font-weight: 400;
+                            font-weight: 600;
                             font-size: 1rem;
+                            margin-top: 10px;
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    >table {
+                        margin-left: 1rem;
+                        >thead>tr>th {
+                            padding-bottom: 1rem;
+                            text-align: left;
+                            color: var(--theme-bg-3-20);
+                        }
+
+                        >tbody>.keybinds {
+                            margin-left: 1rem;
+                            >td {
+
+                                .keybind {
+                                    padding: 5px;
+                                    border-radius: 5px;
+
+                                    color: var(--theme-interactable-text);
+
+                                    background-color: var(--theme-bg-1-shade);
+
+                                    border-style: solid;
+                                    border-color: var(--theme-bg-1-shade);
+                                    border-width: 4px;
+
+                                    margin: 0px;
+                                    margin-right: 1rem;
+
+                                    width: fit-content;
+                                }
+                            }
+
+                            >.keybind-desc {
+                                color: var( --theme-bg-3-20 );
+                                font-weight: 400;
+                                font-size: 1rem;
+                            }
                         }
                     }
                 }
