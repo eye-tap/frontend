@@ -48,12 +48,17 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         revision.value++;
 
         undoHistory.value.push( last );
-        selectedFixation.value = last.selectedFixation;
 
         if ( last.action === 'delete' ) annotation.deleteByFixID( last.annotation.fixationIdx );
         else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
-        fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
+        if ( last.action !== 'invalidate' ) {
+            selectedFixation.value = last.selectedFixation;
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
+        } else {
+            fixations.value[ last.selectedFixation ]!.assigned = 'invalid';
+            selectedFixation.value = last.selectedFixation + 1;
+        }
 
         renderer.renderLines.render();
         renderer.renderFixations.render();
