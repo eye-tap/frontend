@@ -20,7 +20,7 @@ export const moveThresholdForDrag = 3;
 
 export const nearbyBoxesDistanceThreshold = ref( 20 );
 
-export const autoSaveInterval = ref( 60000 );
+export const autoSaveInterval = ref( 60 );
 
 export const showExportButton = ref( false );
 

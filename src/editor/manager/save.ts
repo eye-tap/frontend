@@ -38,12 +38,32 @@ export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
 
     const save = async () => {
+        const data = saveCreator();
+
+        if ( data.status ) {
+            try {
+            // Try to save to backend
+                await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
+                // This is used to track the last saved revision,
+                // which is then used to show to user if saving is needed
+                savedAtRevision.value = revision.value;
+                document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+            } catch ( e ) {
+                document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
+                    'detail': {
+                        'reason': 'ERR_BACKEND_SEND',
+                        'error': e
+                    }
+                } ) );
+            }
+        }
+    };
+
+    const saveCreator = () => {
         const data: EditAnnotationsDto = {
             'annotations': {},
             'annotationsToRemove': {}
         };
-
-        console.log( userAnnotations.value, annotations.value );
 
         try {
             // Translate to correct ids
@@ -71,6 +91,11 @@ export const useSaveFunction = () => {
 
             data.fixationsToRemove = diff.added;
             data.fixationsToUndoRemove = diff.removed;
+
+            return {
+                'status': true,
+                'data': data
+            };
         } catch ( e ) {
             document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
                 'detail': {
@@ -80,21 +105,17 @@ export const useSaveFunction = () => {
             } ) );
         }
 
-        try {
-            // Try to save to backend
-            await annotation.save( data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
-            // This is used to track the last saved revision,
-            // which is then used to show to user if saving is needed
-            savedAtRevision.value = revision.value;
-            document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
-        } catch ( e ) {
-            document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
-                'detail': {
-                    'reason': 'ERR_BACKEND_SEND',
-                    'error': e
-                }
-            } ) );
-        }
+        return {
+            'status': false,
+            'data': data
+        };
+    };
+
+    /** Save using the browser's sendBeacon function (useful for events such as visibilitychange) */
+    const saveWithBeacon = () => {
+        const data = saveCreator();
+
+        annotation.autoSaveOnUnload( data.data, session.sessionIds[session.sessionIdx]!.sessionId );
     };
 
     onMounted( () => {
@@ -104,4 +125,6 @@ export const useSaveFunction = () => {
     onUnmounted( () => {
         document.removeEventListener( 'eyetap:save', save );
     } );
+
+    return saveWithBeacon;
 };

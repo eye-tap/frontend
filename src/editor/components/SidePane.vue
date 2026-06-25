@@ -153,7 +153,7 @@
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
             </div>
-            <div v-if="isSideBarCollapsed" class="options-bar">
+            <div v-if="isSideBarCollapsed && fullSideBarAvailable" class="options-bar">
                 <span
                     class="clickable-icon"
                     :class="saveNeeded ? '' : 'unavailable'"

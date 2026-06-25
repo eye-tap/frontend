@@ -58,8 +58,15 @@ const save = async ( data: EditAnnotationsDto, sessionId: number ) => {
     return JSON.parse( response ) as AnnotationSessionDto;
 };
 
+const autoSaveOnUnload = ( data: EditAnnotationsDto, sessionId: number ) => {
+    ( async () => {
+        request.beaconRequest( '/annotation/' + sessionId, JSON.stringify( data ) );
+    } )();
+};
+
 export default {
     list,
     getSessionById,
-    save
+    save,
+    autoSaveOnUnload
 };

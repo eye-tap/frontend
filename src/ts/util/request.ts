@@ -123,6 +123,27 @@ const postFormData = ( url: string, data: FormData, noRedirect = false ): Promis
 };
 
 /**
+ * Send webrequest on page unload using this function.
+ * @param url - The URL to post to (like /data)
+ * @param data - The data to send
+ * @param contentType - The type of content that was sent (typically text/plain or application/json)
+ */
+const beaconRequest = async ( url: string, data: string, contentType: string = 'application/json' ) => {
+    const token = localStorage.getItem( 'jwt' );
+
+    await fetch( backend.url + url, {
+        'method': 'post',
+        'body': data,
+        'keepalive': true,
+        'headers': {
+            'Content-Type': contentType,
+            'Authorization': `Bearer ${ token }`
+        }
+    } );
+    console.log( 'request started, to:', backend.url + url );
+};
+
+/**
  * Usually should not be used directly, use a wrapper from this file.
  * Automatically handles authentication and rejection thereof
  * @param url - only the path (like /auth)
@@ -212,5 +233,6 @@ export default {
     post,
     updateUserOptions,
     postFormData,
-    deleteRequest
+    deleteRequest,
+    beaconRequest
 };

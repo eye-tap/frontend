@@ -4,6 +4,7 @@
     import {
         availableTime
     } from '@/editor/config-presets';
+    import editor from '@/editor';
     import {
         ref
     } from 'vue';
@@ -20,9 +21,13 @@
 
         show.value = false;
 
+        editor.save();
+
         await request.updateUserOptions( 'ended', 'true' );
 
-        auth.logout();
+        setTimeout( () => {
+            auth.logout();
+        }, 500 );
     };
 
     document.addEventListener( 'eyetap:end', async () => {
