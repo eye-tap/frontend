@@ -8,6 +8,9 @@ import type {
 import type {
     EditorPoint
 } from '../types/annotation';
+import {
+    getPossibleAnnotations
+} from '../manager/annotations';
 
 /**
  * Get the hovered character box index
@@ -38,10 +41,35 @@ export const getClosestBoxIdByCharacterAndFixId = ( fixId: number, char: string,
 
     if ( fixId < 0 ) return -1;
 
+    const annotations = getPossibleAnnotations();
     const pos = fixations.value[ fixId ]!;
 
+    if ( annotations ) {
+        const candidates: number[] = [];
+
+        for ( let i = 0; i < annotations.length; i++ ) {
+            const box = boundingBoxes.value[ annotations[i]!.boxIdx ];
+
+            if ( box && box.character === char )
+                candidates.push( annotations[i]!.boxIdx );
+        }
+
+        if ( candidates.length === 1 ) {
+            return candidates[ 0 ]!;
+        } else if ( candidates.length > 1 ) {
+            let min = 10000000;
+
+            for ( let i = 0; i < candidates.length; i++ ) {
+                const bb = boundingBoxes.value[ candidates[i]! ]!;
+                const distance = Math.sqrt( Math.pow( bb.centerX - pos.x!, 2 ) + Math.pow( bb.centerY - pos.y!, 2 ) );
+
+                if ( distance < min )
+                    min = distance;
+            }
+        }
+    }
+
     if ( dist && dist > 1 ) {
-        console.log( 'Distance', dist, 'key', char );
         const bbs = boundingBoxes.value
             .map( ( val, idx ) => {
                 return {

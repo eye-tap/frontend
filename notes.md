@@ -61,3 +61,6 @@ Once finished, test again with new users to see if improvements are helpful
 
 The editor also features multiple modes it can be put in to give the user more or less assistance, which is needed for what we are trying to show here.
 We have implemented undo and redo functions, auto-save and many other creature comforts
+
+
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhMeW54NjEwJTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJwNDB3LTQzX2UxdCUzRG1rMnYlMjIlN0Q=

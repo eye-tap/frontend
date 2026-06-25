@@ -154,7 +154,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
  * @returns True if it is a key of a character
  */
 const isCharacterKey = ( key: string ) => {
-    return key.length === 1 && key.match( /[a-zA-Z0-9]/ );
+    return key.length === 1 && key.match( /[a-zA-Z0-9;.,-:?!]/ );
 };
 
 /**
