@@ -4,6 +4,7 @@
 - [X] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
 - [ ] Colourblindness settings
+- [ ] Features of basic features group
 - [X] **Legend popup**
 - [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
 
@@ -35,8 +36,14 @@ Once finished, test again with new users to see if improvements are helpful
 - [ ] Microslop-like feed the video to users (i.e. don't allow them to proceed if they haven't watched it)
 
 
+## Analytics
+- [ ] Track what features user use (and how often)
+- [ ] Store this together with what?
+- [ ] What features to track the usage of? (my suggestions: keybind based annotation, undo & redo, zoom, annotation completion, ...??)
+
+
 ## Admin
-- [ ] **Limiting available features (pre-annotations need to be filtered out 
+- [X] **Limiting available features (pre-annotations need to be filtered out 
     (plus a setting in admin for that), settings need limiting (only make available some with certain scope))**
 - [ ] Magic link regen
 
