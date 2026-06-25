@@ -162,7 +162,7 @@ const isCharacterKey = ( key: string ) => {
  * @returns True if it's Ctrl + z
  */
 const isUndoCmd = ( event: KeyboardEvent ) => {
-    return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'z';
+    return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'z' && !event.shiftKey;
 };
 
 /**
