@@ -5,7 +5,7 @@
     } from 'vue';
     import request from '@/ts/util/request';
 
-    const show = ref( true );
+    const show = ref( false );
     const hasConfirmed = ref( false );
 
     const dismiss = () => {
