@@ -37,10 +37,6 @@
             'function': 'Mark fixation as invalid'
         },
         {
-            'keybind': 'Shift + Delete',
-            'function': 'Mark fixation as invalid'
-        },
-        {
             'keybind': 'CTRL + Z',
             'function': 'Undo'
         },
