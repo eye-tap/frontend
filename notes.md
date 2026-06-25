@@ -35,6 +35,8 @@ http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJCcmlza1NlYWwyMD
 
 LAPTOP: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJOaW1ibGVUdXJ0bGU5NjYlMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMnJTRjBfKjYwOXQlMjROQ1EhNCUyMiU3RA==
 
+Multiple Text testing: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJDYWxtU3BhcnJvdzI5OSUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyeWdZMShzUyUyNF9tR1ltUDIlMjUlMjIlN0Q=
+
 
 # The workflow
 ## The editor
