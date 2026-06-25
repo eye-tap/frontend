@@ -3,19 +3,21 @@
 - [X] **Next annotation button animation** -> Verify that this works with a Backend
 - [X] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
+- [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [ ] Colourblindness settings
-- [ ] Features of basic features group
+- [ ] **Features of basic features group**
+- [ ] **Entropy colours in HSV or HSL?**
 - [X] **Legend popup**
 - [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
 
 ## General
 - [ ] Take care of all TODOs in the code
-- [ ] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
+- [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
+- [ ] **Fixations counting** -> Do we count the invalid fixations?
 - [ ] Details pane on file explorer has wordcount in it, but no details on that
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
 - [X] **Timeout popup**
-- [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [X] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
 - [X] **Button to end prematurely**
 - [X] Buttons with long actions need spinners or other progress indicator
