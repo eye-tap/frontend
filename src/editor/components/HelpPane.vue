@@ -153,7 +153,7 @@
                             <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
                         </div>
                         <p class="small">
-                            EyeTAP uses multiple algorithms to suggest annotations for each fixation. 
+                            EyeTAP uses multiple algorithms to suggest annotations for each fixation.
                             The more algorithms agree, the lower the entropy.
                         </p>
                     </div>
