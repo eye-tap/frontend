@@ -18,7 +18,6 @@
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
 - [X] **Timeout popup**
-- [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [X] **Settings (such as how long 'till account closure, enabled feature sets in editor)**
 - [X] **Button to end prematurely**
 - [X] Buttons with long actions need spinners or other progress indicator
