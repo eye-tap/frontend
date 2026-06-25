@@ -25,12 +25,13 @@
 Once finished, test again with new users to see if improvements are helpful
 
 - [x] disable settings, disable un-collapsing side bar (permanently collapsed)
-- [ ] expanded help panel, document all features
+- [x] expanded help panel, document all features
 - [x] rewrite survey introduction / ethics for more context
 - [ ] allow opening ethics approval again after survey start
 - [ ] workflow video (link in ethics approval or similar spot)
-- [ ] reduce tour (or remove entirely)
+- [x] reduce tour (or remove entirely)
 - [ ] colorblind options (optional)
+- [ ] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
 - [ ] Microslop-like feed the video to users (i.e. don't allow them to proceed if they haven't watched it)
 
 

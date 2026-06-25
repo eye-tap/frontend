@@ -29,7 +29,7 @@
                 <h1>Welcome to the <span>Editor</span></h1>
                 <div class="box-content">
                     <p class="desc">
-                        Start by selecting a point, then there are {{ configPreset === 'basic' ? 'two' : 'three' }} ways to annotate:
+                        There are {{ configPreset === 'basic' ? 'two' : 'three' }} ways to annotate:
                     </p>
                     <div class="ul-container">
                         <ul>
@@ -41,7 +41,7 @@
                         </ul>
                     </div>
                     <p class="desc">
-                        First time? Try the Editor Tour.
+                        First time? Try the Editor Tour. For help, click the <strong class="keybind">?</strong> button in the sidebar.
                     </p>
                 </div>
                 <div class="buttons">
@@ -94,6 +94,22 @@
 
         .desc {
             color: var(--theme-bg-3-20);
+            .keybind {
+                padding: 5px;
+                border-radius: 5px;
+
+                color: var(--theme-interactable-text);
+
+                background-color: var(--theme-bg-1-shade);
+
+                border-style: solid;
+                border-color: var(--theme-bg-1-shade);
+                border-width: 4px;
+
+                margin: 0px;
+
+                width: fit-content;
+            }
         }
 
         .ul-container {
