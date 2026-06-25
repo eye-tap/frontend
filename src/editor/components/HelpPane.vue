@@ -96,21 +96,35 @@
                         Editor Features
                     </p>
                     <div class="options-section">
-                        <p>
-                            <strong>Fixation color</strong> shows annotation state <br>
+                        <p class="subtitle">
+                            <strong>Fixation color</strong> shows annotation state
+                        </p>
+                        <p class="small">
                             See fixation colors for meaning.
                         </p>
-                        <p>
-                            <strong>Indices</strong> show chronology <br>
+                        <p class="subtitle">
+                            <strong>Indices</strong> show chronology
+                        </p>
+                        <p class="small">
                             i.e. Fixation "3" was looked at right before Fixation "4".
                         </p>
-                        <p>
-                            <strong>Lines</strong> show annotations <br>
+                        <p class="subtitle">
+                            <strong>Lines</strong> show annotations
+                        </p>
+                        <p class="small">
                             Annotated fixations are connected to the selected character.
                         </p>
-                        <p>
-                            <strong>Boxes</strong> show annotation suggestions <br>
+                        <p class="subtitle">
+                            <strong>Boxes</strong> show annotation suggestions
+                        </p>
+                        <p class="small">
                             They show which characters an annotation algorithm would have chosen.
+                        </p>
+                        <p class="subtitle">
+                            <strong>Grey Lines</strong> show sight path
+                        </p>
+                        <p class="small">
+                            The greyline connects fixations chronologically, so it shows the path the reader's eyes took.
                         </p>
                     </div>
                 </div>
@@ -120,9 +134,8 @@
                     </p>
                     <div class="options-section">
                         <p>
-                            EyeTAP uses multiple algorithms to suggest annotations for each fixation.
-                            <strong>Entropy</strong> is lower, the more algorithms agree. Intuitively,
-                            higher entropy suggests a fixation is more difficult to annotate.
+                            <strong>Entropy</strong> indicates how difficult a fixation is to annotate. Intuitively,
+                            higher entropy annotations should be more difficult, and vice versa.
                         </p>
                         <div class="color-options">
                             <p class="top">
@@ -139,6 +152,10 @@
                             <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
                             <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
                         </div>
+                        <p class="small">
+                            EyeTAP uses multiple algorithms to suggest annotations for each fixation. 
+                            The more algorithms agree, the lower the entropy.
+                        </p>
                     </div>
                 </div>
                 <div class="options-container">
@@ -244,6 +261,7 @@
                 width: max-content;
                 max-width: 25rem;
                 height: max-content;
+                max-height: 35rem;
                 padding: 1rem;
                 margin: 1rem;
 
@@ -253,7 +271,7 @@
                     color: var(--theme-bg-4);
                     font-weight: 600;
                     font-size: 1.25rem;
-                    margin-bottom: 1rem;
+                    margin-top: 0rem;
                 }
 
                 .options-section {
@@ -265,6 +283,28 @@
                         font-size: 1rem;
                         margin-top: 10px;
                         margin-bottom: 10px;
+
+                        &.subtitle {
+                            padding: 5px;
+                            border-radius: 5px;
+
+                            color: var(--theme-interactable-text);
+
+                            background-color: var(--theme-bg-1-shade);
+
+                            border-style: solid;
+                            border-color: var(--theme-bg-1-shade);
+                            border-width: 4px;
+
+                            margin: 0px;
+                            margin-right: 1rem;
+
+                            width: fit-content;
+                        }
+
+                        &.small {
+                            font-size: 0.85rem;
+                        }
 
                         >strong {
                             color: var(--theme-interactable-text);
