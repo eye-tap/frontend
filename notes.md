@@ -20,6 +20,18 @@
 - [X] Buttons with long actions need spinners or other progress indicator
 - [X] **Warning popup on Logout to confirm if user wants to end participation**
 
+## UX/Onboarding
+
+Once finished, test again with new users to see if improvements are helpful
+
+- [ ] disable settings, disable un-collapsing side bar (permanently collapsed)
+- [ ] expanded help panel, document all features
+- [ ] rewrite survey introduction / ethics for more context
+- [ ] allow opening ethics approval again after survey start
+- [ ] workflow video (link in ethics approval or similar spot)
+- [ ] reduce tour (or remove entirely)
+- [ ] colorblind options (optional)
+
 
 ## Admin
 - [ ] **Limiting available features (pre-annotations need to be filtered out 
