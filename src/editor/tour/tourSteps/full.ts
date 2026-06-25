@@ -5,7 +5,7 @@ import type {
 export const stepsFull: ITourStep[] = [
     {
         'target': '#tour-history',
-        'content': '<h3>History</h3><p>Undo (Ctrl + Z) and redo (Ctrl + Y) your actions. <br> Press (Ctrl + S) to save.</p>',
+        'content': '<h3>History</h3><p>Undo (Ctrl + Z) and redo (Ctrl + Y) your actions.</p>',
         'highlight': true,
         'backdrop': true
     },
@@ -17,7 +17,7 @@ export const stepsFull: ITourStep[] = [
     },
     {
         'target': '#tour-help',
-        'content': '<h3>Keybinds</h3><p>Here you can get an overview over the provided keybinds, as well as an explanation of the colours and features</p>',
+        'content': '<h3>Help</h3><p>Click here to see help and a list of available keybinds.</p>',
         'highlight': true,
         'backdrop': true
     },
@@ -29,9 +29,6 @@ export const stepsFull: ITourStep[] = [
             <h2>You’re Ready!</h2>
             <p>
              You now know how to use the Eye-TAP Editor.
-            </p>
-            <p class="tour-final-sub">
-             Enjoy annotating!
             </p>
             </div>
             `,
