@@ -54,6 +54,15 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
     const render = () => {
         if ( !ctx ) return;
 
+        // console.log(
+        //     'Current fixation idx',
+        //     selectedFixation.value + 1,
+        //     'disagreement',
+        //     fixations.value[ selectedFixation.value ]?.disagreement,
+        //     'id',
+        //     fixations.value[ selectedFixation.value ]?.id
+        // );
+
         // Reset canvas
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
