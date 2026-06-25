@@ -31,6 +31,7 @@ Once finished, test again with new users to see if improvements are helpful
 - [ ] workflow video (link in ethics approval or similar spot)
 - [ ] reduce tour (or remove entirely)
 - [ ] colorblind options (optional)
+- [ ] Microslop-like feed the video to users (i.e. don't allow them to proceed if they haven't watched it)
 
 
 ## Admin
