@@ -49,10 +49,11 @@
                         </p>
                         <p>
                             Each dot is a <strong>Fixation</strong>: A point
-                            the reader stared at for a longer duration. Usually, there is one fixation per word read.</p>
+                            the reader stared at for a longer duration. Usually, there is one fixation per word read.
+                        </p>
                         <p>
-                            Fixations rarely align exactly with the word the reader was focusing on at the time. 
-                            In many cases, it is easy to see though which word the reader meant. 
+                            Fixations rarely align exactly with the word the reader was focusing on at the time.
+                            In many cases, it is easy to see though which word the reader meant.
                             The connection can then be manually registered, which is called <strong>Annotation</strong>.
                         </p>
                         <p>
@@ -60,7 +61,7 @@
                         </p>
                         <h3>Your Task</h3>
                         <p>
-                            In this study, you are asked to use EyeTAP for a limited amount of time 
+                            In this study, you are asked to use EyeTAP for a limited amount of time
                             and fill out a short survey on your experience.
                         </p>
                         <p>
