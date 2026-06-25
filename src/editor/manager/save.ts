@@ -115,7 +115,16 @@ export const useSaveFunction = () => {
     const saveWithBeacon = () => {
         const data = saveCreator();
 
-        annotation.autoSaveOnUnload( data.data, session.sessionIds[session.sessionIdx]!.sessionId );
+        if (
+            data.status
+            && ( Object.keys( data.data.annotations! ).length > 0
+                || Object.keys( data.data.annotationsToRemove! ).length > 0
+                || Object.keys( data.data.fixationsToRemove! ).length > 0
+                || Object.keys( data.data.fixationsToUndoRemove! ).length > 0
+            )
+        ) {
+            annotation.autoSaveOnUnload( data.data, session.sessionIds[session.sessionIdx]!.sessionId );
+        }
     };
 
     onMounted( () => {

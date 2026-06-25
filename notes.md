@@ -44,11 +44,6 @@ Once finished, test again with new users to see if improvements are helpful
 - [ ] Pre-annotations importing: One file for each algorithm, filename is the algo name (minus extension).
 - [ ] Define file contents specs somewhere -> Needs integration & design, see `src/components/admin/FileSpecs.vue` (What is this for?)
 
-http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJCcmlza1NlYWwyMDklMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMiUzRE9Ccy03cEIlMjIlN0Q=
-
-LAPTOP: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJOaW1ibGVUdXJ0bGU5NjYlMjIlMkMlMjJwYXNzd29yZCUyMiUzQSUyMnJTRjBfKjYwOXQlMjROQ1EhNCUyMiU3RA==
-
-Multiple Text testing: http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJDYWxtU3BhcnJvdzI5OSUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIyeWdZMShzUyUyNF9tR1ltUDIlMjUlMjIlN0Q=
 
 
 # The workflow
