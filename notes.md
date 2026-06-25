@@ -3,6 +3,7 @@
 - [X] **Next annotation button animation** -> Verify that this works with a Backend
 - [X] **Ask to save when moving next annotation or returning home** -> or autosave
 - [ ] **Tutorial per bucket** -> Improve
+- [ ] Colourblindness settings
 - [X] **Legend popup**
 - [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
 

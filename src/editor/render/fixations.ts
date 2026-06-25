@@ -145,7 +145,10 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, idx: number, color: string, radius: number ) => {
         if ( fixation.assigned === 'invalid' ) return invalidDrawer( fixation, idx );
 
-        if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined && selectedFixation.value !== idx ) {
+        if (
+            renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine'
+            && fixation.disagreement !== undefined && selectedFixation.value !== idx
+        ) {
             // Heat map rendering
             // Below splits up into the two segments on the colour scale
             if ( fixation.disagreement < heatMapMidValue.value ) {
@@ -175,7 +178,7 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
         ctx.arc(
             scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),
             scale( originalToCanvasCoordinates( fixation.y!, 'y' ) ),
-            scale( radius ),
+            scale( radius ), // TODO: Downscale on increased zoom
             0,
             Math.PI * 2
         );

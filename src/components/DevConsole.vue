@@ -32,9 +32,11 @@
         'successMsg'?: string,
         'errorMsg'?: string
     }
+
     interface CommandList {
         [cmd: string]: Command
     }
+
     const cmds: CommandList = {
         'timer:reset': {
             'desc': 'Reset the user\'s timeout',
