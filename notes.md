@@ -13,7 +13,7 @@
 ## General
 - [ ] Take care of all TODOs in the code
 - [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
-- [ ] **Fixations counting** -> Do we count the invalid fixations?
+- [X] **Fixations counting** -> Do we count the invalid fixations?
 - [ ] Details pane on file explorer has wordcount in it, but no details on that
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
@@ -34,7 +34,7 @@ Once finished, test again with new users to see if improvements are helpful
 - [ ] workflow video (link in ethics approval or similar spot)
 - [x] reduce tour (or remove entirely)
 - [ ] colorblind options (optional)
-- [ ] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
+- [X] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
 - [ ] Microslop-like feed the video to users (i.e. don't allow them to proceed if they haven't watched it)
 
 
