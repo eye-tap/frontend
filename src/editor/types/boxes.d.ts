@@ -16,3 +16,9 @@ export interface Color {
     'g': number,
     'b': number
 }
+
+export interface HSLColor {
+    'h': number,
+    's': number,
+    'l': number
+}

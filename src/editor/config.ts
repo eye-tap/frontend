@@ -1,9 +1,10 @@
+import type {
+    Color,
+    HSLColor
+} from './types/boxes';
 import {
     type Ref, ref
 } from 'vue';
-import type {
-    Color
-} from './types/boxes';
 import type {
     EditorPoint
 } from './types/annotation';
@@ -141,25 +142,28 @@ export const hoveredFixationRadius = ref( 10 );
 export const selectedFixationRadius = ref( 8 );
 
 // Color
+// Note that these here use HSL as opposed to RGB.
+// Typically, you only want to adjust the h (hue) value (between 0 and 360),
+// leaving the s (saturation) at 1 and l (lightness) at 0.5
 // 101, 242, 138 (theme-success)
-export const heatMapMinColor: Ref<Color> = ref( {
-    'r': 101,
-    'g': 242,
-    'b': 138
+export const heatMapMinColor: Ref<HSLColor> = ref( {
+    'h': 136,
+    's': 0.84,
+    'l': 0.67
 } );
 
 // 226, 226, 86 (theme-information)
-export const heatMapMidColor: Ref<Color> = ref( {
-    'r': 226,
-    'g': 226,
-    'b': 86
+export const heatMapMidColor: Ref<HSLColor> = ref( {
+    'h': 60,
+    's': 0.71,
+    'l': 0.61
 } );
 
 // 234, 115, 115 (theme-warning)
-export const heatMapMaxColor: Ref<Color> = ref( {
-    'r': 234,
-    'g': 115,
-    'b': 115
+export const heatMapMaxColor: Ref<HSLColor> = ref( {
+    'h': 0,
+    's': 0.75,
+    'l': 0.68
 } );
 
 // Make this keep the entropy color

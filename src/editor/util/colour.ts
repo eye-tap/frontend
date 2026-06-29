@@ -1,13 +1,18 @@
+import type {
+    Color,
+    HSLColor
+} from '../types/boxes';
 import {
     type Ref,
     computed
 } from 'vue';
-import type {
-    Color
-} from '../types/boxes';
 
 export const editorColorToStringColor = ( col: Color ) => {
     return `rgb(${ col.r }, ${ col.g }, ${ col.b })`;
+};
+
+export const editorHSLColourToStringColor = ( col: HSLColor ) => {
+    return `hsl(${ col.h }, ${ Math.round( col.s * 100 ) }%, ${ Math.round( col.l * 100 ) }%)`;
 };
 
 export const stringColorToEditorColor = ( col: string ): Color => {
@@ -34,8 +39,22 @@ export const stringColorToEditorColor = ( col: string ): Color => {
     }
 };
 
+export const hslStringToEditorColor = ( col: string ): HSLColor => {
+    const c = col
+        .slice( col.indexOf( '(' ) + 1, col.indexOf( ')' ) )
+        .split( ',' )
+        .map( val => val.trim() );
+    const val = {
+        'h': parseInt( c[0]! ),
+        's': parseInt( c[1]!.split( '%' )[0]! ),
+        'l': parseInt( c[2]!.split( '%' )[0]! )
+    };
+
+    return val;
+};
+
 // Cheap abuse of arrays
-const convNum = [
+const decToHex = [
     '0',
     '1',
     '2',
@@ -58,7 +77,7 @@ const hexToDec = ( val: string ): number => {
     let dec = 0;
 
     for ( let i = 0; i < val.length; i++ ) {
-        dec += Math.pow( 16, val.length - i - 1 ) * convNum.indexOf( val[i]! );
+        dec += Math.pow( 16, val.length - i - 1 ) * decToHex.indexOf( val[i]! );
     }
 
     return dec;
@@ -71,6 +90,17 @@ export const automatedColourMapper = ( color: Ref<Color> ) => {
         },
         set ( val: string ) {
             color.value = stringColorToEditorColor( val );
+        }
+    } );
+};
+
+export const automatedColourMapperHSL = ( color: Ref<HSLColor> ) => {
+    return computed( {
+        get () {
+            return editorHSLColourToStringColor( color.value );
+        },
+        set ( val: string ) {
+            color.value = hslStringToEditorColor( val );
         }
     } );
 };

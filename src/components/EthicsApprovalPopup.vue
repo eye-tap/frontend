@@ -40,7 +40,8 @@
                 <div class="desc">
                     <div>
                         <p>
-                            You are about to participate in a study testing the Eye-TAP platform for fixation annotation. Thank you for your time!
+                            You are about to participate in a study testing the Eye-TAP platform for fixation annotation.
+                            Thank you for your time!
                         </p>
                         <h3>What is EyeTAP?</h3>
                         <p>
