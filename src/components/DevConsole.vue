@@ -32,9 +32,11 @@
         'successMsg'?: string,
         'errorMsg'?: string
     }
+
     interface CommandList {
         [cmd: string]: Command
     }
+
     const cmds: CommandList = {
         'timer:reset': {
             'desc': 'Reset the user\'s timeout',
@@ -67,6 +69,13 @@
             'desc': 'Set the available time in seconds available to logout',
             'cmd': () => {
                 availableTime.value = parseInt( prompt( 'Enter the time in seconds to logout' )! );
+            }
+        },
+        'tour:reset': {
+            'desc': 'Reset the tour',
+            'cmd': () => {
+                localStorage.removeItem( 'welcomeTourViewed' );
+                location.reload();
             }
         }
     };

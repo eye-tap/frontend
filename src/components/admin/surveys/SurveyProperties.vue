@@ -7,6 +7,9 @@
         ref,
         watch
     } from 'vue';
+    import type {
+        MagicLinkData
+    } from '@/ts/auth/magic-links';
     import {
         useNotification
     } from '@kyvg/vue3-notification';
@@ -95,12 +98,18 @@
     };
 
     const useTestData = () => {
-        let links = [];
+        let links: MagicLinkData[] = [];
 
         for ( let i = 0; i < 20; i++ )
-            links.push( 'link' + String( i ) );
+            links.push( {
+                'link': 'link' + String( i ),
+                'user': 'username'
+            } );
 
-        links.push( 'linkWhichIsVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong' );
+        links.push( {
+            'link': 'linkWhichIsVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong',
+            'user': 'longlonglonglonglonglonglong'
+        } );
         surveyStore.setLinks( links );
 
         notifications.notify( {

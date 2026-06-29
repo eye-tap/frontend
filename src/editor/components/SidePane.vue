@@ -22,6 +22,9 @@
     import OptionsPane from './OptionsPane.vue';
     import PreferencesPane from './PreferencesPane.vue';
     import {
+        fullSideBarAvailable
+    } from '../config-presets';
+    import {
         useNotification
     } from '@kyvg/vue3-notification';
 
@@ -87,7 +90,7 @@
     <HelpPane v-model="showKeybinds" />
     <div :class="[ 'side-pane', isSideBarCollapsed ? 'collapsed' : undefined ]">
         <!-- Non-collapsed -->
-        <div id="tour-history" class="options-bar">
+        <div v-if="fullSideBarAvailable" id="tour-history" class="options-bar">
             <div v-if="!isSideBarCollapsed" title="Undo your last action" class="options-bar-left">
                 <span
                     class="clickable-icon"
@@ -127,40 +130,42 @@
             </div>
         </div>
         <!-- Collapsed -->
-        <div v-if="isSideBarCollapsed" class="options-bar">
-            <span
-                class="clickable-icon"
-                :class="undoAvailable ? 'undo-icon' : 'unavailable'"
-                title="Undo your last action"
-                @click="editor.undo"
-            >
-                <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
-                <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
-            </span>
+        <div id="tour-history" class="sidebar-group">
+            <div v-if="isSideBarCollapsed" class="options-bar">
+                <span
+                    class="clickable-icon"
+                    :class="undoAvailable ? 'undo-icon' : 'unavailable'"
+                    title="Undo your last action"
+                    @click="editor.undo"
+                >
+                    <i v-if="undoAvailable" class="fa-lg fa-solid fa-rotate-left"></i>
+                    <i v-else class="fa-lg fa-solid fa-rotate-left unavailable"></i>
+                </span>
+            </div>
+            <div v-if="isSideBarCollapsed" class="options-bar">
+                <span
+                    class="clickable-icon"
+                    :class="redoAvailable ? 'redo-icon' : 'unavailable'"
+                    title="Redo your last undone action"
+                    @click="editor.redo"
+                >
+                    <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
+                    <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
+                </span>
+            </div>
+            <div v-if="isSideBarCollapsed && fullSideBarAvailable" class="options-bar">
+                <span
+                    class="clickable-icon"
+                    :class="saveNeeded ? '' : 'unavailable'"
+                    title="Save"
+                    @click="save"
+                >
+                    <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
+                    <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
+                </span>
+            </div>
         </div>
-        <div v-if="isSideBarCollapsed" class="options-bar">
-            <span
-                class="clickable-icon"
-                :class="redoAvailable ? 'redo-icon' : 'unavailable'"
-                title="Redo your last undone action"
-                @click="editor.redo"
-            >
-                <i v-if="redoAvailable" class="fa-lg fa-solid fa-rotate-right"></i>
-                <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
-            </span>
-        </div>
-        <div v-if="isSideBarCollapsed" class="options-bar">
-            <span
-                class="clickable-icon"
-                :class="saveNeeded ? '' : 'unavailable'"
-                title="Save"
-                @click="save"
-            >
-                <i v-if="saveNeeded" class="fa-xl fa-solid fa-floppy-disk"></i>
-                <i v-else class="fa-xl fa-solid fa-floppy-disk unavailable"></i>
-            </span>
-        </div>
-        <div v-if="isSideBarCollapsed" class="options-bar">
+        <div v-if="isSideBarCollapsed" id="tour-invalidate" class="options-bar">
             <span
                 class="clickable-icon"
                 title="Mark as invalid"
@@ -178,7 +183,11 @@
                 <i class="fa-xl fa-solid fa-file-csv"></i>
             </span>
         </div>
-        <div v-if="isSideBarCollapsed && !disableKeyHandler" class="options-bar bottom">
+        <div
+            v-if="isSideBarCollapsed && !disableKeyHandler"
+            id="tour-help"
+            class="options-bar bottom"
+        >
             <span
                 class="clickable-icon"
                 title="Show keybinds"
@@ -187,13 +196,13 @@
                 <i class="fa-xl fa-solid fa-circle-question"></i>
             </span>
         </div>
-        <div v-if="isSideBarCollapsed" class="options-bar">
+        <div v-if="isSideBarCollapsed && fullSideBarAvailable" class="options-bar">
             <span class="clickable-icon gear-icon" title="Options" @click="togglePreferences">
                 <i class="fa-lg fa-solid fa-gear"></i>
             </span>
         </div>
         <!-- Content -->
-        <div v-if="!isSideBarCollapsed">
+        <div v-if="!isSideBarCollapsed && fullSideBarAvailable">
             <div id="tour-options" class="options-bar-sm">
                 <h2>Options</h2>
                 <div>
@@ -357,7 +366,7 @@
         width: 120px;
         min-width: 0;
 
-        >div.options-bar {
+        >div.options-bar, .sidebar-group>div.options-bar {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -368,7 +377,7 @@
         }
     }
 
-    >div {
+    >div, .sidebar-group>div {
         background-color: var( --theme-bg-2 );
         margin-top: 10px;
         margin-left: 10px;
@@ -380,6 +389,12 @@
             margin: 0;
             margin-bottom: 10px;
         }
+    }
+
+    .sidebar-group {
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
     }
 }
 </style>

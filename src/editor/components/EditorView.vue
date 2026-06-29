@@ -34,6 +34,8 @@
     if ( status.devMode ) {
         loader.loadBBoxCSV();
     }
+
+    editor.useAutoSave();
 </script>
 
 <template>

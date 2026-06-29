@@ -63,13 +63,16 @@ const useAutoSave = () => {
             if ( isAutoSaveEnabled.value && saveNeeded.value ) {
                 save();
             }
-        }, autoSaveInterval.value );
+        }, autoSaveInterval.value * 1000 );
     };
 
     const stopHandler = () => {
         clearInterval( interval );
     };
 
+    onUnmounted( stopHandler );
+
+    console.debug( '[EDITOR] Auto-Save enabled' );
     startHandler();
 };
 
@@ -128,8 +131,8 @@ const start = (
     const io = ioHandler( clickTarget, draw );
 
     editorSessionManager( draw );
-    useSaveFunction();
     useExportFunction();
+    const saver = useSaveFunction();
 
     if ( !status.devMode ) {
         loadEditorDataFromBackend( draw );
@@ -141,33 +144,39 @@ const start = (
 
     onMounted( () => {
         document.addEventListener( 'eyetap:theme', reloadThemeColours );
+        document.addEventListener( 'eyetap:timer-ended', save );
         reloadThemeColours();
-        window.onbeforeunload = leaveHandler;
+        document.addEventListener( 'visibilitychange', leaveHandler );
     } );
 
     onUnmounted( () => {
         sendEditorLeaveEvent();
 
-        window.onbeforeunload = () => {};
+        try {
+            document.removeEventListener( 'visibilitychange', leaveHandler );
+        } catch { /* empty */ }
 
         try {
             document.removeEventListener( 'eyetap:theme', reloadThemeColours );
         } catch { /* empty */ }
+
+        try {
+            document.removeEventListener( 'eyetap:timer-ended', save );
+        } catch { /* empty */ }
     } );
 
+    const leaveHandler = () => {
+        if ( document.hidden ) {
+            saver();
+        }
+    };
+
+    useAutoSave();
 
     return {
         'renderer': draw,
         'io': io
     };
-};
-
-const leaveHandler = ( ev: Event ) => {
-    if ( saveNeeded.value ) {
-        ev.preventDefault();
-
-        return 'Do you really want to discard your changes?';
-    }
 };
 
 

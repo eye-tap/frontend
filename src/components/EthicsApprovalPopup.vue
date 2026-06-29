@@ -40,62 +40,74 @@
                 <div class="desc">
                     <div>
                         <p>
-                            You are about to participate in a study evaluating how the quality of
-                            annotation data and the annotation user experience is affected by the Eye-TAP platform.
-                            The data you are about to annotate consists of texts with points displayed above which indicate
-                            where the reader was looking.
+                            You are about to participate in a study testing the Eye-TAP platform for fixation annotation. Thank you for your time!
+                        </p>
+                        <h3>What is EyeTAP?</h3>
+                        <p>
+                            In EyeTAP, you will see a text overlayed with dots,
+                            which represent eye-tracking data of someone reading this text.
                         </p>
                         <p>
-                            You do not need any special knowledge to take part in this study.
+                            Each dot is a <strong>Fixation</strong>: A point
+                            the reader stared at for a longer duration. Usually, there is one fixation per word read.
                         </p>
-                        <h3>Your task</h3>
+                        <p>
+                            Fixations rarely align exactly with the word the reader was focusing on at the time.
+                            In many cases, it is easy to see though which word the reader meant.
+                            The connection can then be manually registered, which is called <strong>Annotation</strong>.
+                        </p>
+                        <p>
+                            <strong>EyeTAP</strong> provides an intuitive interface to make annotating fast and reliable.
+                        </p>
+                        <h3>Your Task</h3>
+                        <p>
+                            In this study, you are asked to use EyeTAP for a limited amount of time
+                            and fill out a short survey on your experience.
+                        </p>
+                        <p>
+                            Using EyeTAP works like this:
+                        </p>
+
                         <ol>
                             <li>
-                                You are given a list of <strong>annotation sets</strong>.
-                                Pick the first annotation set and click "Edit".
+                                You are given a list of <strong>Texts</strong>.
+                                Pick the first text and click "Edit".
                             </li>
                             <li>
-                                Your <strong>goal is</strong> to <strong>connect the points</strong>
-                                to the corresponding <strong>characters</strong> in the text.
+                                Your goal is to <strong>connect each fixation</strong> with the character you <i>think</i>
+                                the reader was looking at.
                             </li>
                             <li>
-                                Connect each point with the characters that you <i>think</i>
-                                the reader was <strong>looking at</strong> when reading the text.
+                                If you can't find a suitable character for a fixation,
+                                then <strong>mark this fixation as invalid</strong>.
                             </li>
                             <li>
-                                If no box makes sense for a point,
-                                then <strong>mark this point as invalid</strong>.
+                                Once you are done,
+                                click <strong>next annotation set</strong>
+                                to go to the next text.
                             </li>
                             <li>
-                                When you are done with all points,
-                                click "next annotation set"
-                                and repeat until the timer runs out.
+                                <strong>Continue annotating</strong> until the timer runs out.
                             </li>
                             <li>
-                                After the time has run out, please fill out the workload survey presented to you.
+                                Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
                             </li>
                         </ol>
-                        <p class="warning">
-                            You are <strong>only entitled to compensation</strong>
-                            if you also fill out the workload survey!
-                        </p>
-                        <h3>Important Notes</h3>
+                        <h3>Notes</h3>
                         <ul>
-                            <li>Your <strong>timer starts immediately</strong> once you click the "Continue" button.</li>
-                            <li>Use a device with a mouse or trackpad, with a landscape-format screen of at least 1280x720 pixels.</li>
-                            <li>Be sure to <strong>save regularly.</strong></li>
+                            <li>Your <strong>timer starts immediately</strong> once you click "Continue", and cannot be paused.</li>
+                            <li>Do not use a Mobile device, EyeTAP is designed for Desktop use.</li>
                             <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
                         <p class="warning">
-                            You are <strong>only entitled to compensation</strong>
-                            if you complete the full duration of the study!
+                            You are <strong class="warn">only entitled to compensation</strong>
+                            if you complete the full duration of the study and fill out the workload survey!
                         </p>
-                        <p>Thank you for your time! You are contributing to active research.</p>
                         <div style="margin-top: 20px;">
                             <input id="confirm-ethics" v-model="hasConfirmed" type="checkbox">
                             <label for="confirm-ethics">
                                 I voluntarily consent to participate in this study. I have read and agree to the
-                                <a href="/ethics-form.pdf" target="_blank">full ethics agreement</a>*
+                                <a href="/ethics-form.pdf" target="_blank">full ethics agreement</a>.
                             </label>
                         </div>
                     </div>
@@ -123,6 +135,14 @@
     justify-content: center;
     align-items: center;
 
+    strong {
+        color: var(--theme-bg-4);
+
+        &.warn {
+            color: var(--theme-warning);
+        }
+    }
+
     .title {
         color: var(--theme-foreground-text);
         font-size: 2rem;
@@ -140,6 +160,7 @@
 
         h3 {
             color: var(--theme-bg-4);
+            font-size: 1.5rem;
         }
 
         p.warning {

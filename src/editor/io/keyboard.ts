@@ -25,6 +25,9 @@ import {
     annotationManager
 } from '../manager/annotations';
 import {
+    fixationsHidden
+} from '../data/io';
+import {
     getClosestBoxIdByCharacterAndFixId
 } from '../association/boxes';
 import {
@@ -112,6 +115,9 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                     prevSelectedDisplayMode = linesDisplay.value;
                     linesDisplay.value = 'allalgos';
                 }
+            } else if ( ev.key === 'Tab' ) {
+                ev.preventDefault();
+                fixationsHidden.value = true;
             }
         }
     };
@@ -121,6 +127,9 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             // Disable the algorithm's suggested annotations
             ev.preventDefault();
             linesDisplay.value = prevSelectedDisplayMode;
+        } else if ( ev.key === 'Tab' ) {
+            ev.preventDefault();
+            fixationsHidden.value = false;
         }
     };
 
@@ -145,7 +154,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
  * @returns True if it is a key of a character
  */
 const isCharacterKey = ( key: string ) => {
-    return key.length === 1 && key.match( /[a-zA-Z0-9]/ );
+    return key.length === 1 && key.match( /[a-zA-Z0-9;.,-:?!]/ );
 };
 
 /**
@@ -153,7 +162,7 @@ const isCharacterKey = ( key: string ) => {
  * @returns True if it's Ctrl + z
  */
 const isUndoCmd = ( event: KeyboardEvent ) => {
-    return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'z';
+    return ( event.ctrlKey || event.metaKey ) && event.key.toLowerCase() === 'z' && !event.shiftKey;
 };
 
 /**

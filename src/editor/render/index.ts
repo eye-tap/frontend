@@ -81,5 +81,12 @@ export const renderer = (
     // Enable scaler
     useScaler( textCanvas, renderer );
 
+    textImage.addEventListener( 'load', () => {
+        box.render();
+        setTimeout( () => {
+            text.render( true );
+        }, 250 );
+    } );
+
     return renderer;
 };

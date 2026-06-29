@@ -34,6 +34,10 @@ import {
     selectedFixation
 } from '../data';
 import {
+    fixationsHidden,
+    isMouseDragging
+} from '../data/io';
+import {
     originalToCanvasCoordinates,
     scale
 } from './scaling';
@@ -50,6 +54,15 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
     const render = () => {
         if ( !ctx ) return;
 
+        // console.log(
+        //     'Current fixation idx',
+        //     selectedFixation.value + 1,
+        //     'disagreement',
+        //     fixations.value[ selectedFixation.value ]?.disagreement,
+        //     'id',
+        //     fixations.value[ selectedFixation.value ]?.id
+        // );
+
         // Reset canvas
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
@@ -57,21 +70,23 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         ctx.globalAlpha = fixationsOpacity.value;
 
         // Render points
-        if ( fixationDisplay.value === 'all' ) {
-            fixations.value.forEach( allFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'surrounding' ) {
-            fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'assigned' ) {
-            fixations.value.forEach( assignedFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'unassigned' ) {
-            fixations.value.forEach( unassignedFixationsRenderer( ctx ) );
-        } else if ( fixationDisplay.value === 'none' ) {
-            const draw = drawPoint( ctx );
+        if ( !isMouseDragging.value && !fixationsHidden.value ) {
+            if ( fixationDisplay.value === 'all' ) {
+                fixations.value.forEach( allFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'surrounding' ) {
+                fixations.value.forEach( surroundingFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'assigned' ) {
+                fixations.value.forEach( assignedFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'unassigned' ) {
+                fixations.value.forEach( unassignedFixationsRenderer( ctx ) );
+            } else if ( fixationDisplay.value === 'none' ) {
+                const draw = drawPoint( ctx );
 
-            fixations.value.forEach( ( fix, idx ) => {
-                if ( idx === selectedFixation.value )
-                    draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
-            } );
+                fixations.value.forEach( ( fix, idx ) => {
+                    if ( idx === selectedFixation.value )
+                        draw( fix, idx, selectedFixationColor.value, selectedFixationRadius.value );
+                } );
+            }
         }
     };
 
@@ -96,7 +111,9 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         scanPathLineColor,
         scanPathLineWidth,
         invalidFixationCrossLineWidth,
-        invalidFixationColor
+        invalidFixationColor,
+        isMouseDragging,
+        fixationsHidden
     ], render );
 
     return {
@@ -145,7 +162,10 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
     return ( fixation: EditorFixation, idx: number, color: string, radius: number ) => {
         if ( fixation.assigned === 'invalid' ) return invalidDrawer( fixation, idx );
 
-        if ( renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine' && fixation.disagreement !== undefined && selectedFixation.value !== idx ) {
+        if (
+            renderFixationHeatMapInsteadOfDefaultColour.value && fixation.assigned === 'machine'
+            && fixation.disagreement !== undefined && selectedFixation.value !== idx
+        ) {
             // Heat map rendering
             // Below splits up into the two segments on the colour scale
             if ( fixation.disagreement < heatMapMidValue.value ) {
@@ -175,7 +195,7 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
         ctx.arc(
             scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),
             scale( originalToCanvasCoordinates( fixation.y!, 'y' ) ),
-            scale( radius ),
+            scale( radius ), // TODO: Downscale on increased zoom
             0,
             Math.PI * 2
         );

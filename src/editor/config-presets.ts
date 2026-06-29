@@ -26,7 +26,7 @@ import {
 
 
 // If we want to change these, can use smart rename of the LS.
-export type ConfigPreset = 'basic' | 'full' | 'nopreannotations';
+export type ConfigPreset = 'basic' | 'full' | 'nopreannotations' | 'unrestricted';
 
 export const configPreset: Ref<ConfigPreset> = ref( 'full' );
 
@@ -35,6 +35,8 @@ export const showPreAnnotations: Ref<boolean> = ref( false );
 export const availableTime: Ref<number> = ref( 300 );
 
 export const endSurveyLink: Ref<string> = ref( 'https://survey.eyetap.ivia.ch/index.php/999838' );
+
+export const fullSideBarAvailable: Ref<boolean> = ref( false );
 
 const PRESET_VISIBLE_OPTIONS: Partial<Record<ConfigPreset, readonly ( OptionKey | SectionKey )[]>> = {
     'basic': [
@@ -66,10 +68,10 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
         disableKeyHandler.value = true;
         showExportButton.value = false;
         enableZoom.value = false;
-        boxesDisplay.value = 'always';
+        boxesDisplay.value = 'hovered'; // TODO: Consider if we want to use this setting
         highlightSuggestedBox.value = false;
         renderFixationHeatMapInsteadOfDefaultColour.value = false;
-        fixationIndexDisplay.value = 'none';
+        fixationIndexDisplay.value = 'surrounding';
         renderScanPath.value = false;
         linesDisplay.value = 'previous';
         showPreAnnotations.value = false;
@@ -77,6 +79,9 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
         showPreAnnotations.value = true;
     } else if ( preset === 'nopreannotations' ) {
         showPreAnnotations.value = false;
+    } else if ( preset === 'unrestricted' ) {
+        showPreAnnotations.value = true;
+        fullSideBarAvailable.value = true;
     }
 
     console.debug( '[EDITOR] Loading preset', preset );

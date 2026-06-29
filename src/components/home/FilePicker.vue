@@ -10,9 +10,6 @@
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
     import {
-        shuffle
-    } from '@/ts/util/arrays';
-    import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
 
@@ -32,7 +29,7 @@
     const session = useAnnotationSessionStore();
     const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
         if ( sortColumn.value === 'none' )
-            return shuffle( props.files );
+            return props.files;
 
         const toSort = [ ...props.files ];
 

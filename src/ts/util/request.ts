@@ -46,7 +46,7 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
         }
 
         userOptions = {
-            'startTime': new Date().toISOString(),
+            'startTime': '',
             'ended': 'false',
             'ethicsApproved': 'false'
         };
@@ -120,6 +120,27 @@ const postFormData = ( url: string, data: FormData, noRedirect = false ): Promis
     };
 
     return requestWithOpts( url, fetchOptions, noRedirect );
+};
+
+/**
+ * Send webrequest on page unload using this function.
+ * @param url - The URL to post to (like /data)
+ * @param data - The data to send
+ * @param contentType - The type of content that was sent (typically text/plain or application/json)
+ */
+const beaconRequest = async ( url: string, data: string, contentType: string = 'application/json' ) => {
+    const token = localStorage.getItem( 'jwt' );
+
+    await fetch( backend.url + url, {
+        'method': 'post',
+        'body': data,
+        'keepalive': true,
+        'headers': {
+            'Content-Type': contentType,
+            'Authorization': `Bearer ${ token }`
+        }
+    } );
+    console.log( 'request started, to:', backend.url + url );
 };
 
 /**
@@ -212,5 +233,6 @@ export default {
     post,
     updateUserOptions,
     postFormData,
-    deleteRequest
+    deleteRequest,
+    beaconRequest
 };
