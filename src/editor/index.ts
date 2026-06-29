@@ -49,13 +49,13 @@ import {
 
 export const isAutoSaveEnabled = ref( true );
 
-let autoSaveEnabled: boolean = false;
+let autoSaveHandlerStarted: boolean = false;
 
 /** Register auto-save capabilities. Auto-Save is disabled unless this function is called */
 const useAutoSave = () => {
-    if ( autoSaveEnabled ) return;
+    if ( autoSaveHandlerStarted ) return;
 
-    autoSaveEnabled = true;
+    autoSaveHandlerStarted = true;
     let interval: number | undefined = undefined;
 
     watch( isAutoSaveEnabled, ( val, oldVal ) => {
