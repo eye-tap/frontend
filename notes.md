@@ -15,6 +15,7 @@
 - [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
 - [X] **Fixations counting** -> Do we count the invalid fixations?
 - [ ] Details pane on file explorer has wordcount in it, but no details on that
+- [ ] Open Ended Annotation: Show number of completed annotations for this session
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
 - [X] **Timeout popup**
