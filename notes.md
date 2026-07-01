@@ -8,7 +8,7 @@
 - [X] **Tutorial per bucket** -> Improve
 - [X] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [ ] Colourblindness settings
-- [ ] **Features of basic features group**
+- [X] **Features of basic features group**
 - [ ] Interface element scaling (don't scale up with zoom)
 
 ## General
@@ -40,9 +40,8 @@ Once finished, test again with new users to see if improvements are helpful
 - [x] reduce tour (or remove entirely)
 - [X] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
 - [X] allow opening ethics approval again after survey start
-- [ ] workflow video (link in ethics approval or similar spot)
+- [ ] workflow video per bucket (link in ethics approval & help)
 - [ ] Video link changeable (has to be YT tho)
-- [ ] colorblind options (optional)
 
 
 ## Analytics
@@ -55,13 +54,6 @@ Once finished, test again with new users to see if improvements are helpful
 - [X] **Limiting available features (pre-annotations need to be filtered out 
     (plus a setting in admin for that), settings need limiting (only make available some with certain scope))**
 - [ ] Magic link regen
-
-
-## Parsers
-- [ ] Add parser for char bounding boxes for the uid based format (take inspiration from the annotations one)
-- [ ] Upload: Allow multiple files for multiple readers or one file with multiple readers -- TODO: Testing
-- [ ] Pre-annotations importing: One file for each algorithm, filename is the algo name (minus extension).
-- [ ] Define file contents specs somewhere -> Needs integration & design, see `src/components/admin/FileSpecs.vue` (What is this for?)
 
 
 
