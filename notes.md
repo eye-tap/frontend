@@ -2,20 +2,23 @@
 ## Editor
 - [X] **Next annotation button animation** -> Verify that this works with a Backend
 - [X] **Ask to save when moving next annotation or returning home** -> or autosave
-- [ ] **Tutorial per bucket** -> Improve
-- [ ] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
-- [ ] Colourblindness settings
-- [ ] **Features of basic features group**
-- [ ] **Entropy colours in HSV or HSL?**
 - [X] **Legend popup**
 - [X] **Save function** fix saving not doing what it should -> Looks to be only happening with pre-annotations
+- [X] **Entropy colours in HSV or HSL?**
+- [X] **Tutorial per bucket** -> Improve
+- [X] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
+- [ ] Colourblindness settings
+- [ ] **Features of basic features group**
+- [ ] Interface element scaling (don't scale up with zoom)
 
 ## General
 - [ ] Take care of all TODOs in the code
+- [ ] Details pane on file explorer has wordcount in it, but no details on that
+- [ ] New home page (showing stats), or stats page
+- [ ] Last used file should be shown with some mark
+- [ ] Open recent button
 - [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
 - [X] **Fixations counting** -> Do we count the invalid fixations?
-- [ ] Details pane on file explorer has wordcount in it, but no details on that
-- [ ] Open Ended Annotation: Show number of completed annotations for this session
 - [X] **Logout timer**
 - [X] **Timer only added when enabled in study**
 - [X] **Timeout popup**
@@ -24,6 +27,9 @@
 - [X] Buttons with long actions need spinners or other progress indicator
 - [X] **Warning popup on Logout to confirm if user wants to end participation**
 
+## Open-Ended Annotation
+- [ ] Show number of completed annotations for this session
+
 ## UX/Onboarding
 
 Once finished, test again with new users to see if improvements are helpful
@@ -31,12 +37,12 @@ Once finished, test again with new users to see if improvements are helpful
 - [x] disable settings, disable un-collapsing side bar (permanently collapsed)
 - [x] expanded help panel, document all features
 - [x] rewrite survey introduction / ethics for more context
-- [ ] allow opening ethics approval again after survey start
-- [ ] workflow video (link in ethics approval or similar spot)
 - [x] reduce tour (or remove entirely)
-- [ ] colorblind options (optional)
 - [X] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
-- [ ] Microslop-like feed the video to users (i.e. don't allow them to proceed if they haven't watched it)
+- [X] allow opening ethics approval again after survey start
+- [ ] workflow video (link in ethics approval or similar spot)
+- [ ] Video link changeable (has to be YT tho)
+- [ ] colorblind options (optional)
 
 
 ## Analytics
@@ -49,6 +55,7 @@ Once finished, test again with new users to see if improvements are helpful
 - [X] **Limiting available features (pre-annotations need to be filtered out 
     (plus a setting in admin for that), settings need limiting (only make available some with certain scope))**
 - [ ] Magic link regen
+
 
 ## Parsers
 - [ ] Add parser for char bounding boxes for the uid based format (take inspiration from the annotations one)
