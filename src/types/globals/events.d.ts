@@ -5,7 +5,7 @@ import type {
 declare global {
     interface GlobalEventHandlersEventMap {
         'eyetap:ethics:approve': CustomEvent<void>;
-        'eyetap:ethics:show': CustomEvent<void>;
+        'eyetap:ethics:show': CustomEvent<string>;
         'eyetap:login': CustomEvent<void>;
         'eyetap:end': CustomEvent<void>;
         'eyetap:timer-ended': CustomEvent<void>;
