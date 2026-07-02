@@ -73,3 +73,6 @@ We have implemented undo and redo functions, auto-save and many other creature c
 
 
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhMeW54NjEwJTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJwNDB3LTQzX2UxdCUzRG1rMnYlMjIlN0Q=
+
+All EN texts
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJNZWxsb3dLb2FsYTI1NiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIycCU1RVMhYmpqNUclMjM3XzczaiU1RSUyMiU3RA==
