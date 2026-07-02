@@ -39,9 +39,13 @@ let previousEpochs: EyeTapTrackingDataDetails[] = [];
 const start = async () => {
     startTime = new Date().getTime();
 
-    const res = await request.get( '/science' );
+    try {
+        const res = await request.get( '/user/analytics' );
 
-    previousEpochs = JSON.parse( res ? res : '[]' );
+        previousEpochs = JSON.parse( res ? res : '[]' );
+    } catch { /* empty */ }
+
+    console.debug( 'Previos Epochs', previousEpochs );
 };
 
 /** Reset the tracking data. Automatically called by the send function */
@@ -109,18 +113,18 @@ const getCountsShort = (): EyeTapTrackingCountsShort => {
 };
 
 const getElapsedTime = (): number => {
-    return ( new Date().getTime() - startTime ) / 1000;
+    return Math.round( ( new Date().getTime() - startTime ) / 100 ) / 10;
 };
 
 
 /** Send the tracking data to the backend */
-const send = () => {
+const save = () => {
     previousEpochs.push( {
         'd': getCountsShort(),
         't': new Date().getTime(),
         'e': getElapsedTime()
     } );
-    request.beaconRequest( '/analytics', JSON.stringify( previousEpochs ) );
+    request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();
 };
 
@@ -128,7 +132,7 @@ export default {
     get,
     getCounts,
     getElapsedTime,
-    send,
+    save,
     track,
     reset,
     start

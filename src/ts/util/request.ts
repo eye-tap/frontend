@@ -140,7 +140,7 @@ const beaconRequest = async ( url: string, data: string, contentType: string = '
             'Authorization': `Bearer ${ token }`
         }
     } );
-    console.log( 'request started, to:', backend.url + url );
+    console.debug( 'request started, to:', backend.url + url );
 };
 
 /**

@@ -179,6 +179,7 @@ const start = (
 
     useAutoSave();
     science.start();
+    console.log( '[EDITOR] started' );
 
     return {
         'renderer': draw,

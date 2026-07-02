@@ -27,10 +27,6 @@ export const getBoxIdFromCoordinate = ( pos: EditorPoint ): number => {
         }
     }
 
-    if ( ( getPossibleAnnotations()?.length ?? 1 ) > 1 ) {
-        science.track( 'disagreement-solution-click' );
-    }
-
     return -1;
 };
 

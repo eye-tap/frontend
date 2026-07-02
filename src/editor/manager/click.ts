@@ -1,4 +1,8 @@
 import {
+    annotationManager,
+    getPossibleAnnotations
+} from './annotations';
+import {
     fixations,
     selectedFixation
 } from '../data';
@@ -16,9 +20,6 @@ import type {
     Renderer
 } from '../types/renderer';
 import {
-    annotationManager
-} from './annotations';
-import {
     distanceBetweenPoints
 } from '../util/arithmetic';
 import {
@@ -27,6 +28,7 @@ import {
 import {
     getBoxIdFromCoordinate
 } from '../association/boxes';
+import science from '@/ts/util/science';
 import {
     watch
 } from 'vue';
@@ -67,6 +69,10 @@ export const mouseClickHandler = ( renderer: Renderer ) => {
             if ( distance > fixationRadius.value ) {
                 // Get bounding box that was hovered at mouseUp
                 const bb = getBoxIdFromCoordinate( mousePos.value );
+
+                if ( ( getPossibleAnnotations()?.length ?? 1 ) > 1 ) {
+                    science.track( 'disagreement-solution-click' );
+                }
 
                 annotation.create( bb, selectedFixation.value );
             }
