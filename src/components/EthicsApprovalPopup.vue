@@ -23,7 +23,9 @@
 
     document.addEventListener( 'eyetap:ethics:show', async ev => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
-            loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+            if ( ev.detail )
+                loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+
             show.value = true;
         } else {
             document.dispatchEvent( new CustomEvent( 'eyetap:ethics:approve' ) );
