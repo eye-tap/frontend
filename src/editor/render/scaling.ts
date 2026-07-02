@@ -74,6 +74,15 @@ export const scale = ( value: number ) => {
 };
 
 /**
+ * Scale the value only based on screen sizes, but not zoom factor
+ * @param value - The value to scale
+ * @returns The scaled value
+ */
+export const scaleWithoutZoom = ( value: number ) => {
+    return Math.round( value * scalingFactor.value );
+};
+
+/**
  * Inverse scale function
  * @param value - The value to scale
  * @returns The scaled value

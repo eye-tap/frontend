@@ -39,7 +39,8 @@ import {
 } from '../data/io';
 import {
     originalToCanvasCoordinates,
-    scale
+    scale,
+    scaleWithoutZoom
 } from './scaling';
 import type {
     EditorFixation
@@ -198,7 +199,7 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
         ctx.arc(
             scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),
             scale( originalToCanvasCoordinates( fixation.y!, 'y' ) ),
-            scale( radius ), // TODO: Downscale on increased zoom
+            scaleWithoutZoom( radius ), // TODO: Downscale on increased zoom
             0,
             Math.PI * 2
         );
