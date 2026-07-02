@@ -43,13 +43,13 @@ import {
     scaleWithoutZoom
 } from './scaling';
 import type {
+    Color
+} from '../types/boxes';
+import type {
     EditorFixation
 } from '../types/fixations';
-import type {
-    HSLColor
-} from '../types/boxes';
 import {
-    editorHSLColourToStringColor
+    editorColorToStringColor
 } from '../util/colour';
 
 export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null> ) => {
@@ -173,23 +173,25 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
             // Heat map rendering
             // Below splits up into the two segments on the colour scale
             if ( fixation.disagreement < heatMapMidValue.value ) {
-                const percentage = fixation.disagreement / ( heatMapMidValue.value - heatMapMinValue.value );
-                const col: HSLColor = {
-                    'h': heatMapMinColor.value.h + ( ( heatMapMidColor.value.h - heatMapMinColor.value.h ) * percentage ),
-                    's': heatMapMinColor.value.s + ( ( heatMapMidColor.value.s - heatMapMinColor.value.s ) * percentage ),
-                    'l': heatMapMinColor.value.l + ( ( heatMapMidColor.value.l - heatMapMinColor.value.l ) * percentage )
+                const percentage = Math.abs( ( fixation.disagreement - heatMapMinValue.value )
+                    / ( heatMapMidValue.value - heatMapMinValue.value ) );
+                const col: Color = {
+                    'r': heatMapMinColor.value.r + ( ( heatMapMidColor.value.r - heatMapMinColor.value.r ) * percentage ),
+                    'g': heatMapMinColor.value.g + ( ( heatMapMidColor.value.g - heatMapMinColor.value.g ) * percentage ),
+                    'b': heatMapMinColor.value.b + ( ( heatMapMidColor.value.b - heatMapMinColor.value.b ) * percentage )
                 };
 
-                ctx.fillStyle = editorHSLColourToStringColor( col );
+                ctx.fillStyle = editorColorToStringColor( col );
             } else {
-                const percentage = fixation.disagreement / ( heatMapMaxValue.value - heatMapMidValue.value );
-                const col: HSLColor = {
-                    'h': heatMapMinColor.value.h + ( ( heatMapMaxColor.value.h - heatMapMidColor.value.h ) * percentage ),
-                    's': heatMapMinColor.value.s + ( ( heatMapMaxColor.value.s - heatMapMidColor.value.s ) * percentage ),
-                    'l': heatMapMinColor.value.l + ( ( heatMapMaxColor.value.l - heatMapMidColor.value.l ) * percentage )
+                const percentage = Math.abs( ( fixation.disagreement - heatMapMidValue.value )
+                    / ( heatMapMaxValue.value - heatMapMidValue.value ) );
+                const col: Color = {
+                    'r': heatMapMidColor.value.r + ( ( heatMapMaxColor.value.r - heatMapMidColor.value.r ) * percentage ),
+                    'g': heatMapMidColor.value.g + ( ( heatMapMaxColor.value.g - heatMapMidColor.value.g ) * percentage ),
+                    'b': heatMapMidColor.value.b + ( ( heatMapMaxColor.value.b - heatMapMidColor.value.b ) * percentage )
                 };
 
-                ctx.fillStyle = editorHSLColourToStringColor( col );
+                ctx.fillStyle = editorColorToStringColor( col );
             }
         } else {
             ctx.fillStyle = color;

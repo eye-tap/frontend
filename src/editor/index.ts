@@ -34,6 +34,7 @@ import {
 import {
     renderer
 } from './render';
+import science from '@/ts/util/science';
 import {
     sendEditorLeaveEvent
 } from './loaders/event';
@@ -177,6 +178,8 @@ const start = (
     };
 
     useAutoSave();
+    science.start();
+    console.log( '[EDITOR] started' );
 
     return {
         'renderer': draw,

@@ -11,6 +11,7 @@ import type {
 import {
     getPossibleAnnotations
 } from '../manager/annotations';
+import science from '@/ts/util/science';
 
 /**
  * Get the hovered character box index
@@ -55,17 +56,26 @@ export const getClosestBoxIdByCharacterAndFixId = ( fixId: number, char: string,
         }
 
         if ( candidates.length === 1 ) {
+            science.track( 'disagreement-solution-bind' );
+
             return candidates[ 0 ]!;
         } else if ( candidates.length > 1 ) {
             let min = 10000000;
+            let minIdx = 0;
 
             for ( let i = 0; i < candidates.length; i++ ) {
                 const bb = boundingBoxes.value[ candidates[i]! ]!;
                 const distance = Math.sqrt( Math.pow( bb.centerX - pos.x!, 2 ) + Math.pow( bb.centerY - pos.y!, 2 ) );
 
-                if ( distance < min )
+                if ( distance < min ) {
                     min = distance;
+                    minIdx = i;
+                }
             }
+
+            science.track( 'disagreement-solution-bind' );
+
+            return candidates[ minIdx ]!;
         }
     }
 

@@ -7,6 +7,7 @@ import {
     onMounted,
     onUnmounted
 } from 'vue';
+import science from '@/ts/util/science';
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
@@ -94,6 +95,7 @@ const downloadCsv = ( data: string, fileName: string ) => {
     a.click();
     document.body.removeChild( a );
     URL.revokeObjectURL( url );
+    science.track( 'export' );
 };
 
 export const useExportFunction = () => {

@@ -33,6 +33,7 @@ import {
 import {
     providedOffsetHandler
 } from './zoom';
+import science from '@/ts/util/science';
 import {
     selectedFixation
 } from '../data';
@@ -99,9 +100,11 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 }
             } else if ( ev.key === 'ArrowRight' ) {
                 // Move to next fixation
+                science.track( 'scanpath-move' );
                 goToNextFixation();
             } else if ( ev.key === 'ArrowLeft' ) {
                 // Move to previous fixation
+                science.track( 'scanpath-move' );
                 goToPrevFixation();
             } else if ( ( ev.key === 'Delete' || ev.key === 'Backspace' ) && ev.shiftKey ) {
                 // Mark a fixation as invalid
