@@ -12,6 +12,12 @@ export type EyeTapTrackingCounts = {
     [key in EyeTapTrackingEvents]: number
 };
 
+export interface EyeTapTrackingDataDetails {
+    'data': EyeTapTrackingCounts;
+    'timestamp': number;
+    'elapsed': number;
+}
+
 let startTime = 0;
 let data: EyeTapTrackingData = {
     'undo-redo': [],
@@ -22,9 +28,14 @@ let data: EyeTapTrackingData = {
     'scanpath-move': [],
     'export': []
 };
+let previousEpochs: EyeTapTrackingDataDetails[] = [];
 
-const startTimer = () => {
+const start = async () => {
     startTime = new Date().getTime();
+
+    const res = await request.get( '/science' );
+
+    previousEpochs = JSON.parse( res ? res : '[]' );
 };
 
 /** Reset the tracking data. Automatically called by the send function */
@@ -38,7 +49,7 @@ const reset = () => {
         'scanpath-move': [],
         'export': []
     };
-    startTimer();
+    start();
 };
 
 /**
@@ -86,7 +97,13 @@ const getElapsedTime = (): number => {
 
 /** Send the tracking data to the backend */
 const send = () => {
-    request.post( '/science', data );
+    previousEpochs.push( {
+        'data': getCounts(),
+        'timestamp': new Date().getTime(),
+        'elapsed': getElapsedTime()
+    } );
+    request.beaconRequest( '/analytics', JSON.stringify( previousEpochs ) );
+    reset();
 };
 
 export default {
@@ -96,5 +113,5 @@ export default {
     send,
     track,
     reset,
-    startTimer
+    start
 };
