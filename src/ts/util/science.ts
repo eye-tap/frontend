@@ -2,7 +2,7 @@ import request from './request';
 
 export type EyeTapTrackingEvents = 'undo-redo' | 'completion'
     | 'disagreement-solution-click' | 'disagreement-solution-bind'
-    | 'zoom' | 'scanpath-move'; // if we do colorblind mode, then this
+    | 'zoom' | 'scanpath-move' | 'export'; // if we do colorblind mode, then this
 
 export type EyeTapTrackingData = {
     [key in EyeTapTrackingEvents]: number[]
@@ -12,15 +12,20 @@ export type EyeTapTrackingCounts = {
     [key in EyeTapTrackingEvents]: number
 };
 
+let startTime = 0;
 let data: EyeTapTrackingData = {
     'undo-redo': [],
     'completion': [],
     'zoom': [],
     'disagreement-solution-click': [],
     'disagreement-solution-bind': [],
-    'scanpath-move': []
+    'scanpath-move': [],
+    'export': []
 };
 
+const startTimer = () => {
+    startTime = new Date().getTime();
+};
 
 /** Reset the tracking data. Automatically called by the send function */
 const reset = () => {
@@ -30,8 +35,10 @@ const reset = () => {
         'zoom': [],
         'disagreement-solution-click': [],
         'disagreement-solution-bind': [],
-        'scanpath-move': []
+        'scanpath-move': [],
+        'export': []
     };
+    startTimer();
 };
 
 /**
@@ -61,7 +68,8 @@ const getCounts = (): EyeTapTrackingCounts => {
         'zoom': 0,
         'disagreement-solution-click': 0,
         'disagreement-solution-bind': 0,
-        'scanpath-move': 0
+        'scanpath-move': 0,
+        'export': 0
     };
 
     for ( const key in data ) {
@@ -69,6 +77,10 @@ const getCounts = (): EyeTapTrackingCounts => {
     }
 
     return counts;
+};
+
+const getElapsedTime = (): number => {
+    return ( new Date().getTime() - startTime ) / 1000;
 };
 
 
@@ -80,7 +92,9 @@ const send = () => {
 export default {
     get,
     getCounts,
+    getElapsedTime,
     send,
     track,
-    reset
+    reset,
+    startTimer
 };

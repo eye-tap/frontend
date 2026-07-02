@@ -16,6 +16,7 @@ import {
 import type {
     EditorPoint
 } from '../types/annotation';
+import science from '@/ts/util/science';
 
 /**
  * @returns The origin of the viewport in original size
@@ -132,6 +133,8 @@ const getFactor = () => {
 /** Apply zoom with diff, i.e. how much to add / subtract or multiply / divide by */
 const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
     if ( !enableZoom.value ) return;
+
+    science.track( 'zoom' );
 
     if ( mode === 'add' )
         setFactor( getFactor() + diff );

@@ -23,6 +23,7 @@ import {
 import {
     highlightBox
 } from './boxes';
+import science from '@/ts/util/science';
 import {
     startHistoryTracker
 } from './history';
@@ -117,6 +118,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
                     skipHistory,
                     highlight
                 );
+                science.track( 'completion' );
             } catch { /* empty */ }
     };
 
