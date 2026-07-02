@@ -20,6 +20,7 @@ import type {
     EditAnnotationsDto
 } from '@/types/dtos/EditAnnotationsDto';
 import annotation from '@/ts/annotations';
+import science from '@/ts/util/science';
 import {
     useAnnotationSessionStore
 } from '@/ts/stores/annotationSessionStore';
@@ -44,6 +45,7 @@ export const useSaveFunction = () => {
             try {
             // Try to save to backend
                 await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
+                science.save();
                 // This is used to track the last saved revision,
                 // which is then used to show to user if saving is needed
                 savedAtRevision.value = revision.value;
