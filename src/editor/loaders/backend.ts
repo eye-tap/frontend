@@ -81,7 +81,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'disagreement': f.disagreement
         } );
 
-        if ( f.disagreement ) {
+        if ( f.disagreement !== undefined ) {
             if ( max < f.disagreement ) max = f.disagreement!;
 
             if ( min > f.disagreement ) min = f.disagreement!;
@@ -91,8 +91,8 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     } );
 
     // Update heatmap bounds
-    heatMapMaxValue.value = max + 0.1;
-    heatMapMinValue.value = min - 0.1;
+    heatMapMaxValue.value = max + 0.001;
+    heatMapMinValue.value = min - 0.001;
     heatMapMidValue.value = avg / fix.length;
 
     // ───────────────────────────────────────────────────────────────────

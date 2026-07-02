@@ -1,10 +1,9 @@
-import type {
-    Color,
-    HSLColor
-} from './types/boxes';
 import {
     type Ref, ref
 } from 'vue';
+import type {
+    Color
+} from './types/boxes';
 import type {
     EditorPoint
 } from './types/annotation';
@@ -146,25 +145,45 @@ export const selectedFixationRadius = ref( 8 );
 // Typically, you only want to adjust the h (hue) value (between 0 and 360),
 // leaving the s (saturation) at 1 and l (lightness) at 0.5
 // 101, 242, 138 (theme-success)
-export const heatMapMinColor: Ref<HSLColor> = ref( {
-    'h': 136,
-    's': 0.84,
-    'l': 0.67
+export const heatMapMinColor: Ref<Color> = ref( {
+    'r': 101,
+    'g': 242,
+    'b': 138
 } );
 
 // 226, 226, 86 (theme-information)
-export const heatMapMidColor: Ref<HSLColor> = ref( {
-    'h': 60,
-    's': 0.71,
-    'l': 0.61
+export const heatMapMidColor: Ref<Color> = ref( {
+    'r': 234,
+    'g': 115,
+    'b': 115
 } );
 
 // 234, 115, 115 (theme-warning)
-export const heatMapMaxColor: Ref<HSLColor> = ref( {
-    'h': 0,
-    's': 0.75,
-    'l': 0.68
+export const heatMapMaxColor: Ref<Color> = ref( {
+    'r': 200,
+    'g': 58,
+    'b': 228
 } );
+
+// export const heatMapMinColor: Ref<HSLColor> = ref( {
+//     'h': 136,
+//     's': 0.84,
+//     'l': 0.67
+// } );
+//
+// // 226, 226, 86 (theme-information)
+// export const heatMapMidColor: Ref<HSLColor> = ref( {
+//     'h': 0,
+//     's': 0.75,
+//     'l': 0.68
+// } );
+//
+// // 234, 115, 115 (theme-warning)
+// export const heatMapMaxColor: Ref<HSLColor> = ref( {
+//     'h': 290,
+//     's': 0.76,
+//     'l': 0.56
+// } );
 
 // Make this keep the entropy color
 export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );
