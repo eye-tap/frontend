@@ -4,6 +4,8 @@ export type EyeTapTrackingEvents = 'undo-redo' | 'completion'
     | 'disagreement-solution-click' | 'disagreement-solution-bind'
     | 'zoom' | 'scanpath-move' | 'export'; // if we do colorblind mode, then this
 
+export type EyeTapTrackingEventsShort = 'ur' | 'c' | 'dc' | 'db' | 'z' | 'sp' | 'e';
+
 export type EyeTapTrackingData = {
     [key in EyeTapTrackingEvents]: number[]
 };
@@ -12,10 +14,14 @@ export type EyeTapTrackingCounts = {
     [key in EyeTapTrackingEvents]: number
 };
 
+export type EyeTapTrackingCountsShort = {
+    [key in EyeTapTrackingEventsShort]: number
+};
+
 export interface EyeTapTrackingDataDetails {
-    'data': EyeTapTrackingCounts;
-    'timestamp': number;
-    'elapsed': number;
+    'd': EyeTapTrackingCountsShort; // data
+    't': number; // Timestamp
+    'e': number; // Elapsed
 }
 
 let startTime = 0;
@@ -90,6 +96,18 @@ const getCounts = (): EyeTapTrackingCounts => {
     return counts;
 };
 
+const getCountsShort = (): EyeTapTrackingCountsShort => {
+    return {
+        'ur': data[ 'undo-redo' ].length,
+        'c': data[ 'completion' ].length,
+        'z': data[ 'zoom' ].length,
+        'dc': data[ 'disagreement-solution-click' ].length,
+        'db': data[ 'disagreement-solution-bind' ].length,
+        'sp': data[ 'scanpath-move' ].length,
+        'e': data[ 'export' ].length
+    };
+};
+
 const getElapsedTime = (): number => {
     return ( new Date().getTime() - startTime ) / 1000;
 };
@@ -98,9 +116,9 @@ const getElapsedTime = (): number => {
 /** Send the tracking data to the backend */
 const send = () => {
     previousEpochs.push( {
-        'data': getCounts(),
-        'timestamp': new Date().getTime(),
-        'elapsed': getElapsedTime()
+        'd': getCountsShort(),
+        't': new Date().getTime(),
+        'e': getElapsedTime()
     } );
     request.beaconRequest( '/analytics', JSON.stringify( previousEpochs ) );
     reset();
