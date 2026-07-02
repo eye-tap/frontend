@@ -19,10 +19,12 @@ import {
 const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
     const data = JSON.parse( await request.get( '/annotation/session' ) ) as ShallowAnnotationSessionDto[];
 
-    document.dispatchEvent( new CustomEvent( 'eyetap:ethics:show' ) );
-
     if ( data[0] && data[0].furtherOptions ) {
         const details = JSON.parse( data[0].furtherOptions );
+
+        document.dispatchEvent( new CustomEvent( 'eyetap:ethics:show', {
+            'detail': details[ 'video-id' ]
+        } ) );
 
         document.addEventListener( 'eyetap:ethics:approve', () => {
             console.debug( '[ETHICS] approval received' );

@@ -16,6 +16,9 @@
     import {
         adminBaseRoute
     } from '../adminConfig';
+    import {
+        getVideoIdFromYTLink
+    } from '@/ts/util/video';
     import inputFilter from '@/ts/util/inputFilter';
     import testData from '@/ts/dev/TextTestData.json';
     import {
@@ -70,6 +73,7 @@
     const creating = ref( false );
     const logoutTimeout = ref( null );
     const endSurveyLink: Ref<string> = ref( '' );
+    const introVideoLink: Ref<string> = ref( '' );
 
     const dismiss = () => {
         surveyStore.selectedSurveyIndex = -2;
@@ -162,6 +166,7 @@
         }
 
         creating.value = true;
+        const link = getVideoIdFromYTLink( introVideoLink.value );
 
         createSurvey(
             userCount.value!,
@@ -171,7 +176,8 @@
             JSON.stringify( {
                 'preset': selectedPreset.value,
                 'timeout': logoutTimeout.value !== null ? logoutTimeout.value : -1,
-                'end-survey': endSurveyLink.value
+                'end-survey': endSurveyLink.value,
+                'video-id': link !== 'INVALID' ? link : undefined
             } )
         )
             .then( links => {
@@ -267,6 +273,12 @@
                     placeholder="Link to survey at the end. Hover for details"
                     title="Link to a (workload) survey at the end of the timer.
                     Automatically populates LimeSurvey response ids quser and qgroup with the username and enabled feature set"
+                >
+                <input
+                    v-model="introVideoLink"
+                    type="text"
+                    placeholder="Link to video shown to users in the beginning"
+                    title="Link to video shown to users in the beginning. Has to be a YouTube link. Leave empty for no video"
                 >
             </div>
             <textarea

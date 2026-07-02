@@ -1,6 +1,9 @@
 <script setup lang="ts">
     import LogoRenderer from './LogoRenderer.vue';
     import {
+        loadVideo
+    } from '@/ts/util/video';
+    import {
         ref
     } from 'vue';
     import request from '@/ts/util/request';
@@ -18,8 +21,11 @@
         document.dispatchEvent( new CustomEvent( 'eyetap:ethics:approve' ) );
     };
 
-    document.addEventListener( 'eyetap:ethics:show', async () => {
+    document.addEventListener( 'eyetap:ethics:show', async ev => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
+            if ( ev.detail )
+                loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+
             show.value = true;
         } else {
             document.dispatchEvent( new CustomEvent( 'eyetap:ethics:approve' ) );
@@ -100,6 +106,7 @@
                             <li>Do not use a Mobile device, EyeTAP is designed for Desktop use.</li>
                             <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
+                        <div id="intro-video-wrapper"></div>
                         <p class="warning">
                             You are <strong class="warn">only entitled to compensation</strong>
                             if you complete the full duration of the study and fill out the workload survey!
