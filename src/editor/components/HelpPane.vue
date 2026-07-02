@@ -4,7 +4,7 @@
     } from '../config';
     import ColorOption from '@/components/settings/ColorOption.vue';
     import {
-        automatedColourMapperHSL
+        automatedColourMapper
     } from '../util/colour';
 
     const dismiss = () => {
@@ -74,9 +74,9 @@
         }
     ];
     const show = defineModel<boolean>();
-    const minHeatMapColor = automatedColourMapperHSL( heatMapMinColor );
-    const midHeatMapColor = automatedColourMapperHSL( heatMapMidColor );
-    const maxHeatMapColor = automatedColourMapperHSL( heatMapMaxColor );
+    const minHeatMapColor = automatedColourMapper( heatMapMinColor );
+    const midHeatMapColor = automatedColourMapper( heatMapMidColor );
+    const maxHeatMapColor = automatedColourMapper( heatMapMaxColor );
 </script>
 
 <template>
