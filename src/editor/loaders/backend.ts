@@ -81,7 +81,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             'disagreement': f.disagreement
         } );
 
-        if ( f.disagreement ) {
+        if ( f.disagreement !== undefined ) {
             if ( max < f.disagreement ) max = f.disagreement!;
 
             if ( min > f.disagreement ) min = f.disagreement!;
@@ -91,8 +91,8 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     } );
 
     // Update heatmap bounds
-    heatMapMaxValue.value = max;
-    heatMapMinValue.value = min;
+    heatMapMaxValue.value = max + 0.001;
+    heatMapMinValue.value = min - 0.001;
     heatMapMidValue.value = avg / fix.length;
 
     // ───────────────────────────────────────────────────────────────────
@@ -193,6 +193,8 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // else if ( fixations.value[ selectedFixation.value ]!.assigned === 'machine' )
     //     title += ' (soft complete)';
     // User doesn't need to see this
+
+    console.log( 'Disagreement of fix 6', fixations.value[ 5 ]!.disagreement, 'min disagreement', min, 'avg disagreement', avg / fixations.value.length, 'max disagreement', max );
 
     sendLoadEvent( title );
     renderer.renderAll();

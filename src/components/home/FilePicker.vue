@@ -138,8 +138,9 @@
                         </td>
                         <td class="gazepoints">
                             {{
-                                file.annotationsMetaData?.total != null
-                                    ? file.annotationsMetaData.total : 'Not modified'
+                                file.annotationsMetaData?.total
+                                    ? file.annotationsMetaData.total + ( file.annotationsMetaData.invalid ?? 0 )
+                                    : 'Not modified'
                             }}
                         </td>
                         <td class="assigned">

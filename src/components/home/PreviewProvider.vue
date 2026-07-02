@@ -40,10 +40,10 @@
                     </td>
                     <td>
                         <p class="title">
-                            Word count
+                            Invalid fixations
                         </p>
                         <p class="content">
-                            N/A
+                            {{ props.session.annotationsMetaData?.invalid ? props.session.annotationsMetaData.invalid : 'N/A' }}
                         </p>
                     </td>
                     <td>
@@ -51,7 +51,9 @@
                             Fixations
                         </p>
                         <p class="content">
-                            {{ props.session.annotationsMetaData?.total ? props.session.annotationsMetaData.total : 'N/A' }}
+                            {{ props.session.annotationsMetaData?.total
+                                ? props.session.annotationsMetaData.total + ( props.session.annotationsMetaData.invalid ?? 0 )
+                                : 'N/A' }}
                         </p>
                     </td>
                 </tr>
