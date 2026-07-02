@@ -7,9 +7,9 @@
 - [X] **Entropy colours in HSV or HSL?**
 - [X] **Tutorial per bucket** -> Improve
 - [X] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
+- [X] **Features of basic features group**
+- [X] Interface element scaling (don't scale up with zoom)
 - [ ] Colourblindness settings
-- [ ] **Features of basic features group**
-- [ ] Interface element scaling (don't scale up with zoom)
 
 ## General
 - [ ] Take care of all TODOs in the code
@@ -81,3 +81,5 @@ We have implemented undo and redo functions, auto-save and many other creature c
 
 
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhMeW54NjEwJTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJwNDB3LTQzX2UxdCUzRG1rMnYlMjIlN0Q=
+
+(All T1 readers) http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTd2lmdEhlZGdlaG9nNTM3JTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJZKXhuOUhqclZzTkhwWik2JTIyJTdE

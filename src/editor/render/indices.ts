@@ -30,7 +30,8 @@ import {
 } from '../data';
 import {
     originalToCanvasCoordinates,
-    scale
+    scale,
+    scaleWithoutZoom
 } from './scaling';
 import type {
     EditorFixation
@@ -103,7 +104,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
             // Outer shadow
             if ( dropShadowSize.value > 0 && dropShadowPasses.value > 0 )
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
-                    const fontSize = scale( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
+                    const fontSize = scaleWithoutZoom( indicesFontSize.value + ( fontScaleUpPerIterOutside * i ) );
 
                     // scale font
                     ctx!.font = 'normal ' + ( dropShadowMinBoldness.value + ( boldnessStep * i ) ) + ' ' + fontSize + 'px ' + indicesFontFamily.value;
@@ -120,7 +121,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
             // Inner shadow
             if ( dropShadowInnerSize.value !== 0 )
                 for ( let i = 0; i < dropShadowPasses.value; i++ ) {
-                    const fontSize = scale( indicesFontSize.value
+                    const fontSize = scaleWithoutZoom( indicesFontSize.value
                         - ( 2 * dropShadowInnerSize.value ) + ( fontScaleUpPerIterInside * i ) );
 
                     // scale font
@@ -136,7 +137,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
                 }
 
             // Draw the actual number
-            ctx!.font = 'bold ' + scale( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
+            ctx!.font = 'bold ' + scaleWithoutZoom( indicesFontSize.value ) + 'px ' + indicesFontFamily.value;
             ctx!.fillStyle = col;
 
             ctx!.fillText(
