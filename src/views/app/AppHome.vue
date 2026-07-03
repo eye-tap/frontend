@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import {
         type Ref,
+        computed,
         ref
     } from 'vue';
     import EthicsApprovalPopup from '@/components/EthicsApprovalPopup.vue';
@@ -42,18 +43,6 @@
         loading.value = true;
         annotations.list()
             .then( list => {
-                annotationSessionStore.setIds(
-                    list.map( value => {
-                        return {
-                            'sessionId': value.id!,
-                            'textId': value.readingSession!.textId!,
-                            'title': value.readingSession!.textTitle!,
-                            'reader': value.readingSession!.reader!,
-                            'desc': value.description!
-                        };
-                    } )
-                );
-
                 if ( list[ 0 ] && list[ 0 ].furtherOptions && JSON.parse( list[ 0 ].furtherOptions )[ 'shuffle' ] ) {
                     sessions.value = shuffle( list );
                 } else {
@@ -66,6 +55,18 @@
                         return a.readingSession!.textId! - b.readingSession!.textId!;
                     } );
                 }
+
+                annotationSessionStore.setIds(
+                    sessions.value.map( value => {
+                        return {
+                            'sessionId': value.id!,
+                            'textId': value.readingSession!.textId!,
+                            'title': value.readingSession!.textTitle!,
+                            'reader': value.readingSession!.reader!,
+                            'desc': value.description!
+                        };
+                    } )
+                );
 
                 loading.value = false;
             } )
@@ -118,6 +119,29 @@
         if ( annotationSessionStore.selected )
             router.push( '/app/editor' );
     };
+
+    const openRecent = () => {
+        // Determine most recently edited, if all equal, use 0
+        annotationSessionStore.setActive( mostRecentlyEditedIdx.value );
+        session.value = sessions.value[ mostRecentlyEditedIdx.value ]!;
+        editFile();
+    };
+
+    const mostRecentlyEditedIdx = computed( () => {
+        let mostRecentlyEdited = 0;
+        let mostRecentlyEditedTime = 0;
+
+        for ( let i = 0; i < sessions.value.length; i++ ) {
+            const time = new Date( sessions.value[i]!.lastEdited! ).getTime();
+
+            if ( time > mostRecentlyEditedTime ) {
+                mostRecentlyEdited = i;
+                mostRecentlyEditedTime = time;
+            }
+        }
+
+        return mostRecentlyEdited;
+    } );
 </script>
 
 <template>
@@ -128,6 +152,7 @@
                     class="file-picker"
                     :files="sessions"
                     :loading="loading"
+                    :most-recently-edited="mostRecentlyEditedIdx"
                     @file-select="file => fileSelect( file )"
                     @reload-files="reloadFromServer"
                 />
@@ -143,6 +168,14 @@
                     >
                         <i class="fa-lg fa-regular fa-pen-to-square"></i>
                         Edit
+                    </button>
+                    <!-- TODO: Improve design -->
+                    <button
+                        class="button has-icon"
+                        @click="openRecent()"
+                    >
+                        <i class="fa-lg fa-regular fa-pen-to-square"></i>
+                        Open Recent
                     </button>
                 </div>
             </div>

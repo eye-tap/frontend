@@ -201,7 +201,7 @@ const drawPoint = ( ctx: CanvasRenderingContext2D ) => {
         ctx.arc(
             scale( originalToCanvasCoordinates( fixation.x!, 'x' ) ),
             scale( originalToCanvasCoordinates( fixation.y!, 'y' ) ),
-            scaleWithoutZoom( radius ), // TODO: Downscale on increased zoom
+            scaleWithoutZoom( radius ),
             0,
             Math.PI * 2
         );

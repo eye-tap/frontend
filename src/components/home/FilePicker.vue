@@ -18,6 +18,7 @@
     const props = defineProps<{
         'files': ShallowAnnotationSessionDto[],
         'loading': boolean,
+        'mostRecentlyEdited': number
     }>();
     const emits = defineEmits<{
         ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void
@@ -134,7 +135,7 @@
                         @click="selectFile( index )"
                     >
                         <td class="file-name">
-                            {{ file.description }}
+                            {{ file.description + ( mostRecentlyEdited === index ? ' (last edited)' : '' ) }}
                         </td>
                         <td class="gazepoints">
                             {{

@@ -12,11 +12,11 @@
 - [ ] Colourblindness settings
 
 ## General
-- [ ] Take care of all TODOs in the code
-- [ ] Details pane on file explorer has wordcount in it, but no details on that
+- [X] Details pane on file explorer has wordcount in it, but no details on that
+- [X] **Open recent button**
+- [X] **Last used file should be shown with some mark**
 - [ ] New home page (showing stats), or stats page
-- [ ] Last used file should be shown with some mark
-- [ ] Open recent button
+- [ ] Take care of all TODOs in the code
 - [X] **Assigned fixations counting** -> Don't count as assigned if not human-confirmed
 - [X] **Fixations counting** -> Do we count the invalid fixations?
 - [X] **Logout timer**
