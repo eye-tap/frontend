@@ -58,8 +58,9 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
     start();
 
     if ( !preset ) {
-        console.warn( '[EDITOR] No config preset found for user, falling back to full' );
+        console.warn( '[EDITOR] No config preset found for user, falling back to unrestricted' );
         showPreAnnotations.value = true;
+        fullSideBarAvailable.value = true;
 
         return;
     }
