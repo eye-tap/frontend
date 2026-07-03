@@ -44,8 +44,6 @@ const start = async () => {
 
         previousEpochs = JSON.parse( res ? res : '[]' );
     } catch { /* empty */ }
-
-    console.debug( 'Previos Epochs', previousEpochs );
 };
 
 /** Reset the tracking data. Automatically called by the send function */

@@ -194,8 +194,6 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     //     title += ' (soft complete)';
     // User doesn't need to see this
 
-    console.log( 'Disagreement of fix 6', fixations.value[ 5 ]!.disagreement, 'min disagreement', min, 'avg disagreement', avg / fixations.value.length, 'max disagreement', max );
-
     sendLoadEvent( title );
     renderer.renderAll();
 };
