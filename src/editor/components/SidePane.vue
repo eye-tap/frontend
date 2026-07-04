@@ -160,6 +160,7 @@
             <div v-if="isSideBarCollapsed && enableZoom" class="options-bar">
                 <span
                     class="clickable-icon"
+                    :class="zoomInChecker ? undefined : 'unavailable'"
                     title="Zoom in"
                     @click="zoom.zoom( 0.25 )"
                 >
@@ -170,6 +171,7 @@
             <div v-if="isSideBarCollapsed && enableZoom" class="options-bar">
                 <span
                     class="clickable-icon"
+                    :class="zoomOutChecker ? undefined : 'unavailable'"
                     title="Zoom out"
                     @click="zoom.zoom( -0.25 )"
                 >
