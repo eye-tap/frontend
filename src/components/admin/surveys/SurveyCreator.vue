@@ -165,8 +165,18 @@
             }
         }
 
-        creating.value = true;
         const link = getVideoIdFromYTLink( introVideoLink.value );
+
+        if ( link === 'INVALID' ) {
+            if (
+                !confirm( 'The video link you have provided could not be parsed.'
+                    + 'Press cancel if you want to adjust it, or Ok to proceed anyway' )
+            ) {
+                return;
+            }
+        }
+
+        creating.value = true;
 
         createSurvey(
             userCount.value!,

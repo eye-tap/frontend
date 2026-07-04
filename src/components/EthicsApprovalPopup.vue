@@ -24,12 +24,12 @@
 
     document.addEventListener( 'eyetap:ethics:show', async ev => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
-            setTimeout( () => {
-                if ( ev.detail ) {
-                    showVideo.value = true;
-                    loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
-                }
-            }, 500 );
+            if ( ev.detail ) {
+                showVideo.value = true;
+                setTimeout( () => {
+                    loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail! );
+                }, 500 );
+            }
 
             show.value = true;
         } else {
