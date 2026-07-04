@@ -153,6 +153,26 @@
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
             </div>
+            <div v-if="isSideBarCollapsed" class="options-bar">
+                <span
+                    class="clickable-icon"
+                    title="Zoom in"
+                    @click="editor.undo"
+                >
+                    <i v-if="false" class="fa-lg fa-solid fa-magnifying-glass-plus"></i>
+                    <i v-else class="fa-lg fa-solid fa-magnifying-glass-plus unavailable"></i>
+                </span>
+            </div>
+            <div v-if="isSideBarCollapsed" class="options-bar">
+                <span
+                    class="clickable-icon"
+                    title="Zoom out"
+                    @click="editor.redo"
+                >
+                    <i v-if="false" class="fa-lg fa-solid fa-magnifying-glass-minus"></i>
+                    <i v-else class="fa-lg fa-solid fa-magnifying-glass-minus unavailable"></i>
+                </span>
+            </div>
             <div v-if="isSideBarCollapsed && fullSideBarAvailable" class="options-bar">
                 <span
                     class="clickable-icon"
@@ -171,7 +191,7 @@
                 title="Mark as invalid"
                 @click="() => markFixationAsInvalid( selectedFixation )"
             >
-                <i class="fa-xl fa-solid fa-circle-xmark"></i>
+                <i class="fa-lg fa-solid fa-circle-xmark"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed && showExportButton" class="options-bar">
@@ -193,7 +213,7 @@
                 title="Show keybinds"
                 @click="toggleKeybinds"
             >
-                <i class="fa-xl fa-solid fa-circle-question"></i>
+                <i class="fa-lg fa-solid fa-circle-question"></i>
             </span>
         </div>
         <div v-if="isSideBarCollapsed && fullSideBarAvailable" class="options-bar">
