@@ -40,8 +40,8 @@ Once finished, test again with new users to see if improvements are helpful
 - [x] reduce tour (or remove entirely)
 - [X] Fix entropy color gradient math (so it actually uses the colors depicted in the legend)
 - [X] allow opening ethics approval again after survey start
-- [ ] workflow video per bucket (link in ethics approval & help)
-- [ ] Video link changeable (has to be YT tho)
+- [X] workflow video per bucket (link in ethics approval & help)
+- [X] Video link changeable (has to be YT tho)
 
 
 ## Analytics
