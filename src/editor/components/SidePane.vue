@@ -85,6 +85,8 @@
         document.removeEventListener( 'eyetap:save:success', saveSuccessHandler );
         document.removeEventListener( 'eyetap:save:fail', saveFailHandler );
     } );
+    const zoomInChecker = zoom.canZoom( 0.25 );
+    const zoomOutChecker = zoom.canZoom( -0.25 );
 </script>
 
 <template>
@@ -161,7 +163,7 @@
                     title="Zoom in"
                     @click="zoom.zoom( 0.25 )"
                 >
-                    <i v-if="zoom.canZoom( 0.25 )" class="fa-lg fa-solid fa-magnifying-glass-plus"></i>
+                    <i v-if="zoomInChecker" class="fa-lg fa-solid fa-magnifying-glass-plus"></i>
                     <i v-else class="fa-lg fa-solid fa-magnifying-glass-plus unavailable"></i>
                 </span>
             </div>
@@ -171,7 +173,7 @@
                     title="Zoom out"
                     @click="zoom.zoom( -0.25 )"
                 >
-                    <i v-if="zoom.canZoom( -0.25 )" class="fa-lg fa-solid fa-magnifying-glass-minus"></i>
+                    <i v-if="zoomOutChecker" class="fa-lg fa-solid fa-magnifying-glass-minus"></i>
                     <i v-else class="fa-lg fa-solid fa-magnifying-glass-minus unavailable"></i>
                 </span>
             </div>

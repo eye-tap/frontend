@@ -149,14 +149,16 @@ const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
  * Vue computed property to tell you if zooming is possible
  * @param diff - The zoom step (adding only)
  */
-const canZoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => computed( () => {
-    if ( !enableZoom.value ) return false;
+const canZoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
+    return computed( () => {
+        if ( !enableZoom.value ) return false;
 
-    if ( mode === 'add' )
-        return zoomFactor.value + diff < 3 && zoomFactor.value + diff >= 1;
-    else
-        return Math.abs( zoomFactor.value * diff ) < 3 && zoomFactor.value * diff >= 1;
-} );
+        if ( mode === 'add' )
+            return zoomFactor.value + diff < 3 && zoomFactor.value + diff >= 1;
+        else
+            return Math.abs( zoomFactor.value * diff ) < 3 && zoomFactor.value * diff >= 1;
+    } );
+};
 
 export default {
     setViewPortOriginFromCenter,
