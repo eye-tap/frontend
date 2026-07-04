@@ -1,4 +1,6 @@
 export const loadVideo = ( attachElement: HTMLElement, videoId: string, width: number = 420, height: number = 315 ) => {
+    if ( !attachElement ) return;
+
     const iframe = document.createElement( 'iframe' );
 
     iframe.height = '' + height;
@@ -6,7 +8,7 @@ export const loadVideo = ( attachElement: HTMLElement, videoId: string, width: n
 
     iframe.src = 'https://youtube.com/embed/' + videoId;
 
-    attachElement.appendChild( attachElement );
+    attachElement.appendChild( iframe );
 };
 
 export const getVideoIdFromYTLink = ( link: string ) => {
@@ -23,10 +25,10 @@ export const getVideoIdFromYTLink = ( link: string ) => {
         const q = link.indexOf( '?' );
 
         if ( q > 0 ) {
-            return link.substring( link.lastIndexOf( '/' ) + 1 );
+            return link.slice( link.lastIndexOf( '/' ) + 1, q );
         }
 
-        return link.slice( link.lastIndexOf( '/' ) + 1, q );
+        return link.substring( link.lastIndexOf( '/' ) + 1 );
     } else {
         return 'INVALID';
     }

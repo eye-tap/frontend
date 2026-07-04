@@ -23,8 +23,10 @@
 
     document.addEventListener( 'eyetap:ethics:show', async ev => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
-            if ( ev.detail )
-                loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+            setTimeout( () => {
+                if ( ev.detail )
+                    loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+            }, 500 );
 
             show.value = true;
         } else {
