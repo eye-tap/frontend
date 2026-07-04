@@ -89,12 +89,32 @@
             <div class="box-content">
                 <div class="options-container">
                     <p class="title">
+                        Survey Information
+                    </p>
+                    <div class="options-section">
+                        <p class="subtitle">
+                            Your Task
+                        </p>
+                        <p>
+                            Please use EyeTAP for the duration of the study. Your timer is visible above the editor.
+                            Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
+                        </p>
+                        <p class="subtitle">
+                            Introduction Video
+                        </p>
+                        <p>
+                            Please watch the following video for a short introduction to EyeTAP.
+                        </p>
+                        <div id="intro-video-wrapper" class="video-wrapper"></div>
+                    </div>
+                </div>
+                <div class="options-container">
+                    <p class="title">
                         Editor Features
                     </p>
                     <div class="options-section">
                         <p>
-                            Whenever a character is assigned, the chronologically next one is automatically selected.
-                            It's recommended to go through the fixations chronologically
+                            Whenever a character is assigned, the chronologically next one is selected. Use <strong>Keybinds</strong> to annotate, and <strong>Arrow Keys</strong> to navigate.
                         </p>
                         <p class="subtitle">
                             <strong>Fixation color</strong> shows annotation state
@@ -134,7 +154,7 @@
                     </p>
                     <div class="options-section">
                         <p>
-                            <strong>Entropy</strong> indicates how difficult a fixation is to annotate. Intuitively,
+                            <strong>Entropy</strong> indicates how difficult algorithms consider a fixation to annotate. Intuitively,
                             higher entropy annotations should be more difficult, and vice versa.
                         </p>
                         <div class="color-options">
@@ -304,6 +324,7 @@
 
                         &.small {
                             font-size: 0.85rem;
+                            color: var(--theme-bg-3)
                         }
 
                         >strong {
