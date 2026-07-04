@@ -32,7 +32,7 @@ export const configPreset: Ref<ConfigPreset> = ref( 'full' );
 
 export const showPreAnnotations: Ref<boolean> = ref( false );
 
-export const availableTime: Ref<number> = ref( 300 );
+export const availableTime: Ref<number> = ref( -1 );
 
 export const endSurveyLink: Ref<string> = ref( 'https://survey.eyetap.ivia.ch/index.php/999838' );
 

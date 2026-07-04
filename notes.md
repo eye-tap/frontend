@@ -78,3 +78,6 @@ http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJTbW9vdGhMeW54Nj
 
 All EN texts
 http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJNZWxsb3dLb2FsYTI1NiUyMiUyQyUyMnBhc3N3b3JkJTIyJTNBJTIycCU1RVMhYmpqNUclMjM3XzczaiU1RSUyMiU3RA==
+
+Video
+http://localhost:8081/login?magic=JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJRdWlldE90dGVyNjQ1JTIyJTJDJTIycGFzc3dvcmQlMjIlM0ElMjJyJTVFOWJqJTI1KVR6VEZnTHUqcSUyMiU3RA==
