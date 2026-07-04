@@ -149,7 +149,7 @@ const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
  * Vue computed property to tell you if zooming is possible
  * @param diff - The zoom step (adding only)
  */
-const canZoomIn = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => computed( () => {
+const canZoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => computed( () => {
     if ( !enableZoom.value ) return false;
 
     if ( mode === 'add' )
@@ -167,5 +167,5 @@ export default {
     reset,
     zoom,
     roundToDigits,
-    canZoomIn
+    canZoom
 };

@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import {
         disableKeyHandler,
+        enableZoom,
         showExportButton
     } from '../config';
     import editor, {
@@ -27,6 +28,7 @@
     import {
         useNotification
     } from '@kyvg/vue3-notification';
+    import zoom from '../manager/zoom';
 
     const showPreferences = ref( false );
     const showKeybinds = ref( false );
@@ -153,23 +155,23 @@
                     <i v-else class="fa-lg fa-solid fa-rotate-right unavailable"></i>
                 </span>
             </div>
-            <div v-if="isSideBarCollapsed" class="options-bar">
+            <div v-if="isSideBarCollapsed && enableZoom" class="options-bar">
                 <span
                     class="clickable-icon"
                     title="Zoom in"
-                    @click="editor.undo"
+                    @click="zoom.zoom( 0.25 )"
                 >
-                    <i v-if="false" class="fa-lg fa-solid fa-magnifying-glass-plus"></i>
+                    <i v-if="zoom.canZoom( 0.25 )" class="fa-lg fa-solid fa-magnifying-glass-plus"></i>
                     <i v-else class="fa-lg fa-solid fa-magnifying-glass-plus unavailable"></i>
                 </span>
             </div>
-            <div v-if="isSideBarCollapsed" class="options-bar">
+            <div v-if="isSideBarCollapsed && enableZoom" class="options-bar">
                 <span
                     class="clickable-icon"
                     title="Zoom out"
-                    @click="editor.redo"
+                    @click="zoom.zoom( -0.25 )"
                 >
-                    <i v-if="false" class="fa-lg fa-solid fa-magnifying-glass-minus"></i>
+                    <i v-if="zoom.canZoom( -0.25 )" class="fa-lg fa-solid fa-magnifying-glass-minus"></i>
                     <i v-else class="fa-lg fa-solid fa-magnifying-glass-minus unavailable"></i>
                 </span>
             </div>
