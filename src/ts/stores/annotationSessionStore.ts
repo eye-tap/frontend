@@ -14,6 +14,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
     const sessionIdx = ref( -1 );
     const sessionIds: Ref<AnnotationSessionDetails[]> = ref( [] );
     const selected = ref( false );
+    const videoId = ref( '' );
 
     const setActive = ( idx: number ) => {
         sessionIdx.value = idx;
@@ -34,6 +35,10 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         throw new Error( 'Couldn\'t find requested file' );
     };
 
+    const setVideoId = ( id: string | undefined ) => {
+        videoId.value = id ?? '';
+    };
+
     const createWatchIdx = ( cb: ( val?: number, old?: number ) => void ) => {
         watch( sessionIdx, cb );
     };
@@ -50,6 +55,8 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         setIds,
         indexOf,
         createWatchIdx,
-        setCompleted
+        setCompleted,
+        videoId,
+        setVideoId
     };
 } );

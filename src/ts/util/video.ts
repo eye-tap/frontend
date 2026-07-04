@@ -1,6 +1,8 @@
 export const loadVideo = ( attachElement: HTMLElement, videoId: string, width: number = 420, height: number = 315 ) => {
     if ( !attachElement ) return;
 
+    attachElement.innerHTML = '';
+
     const iframe = document.createElement( 'iframe' );
 
     iframe.height = '' + height;

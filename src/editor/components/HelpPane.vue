@@ -6,6 +6,15 @@
     import {
         automatedColourMapper
     } from '../util/colour';
+    import {
+        loadVideo
+    } from '@/ts/util/video';
+    import {
+        useAnnotationSessionStore
+    } from '@/ts/stores/annotationSessionStore';
+    import {
+        watch
+    } from 'vue';
 
     const dismiss = () => {
         show.value = false;
@@ -77,6 +86,14 @@
     const minHeatMapColor = automatedColourMapper( heatMapMinColor );
     const midHeatMapColor = automatedColourMapper( heatMapMidColor );
     const maxHeatMapColor = automatedColourMapper( heatMapMaxColor );
+
+    watch( show, () => addVideo() );
+
+    const addVideo = () => {
+        setTimeout( () => {
+            loadVideo( document.getElementById( 'video-wrapper' )!, useAnnotationSessionStore().videoId );
+        }, 500 );
+    };
 </script>
 
 <template>
@@ -105,7 +122,7 @@
                         <p>
                             Please watch the following video for a short introduction to EyeTAP.
                         </p>
-                        <div id="intro-video-wrapper" class="video-wrapper"></div>
+                        <div id="video-wrapper" class="video-wrapper"></div>
                     </div>
                 </div>
                 <div class="options-container">
@@ -114,7 +131,8 @@
                     </p>
                     <div class="options-section">
                         <p>
-                            Whenever a character is assigned, the chronologically next one is selected. Use <strong>Keybinds</strong> to annotate, and <strong>Arrow Keys</strong> to navigate.
+                            Whenever a character is assigned, the chronologically next one is selected.
+                            Use <strong>Keybinds</strong> to annotate, and <strong>Arrow Keys</strong> to navigate.
                         </p>
                         <p class="subtitle">
                             <strong>Fixation color</strong> shows annotation state

@@ -11,6 +11,9 @@ import request from '../util/request';
 import {
     setConfigPreset
 } from '@/editor/config-presets';
+import {
+    useAnnotationSessionStore
+} from '../stores/annotationSessionStore';
 
 /**
  * List all annotation sessions from the backend for current user
@@ -21,6 +24,8 @@ const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
 
     if ( data[0] && data[0].furtherOptions ) {
         const details = JSON.parse( data[0].furtherOptions );
+
+        useAnnotationSessionStore().setVideoId( details[ 'video-id' ] );
 
         document.dispatchEvent( new CustomEvent( 'eyetap:ethics:show', {
             'detail': details[ 'video-id' ]
