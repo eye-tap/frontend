@@ -156,12 +156,14 @@
                         <p class="small">
                             Annotated fixations are connected to the selected character.
                         </p>
-                        <p v-if="configPreset === 'full' || configPreset === 'unrestricted'" class="subtitle">
-                            <strong>Boxes</strong> show annotation suggestions
-                        </p>
-                        <p class="small">
-                            They show which characters an annotation algorithm would have chosen.
-                        </p>
+                        <div v-if="configPreset === 'full' || configPreset === 'unrestricted'">
+                            <p class="subtitle">
+                                <strong>Boxes</strong> show annotation suggestions
+                            </p>
+                            <p class="small">
+                                They show which characters an annotation algorithm would have chosen.
+                            </p>
+                        </div>
                         <p class="subtitle">
                             <strong>Grey Lines</strong> show sight path
                         </p>
@@ -311,7 +313,7 @@
 
                 background-color: var(--theme-bg-1);
 
-                .title  {
+                .title {
                     color: var(--theme-bg-4);
                     font-weight: 600;
                     font-size: 1.25rem;
@@ -321,7 +323,7 @@
                 .options-section {
                     overflow-y: auto;
                     scrollbar-color: var( --theme-bg-4 ) var( --theme-bg-3 );
-                    >p {
+                    p {
                         color: var( --theme-bg-3-20 );
                         font-weight: 400;
                         font-size: 1rem;

@@ -143,12 +143,6 @@
                 'type': 'error',
                 'title': 'Survey creation'
             } );
-        } else if ( desc.value.length < 5 ) {
-            return notifications.notify( {
-                'text': 'Description too short',
-                'type': 'error',
-                'title': 'Survey creation'
-            } );
         } else if ( !surveyStore.texts.map( text => text.selected.reduce( ( res, val ) => res || val ) )
             .reduce( ( res, val ) => res || val ) ) {
             return notifications.notify( {
