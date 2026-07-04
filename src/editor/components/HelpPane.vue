@@ -7,6 +7,9 @@
         automatedColourMapper
     } from '../util/colour';
     import {
+        configPreset
+    } from '../config-presets';
+    import {
         loadVideo
     } from '@/ts/util/video';
     import {
@@ -153,7 +156,7 @@
                         <p class="small">
                             Annotated fixations are connected to the selected character.
                         </p>
-                        <p class="subtitle">
+                        <p v-if="configPreset === 'full' || configPreset === 'unrestricted'" class="subtitle">
                             <strong>Boxes</strong> show annotation suggestions
                         </p>
                         <p class="small">
@@ -172,7 +175,7 @@
                         Fixation Colors
                     </p>
                     <div class="options-section">
-                        <p>
+                        <p v-if="configPreset === 'full' || configPreset === 'unrestricted'">
                             <strong>Entropy</strong> indicates how difficult algorithms consider a fixation to annotate. Intuitively,
                             higher entropy annotations should be more difficult, and vice versa.
                         </p>
@@ -184,14 +187,16 @@
                             <ColorOption v-model="assignedFixationColor" text="User-assigned" />
                             <!-- <ColorOption v-model="machineAssignedFixationColor" text="Algorithm-assigned" />
                                 <ColorOption v-model="unassignedFixationColor" text="Unassigned" /> -->
-                            <p>
-                                Entropy Heatmap
-                            </p>
-                            <ColorOption v-model="minHeatMapColor" text="Low Entropy" />
-                            <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
-                            <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
+                            <div v-if="configPreset === 'full' || configPreset === 'unrestricted'">
+                                <p>
+                                    Entropy Heatmap
+                                </p>
+                                <ColorOption v-model="minHeatMapColor" text="Low Entropy" />
+                                <ColorOption v-model="midHeatMapColor" text="Medium Entropy" />
+                                <ColorOption v-model="maxHeatMapColor" text="High Entropy" />
+                            </div>
                         </div>
-                        <p class="small">
+                        <p v-if="configPreset === 'full' || configPreset === 'unrestricted'" class="small">
                             EyeTAP uses multiple algorithms to suggest annotations for each fixation.
                             The more algorithms agree, the lower the entropy.
                         </p>
@@ -362,7 +367,7 @@
 
                     .color-options {
                         margin: 1rem;
-                        >p {
+                        p {
                             color: var( --theme-bg-3-20 );
                             font-weight: 600;
                             font-size: 1rem;
