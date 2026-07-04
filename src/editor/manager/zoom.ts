@@ -16,6 +16,9 @@ import {
 import type {
     EditorPoint
 } from '../types/annotation';
+import {
+    computed
+} from 'vue';
 import science from '@/ts/util/science';
 
 /**
@@ -142,6 +145,19 @@ const zoom = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => {
         setFactor( Math.abs( getFactor() * diff ) );
 };
 
+/**
+ * Vue computed property to tell you if zooming is possible
+ * @param diff - The zoom step (adding only)
+ */
+const canZoomIn = ( diff: number, mode: 'add' | 'multiply' = 'add' ) => computed( () => {
+    if ( !enableZoom.value ) return false;
+
+    if ( mode === 'add' )
+        return zoomFactor.value + diff < 3 && zoomFactor.value + diff >= 1;
+    else
+        return Math.abs( zoomFactor.value * diff ) < 3 && zoomFactor.value * diff >= 1;
+} );
+
 export default {
     setViewPortOriginFromCenter,
     setViewPortOrigin,
@@ -150,5 +166,6 @@ export default {
     getFactor,
     reset,
     zoom,
-    roundToDigits
+    roundToDigits,
+    canZoomIn
 };
