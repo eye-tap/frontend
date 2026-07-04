@@ -91,27 +91,25 @@
                                 then <strong>mark this fixation as invalid</strong>.
                             </li>
                             <li>
-                                Once you are done,
-                                click <strong>next annotation set</strong>
-                                to go to the next text.
-                            </li>
-                            <li>
                                 <strong>Continue annotating</strong> until the timer runs out.
                             </li>
                             <li>
                                 Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
                             </li>
                         </ol>
+                        <h3>Video Introduction</h3>
+                        <p>
+                            Please watch the following video for a short introduction to EyeTAP.
+                        </p>
+                        <div id="intro-video-wrapper" class="video-wrapper"></div>
                         <h3>Notes</h3>
                         <ul>
                             <li>Your <strong>timer starts immediately</strong> once you click "Continue", and cannot be paused.</li>
                             <li>Do not use a Mobile device, EyeTAP is designed for Desktop use.</li>
                             <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
-                        <div id="intro-video-wrapper"></div>
                         <p class="warning">
-                            You are <strong class="warn">only entitled to compensation</strong>
-                            if you complete the full duration of the study and fill out the workload survey!
+                            Your participation is only complete if you also <strong class="warn">fill out the workload survey</strong>.
                         </p>
                         <div style="margin-top: 20px;">
                             <input id="confirm-ethics" v-model="hasConfirmed" type="checkbox">
@@ -160,6 +158,12 @@
         padding-top: 1rem;
     }
 
+    .video-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
     .desc {
         color: var(--theme-background-text-20);
         padding: 1rem;
@@ -171,6 +175,7 @@
         h3 {
             color: var(--theme-bg-4);
             font-size: 1.5rem;
+            margin-bottom: 0rem;
         }
 
         p.warning {
