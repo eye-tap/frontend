@@ -23,17 +23,20 @@ export function useAnnotationNavigation () {
     const goToNextAnnotation = () => {
         if ( saveNeeded.value ) save();
 
-        const nextIdx = store.sessionIdx + 1;
+        let nextIdx = ( store.sessionIdx + 1 ) % store.sessionIds.length;
 
-        if ( nextIdx >= store.sessionIds.length ) {
-            notifications.notify( {
-                'text': 'No further annotation session available!',
-                'type': 'warn',
-                'title': 'Next Annotatation'
-            } );
-            console.warn( 'No next annotation ID available.' );
+        while ( store.sessionIds[ nextIdx ]!.completed ) {
+            nextIdx = ( nextIdx + 1 ) % store.sessionIds.length;
 
-            return;
+            if ( nextIdx === store.sessionIdx ) {
+                notifications.notify( {
+                    'text': 'No further annotation session available!',
+                    'type': 'warn',
+                    'title': 'Next Annotatation'
+                } );
+
+                return;
+            }
         }
 
         store.setActive( nextIdx );
@@ -44,6 +47,7 @@ export function useAnnotationNavigation () {
 
     const handleAnnotationDone = ( event: Event ) => {
         save();
+        store.setCompleted();
         const customEvent = event as CustomEvent;
         const {
             next

@@ -63,7 +63,10 @@
                             'textId': value.readingSession!.textId!,
                             'title': value.readingSession!.textTitle!,
                             'reader': value.readingSession!.reader!,
-                            'desc': value.description!
+                            'desc': value.description!,
+                            'completed': value.annotationsMetaData
+                                ? ( ( value.annotationsMetaData.total ?? 0 ) - ( value.annotationsMetaData.invalid ?? 0 ) ) == 0
+                                : false
                         };
                     } )
                 );

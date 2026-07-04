@@ -38,6 +38,10 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         watch( sessionIdx, cb );
     };
 
+    const setCompleted = () => {
+        sessionIds.value[ sessionIdx.value ]!.completed = true;
+    };
+
     return {
         sessionIdx,
         sessionIds,
@@ -45,6 +49,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         setActive,
         setIds,
         indexOf,
-        createWatchIdx
+        createWatchIdx,
+        setCompleted
     };
 } );

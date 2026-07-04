@@ -4,4 +4,5 @@ export interface AnnotationSessionDetails {
     'reader': number;
     'sessionId': number;
     'desc': string;
+    'completed'?: boolean;
 }
