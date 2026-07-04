@@ -13,6 +13,12 @@ export const stepsBasic: ITourStep[] = [
         'backdrop': true
     },
     {
+        'target': '#tour-invalidate',
+        'content': '<h3>Invalidate</h3><p>You can mark a fixation as invalid by clicking the cross symbol.</p>',
+        'highlight': true,
+        'backdrop': true
+    },
+    {
         'target': '#tour-finale',
         'content': `
             <div class="tour-final-content">
