@@ -86,6 +86,7 @@
     const minHeatMapColor = automatedColourMapper( heatMapMinColor );
     const midHeatMapColor = automatedColourMapper( heatMapMidColor );
     const maxHeatMapColor = automatedColourMapper( heatMapMaxColor );
+    const store = useAnnotationSessionStore();
 
     watch( show, () => addVideo() );
 
@@ -116,10 +117,10 @@
                             Please use EyeTAP for the duration of the study. Your timer is visible above the editor.
                             Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
                         </p>
-                        <p class="subtitle">
+                        <p v-if="store.videoId" class="subtitle">
                             Introduction Video
                         </p>
-                        <p>
+                        <p v-if="store.videoId">
                             Please watch the following video for a short introduction to EyeTAP.
                         </p>
                         <div id="video-wrapper" class="video-wrapper"></div>

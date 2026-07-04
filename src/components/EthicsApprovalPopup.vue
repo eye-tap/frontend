@@ -10,6 +10,7 @@
 
     const show = ref( false );
     const hasConfirmed = ref( false );
+    const showVideo = ref( false );
 
     const dismiss = () => {
         if ( !hasConfirmed.value ) return;
@@ -24,8 +25,10 @@
     document.addEventListener( 'eyetap:ethics:show', async ev => {
         if ( await request.getUserOptions( 'ethicsApproved' ) !== 'true' ) {
             setTimeout( () => {
-                if ( ev.detail )
+                if ( ev.detail ) {
+                    showVideo.value = true;
                     loadVideo( document.getElementById( 'intro-video-wrapper' )!, ev.detail );
+                }
             }, 500 );
 
             show.value = true;
@@ -97,11 +100,13 @@
                                 Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
                             </li>
                         </ol>
-                        <h3>Video Introduction</h3>
-                        <p>
-                            Please watch the following video for a short introduction to EyeTAP.
-                        </p>
-                        <div id="intro-video-wrapper" class="video-wrapper"></div>
+                        <div v-if="showVideo">
+                            <h3>Video Introduction</h3>
+                            <p>
+                                Please watch the following video for a short introduction to EyeTAP.
+                            </p>
+                            <div id="intro-video-wrapper" class="video-wrapper"></div>
+                        </div>
                         <h3>Notes</h3>
                         <ul>
                             <li>Your <strong>timer starts immediately</strong> once you click "Continue", and cannot be paused.</li>

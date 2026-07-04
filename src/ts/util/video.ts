@@ -1,5 +1,5 @@
 export const loadVideo = ( attachElement: HTMLElement, videoId: string, width: number = 420, height: number = 315 ) => {
-    if ( !attachElement ) return;
+    if ( !attachElement || !videoId ) return;
 
     attachElement.innerHTML = '';
 
