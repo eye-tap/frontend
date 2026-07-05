@@ -79,7 +79,8 @@ export const useSaveFunction = () => {
                 saveAgain = false;
                 save();
             }
-        } catch {
+        } catch ( e ) {
+            console.error( e );
             isSaving = false;
             saveAgain = false;
         }
