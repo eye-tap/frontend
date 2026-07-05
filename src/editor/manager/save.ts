@@ -43,7 +43,7 @@ export const useSaveFunction = () => {
 
         if ( data.status ) {
             try {
-            // Try to save to backend
+                // Try to save to backend
                 await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
                 science.save();
                 // This is used to track the last saved revision,
@@ -93,6 +93,8 @@ export const useSaveFunction = () => {
 
             data.fixationsToRemove = diff.added;
             data.fixationsToUndoRemove = diff.removed;
+
+            console.log( data );
 
             return {
                 'status': true,
