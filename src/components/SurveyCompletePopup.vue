@@ -23,7 +23,13 @@
 
         auth.logout();
 
-        location.href = `${ endSurveyLink.value }?quser=${ username }&qgroup=${ configPreset.value }`;
+        setTimeout( () => {
+            if ( endSurveyLink.value.includes( '?' ) ) {
+                location.href = `${ endSurveyLink.value }&quser=${ username }&qgroup=${ configPreset.value }`;
+            } else {
+                location.href = `${ endSurveyLink.value }?quser=${ username }&qgroup=${ configPreset.value }`;
+            }
+        }, 500 );
     };
 
     document.addEventListener( 'eyetap:timer-ended', async () => {

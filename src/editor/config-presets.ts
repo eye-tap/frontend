@@ -54,6 +54,7 @@ export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectio
 export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number, endSurvey?: string ) => {
     availableTime.value = timeToLogout ? timeToLogout : -1;
     endSurveyLink.value = endSurvey ?? 'https://survey.eyetap.ivia.ch/index.php/999838';
+    console.log( 'Linked survey for the end is', endSurveyLink.value );
 
     start();
 
