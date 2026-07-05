@@ -38,8 +38,15 @@ export const resetSave = () => {
 export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
 
+    let isSaving = false;
+    let saveAgain = false;
+
     const save = async () => {
-        const annotationsSnapshot = [ ...annotations.value ];
+        // Lock the saving function
+        if ( isSaving )
+            saveAgain = true;
+
+        isSaving = true;
         const data = saveCreator();
 
         if ( data.status ) {
@@ -47,7 +54,6 @@ export const useSaveFunction = () => {
                 // Try to save to backend
                 await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
                 science.save();
-                userAnnotations.value = annotationsSnapshot;
                 // This is used to track the last saved revision,
                 // which is then used to show to user if saving is needed
                 savedAtRevision.value = revision.value;
@@ -61,6 +67,13 @@ export const useSaveFunction = () => {
                 } ) );
             }
         }
+
+        isSaving = false;
+
+        if ( saveAgain ) {
+            saveAgain = false;
+            save();
+        }
     };
 
     const saveCreator = () => {
@@ -70,6 +83,7 @@ export const useSaveFunction = () => {
         };
 
         try {
+            const annotationsSnapshot = [ ...annotations.value ];
             // Translate to correct ids
             const ann = createDiff( userAnnotations.value, annotations.value );
 
@@ -97,6 +111,9 @@ export const useSaveFunction = () => {
 
             data.fixationsToRemove = diff.added;
             data.fixationsToUndoRemove = diff.removed;
+
+            // Store the transmitted annotations to not create a conflict
+            userAnnotations.value = annotationsSnapshot;
 
             return {
                 'status': true,
