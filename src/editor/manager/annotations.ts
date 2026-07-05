@@ -59,10 +59,8 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
             };
 
             // Try to delete by fix id
-            if ( deleteByFixID( annotation.fixationIdx, true ) )
-                console.log( 'Removed other annotation' );
+            deleteByFixID( annotation.fixationIdx, true );
 
-            console.log( 'Annotation added', annotation, 'fixation idx', fixationIndex );
             annotations.value.push( annotation );
 
             // Add to history
@@ -130,8 +128,6 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
      */
     const deleteByFixID = ( fixationId: number, addActionToHistory: boolean = false ): boolean => {
         if ( fixations.value[ fixationId ]!.assigned === 'assigned' ) {
-            let foundFixation = false;
-
             for ( let i = 0; i < annotations.value.length; i++ ) {
                 if ( annotations.value[ i ]!.fixationIdx === fixationId && !annotations.value[ i ]!.algorithm ) {
                     // Found fixation, delete it, add to history and redraw screen
@@ -153,13 +149,9 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
 
                     highlightBox( d[ 0 ]!.boxIdx, 3000 );
 
-                    console.log( 'Deleting box', d[ 0 ]!.boxIdx, '; fixation idx', d[ 0 ]!.fixationIdx );
-
-                    foundFixation = true;
+                    return true;
                 }
             }
-
-            return foundFixation;
         }
 
         return false;
