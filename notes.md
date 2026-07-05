@@ -10,6 +10,7 @@
 - [X] **Features of basic features group**
 - [X] Interface element scaling (don't scale up with zoom)
 - [ ] Colourblindness settings
+- [ ] Auto Save: Don't show large notification (just a small one somewhere)
 
 ## General
 - [X] Details pane on file explorer has wordcount in it, but no details on that
