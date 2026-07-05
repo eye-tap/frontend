@@ -60,8 +60,30 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
             selectedFixation.value = last.selectedFixation + 1;
         }
 
-        renderer.renderLines.render();
-        renderer.renderFixations.render();
+        renderer.renderAll();
+    };
+
+    const undo = () => {
+        if ( undoHistory.value.length === 0 ) return;
+
+        const last = undoHistory.value.pop()!;
+
+        revision.value--;
+
+        redoHistory.value.push( last );
+
+        if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
+        else if ( last.action === 'delete' ) annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
+
+        // Handle state of fixation (i.e. to make it display correctly)
+        if ( last.action !== 'invalidate' )
+            fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
+        else
+            fixations.value[ last.selectedFixation ]!.assigned = last.fixationState;
+
+        selectedFixation.value = last.selectedFixation;
+
+        renderer.renderAll();
     };
 
     /**
@@ -134,30 +156,6 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
             'action': 'invalidate'
         } );
         clearRedo();
-    };
-
-    const undo = () => {
-        if ( undoHistory.value.length === 0 ) return;
-
-        const last = undoHistory.value.pop()!;
-
-        revision.value--;
-
-        redoHistory.value.push( last );
-
-        if ( last.action === 'add' ) annotation.deleteByFixID( last.annotation.fixationIdx );
-        else if ( last.action === 'delete' ) annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
-
-        // Handle state of fixation (i.e. to make it display correctly)
-        if ( last.action !== 'invalidate' )
-            fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
-        else
-            fixations.value[ last.selectedFixation ]!.assigned = last.fixationState;
-
-        selectedFixation.value = last.selectedFixation;
-
-        renderer.renderLines.render();
-        renderer.renderFixations.render();
     };
 
     onMounted( () => {

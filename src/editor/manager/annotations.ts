@@ -59,7 +59,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
             };
 
             // Try to delete by fix id
-            deleteByFixID( annotation.fixationIdx );
+            deleteByFixID( annotation.fixationIdx, true );
 
             annotations.value.push( annotation );
 
@@ -187,7 +187,8 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
     const markAsInvalid = ( fixationIndex: number ) => {
         goToNextFixation();
 
-        if ( !deleteByFixID( fixationIndex, true ) ) history.invalidate( fixationIndex, fixations.value[ fixationIndex ]!.assigned );
+        deleteByFixID( fixationIndex, true );
+        history.invalidate( fixationIndex, fixations.value[ fixationIndex ]!.assigned );
 
         fixations.value[ fixationIndex ]!.assigned = 'invalid';
     };
