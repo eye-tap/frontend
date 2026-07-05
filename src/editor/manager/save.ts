@@ -8,14 +8,14 @@ import {
     createNumberDiff
 } from '@/ts/annotations/diff';
 import {
+    invalidatedFixations,
+    userAnnotations
+} from '../loaders/backend';
+import {
     onMounted,
     onUnmounted,
     ref
 } from 'vue';
-import {
-    sessionData,
-    userAnnotations
-} from '../loaders/backend';
 import type {
     EditAnnotationsDto
 } from '@/types/dtos/EditAnnotationsDto';
@@ -39,6 +39,7 @@ export const useSaveFunction = () => {
     const session = useAnnotationSessionStore();
 
     const save = async () => {
+        const annotationsSnapshot = [ ...annotations.value ];
         const data = saveCreator();
 
         if ( data.status ) {
@@ -46,6 +47,7 @@ export const useSaveFunction = () => {
                 // Try to save to backend
                 await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
                 science.save();
+                userAnnotations.value = annotationsSnapshot;
                 // This is used to track the last saved revision,
                 // which is then used to show to user if saving is needed
                 savedAtRevision.value = revision.value;
@@ -89,12 +91,12 @@ export const useSaveFunction = () => {
                 } )
                 .filter( val => val.state )
                 .map( val => val.id );
-            const diff = createNumberDiff( sessionData.value.removedFixations ?? [], invalidMarked );
+            const diff = createNumberDiff( invalidatedFixations.value, invalidMarked );
+
+            invalidatedFixations.value = invalidMarked;
 
             data.fixationsToRemove = diff.added;
             data.fixationsToUndoRemove = diff.removed;
-
-            console.log( data );
 
             return {
                 'status': true,

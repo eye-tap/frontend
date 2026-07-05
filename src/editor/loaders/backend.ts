@@ -41,6 +41,8 @@ import {
 
 export const sessionData: Ref<AnnotationSessionDto> = ref( {} );
 
+export const invalidatedFixations: Ref<number[]> = ref( [] );
+
 export const userAnnotations: Ref<EditorAnnotation[]> = ref( [] );
 
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
@@ -89,6 +91,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
             avg += f.disagreement;
         }
     } );
+    invalidatedFixations.value = sessionData.value.removedFixations ?? [];
 
     // Update heatmap bounds
     heatMapMaxValue.value = max + 0.001;
