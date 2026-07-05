@@ -43,36 +43,45 @@ export const useSaveFunction = () => {
 
     const save = async () => {
         // Lock the saving function
-        if ( isSaving )
+        if ( isSaving ) {
             saveAgain = true;
 
-        isSaving = true;
-        const data = saveCreator();
-
-        if ( data.status ) {
-            try {
-                // Try to save to backend
-                await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
-                science.save();
-                // This is used to track the last saved revision,
-                // which is then used to show to user if saving is needed
-                savedAtRevision.value = revision.value;
-                document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
-            } catch ( e ) {
-                document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
-                    'detail': {
-                        'reason': 'ERR_BACKEND_SEND',
-                        'error': e
-                    }
-                } ) );
-            }
+            return;
         }
 
-        isSaving = false;
+        isSaving = true;
 
-        if ( saveAgain ) {
+        try {
+            const data = saveCreator();
+
+            if ( data.status ) {
+                try {
+                // Try to save to backend
+                    await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
+                    science.save();
+                    // This is used to track the last saved revision,
+                    // which is then used to show to user if saving is needed
+                    savedAtRevision.value = revision.value;
+                    document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+                } catch ( e ) {
+                    document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
+                        'detail': {
+                            'reason': 'ERR_BACKEND_SEND',
+                            'error': e
+                        }
+                    } ) );
+                }
+            }
+
+            isSaving = false;
+
+            if ( saveAgain ) {
+                saveAgain = false;
+                save();
+            }
+        } catch {
+            isSaving = false;
             saveAgain = false;
-            save();
         }
     };
 
