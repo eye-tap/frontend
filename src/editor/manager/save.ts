@@ -56,7 +56,7 @@ export const useSaveFunction = () => {
 
             if ( data.status ) {
                 try {
-                // Try to save to backend
+                    // Try to save to backend
                     await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
                     science.save();
                     // This is used to track the last saved revision,
@@ -71,6 +71,13 @@ export const useSaveFunction = () => {
                         }
                     } ) );
                 }
+            } else {
+                document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
+                    'detail': {
+                        'reason': 'ERR_DATA_PREP_FAILED',
+                        'error': 'Failed to generate the data to save'
+                    }
+                } ) );
             }
 
             isSaving = false;
