@@ -8,10 +8,6 @@ import {
     onUnmounted,
     ref
 } from 'vue';
-import {
-    fixations,
-    selectedFixation
-} from '../data';
 import type {
     EditorAnnotation
 } from '../types/annotation';
@@ -19,8 +15,14 @@ import type {
     Renderer
 } from '../types/renderer';
 import {
+    fixations
+} from '../data';
+import {
     revision
 } from './save';
+import {
+    selectFixation
+} from './fixations';
 
 export const redoHistory: Ref<HistoryEntry[]> = ref( [] );
 
@@ -53,11 +55,11 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         else annotation.create( last.annotation.boxIdx, last.annotation.fixationIdx, true, false );
 
         if ( last.action !== 'invalidate' ) {
-            selectedFixation.value = last.selectedFixation;
+            selectFixation( last.selectedFixation );
             fixations.value[ last.annotation.fixationIdx ]!.assigned = last.fixationState;
         } else {
             fixations.value[ last.selectedFixation ]!.assigned = 'invalid';
-            selectedFixation.value = last.selectedFixation + 1;
+            selectFixation( last.selectedFixation + 1 );
         }
 
         renderer.renderAll();
@@ -81,7 +83,7 @@ const startHistoryTracker = ( renderer: Renderer, annotation: AnnotationManager 
         else
             fixations.value[ last.selectedFixation ]!.assigned = last.fixationState;
 
-        selectedFixation.value = last.selectedFixation;
+        selectFixation( last.selectedFixation );
 
         renderer.renderAll();
     };

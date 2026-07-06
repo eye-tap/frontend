@@ -36,7 +36,7 @@ export const goToPrevFixation = () => {
     selectFixation( selectedFixation.value - 1 );
 };
 
-const selectFixation = ( val: number ) => {
+export const selectFixation = ( val: number ) => {
     if ( selectedFixation.value > -1 ) {
         selectedFixation.value = mod( val, fixations.value.length );
 

@@ -5,6 +5,10 @@ import {
     selectedFixation
 } from '../data';
 import {
+    goToNextFixation,
+    selectFixation
+} from './fixations';
+import {
     onMounted,
     onUnmounted
 } from 'vue';
@@ -17,9 +21,6 @@ import type {
 import type {
     Renderer
 } from '../types/renderer';
-import {
-    goToNextFixation
-} from './fixations';
 import {
     highlightBox
 } from './boxes';
@@ -79,7 +80,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
                 const nextIndex = ( fixationIndex + i ) % length;
 
                 if ( fixations.value[nextIndex]!.assigned !== 'assigned' && fixations.value[nextIndex]!.assigned !== 'invalid' ) {
-                    selectedFixation.value = nextIndex;
+                    selectFixation( nextIndex );
                     endOfAnnotations = false;
                     break;
                 }
