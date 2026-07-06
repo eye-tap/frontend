@@ -20,7 +20,9 @@ const generate = ( username: string, password: string ): MagicLinkData => {
 };
 
 const getDecoded = (): UserData | null => {
-    const str = location.search.substring( location.search.indexOf( 'magic=' ) + 6 );
+    const baseStr = location.search.substring( location.search.indexOf( 'magic=' ) + 6 );
+    const andIdx = baseStr.indexOf( '&' );
+    const str = baseStr.slice( 0, andIdx > 0 ? andIdx : undefined );
 
     if ( str.length < 6 ) return null;
 

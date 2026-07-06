@@ -48,14 +48,18 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
         userOptions = {
             'startTime': '',
             'ended': 'false',
-            'ethicsApproved': 'false'
+            'ethicsApproved': 'false',
+            'prolificId': 'false'
         };
     }
 
     return userOptions![ item ];
 };
 
-const updateUserOptions = ( item: UserOptionKeys, data: string, noRedirect = false ): Promise<Response> => {
+const updateUserOptions = async ( item: UserOptionKeys, data: string, noRedirect = false ): Promise<Response> => {
+    if ( userOptions === null )
+        await getUserOptions( 'startTime' );
+
     console.debug( '[REQUESTS] Updating user data', item, 'to', data );
     userOptions![ item ] = data;
     const fetchOptions: RequestInit = {
@@ -66,7 +70,7 @@ const updateUserOptions = ( item: UserOptionKeys, data: string, noRedirect = fal
         }
     };
 
-    return requestWithOpts( '/user/options', fetchOptions, noRedirect );
+    return await requestWithOpts( '/user/options', fetchOptions, noRedirect );
 };
 
 /**

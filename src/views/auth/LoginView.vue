@@ -78,6 +78,19 @@
         if ( user ) {
             id.value = user.username;
             password.value = user.password;
+            const prolificIdIdx = location.search.indexOf( 'PROLIFIC_PID=' );
+
+            if ( prolificIdIdx > 0 ) {
+                console.log( '[AUTH] Prolific ID found in query params' );
+                const prolificIdSubstring = location.search.substring( prolificIdIdx + 13 );
+                const prolificIdEnd = prolificIdSubstring.indexOf( '&' );
+
+                if ( prolificIdEnd > 0 ) {
+                    status.prolificId = prolificIdSubstring.slice( 0, prolificIdEnd );
+                } else {
+                    status.prolificId = prolificIdSubstring;
+                }
+            }
 
             login();
         }

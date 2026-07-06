@@ -8,6 +8,7 @@ import magicLinks from './magic-links';
 import {
     ref
 } from 'vue';
+import request from '../util/request';
 import router from '../router';
 import {
     useNotification
@@ -69,6 +70,9 @@ const login = async ( id: string, password: string ): Promise<void> => {
             if ( status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && status.roles.length === 1 ) {
                 router.push( '/admin' );
             } else {
+                if ( status.prolificId )
+                    request.updateUserOptions( 'prolificId', status.prolificId );
+
                 router.push( '/app' );
             }
         } else if ( res.status === 400 || res.status === 401 || res.status === 403 ) {

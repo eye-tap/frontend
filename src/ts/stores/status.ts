@@ -8,6 +8,7 @@ import {
 interface Status {
     'isAuth': boolean;
     'username': string;
+    'prolificId': string;
     'roles': UserRoles[];
     'devMode': boolean;
     'devTools': boolean;
@@ -17,6 +18,7 @@ export const useStatusStore = defineStore( 'user', {
     'state': (): Status => ( {
         'isAuth': false,
         'username': '',
+        'prolificId': '',
         'roles': [],
         'devMode': false,
         'devTools': false
