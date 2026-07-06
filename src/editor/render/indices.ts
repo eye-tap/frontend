@@ -36,6 +36,9 @@ import {
 import type {
     EditorFixation
 } from '../types/fixations';
+import {
+    fixationsHidden
+} from '../data/io';
 
 /**
  * Render the indices numbers
@@ -52,6 +55,8 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
         ctx.canvas.height = canvasSize.value.height;
+
+        if ( fixationsHidden.value ) return;
 
         // Render points
         if ( fixationIndexDisplay.value === 'always' ) {
