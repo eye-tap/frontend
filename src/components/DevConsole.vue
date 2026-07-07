@@ -8,6 +8,7 @@
         ref
     } from 'vue';
     import request from '@/ts/util/request';
+    import science from '@/ts/util/science';
 
     const show = ref( false );
     const cmd = ref( '' );
@@ -75,6 +76,20 @@
             'desc': 'Reset the tour',
             'cmd': () => {
                 localStorage.removeItem( 'welcomeTourViewed' );
+                location.reload();
+            }
+        },
+        'hint:reset': {
+            'desc': 'Reset the hint display setting',
+            'cmd': () => {
+                request.updateUserOptions( 'hintSent', '' );
+                location.reload();
+            }
+        },
+        'analytics:reset': {
+            'desc': 'Reset the analytics for the current user',
+            'cmd': () => {
+                science.clear();
                 location.reload();
             }
         }
