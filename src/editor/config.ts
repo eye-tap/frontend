@@ -26,6 +26,8 @@ export const showExportButton = ref( false );
 
 export const allowDeclutterMode = ref( true );
 
+export const showHintNotifications = true;
+
 
 
 // ┌                                               ┐

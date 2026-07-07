@@ -3,6 +3,7 @@ export interface UserOptions {
     'ended': string;
     'ethicsApproved': string;
     'prolificId': string;
+    'hintSent': string;
 }
 
-export type UserOptionKeys = 'startTime' | 'ended' | 'ethicsApproved' | 'prolificId';
+export type UserOptionKeys = 'startTime' | 'ended' | 'ethicsApproved' | 'prolificId' | 'hintSent';

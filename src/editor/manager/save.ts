@@ -41,7 +41,7 @@ export const useSaveFunction = () => {
     let isSaving = false;
     let saveAgain = false;
 
-    const save = async () => {
+    const save = async ( isAutoSave: boolean ) => {
         // Lock the saving function
         if ( isSaving ) {
             saveAgain = true;
@@ -62,7 +62,13 @@ export const useSaveFunction = () => {
                     // This is used to track the last saved revision,
                     // which is then used to show to user if saving is needed
                     savedAtRevision.value = revision.value;
-                    document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+
+                    console.log( '[EDITOR] Saved' );
+
+                    if ( isAutoSave )
+                        document.dispatchEvent( new CustomEvent( 'eyetap:autosave:success' ) );
+                    else
+                        document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
                 } catch ( e ) {
                     document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
                         'detail': {
@@ -84,7 +90,7 @@ export const useSaveFunction = () => {
 
             if ( saveAgain ) {
                 saveAgain = false;
-                save();
+                save( isAutoSave );
             }
         } catch ( e ) {
             console.error( e );
@@ -167,12 +173,14 @@ export const useSaveFunction = () => {
         }
     };
 
+    const saveHandler = ( ev: CustomEvent<boolean> ) => save( ev.detail );
+
     onMounted( () => {
-        document.addEventListener( 'eyetap:save', save );
+        document.addEventListener( 'eyetap:save', saveHandler );
     } );
 
     onUnmounted( () => {
-        document.removeEventListener( 'eyetap:save', save );
+        document.removeEventListener( 'eyetap:save', saveHandler );
     } );
 
     return saveWithBeacon;

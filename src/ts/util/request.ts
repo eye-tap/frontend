@@ -49,7 +49,8 @@ const getUserOptions = async ( item: UserOptionKeys ): Promise<string> => {
             'startTime': '',
             'ended': 'false',
             'ethicsApproved': 'false',
-            'prolificId': 'false'
+            'prolificId': 'false',
+            'hintSent': ''
         };
     }
 

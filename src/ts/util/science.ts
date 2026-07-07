@@ -60,6 +60,12 @@ const reset = () => {
     start();
 };
 
+const clear = () => {
+    reset();
+    previousEpochs = [];
+    save();
+};
+
 /**
  * Store that user used feature at this time
  * @param feature - The feature that was used
@@ -133,5 +139,6 @@ export default {
     save,
     track,
     reset,
+    clear,
     start
 };
