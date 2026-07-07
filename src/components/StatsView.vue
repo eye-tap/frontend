@@ -19,7 +19,7 @@
 
     interface SessionProgress {
         'averageAnnPerFix': number;
-        'name': string;
+        'text': string;
         'annotators': number;
     }
 
@@ -27,27 +27,22 @@
     const stats: Ref<OverallProgressStatisticsDto> = ref( {} );
     const progress: Ref<SessionProgress[]> = ref( [] );
 
-    const getTextName = ( key: string ) => {
-        const readerSubstring = key.substring( key.indexOf( 'ShallowTextDto' ) + 18 );
-        const readerEndIdx = readerSubstring.indexOf( ',' );
-
-        return readerSubstring.slice( readerEndIdx + 8, readerSubstring.indexOf( ']' ) ) + ', ' + readerSubstring.slice( 0, readerEndIdx );
-    };
-
     const preprocessProgress = ( data: Record<string, ReadingSessionProgressDto> ) => {
         const progressList: SessionProgress[] = [];
 
         for ( const key in data ) {
-            const el = data[key]!;
+            const el = {
+                ...data[key]!
+            };
 
             progressList.push( {
                 'averageAnnPerFix': el.averageAnnotationsPerFixation ?? 0,
                 'annotators': el.numberOfUniqueAnnotators ?? 0,
-                'name': getTextName( key )
+                'text': key.slice( key.indexOf( 'title' ) + 6, key.indexOf( ']' ) )
             } );
         }
 
-        progress.value = progressList;
+        return progressList;
     };
 
     onMounted( async () => {
@@ -55,7 +50,11 @@
 
         stats.value = data.statisticsDto!;
 
-        preprocessProgress( data.progress! as Record<string, ReadingSessionProgressDto> );
+        progress.value = preprocessProgress( data.progress! as Record<string, ReadingSessionProgressDto> )
+            .sort( ( a, b ) => {
+                return a.text.localeCompare( b.text );
+            } );
+
 
         addStatsCharts( data, completion.value! );
     } );
@@ -98,7 +97,7 @@
         </div>
         <div v-if="stats" class="detailed-stats">
             <div v-for="(session, index) in progress" :key="index">
-                {{ session.name }}: {{ session.averageAnnPerFix }}
+                {{ session.text }}: {{ session.averageAnnPerFix }}
             </div>
         </div>
     </div>
