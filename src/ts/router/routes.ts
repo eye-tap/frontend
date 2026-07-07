@@ -14,6 +14,15 @@ export const routes = [
         }
     },
     {
+        'path': '/stats',
+        'name': 'stats',
+        'component': () => import( '@/components/StatsView.vue' ),
+        'meta': {
+            'title': 'Login',
+            'authRequired': false
+        }
+    },
+    {
         'path': '/login',
         'name': 'login',
         'component': () => import( '@/views/auth/LoginView.vue' ),
