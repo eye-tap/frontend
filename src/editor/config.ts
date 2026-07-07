@@ -24,6 +24,8 @@ export const autoSaveInterval = ref( 60 );
 
 export const showExportButton = ref( false );
 
+export const allowDeclutterMode = ref( true );
+
 
 
 // ┌                                               ┐
@@ -164,26 +166,6 @@ export const heatMapMaxColor: Ref<Color> = ref( {
     'g': 58,
     'b': 228
 } );
-
-// export const heatMapMinColor: Ref<HSLColor> = ref( {
-//     'h': 136,
-//     's': 0.84,
-//     'l': 0.67
-// } );
-//
-// // 226, 226, 86 (theme-information)
-// export const heatMapMidColor: Ref<HSLColor> = ref( {
-//     'h': 0,
-//     's': 0.75,
-//     'l': 0.68
-// } );
-//
-// // 234, 115, 115 (theme-warning)
-// export const heatMapMaxColor: Ref<HSLColor> = ref( {
-//     'h': 290,
-//     's': 0.76,
-//     'l': 0.56
-// } );
 
 // Make this keep the entropy color
 export const selectedFixationColor = ref( rs.getPropertyValue( '--theme-bg-4' ) );

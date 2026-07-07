@@ -25,6 +25,9 @@ import {
 import type {
     EditorAnnotation
 } from '../types/annotation';
+import {
+    declutterEnabled
+} from '../data/io';
 
 /**
  * Render the annotation lines
@@ -43,6 +46,8 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         ctx.canvas.height = canvasSize.value.height;
         ctx.lineWidth = scale( lineWidth.value );
         ctx.strokeStyle = assignedLineColor.value;
+
+        if ( declutterEnabled.value ) return;
 
         // Render
         if ( linesDisplay.value === 'all' ) {
@@ -97,7 +102,8 @@ export const linesRenderer = ( linesCanvas: Ref<HTMLCanvasElement | null> ) => {
         lineWidth,
         assignedLineColor,
         selectedFixation,
-        linesDisplay
+        linesDisplay,
+        declutterEnabled
     ], render );
 
     return {

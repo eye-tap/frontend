@@ -25,9 +25,6 @@ import {
     annotationManager
 } from '../manager/annotations';
 import {
-    fixationsHidden
-} from '../data/io';
-import {
     getClosestBoxIdByCharacterAndFixId
 } from '../association/boxes';
 import {
@@ -37,6 +34,9 @@ import science from '@/ts/util/science';
 import {
     selectedFixation
 } from '../data';
+import {
+    setDeclutter
+} from '../data/io';
 import zoom from '../manager/zoom';
 
 export const keyboardHandler = ( renderer: Renderer ) => {
@@ -120,7 +120,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
                 }
             } else if ( ev.key === 'Tab' ) {
                 ev.preventDefault();
-                fixationsHidden.value = true;
+                setDeclutter( true );
             }
         }
     };
@@ -132,7 +132,7 @@ export const keyboardHandler = ( renderer: Renderer ) => {
             linesDisplay.value = prevSelectedDisplayMode;
         } else if ( ev.key === 'Tab' ) {
             ev.preventDefault();
-            fixationsHidden.value = false;
+            setDeclutter( false );
         }
     };
 

@@ -9,8 +9,11 @@
 - [X] Improve tour and remove anything not strictly relevant (or do settings to show only part of the tour via toggle in admin)
 - [X] **Features of basic features group**
 - [X] Interface element scaling (don't scale up with zoom)
+- [X] Don't show fixations and assignment lines when pressing tab (or mousedown)
 - [ ] Colourblindness settings
 - [ ] Auto Save: Don't show large notification (just a small one somewhere)
+- [ ] Show the furthest along annotation (i.e. furthest down annotation), so it is easier to track where assignments have already been made.
+    Possibly also for the last line (in another colour or the like)
 
 ## General
 - [X] Details pane on file explorer has wordcount in it, but no details on that

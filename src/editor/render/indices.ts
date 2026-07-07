@@ -37,7 +37,7 @@ import type {
     EditorFixation
 } from '../types/fixations';
 import {
-    fixationsHidden
+    declutterEnabled
 } from '../data/io';
 
 /**
@@ -56,7 +56,7 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         ctx.canvas.width = canvasSize.value.width;
         ctx.canvas.height = canvasSize.value.height;
 
-        if ( fixationsHidden.value ) return;
+        if ( declutterEnabled.value ) return;
 
         // Render points
         if ( fixationIndexDisplay.value === 'always' ) {
@@ -169,7 +169,8 @@ export const indicesRenderer = ( indicesCanvas: Ref<HTMLCanvasElement | null> ) 
         dropShadowOffsetX,
         dropShadowOffsetY,
         dropShadowMinBoldness,
-        dropShadowMaxBoldness
+        dropShadowMaxBoldness,
+        declutterEnabled
     ], render );
 
     onMounted( () => {

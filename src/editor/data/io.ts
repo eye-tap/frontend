@@ -5,6 +5,9 @@ import {
 import type {
     EditorPoint
 } from '../types/annotation';
+import {
+    allowDeclutterMode
+} from '../config';
 
 export const isMouseDragging = ref( false );
 
@@ -32,4 +35,11 @@ export const lineStart: Ref<EditorPoint> = ref( {
 
 export const isZoomDragging = ref( false );
 
-export const fixationsHidden = ref( false );
+export const declutterEnabled = ref( false );
+
+export const setDeclutter = ( status: boolean ) => {
+    if ( allowDeclutterMode.value )
+        declutterEnabled.value = status;
+    else
+        declutterEnabled.value = false;
+};

@@ -19,7 +19,8 @@ import {
     isZoomDragging,
     mouseClickPos,
     mouseDragEnd,
-    mousePos
+    mousePos,
+    setDeclutter
 } from '../data/io';
 import {
     moveHandler,
@@ -46,6 +47,10 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
                 'x': canvasToOriginalCoordinates( scaleInverse( ev.x - rect.left ), 'x' ),
                 'y': canvasToOriginalCoordinates( scaleInverse( ev.y - rect.top ), 'y' )
             };
+            setTimeout( () => {
+                if ( isMouseDragging.value )
+                    setDeclutter( true );
+            }, 100 );
         }
     };
 
@@ -54,6 +59,7 @@ export const mouseHandler = ( target: Ref<HTMLElement | null> ) => {
             // End drag
             isMouseDragging.value = false;
             isZoomDragging.value = false;
+            setDeclutter( false );
             mouseDragEnd.value = {
                 'x': canvasToOriginalCoordinates( scaleInverse( ev.x - rect.left ), 'x' ),
                 'y': canvasToOriginalCoordinates( scaleInverse( ev.y - rect.top ), 'y' )

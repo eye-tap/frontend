@@ -34,10 +34,6 @@ import {
     selectedFixation
 } from '../data';
 import {
-    fixationsHidden,
-    isMouseDragging
-} from '../data/io';
-import {
     originalToCanvasCoordinates,
     scale,
     scaleWithoutZoom
@@ -49,6 +45,9 @@ import type {
     EditorFixation
 } from '../types/fixations';
 import {
+    declutterEnabled
+} from '../data/io';
+import {
     editorColorToStringColor
 } from '../util/colour';
 
@@ -58,15 +57,6 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
     const render = () => {
         if ( !ctx ) return;
 
-        // console.log(
-        //     'Current fixation idx',
-        //     selectedFixation.value + 1,
-        //     'disagreement',
-        //     fixations.value[ selectedFixation.value ]?.disagreement,
-        //     'id',
-        //     fixations.value[ selectedFixation.value ]?.id
-        // );
-
         // Reset canvas
         ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
         ctx.canvas.width = canvasSize.value.width;
@@ -74,7 +64,7 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         ctx.globalAlpha = fixationsOpacity.value;
 
         // Render points
-        if ( !isMouseDragging.value && !fixationsHidden.value ) {
+        if ( !declutterEnabled.value ) {
             if ( fixationDisplay.value === 'all' ) {
                 fixations.value.forEach( allFixationsRenderer( ctx ) );
             } else if ( fixationDisplay.value === 'surrounding' ) {
@@ -116,8 +106,7 @@ export const fixationRenderer = ( fixationsCanvas: Ref<HTMLCanvasElement | null>
         scanPathLineWidth,
         invalidFixationCrossLineWidth,
         invalidFixationColor,
-        isMouseDragging,
-        fixationsHidden
+        declutterEnabled
     ], render );
 
     return {
