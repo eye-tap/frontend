@@ -62,7 +62,7 @@ const login = async ( id: string, password: string ): Promise<void> => {
             }
 
             notifications.notify( {
-                'text': 'Welcome back to Eye-TAP',
+                'text': 'Welcome back to EYE-TAP',
                 'type': 'success',
                 'title': 'Login'
             } );

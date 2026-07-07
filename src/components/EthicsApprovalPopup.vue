@@ -46,17 +46,17 @@
             </div>
             <div class="popup-body">
                 <h2 class="title">
-                    Eye-TAP Study
+                    EYE-TAP Study
                 </h2>
                 <div class="desc">
                     <div>
                         <p>
-                            You are about to participate in a study testing the Eye-TAP platform for fixation annotation.
+                            You are about to participate in a study testing the EYE-TAP platform for fixation annotation.
                             Thank you for your time!
                         </p>
-                        <h3>What is EyeTAP?</h3>
+                        <h3>What is EYE-TAP?</h3>
                         <p>
-                            In EyeTAP, you will see a text overlayed with dots,
+                            In EYE-TAP, you will see a text overlayed with dots,
                             which represent eye-tracking data of someone reading this text.
                         </p>
                         <p>
@@ -69,15 +69,15 @@
                             The connection can then be manually registered, which is called <strong>Annotation</strong>.
                         </p>
                         <p>
-                            <strong>EyeTAP</strong> provides an intuitive interface to make annotating fast and reliable.
+                            <strong>EYE-TAP</strong> provides an intuitive interface to make annotating fast and reliable.
                         </p>
                         <h3>Your Task</h3>
                         <p>
-                            In this study, you are asked to use EyeTAP for a limited amount of time
+                            In this study, you are asked to use EYE-TAP for a limited amount of time
                             and fill out a short survey on your experience.
                         </p>
                         <p>
-                            Using EyeTAP works like this:
+                            Using EYE-TAP works like this:
                         </p>
 
                         <ol>
@@ -103,14 +103,14 @@
                         <div v-if="showVideo">
                             <h3>Video Introduction</h3>
                             <p>
-                                Please watch the following video for a short introduction to EyeTAP.
+                                Please watch the following video for a short introduction to EYE-TAP.
                             </p>
                             <div id="intro-video-wrapper" class="video-wrapper"></div>
                         </div>
                         <h3>Notes</h3>
                         <ul>
                             <li>Your <strong>timer starts immediately</strong> once you click "Continue", and cannot be paused.</li>
-                            <li>Do not use a Mobile device, EyeTAP is designed for Desktop use.</li>
+                            <li>Do not use a Mobile device, EYE-TAP is designed for Desktop use.</li>
                             <li>Refreshing the page may cause you to <strong>lose progress</strong>.</li>
                         </ul>
                         <p class="warning">
@@ -142,7 +142,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 900;
     background-color: var( --theme-overlay );
     display: flex;
     justify-content: center;

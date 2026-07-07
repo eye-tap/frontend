@@ -66,7 +66,7 @@ router.afterEach( to => {
         'top': 0,
         'behavior': 'smooth'
     } );
-    document.title = to.meta.title ? to.meta.title + ' - EyeTAP' : 'EyeTAP';
+    document.title = to.meta.title ? to.meta.title + ' - EYE-TAP' : 'EYE-TAP';
     NProgress.done();
 } );
 

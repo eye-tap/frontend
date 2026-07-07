@@ -25,7 +25,7 @@ export const stepsBasic: ITourStep[] = [
             <div class="tour-final-emoji">🚀</div>
             <h2>You’re Ready!</h2>
             <p>
-             You now know how to use the Eye-TAP Editor.
+             You now know how to use the EYE-TAP Editor.
             </p>
             <p class="tour-final-sub">
              Enjoy annotating!

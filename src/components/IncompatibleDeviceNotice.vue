@@ -71,7 +71,7 @@
                     Unsupported Device
                 </h2>
                 <p class="desc">
-                    Eye-TAP is intended for a desktop deviceand does not support this device type:
+                    EYE-TAP is intended for a desktop deviceand does not support this device type:
                 </p>
                 <ul>
                     <li v-if="isTouchDevice">
@@ -90,7 +90,7 @@
                     Device compatible
                 </h2>
                 <p class="desc">
-                    All features required for Eye-TAP are supported
+                    All features required for EYE-TAP are supported
                 </p>
                 <button class="button primary" @click="dismiss">
                     Continue
@@ -107,7 +107,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1001;
     background-color: var( --theme-overlay );
     display: flex;
     justify-content: center;

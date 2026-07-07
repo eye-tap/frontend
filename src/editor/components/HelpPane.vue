@@ -117,14 +117,14 @@
                             Your Task
                         </p>
                         <p>
-                            Please use EyeTAP for the duration of the study. Your timer is visible above the editor.
+                            Please use EYE-TAP for the duration of the study. Your timer is visible above the editor.
                             Once the timer ends, please <strong>fill out the workload survey</strong> you are given.
                         </p>
                         <p v-if="store.videoId" class="subtitle">
                             Introduction Video
                         </p>
                         <p v-if="store.videoId">
-                            Please watch the following video for a short introduction to EyeTAP.
+                            Please watch the following video for a short introduction to EYE-TAP.
                         </p>
                         <div id="video-wrapper" class="video-wrapper"></div>
                     </div>
@@ -199,7 +199,7 @@
                             </div>
                         </div>
                         <p v-if="configPreset === 'full' || configPreset === 'unrestricted'" class="small">
-                            EyeTAP uses multiple algorithms to suggest annotations for each fixation.
+                            EYE-TAP uses multiple algorithms to suggest annotations for each fixation.
                             The more algorithms agree, the lower the entropy.
                         </p>
                     </div>
