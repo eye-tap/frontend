@@ -63,6 +63,7 @@
 
 <template>
     <div class="statistics-wrapper">
+        <h1>Statistics</h1>
         <div class="stats-top-wrapper">
             <div v-if="stats" class="stats">
                 <div>
