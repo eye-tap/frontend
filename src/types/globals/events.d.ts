@@ -15,8 +15,9 @@ declare global {
         }>;
         'eyetap:file:unload': CustomEvent<void>;
         'eyetap:file:loading': CustomEvent<void>; // for showing loading spinner
-        'eyetap:save': CustomEvent<void>;
+        'eyetap:save': CustomEvent<boolean>;
         'eyetap:save:success': CustomEvent<void>;
+        'eyetap:autosave:success': CustomEvent<void>;
         'eyetap:save:fail': CustomEvent<{
             'reason': string,
             'error'?: Error

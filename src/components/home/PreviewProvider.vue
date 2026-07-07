@@ -43,7 +43,7 @@
                             Invalid fixations
                         </p>
                         <p class="content">
-                            {{ props.session.annotationsMetaData?.invalid ? props.session.annotationsMetaData.invalid : 'N/A' }}
+                            {{ props.session.annotationsMetaData?.invalid ? props.session.annotationsMetaData.invalid : '0' }}
                         </p>
                     </td>
                     <td>

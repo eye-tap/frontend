@@ -45,6 +45,9 @@ import {
     useExportFunction
 } from './manager/export';
 import {
+    useHintNotificationSender
+} from './util/hints';
+import {
     useStatusStore
 } from '@/ts/stores/status';
 
@@ -67,7 +70,7 @@ const useAutoSave = () => {
     const startHandler = () => {
         interval = setInterval( () => {
             if ( isAutoSaveEnabled.value && saveNeeded.value ) {
-                save();
+                save( true );
             }
         }, autoSaveInterval.value * 1000 );
     };
@@ -86,8 +89,10 @@ export const setAutoSave = ( enabled: boolean ) => {
     isAutoSaveEnabled.value = enabled;
 };
 
-export const save = () => {
-    document.dispatchEvent( new CustomEvent( 'eyetap:save' ) );
+export const save = ( isAutoSave: boolean = false ) => {
+    document.dispatchEvent( new CustomEvent( 'eyetap:save', {
+        'detail': isAutoSave
+    } ) );
 };
 
 export const exportAnnotations = () => {
@@ -150,7 +155,7 @@ const start = (
 
     onMounted( () => {
         document.addEventListener( 'eyetap:theme', reloadThemeColours );
-        document.addEventListener( 'eyetap:timer-ended', save );
+        document.addEventListener( 'eyetap:timer-ended', () => save() );
         reloadThemeColours();
         document.addEventListener( 'visibilitychange', leaveHandler );
     } );
@@ -167,7 +172,7 @@ const start = (
         } catch { /* empty */ }
 
         try {
-            document.removeEventListener( 'eyetap:timer-ended', save );
+            document.removeEventListener( 'eyetap:timer-ended', () => save() );
         } catch { /* empty */ }
     } );
 
@@ -178,6 +183,7 @@ const start = (
     };
 
     useAutoSave();
+    useHintNotificationSender();
     science.start();
     console.log( '[EDITOR] started' );
 

@@ -6,6 +6,10 @@
         ref
     } from 'vue';
     import {
+        save,
+        saveNeeded
+    } from '@/editor';
+    import {
         selectedTheme,
         themes
     } from '@/ts/util/theme';
@@ -13,9 +17,6 @@
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth';
     import router from '@/ts/router';
-    import {
-        saveNeeded
-    } from '@/editor';
     import {
         timer
     } from '@/ts/util/timer';
@@ -47,7 +48,7 @@
     };
 
     const logoClick = () => {
-        if ( saveNeeded.value && !confirm( 'Do you really want to discard your changes?' ) ) return;
+        if ( saveNeeded.value ) save();
 
         if ( props.logoClickTarget != '' && props.logoClickTarget !== router.currentRoute.value.path )
             router.push( props.logoClickTarget );

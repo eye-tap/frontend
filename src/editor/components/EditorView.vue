@@ -1,7 +1,8 @@
 <script setup lang="ts">
     import '@globalhive/vuejs-tour/dist/style.css';
     import {
-        type Ref, ref
+        type Ref,
+        onMounted, onUnmounted, ref
     } from 'vue';
     import LegendPane from './LegendPane.vue';
     import editor from '..';
@@ -30,6 +31,22 @@
     );
     const status = useStatusStore();
     const loader = editorDataLoadingLocal( editorInstance.renderer.textImage, editorInstance.renderer.renderAll );
+    const showAutoSaveSuccessMessage = ref( false );
+
+    onMounted( () => {
+        document.addEventListener( 'eyetap:autosave:success', handleAutoSaveNotification );
+    } );
+
+    onUnmounted( () => {
+        document.removeEventListener( 'eyetap:autosave:success', handleAutoSaveNotification );
+    } );
+
+    const handleAutoSaveNotification = () => {
+        showAutoSaveSuccessMessage.value = true;
+        setTimeout( () => {
+            showAutoSaveSuccessMessage.value = false;
+        }, 5000 );
+    };
 
     if ( status.devMode ) {
         loader.loadBBoxCSV();
@@ -56,6 +73,11 @@
             <canvas id="indices" ref="indicesCanvas" class="canvas-layer"></canvas>
             <canvas id="click" ref="clickTarget" class="canvas-layer"></canvas>
         </div>
+        <div :class="[ 'autosave-notification', showAutoSaveSuccessMessage ? 'shown' : '' ]">
+            <div class="autosave-body">
+                Progress saved
+            </div>
+        </div>
     </div>
 </template>
 
@@ -63,6 +85,23 @@
     .editor {
         position: relative;
         flex-direction: column;
+    }
+
+    .autosave-notification {
+        position: fixed;
+        background-color: var( --theme-bg-3 );
+        padding: 20px;
+        bottom: calc( -1rem - 50px );
+        right: 15px;
+        z-index: 1002;
+        font-size: 1rem;
+        line-height: 100%;
+        transition: bottom 0.5s ease;
+        border-radius: 5px;
+
+        &.shown {
+            bottom: 15px;
+        }
     }
 
     .canvas-wrapper {
