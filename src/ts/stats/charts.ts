@@ -1,19 +1,29 @@
 import {
     ArcElement,
     Chart,
-    PieController
+    Legend,
+    PieController,
+    Tooltip
 } from 'chart.js';
 import type {
     ProgressDto
 } from '@/types/dtos/ProgressDto';
 
-Chart.register( PieController, ArcElement );
+Chart.register( PieController, ArcElement, Legend, Tooltip );
 
 export const addStatsCharts = ( data: ProgressDto, completion: HTMLCanvasElement ) => {
+    Chart.overrides.pie.plugins.legend.display = true;
     new Chart( completion, {
         'type': 'pie',
         'options': {
-            'aspectRatio': 1
+            'plugins': {
+                'legend': {
+                    'position': 'bottom'
+                }
+            },
+            'interaction': {
+                'mode': 'nearest'
+            }
         },
         'data': {
             'labels': [
@@ -21,10 +31,10 @@ export const addStatsCharts = ( data: ProgressDto, completion: HTMLCanvasElement
                 'Unassigned'
             ],
             'datasets': [ {
-                'label': 'Percentage of fixations with at least one assignment',
+                'label': 'Annotation Completion',
                 'data': [
-                    data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce!,
-                    1 - data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce!
+                    data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce! * 100,
+                    ( 1 - data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce! ) * 100
                 ],
                 'backgroundColor': [
                     'rgb(50, 210, 40)',

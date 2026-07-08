@@ -5,4 +5,5 @@ export interface OverallProgressStatisticsDto {
     'numberOfReadingSessions'?: number;
     'numberOfTexts'?: number;
     'numberOfSurveys'?: number;
+    'numberOfFixations'?: number;
 }

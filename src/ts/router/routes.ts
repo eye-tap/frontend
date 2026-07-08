@@ -16,9 +16,9 @@ export const routes = [
     {
         'path': '/stats',
         'name': 'stats',
-        'component': () => import( '@/components/StatsView.vue' ),
+        'component': () => import( '@/views/StatsPage.vue' ),
         'meta': {
-            'title': 'Login',
+            'title': 'Statistics',
             'authRequired': false
         }
     },
