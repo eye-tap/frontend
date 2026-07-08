@@ -369,6 +369,7 @@
             margin-left: 1rem;
             border-radius: 20px;
             overflow-x: hidden;
+            overflow-y: hidden;
 
             >.details-anchored {
                 position: sticky;
