@@ -11,7 +11,7 @@
             :show-account="false"
             :show-theme-picker="true"
             page-title=""
-            logo-click-target=""
+            logo-click-target="/"
         />
         <div class="stats-wrapper">
             <h1>Statistics</h1>
