@@ -1,4 +1,7 @@
 import request from './request';
+import {
+    useAnnotationSessionStore
+} from '../stores/annotationSessionStore';
 
 export type EyeTapTrackingEvents = 'undo-redo' | 'completion'
     | 'disagreement-solution-click' | 'disagreement-solution-bind'
@@ -22,6 +25,7 @@ export interface EyeTapTrackingDataDetails {
     'd': EyeTapTrackingCountsShort; // data
     't': number; // Timestamp
     'e': number; // Elapsed
+    'x': number; // Texts
 }
 
 let startTime = 0;
@@ -123,10 +127,13 @@ const getElapsedTime = (): number => {
 
 /** Send the tracking data to the backend */
 const save = () => {
+    const state = useAnnotationSessionStore();
+
     previousEpochs.push( {
         'd': getCountsShort(),
         't': new Date().getTime(),
-        'e': getElapsedTime()
+        'e': getElapsedTime(),
+        'x': state.sessionIds[ state.sessionIdx ] ? state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 : -1
     } );
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();
