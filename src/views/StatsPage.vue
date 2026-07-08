@@ -14,7 +14,6 @@
             logo-click-target="/"
         />
         <div class="stats-wrapper">
-            <h1>Statistics</h1>
             <StatsView />
         </div>
     </div>
@@ -41,6 +40,7 @@
         }
 
         >.stats-wrapper {
+            margin-top: 12vh;
             display: flex;
             flex-direction: column;
             position: relative;
