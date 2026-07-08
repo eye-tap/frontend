@@ -5,13 +5,10 @@ import {
     PieController,
     Tooltip
 } from 'chart.js';
-import type {
-    ProgressDto
-} from '@/types/dtos/ProgressDto';
 
 Chart.register( PieController, ArcElement, Legend, Tooltip );
 
-export const addStatsCharts = ( data: ProgressDto, completion: HTMLCanvasElement ) => {
+export const addStatsCharts = ( progress: number, completion: HTMLCanvasElement ) => {
     Chart.overrides.pie.plugins.legend.display = true;
     new Chart( completion, {
         'type': 'pie',
@@ -33,8 +30,8 @@ export const addStatsCharts = ( data: ProgressDto, completion: HTMLCanvasElement
             'datasets': [ {
                 'label': 'Annotation Completion',
                 'data': [
-                    data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce! * 100,
-                    ( 1 - data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce! ) * 100
+                    progress * 100,
+                    ( 1 - progress ) * 100
                 ],
                 'backgroundColor': [
                     'rgb(50, 210, 40)',

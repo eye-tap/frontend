@@ -154,6 +154,7 @@
                 } );
             }
         } );
+        addStatsCharts( 0.2, completion.value! );
     };
 
     const filterQuery = ref( '' );
@@ -175,8 +176,7 @@
 
         preprocessProgress( data.progress! as Record<string, ReadingSessionProgressDto> );
 
-
-        addStatsCharts( data, completion.value! );
+        addStatsCharts( data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce!, completion.value! );
     } );
 </script>
 
