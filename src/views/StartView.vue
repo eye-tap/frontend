@@ -15,6 +15,10 @@
         router.push( '/signup/admin' );
     };
 
+    const stats = () => {
+        router.push( '/stats' );
+    };
+
     const version = ( import.meta.env.VITE_GIT_REF ? ( import.meta.env.VITE_GIT_REF as string ).slice( 0, 10 ) : 'dev' ) + ( import.meta.env.PROD ? '-prod' : '-dev' );
     const gitRef = import.meta.env.VITE_GIT_REF;
 </script>
@@ -36,16 +40,17 @@
                         Annotate effortlessly
                     </p>
                     <div class="home-buttons">
-                        <div class="home-buttons-top">
-                            <button class="button primary" @click="login()">
-                                Log in
-                            </button>
-                            <button class="button secondary" @click="signup()">
-                                Sign up
-                            </button>
-                        </div>
+                        <button class="button primary" @click="login()">
+                            Log in
+                        </button>
+                        <button class="button secondary" @click="signup()">
+                            Sign up
+                        </button>
                         <button class="button secondary" @click="create()">
                             Create Survey
+                        </button>
+                        <button class="button secondary" @click="stats()">
+                            Statistics
                         </button>
                     </div>
                 </div>
