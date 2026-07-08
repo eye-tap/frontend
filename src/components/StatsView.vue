@@ -17,6 +17,9 @@
     import {
         getStats
     } from '@/ts/stats/loader';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
     interface SessionProgress {
         'averageAnnPerFix': number;
@@ -106,6 +109,53 @@
         return statsList.sort( ( a, b ) => a.value - b.value );
     };
 
+    const loadDevModeData = () => {
+        textList.value = [
+            'text_1_en',
+            'text_2_en',
+            'text_3_en'
+        ];
+        filterQuery.value = 'text_1_en';
+        stats.value = [
+            {
+                'display': 'Created Annotations',
+                'value': 22
+            },
+            {
+                'display': 'Users',
+                'value': 5
+            },
+            {
+                'display': 'Fixations',
+                'value': 55555
+            },
+            {
+                'display': 'Available Sets',
+                'value': 2222
+            },
+            {
+                'display': 'Surveys',
+                'value': 11
+            },
+            {
+                'display': 'Texts',
+                'value': 99
+            }
+        ];
+
+        textList.value.forEach( ( text, idx ) => {
+            for ( let i = 0; i < 20; i++ ) {
+                progress.value.push( {
+                    'annotators': 5,
+                    'reader': i,
+                    'sortDescriptor': ( idx * 10000 ) + i,
+                    'text': text,
+                    'averageAnnPerFix': 0.15
+                } );
+            }
+        } );
+    };
+
     const filterQuery = ref( '' );
     const textList: Ref<string[]> = ref( [] );
     const filteredProgress = computed( () => {
@@ -115,6 +165,10 @@
     } );
 
     onMounted( async () => {
+        const status = useStatusStore();
+
+        if ( status.devMode ) return loadDevModeData();
+
         const data = await getStats();
 
         stats.value = preprocessStats( data.statisticsDto! );
