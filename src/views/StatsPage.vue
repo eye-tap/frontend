@@ -10,7 +10,7 @@
             class="top-bar"
             :show-account="false"
             :show-theme-picker="true"
-            page-title=""
+            page-title="Statistics"
             logo-click-target="/"
         />
         <div class="stats-wrapper">
@@ -46,8 +46,7 @@
             position: relative;
             height: 100%;
             width: 80%;
-            overflow-y: scroll;
-            overflow-x: hidden;
+            overflow: hidden;
         }
     }
 </style>
