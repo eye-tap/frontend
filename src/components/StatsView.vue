@@ -349,6 +349,10 @@
                     justify-content: flex-end;
                     flex-direction: column;
 
+                    >canvas {
+                        padding: 1rem;
+                    }
+
                     >h3 {
                         margin: 0;
                     }
