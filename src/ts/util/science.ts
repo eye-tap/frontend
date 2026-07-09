@@ -29,8 +29,8 @@ export interface EyeTapTrackingDataDetails {
     'f': {
         'a': number, // number of added annotations
         'u': number, // number of deleted annotations
-        'd': number, // number of invalidate
-        'f': number, // number of undo invalidate
+        'd': number, // number of undo invalidate
+        'f': number, // number of invalidate
     }
 }
 
@@ -133,8 +133,18 @@ const getElapsedTime = (): number => {
 };
 
 
-/** Send the tracking data to the backend */
+let shouldStillSave = true;
+
+/** Send the tracking data to the backend
+ * @param annAdded - Number of annotations added
+ * @param annRemoved - Number of annotations removed
+ * @param invalidated - Number of fixations invalidated
+ * @param unInvalidated - Number of fixations un-invalidated
+ * @param wasShowingTour - If the tour was just shown, set this to true
+ */
 const save = ( annAdded: number, annRemoved: number, invalidated: number, unInvalidated: number, wasShowingTour: boolean = false ) => {
+    if ( !shouldStillSave ) return;
+
     const state = useAnnotationSessionStore();
 
     previousEpochs.push( {
@@ -155,6 +165,12 @@ const save = ( annAdded: number, annRemoved: number, invalidated: number, unInva
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();
 };
+
+console.log( '[SCIENCE] Init' );
+document.addEventListener( 'eyetap:timer-ended', () => {
+    console.log( '[SCIENCE] Timer end reached, not storing any further analytics' );
+    shouldStillSave = false;
+} );
 
 export default {
     get,

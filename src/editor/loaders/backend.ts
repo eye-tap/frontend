@@ -54,7 +54,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     if ( import.meta.env.VITE_DEV_TOOLS ) {
         const otherData = JSON.parse( sessionData.value.furtherOptions ?? '{}' );
 
-        setConfigPreset( otherData[ 'preset' ] );
+        setConfigPreset( otherData[ 'preset' ], otherData[ 'timeout' ], otherData[ 'end-survey' ] );
     }
 
     // Load image
