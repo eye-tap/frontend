@@ -139,7 +139,7 @@
                             Use <strong>Keybinds</strong> to annotate, and <strong>Arrow Keys</strong> to navigate.
                         </p>
                         <p v-else>
-                            Whenever a character is assigned, the chronologically next one is selected.  
+                            Whenever a character is assigned, the chronologically next one is selected.
                         </p>
                         <p class="subtitle">
                             <strong>Fixation color</strong> shows annotation state
@@ -209,7 +209,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="options-container" v-if="configPreset !== 'basic'">
+                <div v-if="configPreset !== 'basic'" class="options-container">
                     <p class="title">
                         Keybinds
                     </p>
