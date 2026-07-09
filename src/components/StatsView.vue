@@ -300,6 +300,8 @@
                 background-color: var( --theme-bg-1 );
                 margin: 1rem;
                 border-radius: 20px;
+                overflow-y: auto;
+                max-height: 70vh;
 
                 >p.subtitle {
                     margin: 0;
