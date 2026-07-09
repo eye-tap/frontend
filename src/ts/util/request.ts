@@ -145,7 +145,7 @@ const beaconRequest = async ( url: string, data: string, contentType: string = '
             'Authorization': `Bearer ${ token }`
         }
     } );
-    console.debug( 'request started, to:', backend.url + url );
+    console.debug( '[REQUESTS] Background update to:', backend.url + url );
 };
 
 /**

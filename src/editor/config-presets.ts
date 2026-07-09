@@ -54,12 +54,12 @@ export const isSectionVisible = ( key: SectionKey ) => visibility.value.isSectio
 export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?: number, endSurvey?: string ) => {
     availableTime.value = timeToLogout ? timeToLogout : -1;
     endSurveyLink.value = endSurvey ? endSurvey : 'https://survey.eyetap.ivia.ch/index.php/999838';
-    console.debug( '[Survey] Linked survey for the end is', endSurveyLink.value );
+    console.debug( '[SURVEY] Linked survey for the end is', endSurveyLink.value );
 
     start();
 
     if ( !preset ) {
-        console.warn( '[EDITOR] No config preset found for user, falling back to unrestricted' );
+        console.warn( '[CORE] No config preset found for user, falling back to unrestricted' );
         showPreAnnotations.value = true;
         fullSideBarAvailable.value = true;
 
@@ -86,7 +86,7 @@ export const setConfigPreset = ( preset: ConfigPreset | undefined, timeToLogout?
         fullSideBarAvailable.value = true;
     }
 
-    console.debug( '[EDITOR] Loading preset', preset );
+    console.debug( '[CORE] Loading preset', preset );
 
     configPreset.value = preset;
 };

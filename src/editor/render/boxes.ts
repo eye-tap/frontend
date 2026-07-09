@@ -119,6 +119,7 @@ export const boxesRenderer = ( boxesCanvas: Ref<HTMLCanvasElement | null>, image
         boundingBoxColor,
         boundingBoxStrokeWidth,
         boundingBoxesOpacity,
+        suggestedBoundingBoxColor,
         boxesDisplay,
         scalingFactor,
         highlightAllAlgosAssignedBoxes,

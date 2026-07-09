@@ -54,6 +54,8 @@ const start = async () => {
 
         previousEpochs = JSON.parse( res ? res : '[]' );
     } catch { /* empty */ }
+
+    console.log( '[SCIENCE] Loaded data, found', previousEpochs.length, 'existing epochs' );
 };
 
 /** Reset the tracking data. Automatically called by the send function */
@@ -67,7 +69,7 @@ const reset = () => {
         'scanpath-move': [],
         'export': []
     };
-    start();
+    startTime = new Date().getTime();
 };
 
 const clear = () => {
