@@ -1,6 +1,12 @@
 import type {
     ITourStep
 } from '@globalhive/vuejs-tour';
+import {
+    isSideBarCollapsed
+} from '@/editor/data';
+import {
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export const stepsFull: ITourStep[] = [
     {
@@ -32,6 +38,10 @@ export const stepsFull: ITourStep[] = [
             </p>
             </div>
             `,
-        'backdrop': true
+        'backdrop': true,
+        'onAfter': () => {
+            isSideBarCollapsed.value = true;
+            useAnnotationSessionStore().showingTour = false;
+        }
     }
 ];

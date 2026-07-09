@@ -4,6 +4,9 @@ import type {
 import {
     isSideBarCollapsed
 } from '@/editor/data';
+import {
+    useAnnotationSessionStore
+} from '@/ts/stores/annotationSessionStore';
 
 export const stepsBasic: ITourStep[] = [
     {
@@ -35,6 +38,7 @@ export const stepsBasic: ITourStep[] = [
         'backdrop': true,
         'onAfter': () => {
             isSideBarCollapsed.value = true;
+            useAnnotationSessionStore().showingTour = false;
         }
     }
 ];

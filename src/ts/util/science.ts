@@ -1,4 +1,7 @@
 import request from './request';
+import {
+    useAnnotationSessionStore
+} from '../stores/annotationSessionStore';
 
 export type EyeTapTrackingEvents = 'undo-redo' | 'completion'
     | 'disagreement-solution-click' | 'disagreement-solution-bind'
@@ -22,6 +25,13 @@ export interface EyeTapTrackingDataDetails {
     'd': EyeTapTrackingCountsShort; // data
     't': number; // Timestamp
     'e': number; // Elapsed
+    'x': number; // Texts
+    'f': {
+        'a': number, // number of added annotations
+        'u': number, // number of deleted annotations
+        'd': number, // number of undo invalidate
+        'f': number, // number of invalidate
+    }
 }
 
 let startTime = 0;
@@ -44,6 +54,8 @@ const start = async () => {
 
         previousEpochs = JSON.parse( res ? res : '[]' );
     } catch { /* empty */ }
+
+    console.log( '[SCIENCE] Loaded data, found', previousEpochs.length, 'existing epochs' );
 };
 
 /** Reset the tracking data. Automatically called by the send function */
@@ -57,13 +69,13 @@ const reset = () => {
         'scanpath-move': [],
         'export': []
     };
-    start();
+    startTime = new Date().getTime();
 };
 
 const clear = () => {
     reset();
     previousEpochs = [];
-    save();
+    save( 0, 0, 0, 0 );
 };
 
 /**
@@ -121,16 +133,44 @@ const getElapsedTime = (): number => {
 };
 
 
-/** Send the tracking data to the backend */
-const save = () => {
+let shouldStillSave = true;
+
+/** Send the tracking data to the backend
+ * @param annAdded - Number of annotations added
+ * @param annRemoved - Number of annotations removed
+ * @param invalidated - Number of fixations invalidated
+ * @param unInvalidated - Number of fixations un-invalidated
+ * @param wasShowingTour - If the tour was just shown, set this to true
+ */
+const save = ( annAdded: number, annRemoved: number, invalidated: number, unInvalidated: number, wasShowingTour: boolean = false ) => {
+    if ( !shouldStillSave ) return;
+
+    const state = useAnnotationSessionStore();
+
     previousEpochs.push( {
         'd': getCountsShort(),
         't': new Date().getTime(),
-        'e': getElapsedTime()
+        'e': getElapsedTime(),
+        'x': wasShowingTour || state.showingTour
+            ? -2
+            : ( state.sessionIds[ state.sessionIdx ] ? ( state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 ) : -1 ),
+        'f': {
+            'a': annAdded,
+            'u': annRemoved,
+            'f': invalidated,
+            'd': unInvalidated
+        }
     } );
+    console.log( '[SCIENCE] Saving analytics,', previousEpochs.length, 'sets available' );
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();
 };
+
+console.log( '[SCIENCE] Init' );
+document.addEventListener( 'eyetap:timer-ended', () => {
+    console.log( '[SCIENCE] Timer end reached, not storing any further analytics' );
+    shouldStillSave = false;
+} );
 
 export default {
     get,

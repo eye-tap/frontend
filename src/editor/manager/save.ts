@@ -56,19 +56,31 @@ export const useSaveFunction = () => {
 
             if ( data.status ) {
                 try {
+                    science.save(
+                        Object.keys( data.data.annotations ?? {} ).length,
+                        Object.keys( data.data.annotationsToRemove ?? {} ).length,
+                        data.data.fixationsToRemove?.length ?? 0,
+                        data.data.fixationsToUndoRemove?.length ?? 0
+                    );
+
                     // Try to save to backend
-                    await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
-                    science.save();
-                    // This is used to track the last saved revision,
-                    // which is then used to show to user if saving is needed
-                    savedAtRevision.value = revision.value;
+                    if ( data.needed ) {
+                        await annotation.save( data.data, session.sessionIds[session.sessionIdx]!.sessionId ).then();
 
-                    console.log( '[EDITOR] Saved' );
+                        // This is used to track the last saved revision,
+                        // which is then used to show to user if saving is needed
+                        savedAtRevision.value = revision.value;
 
-                    if ( isAutoSave )
-                        document.dispatchEvent( new CustomEvent( 'eyetap:autosave:success' ) );
-                    else
-                        document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+                        console.log( '[EDITOR] Saved' );
+
+                        if ( isAutoSave )
+                            document.dispatchEvent( new CustomEvent( 'eyetap:autosave:success' ) );
+                        else
+                            document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+                    } else {
+                        if ( !isAutoSave )
+                            document.dispatchEvent( new CustomEvent( 'eyetap:save:success' ) );
+                    }
                 } catch ( e ) {
                     document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
                         'detail': {
@@ -102,7 +114,9 @@ export const useSaveFunction = () => {
     const saveCreator = () => {
         const data: EditAnnotationsDto = {
             'annotations': {},
-            'annotationsToRemove': {}
+            'annotationsToRemove': {},
+            'fixationsToRemove': [],
+            'fixationsToUndoRemove': []
         };
 
         try {
@@ -140,7 +154,8 @@ export const useSaveFunction = () => {
 
             return {
                 'status': true,
-                'data': data
+                'data': data,
+                'needed': ann.added.length > 0 || ann.removed.length > 0 || diff.added.length > 0 || diff.removed.length > 0
             };
         } catch ( e ) {
             document.dispatchEvent( new CustomEvent( 'eyetap:save:fail', {
@@ -153,7 +168,8 @@ export const useSaveFunction = () => {
 
         return {
             'status': false,
-            'data': data
+            'data': data,
+            'needed': false
         };
     };
 

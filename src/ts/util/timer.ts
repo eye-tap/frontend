@@ -12,6 +12,7 @@ let timerInterval = -1;
 
 export const start = async () => {
     if ( await request.getUserOptions( 'ended' ) == 'true' ) {
+        console.log( '[TIMER] Triggering end popup because ended is set' );
         document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
     }
 
@@ -34,6 +35,7 @@ export const start = async () => {
         if ( remaining < 0 ) {
             if ( !sentEvent ) {
                 sentEvent = true;
+                console.log( '[TIMER] End of survey reached, time available was', availableTime.value );
                 document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
             }
         } else {

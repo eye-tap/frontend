@@ -136,6 +136,12 @@ export const highlightBox = ( idx: number, duration: number ) => {
                 renderer.renderBoxes.render();
             }
         }, duration );
+    } else {
+        if ( boundingBoxes.value[ idx ]!.highlightClass === 'highlight' ) {
+            boundingBoxes.value[ idx ]!.highlightClass = prev[ idx ]!;
+
+            renderer.renderBoxes.render();
+        }
     }
 };
 
