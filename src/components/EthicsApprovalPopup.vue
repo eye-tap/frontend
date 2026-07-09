@@ -51,23 +51,42 @@
                 <div class="desc">
                     <div>
                         <p>
-                            You are about to participate in a study testing the EYE-TAP platform for fixation annotation.
+                            You are about to participate in a study testing the EYE-TAP platform.
                             Thank you for your time!
                         </p>
-                        <h3>What is EYE-TAP?</h3>
-                        <p>
-                            In EYE-TAP, you will see a text overlayed with dots,
-                            which represent eye-tracking data of someone reading this text.
-                        </p>
-                        <p>
-                            Each dot is a <strong>Fixation</strong>: A point
-                            the reader stared at for a longer duration. Usually, there is one fixation per word read.
-                        </p>
-                        <p>
-                            Fixations rarely align exactly with the word the reader was focusing on at the time.
-                            In many cases, it is easy to see though which word the reader meant.
-                            The connection can then be manually registered, which is called <strong>Annotation</strong>.
-                        </p>
+                      <h1>EYE-TAP</h1>
+
+                      <p>
+                        <strong>EYE-TAP</strong> is a platform for annotating eye-tracking data from
+                        reading experiments. It lets users assign each recorded fixation to the
+                        linguistic unit the reader was most likely looking at.
+                      </p>
+
+                      <p>If you are new to eye tracking, the main terms are:</p>
+
+                      <h2>Fixation</h2>
+                      <p>
+                        A short pause during reading in which the eye stays roughly still on one part
+                        of the text. During a fixation, the reader processes the linguistic material
+                        at that location. Fixations are connected by quick eye movements called
+                        <strong>saccades</strong>.
+                      </p>
+
+                      <h2>Reading Trial</h2>
+                      <p>
+                        One instance of a reader reading one text while their eye movements are
+                        recorded. Each trial produces a sequence of ordered fixations on that text
+                        (e.g., in English, reading usually progresses from left to right and from top
+                        to bottom).
+                      </p>
+
+                      <h2>Annotation Task</h2>
+                      <p>
+                        The task performed in <strong>EYE-TAP</strong>. The annotator decides which
+                        linguistic unit—in our case, a character—each fixation belongs to. This is
+                        needed because eye-tracking data is noisy, and a fixation can be ambiguous
+                        between neighbouring characters, words, or lines.
+                      </p>
                         <p>
                             <strong>EYE-TAP</strong> provides an intuitive interface to make annotating fast and reliable.
                         </p>
