@@ -9,7 +9,7 @@
     } from '../adminConfig';
     import {
         listSurveys
-    } from '@/ts/surveys';
+    } from '@/ts/admin';
     import testData from '@/ts/dev/SurveyTesData.json';
     import {
         useNotification

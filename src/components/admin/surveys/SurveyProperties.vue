@@ -2,7 +2,7 @@
     import {
         deleteSurvey,
         exportSurvey
-    } from '@/ts/surveys';
+    } from '@/ts/admin';
     import {
         ref,
         watch

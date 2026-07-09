@@ -7,7 +7,7 @@
     } from '@/types/dtos/ShallowReadingSessionDto';
     import {
         listReadingSessions
-    } from '@/ts/surveys';
+    } from '@/ts/admin';
     import testData from '@/ts/dev/TextTestData.json';
     import {
         useNotification

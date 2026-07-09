@@ -151,6 +151,7 @@ export const useAnnotationSessionManager = ( collabMode: boolean ) => {
         load,
         useTestData,
         loading,
-        sessions
+        sessions,
+        selectFile
     };
 };

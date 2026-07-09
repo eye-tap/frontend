@@ -5,7 +5,7 @@
     } from 'vue';
     import {
         createSurvey, listReadingSessions
-    } from '@/ts/surveys';
+    } from '@/ts/admin';
     import type {
         ConfigPreset
     } from '@/editor/config-presets';
