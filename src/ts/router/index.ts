@@ -35,13 +35,15 @@ router.beforeEach( ( to, from ) => {
     const store = useStatusStore();
     const session = useAnnotationSessionStore();
 
-    if ( to.meta.allowedRoles && ( to.meta.allowedRoles as string[] ).length > 0 && !store.isAuth ) {
+    if ( store.devMode ) return;
+
+    if ( to.meta.allowedRoles && ( to.meta.allowedRoles as string[] ).length > 0 ) {
         console.log( 'Executing auth guard' );
 
         return {
             'name': 'login'
         };
-    } else if ( to.meta.allowedRoles && !store.devMode ) {
+    } else if ( to.meta.allowedRoles ) {
         if ( store.roles.length === 0
             || !store.roles.map( role => ( to.meta.allowedRoles as string[] ).includes( role ) ).reduce( ( prev, val ) => prev || val ) ) {
             const redir = store.roles[0]

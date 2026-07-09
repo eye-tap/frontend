@@ -21,19 +21,19 @@ export const routes = [
         }
     },
     {
-        'path': '/auth/login',
-        'name': 'login',
-        'component': () => import( '@/views/auth/LoginView.vue' ),
-        'meta': {
-            'title': 'Login'
-        }
-    },
-    {
         'path': '/login',
         'name': 'magic',
         'component': () => import( '@/views/auth/MagicLinkView.vue' ),
         'meta': {
             'title': 'Magic Link Login'
+        }
+    },
+    {
+        'path': '/auth/login',
+        'name': 'login',
+        'component': () => import( '@/views/auth/LoginView.vue' ),
+        'meta': {
+            'title': 'Login'
         }
     },
     {
