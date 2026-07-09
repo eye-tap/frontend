@@ -4,7 +4,7 @@
     import router from '@/ts/router';
 
     const login = () => {
-        router.push( '/login' );
+        router.push( '/auth/login' );
     };
 
     const signup = () => {

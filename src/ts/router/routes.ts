@@ -9,8 +9,7 @@ export const routes = [
         'name': 'home',
         'component': HomeView,
         'meta': {
-            'title': 'Home',
-            'authRequired': false
+            'title': 'Home'
         }
     },
     {
@@ -18,17 +17,23 @@ export const routes = [
         'name': 'stats',
         'component': () => import( '@/views/StatsPage.vue' ),
         'meta': {
-            'title': 'Statistics',
-            'authRequired': false
+            'title': 'Statistics'
+        }
+    },
+    {
+        'path': '/auth/login',
+        'name': 'login',
+        'component': () => import( '@/views/auth/LoginView.vue' ),
+        'meta': {
+            'title': 'Login'
         }
     },
     {
         'path': '/login',
-        'name': 'login',
-        'component': () => import( '@/views/auth/LoginView.vue' ),
+        'name': 'magic',
+        'component': () => import( '@/views/auth/MagicLinkView.vue' ),
         'meta': {
-            'title': 'Login',
-            'authRequired': false
+            'title': 'Magic Link Login'
         }
     },
     {
@@ -36,8 +41,7 @@ export const routes = [
         'name': 'signup',
         'component': () => import( '@/views/auth/SignupView.vue' ),
         'meta': {
-            'title': 'Signup',
-            'authRequired': false
+            'title': 'Signup'
         }
     },
     {
@@ -45,8 +49,7 @@ export const routes = [
         'name': 'signup-admin',
         'component': () => import( '@/views/auth/SignupAdmin.vue' ),
         'meta': {
-            'title': 'Signup as Survey Admin',
-            'authRequired': false
+            'title': 'Signup as Survey Admin'
         }
     },
     {
@@ -60,11 +63,22 @@ export const routes = [
                 'component': () => import( '@/views/app/AppHome.vue' ),
                 'meta': {
                     'title': 'Home',
-                    'authRequired': true,
-                    'allowedRoles': [
-                        'ROLE_SURVEY_PARTICIPANT',
-                        'ROLE_SURVEY_CROWD_SOURCE'
-                    ]
+                    'allowedRoles': [ 'ROLE_SURVEY_CROWD_SOURCE' ],
+                    'redirectTarget': {
+                        'ROLE_SURVEY_PARTICIPANT': 'app-survey-home'
+                    }
+                }
+            },
+            {
+                'path': 'home',
+                'name': 'app-survey-home',
+                'component': () => import( '@/views/app/AppSurveyHome.vue' ),
+                'meta': {
+                    'title': 'Home',
+                    'allowedRoles': [ 'ROLE_SURVEY_PARTICIPANT' ],
+                    'redirectTarget': {
+                        'ROLE_SURVEY_CROWD_SOURCE': 'app-home'
+                    }
                 }
             },
             {
@@ -73,12 +87,15 @@ export const routes = [
                 'component': () => import( '@/views/app/AppEditor.vue' ),
                 'meta': {
                     'title': 'Editor',
-                    'authRequired': true,
                     'allowedRoles': [
                         'ROLE_SURVEY_PARTICIPANT',
                         'ROLE_SURVEY_CROWD_SOURCE'
                     ],
-                    'mode': 'editor'
+                    'mode': 'editor',
+                    'redirectTarget': {
+                        'ROLE_SURVEY_PARTICIPANT': 'app-survey-home',
+                        'ROLE_SURVEY_CROWD_SOURCE': 'app-home'
+                    }
                 }
             }
         ]
@@ -89,7 +106,6 @@ export const routes = [
         'component': () => import( '@/views/admin/AdminHome.vue' ),
         'meta': {
             'title': 'Admin Panel (dev)',
-            'authRequired': true,
             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
         },
         'children': [
@@ -99,7 +115,6 @@ export const routes = [
                 'component': () => import( '@/components/admin/surveys/SurveyNoneSelected.vue' ),
                 'meta': {
                     'title': 'Admin',
-                    'authRequired': true,
                     'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                 }
             },
@@ -109,7 +124,6 @@ export const routes = [
                 'component': () => import( '@/components/admin/SurveyManager.vue' ),
                 'meta': {
                     'title': 'Admin',
-                    'authRequired': true,
                     'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                 },
                 'children': [
@@ -130,7 +144,6 @@ export const routes = [
                         'component': () => import( '@/components/admin/surveys/SurveyProperties.vue' ),
                         'meta': {
                             'title': 'Admin',
-                            'authRequired': true,
                             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                         }
                     },
@@ -140,7 +153,6 @@ export const routes = [
                         'component': () => import( '@/components/admin/surveys/SurveyCreator.vue' ),
                         'meta': {
                             'title': 'Admin',
-                            'authRequired': true,
                             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                         }
                     },
@@ -150,7 +162,6 @@ export const routes = [
                         'component': () => import( '@/components/admin/surveys/SurveyMagicLinks.vue' ),
                         'meta': {
                             'title': 'Admin',
-                            'authRequired': true,
                             'allowedRoles': [ 'ROLE_SURVEY_ADMIN' ]
                         }
                     }

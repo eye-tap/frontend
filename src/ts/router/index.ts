@@ -2,6 +2,9 @@ import {
     createRouter, createWebHistory
 } from 'vue-router';
 import NProgress from 'nprogress';
+import type {
+    UserRoles
+} from '@/types/UserData';
 import {
     routes
 } from './routes';
@@ -32,32 +35,70 @@ router.beforeEach( ( to, from ) => {
     const store = useStatusStore();
     const session = useAnnotationSessionStore();
 
-    if ( to.meta.authRequired && !store.isAuth ) {
+    if ( to.meta.allowedRoles && ( to.meta.allowedRoles as string[] ).length > 0 && !store.isAuth ) {
+        console.log( 'Executing auth guard' );
+
         return {
             'name': 'login'
-        };
-    } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) ) {
-        return {
-            'name': 'app-home'
-        };
-    } else if ( to.name === 'admin-home' ) {
-        // Automatically redirect on admin panel
-        return {
-            'name': 'surveys-none-selected'
         };
     } else if ( to.meta.allowedRoles && !store.devMode ) {
         if ( store.roles.length === 0
             || !store.roles.map( role => ( to.meta.allowedRoles as string[] ).includes( role ) ).reduce( ( prev, val ) => prev || val ) ) {
+            const redir = store.roles[0]
+                ? ( to.meta.redirectTarget as {
+                    [key in UserRoles]: string
+                } )[store.roles[0]!] ?? from.name
+                : 'login';
+
+            console.log( 'redirecting to', redir );
+
+
             return {
-                'name': from.name
+                'name': redir
             };
         }
-    } else if ( to.name === 'app-editor' ) {
-        if ( !session.selected && !store.devMode ) {
+    }
+
+    if ( to.name === 'app-editor' ) {
+        if ( !session.selected ) {
+            if ( store.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
+                return {
+                    'name': 'app-survey-home'
+                };
+            else
+                return {
+                    'name': 'app-home'
+                };
+        }
+    } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) ) {
+        console.log( 'Executing login guard' );
+
+        if ( store.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
+            return {
+                'name': 'app-survey-home'
+            };
+        else if ( store.roles.includes( 'ROLE_CROWD_SOURCE' ) )
             return {
                 'name': 'app-home'
             };
-        }
+        else
+            return {
+                'name': 'admin-home'
+            };
+    } else if ( to.name === 'magic' && store.isAuth ) {
+        console.log( 'Executing magic guard' );
+
+        if ( store.roles.includes( 'ROLE_CROWD_SOURCE' ) )
+            return {
+                'name': 'app-survey-home'
+            };
+    } else if ( to.name === 'admin-home' ) {
+        // Automatically redirect on admin panel
+        console.log( 'Executing guard admin home' );
+
+        return {
+            'name': 'surveys-none-selected'
+        };
     }
 } );
 

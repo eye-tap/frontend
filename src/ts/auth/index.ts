@@ -73,7 +73,10 @@ const login = async ( id: string, password: string ): Promise<void> => {
                 if ( status.prolificId )
                     request.updateUserOptions( 'prolificId', status.prolificId );
 
-                router.push( '/app' );
+                if ( status.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
+                    router.push( '/app/home' );
+                else
+                    router.push( '/app' );
             }
         } else if ( res.status === 400 || res.status === 401 || res.status === 403 ) {
             errMsg.value = 'Email / Username or password incorrect.';

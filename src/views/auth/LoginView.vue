@@ -1,14 +1,15 @@
 <script setup lang="ts">
     import {
-        RouterLink, useRouter
+        RouterLink,
+        useRouter
     } from 'vue-router';
+    import {
+        onMounted,
+        ref
+    } from 'vue';
     import LogoRenderer from '@/components/LogoRenderer.vue';
     import StatusBar from '@/components/StatusBar.vue';
     import auth from '@/ts/auth';
-    import magicLinks from '@/ts/auth/magic-links';
-    import {
-        ref
-    } from 'vue';
     import {
         useStatusStore
     } from '@/ts/stores/status';
@@ -52,49 +53,23 @@
     };
 
     // Auto-redirect if already logged in
-    auth.verify()
-        .then( () => {
-            if ( status.isAuth ) {
-                if ( status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && status.roles.length === 1 ) {
-                    router.push( '/admin' );
-                } else {
-                    router.push( '/app' );
+    onMounted( () => {
+        auth.verify()
+            .then( () => {
+                if ( status.isAuth ) {
+                    if ( status.roles.includes( 'ROLE_SURVEY_ADMIN' ) && status.roles.length === 1 ) {
+                        router.push( '/admin' );
+                    } else {
+                        router.push( '/app' );
+                    }
+
+                    return;
                 }
-
-                return;
-            } else {
-                magicLink();
-            }
-        } )
-        .catch( () => {
-            loggingIn.value = false; // user not logged in
-            magicLink();
-        } );
-
-    const magicLink = () => {
-        // login using magic link
-        const user = magicLinks.getDecoded();
-
-        if ( user ) {
-            id.value = user.username;
-            password.value = user.password;
-            const prolificIdIdx = location.search.indexOf( 'PROLIFIC_PID=' );
-
-            if ( prolificIdIdx > 0 ) {
-                console.log( '[AUTH] Prolific ID found in query params' );
-                const prolificIdSubstring = location.search.substring( prolificIdIdx + 13 );
-                const prolificIdEnd = prolificIdSubstring.indexOf( '&' );
-
-                if ( prolificIdEnd > 0 ) {
-                    status.prolificId = prolificIdSubstring.slice( 0, prolificIdEnd );
-                } else {
-                    status.prolificId = prolificIdSubstring;
-                }
-            }
-
-            login();
-        }
-    };
+            } )
+            .catch( () => {
+                loggingIn.value = false; // user not logged in
+            } );
+    } );
 
     const keyHandler = ( ev: KeyboardEvent ) => {
         if ( ev.key === 'Enter' ) {
