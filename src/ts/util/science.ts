@@ -126,14 +126,16 @@ const getElapsedTime = (): number => {
 
 
 /** Send the tracking data to the backend */
-const save = () => {
+const save = ( wasShowingTour: boolean = false ) => {
     const state = useAnnotationSessionStore();
 
     previousEpochs.push( {
         'd': getCountsShort(),
         't': new Date().getTime(),
         'e': getElapsedTime(),
-        'x': state.sessionIds[ state.sessionIdx ] ? state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 : -1
+        'x': wasShowingTour
+            ? -2
+            : ( state.sessionIds[ state.sessionIdx ] ? ( state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 ) : -1 )
     } );
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();

@@ -9,12 +9,14 @@ import type {
 import {
     defineStore
 } from 'pinia';
+import science from '../util/science';
 
 export const useAnnotationSessionStore = defineStore( 'annotationsession', () => {
     const sessionIdx = ref( -1 );
     const sessionIds: Ref<AnnotationSessionDetails[]> = ref( [] );
     const selected = ref( false );
     const videoId = ref( '' );
+    const showingTour = ref( false );
 
     const setActive = ( idx: number ) => {
         sessionIdx.value = idx;
@@ -47,6 +49,12 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         sessionIds.value[ sessionIdx.value ]!.completed = true;
     };
 
+    watch( showingTour, val => {
+        if ( val ) {
+            science.save( true );
+        }
+    } );
+
     return {
         sessionIdx,
         sessionIds,
@@ -57,6 +65,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         createWatchIdx,
         setCompleted,
         videoId,
-        setVideoId
+        setVideoId,
+        showingTour
     };
 } );
