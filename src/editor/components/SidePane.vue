@@ -1,15 +1,14 @@
 <script setup lang="ts">
-    import {
-        disableKeyHandler,
-        enableZoom,
-        showExportButton
-    } from '../config';
     import editor, {
         markFixationAsInvalid,
         redoAvailable,
         saveNeeded,
         undoAvailable
     } from '..';
+    import {
+        enableZoom,
+        showExportButton
+    } from '../config';
     import {
         isSideBarCollapsed,
         selectedFixation
@@ -210,7 +209,7 @@
             </span>
         </div>
         <div
-            v-if="isSideBarCollapsed && !disableKeyHandler"
+            v-if="isSideBarCollapsed"
             id="tour-help"
             class="options-bar bottom"
         >
@@ -233,7 +232,6 @@
                 <h2>Options</h2>
                 <div>
                     <span
-                        v-if="!disableKeyHandler"
                         id="tour-keybinds"
                         class="clickable-icon"
                         title="Help"
