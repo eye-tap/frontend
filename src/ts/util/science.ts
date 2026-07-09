@@ -141,7 +141,7 @@ const save = ( annAdded: number, annRemoved: number, invalidated: number, unInva
         'd': getCountsShort(),
         't': new Date().getTime(),
         'e': getElapsedTime(),
-        'x': wasShowingTour
+        'x': wasShowingTour || state.showingTour
             ? -2
             : ( state.sessionIds[ state.sessionIdx ] ? ( state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 ) : -1 ),
         'f': {
