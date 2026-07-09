@@ -37,9 +37,7 @@ router.beforeEach( ( to, from ) => {
 
     if ( store.devMode ) return;
 
-    if ( to.meta.allowedRoles && ( to.meta.allowedRoles as string[] ).length > 0 ) {
-        console.log( 'Executing auth guard' );
-
+    if ( to.meta.allowedRoles && ( to.meta.allowedRoles as string[] ).length > 0 && !store.isAuth ) {
         return {
             'name': 'login'
         };
@@ -73,8 +71,6 @@ router.beforeEach( ( to, from ) => {
                 };
         }
     } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) ) {
-        console.log( 'Executing login guard' );
-
         if ( store.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
             return {
                 'name': 'app-survey-home'
@@ -88,16 +84,12 @@ router.beforeEach( ( to, from ) => {
                 'name': 'admin-home'
             };
     } else if ( to.name === 'magic' && store.isAuth ) {
-        console.log( 'Executing magic guard' );
-
         if ( store.roles.includes( 'ROLE_CROWD_SOURCE' ) )
             return {
                 'name': 'app-survey-home'
             };
     } else if ( to.name === 'admin-home' ) {
         // Automatically redirect on admin panel
-        console.log( 'Executing guard admin home' );
-
         return {
             'name': 'surveys-none-selected'
         };
