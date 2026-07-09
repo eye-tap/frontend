@@ -35,9 +35,14 @@ export const useEditorTour = ( tour: Ref<VTourExposedMethods | null> ) => {
         }
     };
 
+    const skipTour = () => {
+        state.showingTour = false;
+    };
+
     return {
         'steps': configPreset.value == 'basic' ? stepsBasic : stepsFull,
         showWelcomeTour,
-        startFullTour
+        startFullTour,
+        skipTour
     };
 };

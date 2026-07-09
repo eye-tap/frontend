@@ -69,7 +69,7 @@ const useAutoSave = () => {
 
     const startHandler = () => {
         interval = setInterval( () => {
-            if ( isAutoSaveEnabled.value && saveNeeded.value ) {
+            if ( isAutoSaveEnabled.value ) {
                 save( true );
             }
         }, autoSaveInterval.value * 1000 );

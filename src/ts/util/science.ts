@@ -26,6 +26,12 @@ export interface EyeTapTrackingDataDetails {
     't': number; // Timestamp
     'e': number; // Elapsed
     'x': number; // Texts
+    'f': {
+        'a': number, // number of added annotations
+        'u': number, // number of deleted annotations
+        'd': number, // number of invalidate
+        'f': number, // number of undo invalidate
+    }
 }
 
 let startTime = 0;
@@ -67,7 +73,7 @@ const reset = () => {
 const clear = () => {
     reset();
     previousEpochs = [];
-    save();
+    save( 0, 0, 0, 0 );
 };
 
 /**
@@ -126,7 +132,7 @@ const getElapsedTime = (): number => {
 
 
 /** Send the tracking data to the backend */
-const save = ( wasShowingTour: boolean = false ) => {
+const save = ( annAdded: number, annRemoved: number, invalidated: number, unInvalidated: number, wasShowingTour: boolean = false ) => {
     const state = useAnnotationSessionStore();
 
     previousEpochs.push( {
@@ -135,7 +141,13 @@ const save = ( wasShowingTour: boolean = false ) => {
         'e': getElapsedTime(),
         'x': wasShowingTour
             ? -2
-            : ( state.sessionIds[ state.sessionIdx ] ? ( state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 ) : -1 )
+            : ( state.sessionIds[ state.sessionIdx ] ? ( state.sessionIds[ state.sessionIdx ]!.sessionId ?? -1 ) : -1 ),
+        'f': {
+            'a': annAdded,
+            'u': annRemoved,
+            'f': invalidated,
+            'd': unInvalidated
+        }
     } );
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();

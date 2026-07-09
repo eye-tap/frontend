@@ -49,9 +49,9 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         sessionIds.value[ sessionIdx.value ]!.completed = true;
     };
 
-    watch( showingTour, val => {
-        if ( val ) {
-            science.save( true );
+    watch( showingTour, ( val, oldVal ) => {
+        if ( !val && oldVal ) {
+            science.save( 0, 0, 0, 0, true );
         }
     } );
 

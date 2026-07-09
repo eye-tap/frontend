@@ -27,7 +27,8 @@
     const {
         steps,
         showWelcomeTour,
-        startFullTour
+        startFullTour,
+        skipTour
     } = useEditorTour( tour );
 </script>
 
@@ -41,7 +42,29 @@
         />
         <SidePane />
         <EditorView id="tour-editor" />
-        <VTour ref="tour" :steps="steps" />
+        <VTour ref="tour" :steps="steps">
+            <template #actions="{ lastStep, nextStep, endTour, _CurrentStep, getNextLabel }">
+                <div class="vjt-actions">
+                    <button
+                        v-if="_CurrentStep.lastStep < _CurrentStep.currentStep"
+                        type="button"
+                        @click.prevent="lastStep()"
+                    >
+                        Back
+                    </button>
+                    <button
+                        type="button"
+                        @click.prevent="() => {
+                            skipTour();
+                            endTour();
+                        }"
+                    >
+                        Skip
+                    </button>
+                    <button type="button" @click.prevent="nextStep()" v-text="getNextLabel"></button>
+                </div>
+            </template>
+        </VTour>
     </div>
 </template>
 
