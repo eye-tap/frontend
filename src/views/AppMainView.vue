@@ -3,9 +3,9 @@
         RouterView,
         useRoute
     } from 'vue-router';
-    import EndPrematurelyPopup from '@/components/EndPrematurelyPopup.vue';
+    import EndPrematurelyPopup from '@/components/survey/EndPrematurelyPopup.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import SurveyCompletePopup from '@/components/SurveyCompletePopup.vue';
+    import SurveyCompletePopup from '@/components/survey/SurveyCompletePopup.vue';
     import {
         ref
     } from 'vue';

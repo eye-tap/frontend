@@ -3,7 +3,7 @@
         configPreset,
         endSurveyLink
     } from '@/editor/config-presets';
-    import LogoRenderer from './LogoRenderer.vue';
+    import LogoRenderer from '../LogoRenderer.vue';
     import auth from '@/ts/auth';
     import {
         ref

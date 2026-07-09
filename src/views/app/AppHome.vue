@@ -4,7 +4,7 @@
         computed,
         ref
     } from 'vue';
-    import EthicsApprovalPopup from '@/components/EthicsApprovalPopup.vue';
+    import EthicsApprovalPopup from '@/components/survey/EthicsApprovalPopup.vue';
     import FilePicker from '@/components/home/FilePicker.vue';
     import IncompatibleDeviceNotice from '@/components/IncompatibleDeviceNotice.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';

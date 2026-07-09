@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import LogoRenderer from './LogoRenderer.vue';
+    import LogoRenderer from '../LogoRenderer.vue';
     import {
         loadVideo
     } from '@/ts/util/video';

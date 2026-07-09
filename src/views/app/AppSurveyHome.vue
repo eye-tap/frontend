@@ -4,7 +4,6 @@
         computed,
         ref
     } from 'vue';
-    import EthicsApprovalPopup from '@/components/EthicsApprovalPopup.vue';
     import FilePicker from '@/components/home/FilePicker.vue';
     import IncompatibleDeviceNotice from '@/components/IncompatibleDeviceNotice.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
@@ -184,7 +183,6 @@
             </div>
         </div>
         <IncompatibleDeviceNotice />
-        <EthicsApprovalPopup />
     </div>
 </template>
 
