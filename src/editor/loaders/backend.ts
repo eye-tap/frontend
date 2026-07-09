@@ -48,7 +48,7 @@ export const userAnnotations: Ref<EditorAnnotation[]> = ref( [] );
 export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     const session = useAnnotationSessionStore();
 
-    sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId );
+    sessionData.value = await annotationManager.getSessionById( session.sessionIds[ session.sessionIdx ]!.sessionId, session.surveyId );
 
     // set config preset (for development mode)
     if ( import.meta.env.VITE_DEV_TOOLS ) {

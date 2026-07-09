@@ -17,6 +17,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
     const selected = ref( false );
     const videoId = ref( '' );
     const showingTour = ref( false );
+    const surveyId = ref( -1 );
 
     const setActive = ( idx: number ) => {
         sessionIdx.value = idx;
@@ -66,6 +67,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         setCompleted,
         videoId,
         setVideoId,
-        showingTour
+        showingTour,
+        surveyId
     };
 } );

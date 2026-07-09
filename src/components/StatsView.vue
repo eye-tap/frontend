@@ -248,7 +248,7 @@
                             {{ session.annotators }}
                         </p>
                         <p class="desc">
-                            Annotators
+                            Annotators with access
                         </p>
                     </div>
                 </div>

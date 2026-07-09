@@ -45,12 +45,14 @@ const list = async (): Promise<ShallowAnnotationSessionDto[]> => {
 /**
  * Get the full annotation session from backend by its ID (includes image)
  * @param sessionId - The annotation sessionId to retrieve
+ * @param surveyId - The ID of the survey to retrieve for
  * @returns The parsed annotation session
  */
-const getSessionById = async ( sessionId: number ): Promise<AnnotationSessionDto> => {
-    const data = await request.get( '/annotation/session/' + sessionId );
-
-    return JSON.parse( data ) as AnnotationSessionDto;
+const getSessionById = async ( sessionId: number, surveyId: number ): Promise<AnnotationSessionDto> => {
+    if ( surveyId < 0 )
+        return JSON.parse( await request.get( `/annotation/session/${ sessionId }` ) ) as AnnotationSessionDto;
+    else
+        return JSON.parse( await ( await request.post( `/annotation/session/survey/${ surveyId }/reading_session/${ sessionId }`, {} ) ).text() ) as AnnotationSessionDto;
 };
 
 /**
