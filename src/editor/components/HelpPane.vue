@@ -134,9 +134,12 @@
                         Editor Features
                     </p>
                     <div class="options-section">
-                        <p>
+                        <p v-if="configPreset !== 'basic'">
                             Whenever a character is assigned, the chronologically next one is selected.
                             Use <strong>Keybinds</strong> to annotate, and <strong>Arrow Keys</strong> to navigate.
+                        </p>
+                        <p v-else>
+                            Whenever a character is assigned, the chronologically next one is selected.  
                         </p>
                         <p class="subtitle">
                             <strong>Fixation color</strong> shows annotation state
@@ -164,12 +167,14 @@
                                 They show which characters an annotation algorithm would have chosen.
                             </p>
                         </div>
-                        <p class="subtitle">
-                            <strong>Grey Lines</strong> show sight path
-                        </p>
-                        <p class="small">
-                            The greyline connects fixations chronologically, so it shows the path the reader's eyes took.
-                        </p>
+                        <div v-if="configPreset !== 'basic'">
+                            <p class="subtitle">
+                                <strong>Grey Lines</strong> show sight path
+                            </p>
+                            <p class="small">
+                                The greyline connects fixations chronologically, so it shows the path the reader's eyes took.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="options-container">
@@ -204,7 +209,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="options-container">
+                <div class="options-container" v-if="configPreset !== 'basic'">
                     <p class="title">
                         Keybinds
                     </p>
