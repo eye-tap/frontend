@@ -3,15 +3,17 @@
         RouterView,
         useRoute
     } from 'vue-router';
-    import EndPrematurelyPopup from '@/components/survey/EndPrematurelyPopup.vue';
     import StatusBar from '@/components/StatusBar.vue';
-    import SurveyCompletePopup from '@/components/survey/SurveyCompletePopup.vue';
     import {
         ref
     } from 'vue';
+    import {
+        useStatusStore
+    } from '@/ts/stores/status';
 
     const pageTitle = ref( 'EYE-TAP' );
     const router = useRoute();
+    const status = useStatusStore();
 
     document.addEventListener( 'eyetap:file:load', e => {
         pageTitle.value = e.detail.title;
@@ -37,10 +39,8 @@
             :page-title="pageTitle"
             :show-account="true"
             :show-theme-picker="true"
-            logo-click-target="/app"
+            :logo-click-target="status.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) ? '/app/home' : '/app'"
         />
-        <SurveyCompletePopup />
-        <EndPrematurelyPopup />
         <router-view v-slot="{ Component, route }">
             <transition :name="route.meta.transition ? String( route.meta.transition ) : 'fade'" mode="out-in">
                 <component :is="Component" />

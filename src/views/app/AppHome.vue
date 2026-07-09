@@ -4,6 +4,7 @@
         computed,
         ref
     } from 'vue';
+    import EndPrematurelyPopup from '@/components/survey/EndPrematurelyPopup.vue';
     import EthicsApprovalPopup from '@/components/survey/EthicsApprovalPopup.vue';
     import FilePicker from '@/components/home/FilePicker.vue';
     import IncompatibleDeviceNotice from '@/components/IncompatibleDeviceNotice.vue';
@@ -11,6 +12,7 @@
     import type {
         ShallowAnnotationSessionDto
     } from '@/types/dtos/ShallowAnnotationSessionDto';
+    import SurveyCompletePopup from '@/components/survey/SurveyCompletePopup.vue';
     import UserCard from '@/components/home/UserCard.vue';
     import annotations from '@/ts/annotations';
     import router from '@/ts/router';
@@ -185,6 +187,8 @@
         </div>
         <IncompatibleDeviceNotice />
         <EthicsApprovalPopup />
+        <SurveyCompletePopup />
+        <EndPrematurelyPopup />
     </div>
 </template>
 
