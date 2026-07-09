@@ -149,6 +149,7 @@ const save = ( annAdded: number, annRemoved: number, invalidated: number, unInva
             'd': unInvalidated
         }
     } );
+    console.log( '[SCIENCE] Saving analytics,', previousEpochs.length, 'sets available' );
     request.beaconRequest( '/user/analytics', JSON.stringify( previousEpochs ) );
     reset();
 };
