@@ -63,7 +63,7 @@ const list = async ( surveyId: number ): Promise<ShallowAnnotationSessionDto[]> 
     return data;
 };
 
-export const useAnnotationSessionManager = ( collabMode: boolean ) => {
+export const useAnnotationSessionManager = ( colabMode: boolean ) => {
     const store = useAnnotationSessionStore();
     const status = useStatusStore();
     const selected: Ref<ShallowAnnotationSessionDto> = ref( {
@@ -104,7 +104,7 @@ export const useAnnotationSessionManager = ( collabMode: boolean ) => {
         if ( status.devMode ) return useTestData();
 
         loading.value = true;
-        list( collabMode ? store.surveyId : -1 )
+        list( colabMode ? store.surveyId : -1 )
             .then( list => {
                 if ( list[ 0 ] && list[ 0 ].furtherOptions && JSON.parse( list[ 0 ].furtherOptions )[ 'shuffle' ] ) {
                     sessions.value = shuffle( list );
@@ -182,7 +182,7 @@ export const useAnnotationSessionManager = ( collabMode: boolean ) => {
         return mostRecentlyEdited;
     } );
 
-    if ( collabMode )
+    if ( colabMode )
         store.createWatchSurveyId( load );
 
     onMounted( () => {

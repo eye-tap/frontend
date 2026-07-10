@@ -74,9 +74,9 @@ const login = async ( id: string, password: string ): Promise<void> => {
                     request.updateUserOptions( 'prolificId', status.prolificId );
 
                 if ( status.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
-                    router.push( '/app/home' );
+                    router.push( '/app/survey' );
                 else
-                    router.push( '/app' );
+                    router.push( '/app/colab/study' );
             }
         } else if ( res.status === 400 || res.status === 401 || res.status === 403 ) {
             errMsg.value = 'Email / Username or password incorrect.';

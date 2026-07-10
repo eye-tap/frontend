@@ -34,13 +34,14 @@
 
 <template>
     <div class="app-main">
+        <!-- FIXME: Here, we need to update the logo click target depending on page -->
         <StatusBar
             class="top-bar"
             :mode="(router.meta.mode as 'standard' | 'editor' | undefined)"
             :page-title="pageTitle"
             :show-account="true"
             :show-theme-picker="true"
-            :logo-click-target="status.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) ? '/app/home' : '/app'"
+            :logo-click-target="status.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) ? '/app/survey' : '/app/colab/session'"
         />
         <router-view v-slot="{ Component, route }">
             <transition :name="route.meta.transition ? String( route.meta.transition ) : 'fade'" mode="out-in">

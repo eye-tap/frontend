@@ -50,7 +50,7 @@ router.beforeEach( ( to, from ) => {
                 } )[store.roles[0]!] ?? from.name
                 : 'login';
 
-            console.log( 'redirecting to', redir );
+            console.log( '[ROUTER] redirecting to', redir, 'coming from', from.path, 'wanted to go to', to.path, 'roles', store.roles );
 
 
             return {
@@ -59,7 +59,15 @@ router.beforeEach( ( to, from ) => {
         }
     }
 
-    if ( to.name === 'app-editor' ) {
+    if ( to.path === '/app' || to.path === '/app/home' ) {
+        return {
+            'name': 'app-survey-picker'
+        };
+    } else if ( to.name === 'app-colab-session-picker' && session.surveyId < 0 ) {
+        return {
+            'name': 'app-colab-study-picker'
+        };
+    } else if ( to.name === 'app-editor' ) {
         if ( !session.selected ) {
             if ( store.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
                 return {
@@ -67,26 +75,26 @@ router.beforeEach( ( to, from ) => {
                 };
             else
                 return {
-                    'name': 'app-home'
+                    'name': 'app-colab-session-picker'
                 };
         }
     } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) ) {
         if ( store.roles.includes( 'ROLE_SURVEY_PARTICIPANT' ) )
             return {
-                'name': 'app-survey-home'
+                'name': 'app-survey-picker'
             };
-        else if ( store.roles.includes( 'ROLE_CROWD_SOURCE' ) )
+        else if ( store.roles.includes( 'ROLE_SURVEY_CROWD_SOURCE' ) )
             return {
-                'name': 'app-home'
+                'name': 'app-colab-study-picker'
             };
         else
             return {
                 'name': 'admin-home'
             };
     } else if ( to.name === 'magic' && store.isAuth ) {
-        if ( store.roles.includes( 'ROLE_CROWD_SOURCE' ) )
+        if ( store.roles.includes( 'ROLE_SURVEY_CROWD_SOURCE' ) )
             return {
-                'name': 'app-survey-home'
+                'name': 'app-survey-picker'
             };
     } else if ( to.name === 'admin-home' ) {
         // Automatically redirect on admin panel

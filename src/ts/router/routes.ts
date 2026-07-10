@@ -58,26 +58,38 @@ export const routes = [
         'component': () => import( '@/views/AppMainView.vue' ),
         'children': [
             {
-                'path': '',
-                'name': 'app-home',
-                'component': () => import( '@/views/app/AppHome.vue' ),
+                'path': 'colab/study',
+                'name': 'app-colab-study-picker',
+                'component': () => import( '@/views/app/colab/StudyPicker.vue' ),
                 'meta': {
-                    'title': 'Home',
+                    'title': 'Public Studies',
                     'allowedRoles': [ 'ROLE_SURVEY_CROWD_SOURCE' ],
                     'redirectTarget': {
-                        'ROLE_SURVEY_PARTICIPANT': 'app-survey-home'
+                        'ROLE_SURVEY_PARTICIPANT': 'app-survey-picker'
                     }
                 }
             },
             {
-                'path': 'home',
-                'name': 'app-survey-home',
-                'component': () => import( '@/views/app/AppSurveyHome.vue' ),
+                'path': 'colab/session',
+                'name': 'app-colab-session-picker',
+                'component': () => import( '@/views/app/colab/AnnotationSessionPicker.vue' ),
+                'meta': {
+                    'title': 'Annotation Sessions',
+                    'allowedRoles': [ 'ROLE_SURVEY_CROWD_SOURCE' ],
+                    'redirectTarget': {
+                        'ROLE_SURVEY_PARTICIPANT': 'app-survey-picker'
+                    }
+                }
+            },
+            {
+                'path': 'survey',
+                'name': 'app-survey-picker',
+                'component': () => import( '@/views/app/survey/AnnotationSessionPicker.vue' ),
                 'meta': {
                     'title': 'Home',
                     'allowedRoles': [ 'ROLE_SURVEY_PARTICIPANT' ],
                     'redirectTarget': {
-                        'ROLE_SURVEY_CROWD_SOURCE': 'app-home'
+                        'ROLE_SURVEY_CROWD_SOURCE': 'app-colab-study-picker'
                     }
                 }
             },
