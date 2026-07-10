@@ -5,8 +5,8 @@
         watchEffect
     } from 'vue';
     import type {
-        ShallowAnnotationSessionDto
-    } from '@/types/dtos/ShallowAnnotationSessionDto';
+        ShallowSurveyDto
+    } from '@/types/dtos/ShallowSurveyDto';
     import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
@@ -14,53 +14,51 @@
         useFilePickerUtils
     } from '@/ts/util/filePickers';
 
-    type SortColumns = 'none' | 'total' | 'done';
-
     const props = defineProps<{
-        'files': ShallowAnnotationSessionDto[],
+        'files': ShallowSurveyDto[],
         'loading': boolean,
         'mostRecentlyEdited': number
     }>();
     const emits = defineEmits<{
-        ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void
+        ( e: 'fileSelect', file: ShallowSurveyDto ): void
         ( e: 'reloadFiles' ): void
     }>();
-
+    const fileList: Ref<ShallowSurveyDto[]> = ref( [] );
+    // type SortColumns = 'none' | 'total' | 'done';
     // Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
-    const compareFunc = ( sortColumn: SortColumns, ascendingSort: boolean ) => {
-        return ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
-            // Sort by text name, then reader
-            if ( sortColumn === 'total' || sortColumn === 'done' ) {
-                if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort );
-
-                if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort );
-
-                if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort );
-
-                if ( !ascendingSort )
-                    return sortPredicate( a['annotationsMetaData']![sortColumn]! < b['annotationsMetaData']![sortColumn]! );
-                else
-                    return sortPredicate( b['annotationsMetaData']![sortColumn]! < a['annotationsMetaData']![sortColumn]! );
-            } else {
-                return 1;
-            }
-        };
-    };
-
-    const fileList: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
+    // const compareFunc = ( sortColumn: SortColumns, ascendingSort: boolean ) => {
+    //     return ( a: ShallowSurveyDto, b: ShallowSurveyDto ) => {
+    //         // Sort by text name, then reader
+    //         if ( sortColumn === 'total' || sortColumn === 'done' ) {
+    //             if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort );
+    //
+    //             if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort );
+    //
+    //             if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort );
+    //
+    //             if ( !ascendingSort )
+    //                 return sortPredicate( a['annotationsMetaData']![sortColumn]! < b['annotationsMetaData']![sortColumn]! );
+    //             else
+    //                 return sortPredicate( b['annotationsMetaData']![sortColumn]! < a['annotationsMetaData']![sortColumn]! );
+    //         } else {
+    //             return 1;
+    //         }
+    //         return 0;
+    //     };
+    // };
+    // const sortPredicate = ( predicate: boolean ) => {
+    //     return predicate ? 1 : -1;
+    // };
 
     watchEffect( () => fileList.value = props.files );
 
-    const picker = useFilePickerUtils( fileList, compareFunc, file => emits( 'fileSelect', file ) );
+    const picker = useFilePickerUtils( fileList, undefined, file => emits( 'fileSelect', file ) );
     const sortedList = picker.sorted;
     const sortColumn = picker.sortColumn;
     const ascendingSort = picker.ascendingSort;
     const session = useAnnotationSessionStore();
     const selectedFileIndex = picker.index;
 
-    const sortPredicate = ( predicate: boolean ) => {
-        return predicate ? 1 : -1;
-    };
 
     const reloadFromServer = () => {
         emits( 'reloadFiles' );
@@ -72,7 +70,7 @@
         <div class="file-picker-title">
             <span>
                 <i class="fa-xl fa-solid fa-file"></i>
-                <p>Select a file to annotate</p>
+                <p>Select dataset to contribute to it</p>
                 <i v-if="$props.loading" class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
             </span>
             <div>
@@ -121,23 +119,25 @@
                             {{ file.description + ( mostRecentlyEdited === index ? ' (last edited)' : '' ) }}
                         </td>
                         <td class="gazepoints">
-                            {{
-                                file.annotationsMetaData?.total
-                                    ? file.annotationsMetaData.total + ( file.annotationsMetaData.invalid ?? 0 )
-                                    : 'Not modified'
-                            }}
+                            TODO
+                            <!-- {{ -->
+                            <!--     file.annotationsMetaData?.total -->
+                            <!--         ? file.annotationsMetaData.total + ( file.annotationsMetaData.invalid ?? 0 ) -->
+                            <!--         : 'Not modified' -->
+                            <!-- }} -->
                         </td>
                         <td class="assigned">
-                            {{
-                                file.annotationsMetaData?.done != null
-                                    ? file.annotationsMetaData.done : 'Not modified'
-                            }}
+                            TODO
+                            <!-- {{ -->
+                            <!--     file.annotationsMetaData?.done != null -->
+                            <!--         ? file.annotationsMetaData.done : 'Not modified' -->
+                            <!-- }} -->
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div v-else>
-                <p>No Files on the server</p>
+                <p>No public datasets on the server</p>
             </div>
         </div>
     </div>

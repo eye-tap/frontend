@@ -1,21 +1,16 @@
 <script setup lang="ts">
+    import DatasetsPanel from '@/components/collab/DatasetsPanel.vue';
     import {
-        useAnnotationSessionStore
-    } from '@/ts/stores/annotationSessionStore';
+        useDatasets
+    } from '@/ts/colabMode/datasets';
 
-    const pickSurvey = () => {
-        useAnnotationSessionStore().surveyId = 1;
-    };
+    const handler = useDatasets();
+    const datasets = handler.datasets;
 </script>
 
 <template>
     <div>
         <h1>Study picker</h1>
-        <button @click="pickSurvey">
-            Pick survey
-        </button>
-        <router-link to="/app/colab/session">
-            To sessions
-        </router-link>
+        <DatasetsPanel :files="datasets" :loading="false" :most-recently-edited="0" />
     </div>
 </template>

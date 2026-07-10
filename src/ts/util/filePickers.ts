@@ -9,7 +9,7 @@ import {
 // TODO: Expand
 export const useFilePickerUtils = <T, C>(
     files: Ref<T[]>,
-    compareFunc: ( sortColumn: C, ascending: boolean ) => ( a: T, b: T ) => number,
+    compareFunc: ( ( sortColumn: C, ascending: boolean ) => ( a: T, b: T ) => number ) | undefined,
     fileSelect: ( file: T ) => void
 ) => {
     const sortColumn: Ref<C | 'none'> = ref( 'none' );
@@ -21,7 +21,10 @@ export const useFilePickerUtils = <T, C>(
 
         const toSort = [ ...files.value ];
 
-        return toSort.sort( compareFunc( sortColumn.value, ascendingSort.value ) );
+        if ( compareFunc )
+            return toSort.sort( compareFunc( sortColumn.value, ascendingSort.value ) );
+        else
+            return toSort;
     } );
 
     watch( sorted, () => index.value = 0 );
