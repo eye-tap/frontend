@@ -4,6 +4,7 @@
         useRoute
     } from 'vue-router';
     import StatusBar from '@/components/StatusBar.vue';
+    import SurveyCompletePopup from '@/components/survey/SurveyCompletePopup.vue';
     import {
         ref
     } from 'vue';
@@ -46,6 +47,7 @@
                 <component :is="Component" />
             </transition>
         </router-view>
+        <SurveyCompletePopup />
     </div>
 </template>
 

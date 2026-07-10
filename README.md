@@ -18,6 +18,7 @@ VITE_OVERRIDE_PROD=true # Makes the app use the prod backend, even if you are ru
 VITE_BACKEND_URL=<your URL> # Specify your own backend URL (highest priority)
 VITE_DEV_MDOE=true # Allows you to develop the frontend without a backend
 VITE_DEV_TOOLS=true # Enable dev tools. They can be opened using Ctrl + Shift + X
+VITE_GIT_REF=$(git rev-parse HEAD) # Used to display current version on start page
 ```
 
 To compile and typecheck the app, run

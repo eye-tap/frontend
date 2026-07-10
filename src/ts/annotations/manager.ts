@@ -1,5 +1,6 @@
 import {
     type Ref,
+    computed,
     onMounted,
     ref
 } from 'vue';
@@ -7,6 +8,7 @@ import type {
     ShallowAnnotationSessionDto
 } from '@/types/dtos/ShallowAnnotationSessionDto';
 import request from '../util/request';
+import router from '../router';
 import {
     setConfigPreset
 } from '@/editor/config-presets';
@@ -61,10 +63,12 @@ const list = async ( surveyId: number ): Promise<ShallowAnnotationSessionDto[]> 
     return data;
 };
 
-// FIXME: Implement this, with the goal of moving lots of functions out of the vue files
 export const useAnnotationSessionManager = ( collabMode: boolean ) => {
     const store = useAnnotationSessionStore();
     const status = useStatusStore();
+    const selected: Ref<ShallowAnnotationSessionDto> = ref( {
+        'id': 0
+    } );
     const loading = ref( false );
     const notifications = useNotification();
     const sessions: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
@@ -143,15 +147,54 @@ export const useAnnotationSessionManager = ( collabMode: boolean ) => {
             } );
     };
 
-    const selectFile = () => {};
+    const select = ( selectedFile: ShallowAnnotationSessionDto ) => {
+        selected.value = selectedFile;
+        store.setActive( store.indexOf( selectedFile.id! ) );
+    };
 
-    onMounted( () => {} );
+    const edit = () => {
+        if ( store.selected )
+            router.push( '/app/editor' );
+    };
+
+    const openRecent = () => {
+        if ( sessions.value.length > 0 ) return;
+
+        // Determine most recently edited, if all equal, use 0
+        store.setActive( mostRecentlyEditedIdx.value );
+        selected.value = sessions.value[ mostRecentlyEditedIdx.value ]!;
+        edit();
+    };
+
+    const mostRecentlyEditedIdx = computed( () => {
+        let mostRecentlyEdited = 0;
+        let mostRecentlyEditedTime = 0;
+
+        for ( let i = 0; i < sessions.value.length; i++ ) {
+            const time = new Date( sessions.value[i]!.lastEdited! ).getTime();
+
+            if ( time > mostRecentlyEditedTime ) {
+                mostRecentlyEdited = i;
+                mostRecentlyEditedTime = time;
+            }
+        }
+
+        return mostRecentlyEdited;
+    } );
+
+    onMounted( () => {
+        load();
+    } );
 
     return {
         load,
         useTestData,
         loading,
         sessions,
-        selectFile
+        mostRecentlyEditedIdx,
+        select,
+        edit,
+        openRecent,
+        selected
     };
 };

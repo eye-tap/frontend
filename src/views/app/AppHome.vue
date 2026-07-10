@@ -1,152 +1,21 @@
 <script setup lang="ts">
-    import {
-        type Ref,
-        computed,
-        ref
-    } from 'vue';
-    import EndPrematurelyPopup from '@/components/survey/EndPrematurelyPopup.vue';
-    import EthicsApprovalPopup from '@/components/survey/EthicsApprovalPopup.vue';
     import FilePicker from '@/components/home/FilePicker.vue';
     import IncompatibleDeviceNotice from '@/components/IncompatibleDeviceNotice.vue';
     import PreviewProvider from '@/components/home/PreviewProvider.vue';
-    import type {
-        ShallowAnnotationSessionDto
-    } from '@/types/dtos/ShallowAnnotationSessionDto';
-    import SurveyCompletePopup from '@/components/survey/SurveyCompletePopup.vue';
     import UserCard from '@/components/home/UserCard.vue';
-    import annotations from '@/ts/annotations';
-    import router from '@/ts/router';
     import {
-        shuffle
-    } from '@/ts/util/arrays';
-    import testData from '@/ts/dev/ShallowAnotationSessionDtoTestData.json';
+        useAnnotationSessionManager
+    } from '@/ts/annotations/manager';
     import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
-    import {
-        useNotification
-    } from '@kyvg/vue3-notification';
-    import {
-        useStatusStore
-    } from '@/ts/stores/status';
 
-    const session: Ref<ShallowAnnotationSessionDto> = ref( {
-        'id': 0
-    } );
-    const annotationSessionStore = useAnnotationSessionStore();
-    const sessions: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
-    const loading = ref( true );
-    const notifications = useNotification();
-    const status = useStatusStore();
-
-    const reloadFromServer = () => {
-        if ( status.devMode ) return useTestData();
-
-        loading.value = true;
-        annotations.list()
-            .then( list => {
-                if ( list[ 0 ] && list[ 0 ].furtherOptions && JSON.parse( list[ 0 ].furtherOptions )[ 'shuffle' ] ) {
-                    sessions.value = shuffle( list );
-                } else {
-                    sessions.value = list;
-                    sessions.value.sort( ( a, b ) => {
-                        if ( a.readingSession!.textId! === b.readingSession!.textId! ) {
-                            return a.readingSession!.reader! - b.readingSession!.reader!;
-                        }
-
-                        return a.readingSession!.textId! - b.readingSession!.textId!;
-                    } );
-                }
-
-                annotationSessionStore.setIds(
-                    sessions.value.map( value => {
-                        return {
-                            'sessionId': value.id!,
-                            'textId': value.readingSession!.textId!,
-                            'title': value.readingSession!.textTitle!,
-                            'reader': value.readingSession!.reader!,
-                            'desc': value.description!,
-                            'completed': value.annotationsMetaData
-                                ? ( ( value.annotationsMetaData.total ?? 0 ) - ( value.annotationsMetaData.invalid ?? 0 ) ) == 0
-                                : false
-                        };
-                    } )
-                );
-
-                loading.value = false;
-            } )
-            .catch( e => {
-                console.error( e );
-                loading.value = false;
-                notifications.notify( {
-                    'text': 'Failed to retrieve annotation sets from the backend',
-                    'type': 'error',
-                    'title': 'Annotation set listing'
-                } );
-            } );
-    };
-
-    /**
-     * Use dummy data to populate files. Doesn't link to any actual files.
-     */
-    const useTestData = () => {
-        loading.value = true;
-        const list: ShallowAnnotationSessionDto[] = testData.list;
-
-        sessions.value = list!;
-        annotationSessionStore.setIds(
-            list.map( value => {
-                return {
-                    'sessionId': value.id!,
-                    'textId': value.readingSession!.textId!,
-                    'title': value.readingSession!.textTitle!,
-                    'reader': value.readingSession!.reader!,
-                    'desc': `${ value.readingSession!.textTitle! }, reader ${ value.readingSession!.reader! }`
-                };
-            } )
-        );
-        notifications.notify( {
-            'text': 'Populated file list using testing data for frontend dev.',
-            'type': 'warn',
-            'title': 'Loaded Testing Data'
-        } );
-        loading.value = false;
-    };
-
-    reloadFromServer();
-
-    const fileSelect = ( selectedFile: ShallowAnnotationSessionDto ) => {
-        session.value = selectedFile;
-        annotationSessionStore.setActive( annotationSessionStore.indexOf( selectedFile.id! ) );
-    };
-
-    const editFile = () => {
-        if ( annotationSessionStore.selected )
-            router.push( '/app/editor' );
-    };
-
-    const openRecent = () => {
-        // Determine most recently edited, if all equal, use 0
-        annotationSessionStore.setActive( mostRecentlyEditedIdx.value );
-        session.value = sessions.value[ mostRecentlyEditedIdx.value ]!;
-        editFile();
-    };
-
-    const mostRecentlyEditedIdx = computed( () => {
-        let mostRecentlyEdited = 0;
-        let mostRecentlyEditedTime = 0;
-
-        for ( let i = 0; i < sessions.value.length; i++ ) {
-            const time = new Date( sessions.value[i]!.lastEdited! ).getTime();
-
-            if ( time > mostRecentlyEditedTime ) {
-                mostRecentlyEdited = i;
-                mostRecentlyEditedTime = time;
-            }
-        }
-
-        return mostRecentlyEdited;
-    } );
+    const store = useAnnotationSessionStore();
+    const manager = useAnnotationSessionManager( false );
+    const sessions = manager.sessions;
+    const mostRecentlyEditedIdx = manager.mostRecentlyEditedIdx;
+    const loading = manager.loading;
+    const session = manager.selected;
 </script>
 
 <template>
@@ -158,18 +27,18 @@
                     :files="sessions"
                     :loading="loading"
                     :most-recently-edited="mostRecentlyEditedIdx"
-                    @file-select="file => fileSelect( file )"
-                    @reload-files="reloadFromServer"
+                    @file-select="file => manager.select( file )"
+                    @reload-files="manager.load"
                 />
             </div>
             <div class="right">
-                <UserCard class="user-card" :files="sessions" />
+                <UserCard class="user-card" />
                 <PreviewProvider class="preview-provider" :session="session" />
                 <div class="file-actions">
                     <button
-                        :class="annotationSessionStore.selected ? undefined : 'disabled' "
+                        :class="store.selected ? undefined : 'disabled' "
                         class="button primary has-icon edit-button"
-                        @click="editFile()"
+                        @click="manager.edit()"
                     >
                         <i class="fa-lg fa-regular fa-pen-to-square"></i>
                         Edit
@@ -177,7 +46,7 @@
                     <!-- TODO: Improve design -->
                     <button
                         class="button has-icon"
-                        @click="openRecent()"
+                        @click="manager.openRecent()"
                     >
                         <i class="fa-lg fa-regular fa-pen-to-square"></i>
                         Open Recent
@@ -186,9 +55,6 @@
             </div>
         </div>
         <IncompatibleDeviceNotice />
-        <EthicsApprovalPopup />
-        <SurveyCompletePopup />
-        <EndPrematurelyPopup />
     </div>
 </template>
 

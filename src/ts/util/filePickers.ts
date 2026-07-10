@@ -7,23 +7,24 @@ import {
 } from 'vue';
 
 // TODO: Expand
-export const useFilePickerUtils = <T, C>( files: Ref<T[]>, compareFunc: ( a: T, b: T ) => number ) => {
+export const useFilePickerUtils = <T, C>(
+    files: Ref<T[]>,
+    compareFunc: ( sortColumn: C, ascending: boolean ) => ( a: T, b: T ) => number,
+    fileSelect: ( file: T ) => void
+) => {
     const sortColumn: Ref<C | 'none'> = ref( 'none' );
-    const selectedFileIndex = ref( -1 );
+    const index = ref( -1 );
     const ascendingSort = ref( false );
-    const sorted = computed( () => {
-
-    } );
-    const sortedList: ComputedRef<T[]> = computed( () => {
+    const sorted: ComputedRef<T[]> = computed( () => {
         if ( sortColumn.value === 'none' )
             return files.value;
 
         const toSort = [ ...files.value ];
 
-        return toSort.sort( compareFunc );
+        return toSort.sort( compareFunc( sortColumn.value, ascendingSort.value ) );
     } );
 
-    watch( sortedList, () => selectedFileIndex.value = 0 );
+    watch( sorted, () => index.value = 0 );
 
     const setSorting = ( col: C ) => {
         if ( sortColumn.value === col ) {
@@ -37,8 +38,17 @@ export const useFilePickerUtils = <T, C>( files: Ref<T[]>, compareFunc: ( a: T, 
         }
     };
 
+    const selectFile = ( idx: number ) => {
+        index.value = idx;
+        fileSelect( sorted.value[idx]! );
+    };
+
     return {
         sorted,
-        setSorting
+        setSorting,
+        selectFile,
+        sortColumn,
+        ascendingSort,
+        index
     };
 };

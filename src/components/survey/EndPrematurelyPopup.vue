@@ -1,13 +1,15 @@
 <script setup lang="ts">
+    import {
+        onMounted,
+        onUnmounted,
+        ref
+    } from 'vue';
     import LogoRenderer from '../LogoRenderer.vue';
     import auth from '@/ts/auth';
     import {
         availableTime
     } from '@/editor/config-presets';
     import editor from '@/editor';
-    import {
-        ref
-    } from 'vue';
     import request from '@/ts/util/request';
 
     const show = ref( false );
@@ -30,11 +32,20 @@
         }, 500 );
     };
 
-    document.addEventListener( 'eyetap:end', async () => {
+    const logoutHandler = () => {
         if ( availableTime.value > 0 )
             show.value = true;
         else
             auth.logout();
+    };
+
+    onMounted( () => {
+        document.addEventListener( 'eyetap:end', logoutHandler );
+    } );
+    onUnmounted( () => {
+        try {
+            document.removeEventListener( 'eyetap:end', logoutHandler );
+        } catch { /* */ }
     } );
 </script>
 

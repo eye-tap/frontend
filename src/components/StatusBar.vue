@@ -16,6 +16,9 @@
     import DevConsole from './DevConsole.vue';
     import LogoRenderer from './LogoRenderer.vue';
     import auth from '@/ts/auth';
+    import {
+        availableTime
+    } from '@/editor/config-presets';
     import router from '@/ts/router';
     import {
         timer
@@ -85,7 +88,7 @@
     };
 
     const logout = () => {
-        if ( location.pathname.startsWith( '/admin' ) ) {
+        if ( location.pathname.startsWith( '/admin' ) || availableTime.value <= 0 ) {
             auth.logout();
         } else {
             document.dispatchEvent( new CustomEvent( 'eyetap:end' ) );

@@ -1,10 +1,8 @@
 <script setup lang="ts">
     import {
-        type ComputedRef,
         type Ref,
-        computed,
         ref,
-        watch
+        watchEffect
     } from 'vue';
     import type {
         ShallowAnnotationSessionDto
@@ -12,8 +10,11 @@
     import {
         useAnnotationSessionStore
     } from '@/ts/stores/annotationSessionStore';
+    import {
+        useFilePickerUtils
+    } from '@/ts/util/filePickers';
 
-    type sortColumns = 'none' | 'total' | 'done';
+    type SortColumns = 'none' | 'total' | 'done';
 
     const props = defineProps<{
         'files': ShallowAnnotationSessionDto[],
@@ -24,59 +25,41 @@
         ( e: 'fileSelect', file: ShallowAnnotationSessionDto ): void
         ( e: 'reloadFiles' ): void
     }>();
-    const ascendingSort = ref( true );
-    const sortColumn: Ref<sortColumns> = ref( 'none' );
-    const selectedFileIndex = ref( 0 );
-    const session = useAnnotationSessionStore();
-    const sortedList: ComputedRef<ShallowAnnotationSessionDto[]> = computed( () => {
-        if ( sortColumn.value === 'none' )
-            return props.files;
-
-        const toSort = [ ...props.files ];
-
-        return toSort.sort( compareFunc );
-    } );
-
-    watch( sortedList, () => selectedFileIndex.value = 0 );
-
-    const setSorting = ( col: sortColumns ) => {
-        if ( sortColumn.value === col ) {
-            if ( ascendingSort.value )
-                ascendingSort.value = false;
-            else
-                sortColumn.value = 'none';
-        } else {
-            ascendingSort.value = true;
-            sortColumn.value = col;
-        }
-    };
 
     // Sorting by name requires bigger rewrite since name isn't in annotationsDataSet
-    const compareFunc = ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
-        // Sort by text name, then reader
-        if ( sortColumn.value === 'total' || sortColumn.value === 'done' ) {
-            if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
+    const compareFunc = ( sortColumn: SortColumns, ascendingSort: boolean ) => {
+        return ( a: ShallowAnnotationSessionDto, b: ShallowAnnotationSessionDto ) => {
+            // Sort by text name, then reader
+            if ( sortColumn === 'total' || sortColumn === 'done' ) {
+                if ( !a.annotationsMetaData && b.annotationsMetaData ) return sortPredicate( !ascendingSort );
 
-            if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort.value );
+                if ( a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( ascendingSort );
 
-            if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort.value );
+                if ( !a.annotationsMetaData && !b.annotationsMetaData ) return sortPredicate( !ascendingSort );
 
-            if ( !ascendingSort.value )
-                return sortPredicate( a['annotationsMetaData']![sortColumn.value]! < b['annotationsMetaData']![sortColumn.value]! );
-            else
-                return sortPredicate( b['annotationsMetaData']![sortColumn.value]! < a['annotationsMetaData']![sortColumn.value]! );
-        } else {
-            return 1;
-        }
+                if ( !ascendingSort )
+                    return sortPredicate( a['annotationsMetaData']![sortColumn]! < b['annotationsMetaData']![sortColumn]! );
+                else
+                    return sortPredicate( b['annotationsMetaData']![sortColumn]! < a['annotationsMetaData']![sortColumn]! );
+            } else {
+                return 1;
+            }
+        };
     };
+
+    const fileList: Ref<ShallowAnnotationSessionDto[]> = ref( [] );
+
+    watchEffect( () => fileList.value = props.files );
+
+    const picker = useFilePickerUtils( fileList, compareFunc, file => emits( 'fileSelect', file ) );
+    const sortedList = picker.sorted;
+    const sortColumn = picker.sortColumn;
+    const ascendingSort = picker.ascendingSort;
+    const session = useAnnotationSessionStore();
+    const selectedFileIndex = picker.index;
 
     const sortPredicate = ( predicate: boolean ) => {
         return predicate ? 1 : -1;
-    };
-
-    const selectFile = ( index: number ) => {
-        selectedFileIndex.value = index;
-        emits( 'fileSelect', sortedList.value[index]! );
     };
 
     const reloadFromServer = () => {
@@ -107,7 +90,7 @@
                                 Name
                             </div>
                         </th>
-                        <th class="gazepoints clickable" @click="setSorting( 'total' )">
+                        <th class="gazepoints clickable" @click="picker.setSorting( 'total' )">
                             <div>
                                 Fixations
                                 <span
@@ -116,7 +99,7 @@
                                 >arrow_drop_down</span>
                             </div>
                         </th>
-                        <th class="assigned clickable" @click="setSorting( 'done' )">
+                        <th class="assigned clickable" @click="picker.setSorting( 'done' )">
                             <div>
                                 Assigned
                                 <span
@@ -132,7 +115,7 @@
                         v-for="file, index in sortedList"
                         :key="file.id"
                         :class="index === selectedFileIndex && session.selected ? 'selected' : ''"
-                        @click="selectFile( index )"
+                        @click="picker.selectFile( index )"
                     >
                         <td class="file-name">
                             {{ file.description + ( mostRecentlyEdited === index ? ' (last edited)' : '' ) }}
