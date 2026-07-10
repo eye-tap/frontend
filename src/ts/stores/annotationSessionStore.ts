@@ -46,6 +46,10 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         watch( sessionIdx, cb );
     };
 
+    const createWatchSurveyId = ( cb: ( val?: number, old?: number ) => void ) => {
+        watch( surveyId, cb );
+    };
+
     const setCompleted = () => {
         sessionIds.value[ sessionIdx.value ]!.completed = true;
     };
@@ -68,6 +72,7 @@ export const useAnnotationSessionStore = defineStore( 'annotationsession', () =>
         videoId,
         setVideoId,
         showingTour,
-        surveyId
+        surveyId,
+        createWatchSurveyId
     };
 } );

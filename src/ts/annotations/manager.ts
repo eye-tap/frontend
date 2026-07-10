@@ -182,6 +182,9 @@ export const useAnnotationSessionManager = ( collabMode: boolean ) => {
         return mostRecentlyEdited;
     } );
 
+    if ( collabMode )
+        store.createWatchSurveyId( load );
+
     onMounted( () => {
         load();
     } );
