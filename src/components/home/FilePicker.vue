@@ -135,7 +135,9 @@
                         @click="selectFile( index )"
                     >
                         <td class="file-name">
-                            {{ file.description + ( mostRecentlyEdited === index ? ' (last edited)' : '' ) }}
+                            {{ (file.description
+                                ? file.description : `${file.readingSession?.textTitle ?? 'Untitled text'}, ${file.readingSession?.reader}`)
+                                + ( mostRecentlyEdited === index ? ' (last edited)' : '' ) }}
                         </td>
                         <td class="gazepoints">
                             {{

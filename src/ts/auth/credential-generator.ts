@@ -24,7 +24,11 @@ export const generateCredentials = async (): Promise<UserData> => {
     } else if ( studies.length === 1 ) {
         return await getCreds( studies[0]! );
     } else {
-        return await getCreds( studies[Math.round( Math.random() * ( studies.length - 1 ) )]! );
+        const ridx = Math.round( Math.random() * ( studies.length - 1 ) );
+
+        console.log( '[USER GEN] Assigned user to survey index', ridx, `(id = ${ studies[ridx]!.studyId })` );
+
+        return await getCreds( studies[ridx]! );
     }
 };
 
@@ -54,13 +58,9 @@ const parseParams = ( query: string, studies: EyeTapStudyLoginGeneratorDetails[]
         const sub = query.substring( idx );
         const studyDescStart = sub.indexOf( '=' );
         const endIdx = sub.indexOf( '&' );
-
-        console.log( sub.slice( studyDescStart + 1, endIdx > -1 ? endIdx : undefined ) );
         const split = sub.slice( studyDescStart + 1, endIdx > -1 ? endIdx : undefined ).split( '-' )
             .map( val => parseInt( val ) );
         const studyId = split.reverse().pop();
-
-        console.log( split );
 
         if ( !studyId || split.length < 1 ) {
             if ( firstItem ) {

@@ -98,8 +98,13 @@
     } );
 
     onUnmounted( () => {
-        document.removeEventListener( 'eyetap:file:loading', () => toggleLoadingNextAnnotation( true ) );
-        document.removeEventListener( 'eyetap:file:load', () => toggleLoadingNextAnnotation( false ) );
+        try {
+            document.removeEventListener( 'eyetap:file:loading', () => toggleLoadingNextAnnotation( true ) );
+        } catch { /* empty */ }
+
+        try {
+            document.removeEventListener( 'eyetap:file:load', () => toggleLoadingNextAnnotation( false ) );
+        } catch { /* empty */ }
     } );
 </script>
 

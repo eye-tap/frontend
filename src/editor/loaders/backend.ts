@@ -189,7 +189,7 @@ export const loadEditorDataFromBackend = async ( renderer: Renderer ) => {
     // If you do not want to diplay the reader, delete it here
     const data = session.sessionIds[ session.sessionIdx ]!;
 
-    let title = data.desc ?? 'EYE-TAP';
+    let title = data.desc ? data.desc : `${ data.title }, ${ data.reader }`;
 
     if ( fixations.value[ selectedFixation.value ]!.assigned === 'assigned' )
         title += ' (complete)';
