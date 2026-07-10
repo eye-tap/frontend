@@ -127,7 +127,7 @@
         <div>{{ timer }}</div>
         <div v-if="props.mode === 'editor'" class="next-action-wrapper">
             <button class="button primary next-btn" @click="goToNextAnnotation">
-                Next Annotation
+                Next Trial
                 <i v-if="!showLoadingNextAnnotation" class="fa-solid fa-arrow-right"></i>
                 <i v-else class="fa-lg fa-solid fa-arrows-rotate loading-icon"></i>
             </button>
