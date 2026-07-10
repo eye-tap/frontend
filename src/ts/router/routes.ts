@@ -23,6 +23,15 @@ export const routes = [
         }
     },
     {
+        'path': '/auth/generate',
+        'name': 'generator',
+        'component': () => import( '@/views/auth/AutoLinkGenerate.vue' ),
+        'meta': {
+            'title': 'Login',
+            'authRequired': false
+        }
+    },
+    {
         'path': '/login',
         'name': 'login',
         'component': () => import( '@/views/auth/LoginView.vue' ),

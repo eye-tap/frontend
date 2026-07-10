@@ -36,7 +36,7 @@ router.beforeEach( ( to, from ) => {
         return {
             'name': 'login'
         };
-    } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) ) {
+    } else if ( ( to.name === 'login' && store.isAuth ) || ( to.name === 'signup' && store.isAuth ) || ( to.name === 'generator' && store.isAuth ) ) {
         return {
             'name': 'app-home'
         };

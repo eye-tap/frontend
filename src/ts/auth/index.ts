@@ -215,11 +215,32 @@ const signup = ( username: string, email: string, pw: string, type: 'SURVEY_ADMI
 };
 
 
+/** Find the prolific ID in the query parameters */
+const parseProlificId = () => {
+    const prolificIdIdx = location.search.indexOf( 'PROLIFIC_PID=' );
+
+    if ( prolificIdIdx > 0 ) {
+        console.log( '[AUTH] Prolific ID found in query params' );
+        const prolificIdSubstring = location.search.substring( prolificIdIdx + 13 );
+        const prolificIdEnd = prolificIdSubstring.indexOf( '&' );
+
+        if ( prolificIdEnd > 0 ) {
+            return prolificIdSubstring.slice( 0, prolificIdEnd );
+        } else {
+            return prolificIdSubstring;
+        }
+    } else {
+        return '';
+    }
+};
+
+
 export default {
     login,
     verify,
     logout,
     signup,
     loggingIn,
-    errMsg
+    errMsg,
+    parseProlificId
 };

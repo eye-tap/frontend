@@ -11,6 +11,8 @@ export const timer = ref( '' );
 let timerInterval = -1;
 
 export const start = async () => {
+    if ( sessionStorage.getItem( 'disabletimer' ) ) return;
+
     if ( await request.getUserOptions( 'ended' ) == 'true' ) {
         console.log( '[TIMER] Triggering end popup because ended is set' );
         document.dispatchEvent( new CustomEvent( 'eyetap:timer-ended' ) );
