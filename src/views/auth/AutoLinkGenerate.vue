@@ -53,17 +53,68 @@
 </script>
 
 <template>
-    <div>
-        <div class="wrapper">
-            <StatusBar
-                class="top-bar"
-                :show-account="false"
-                :show-theme-picker="true"
-                page-title=""
-                logo-click-target="/"
-            />
-            <h1>Generating login credentials for you</h1>
-            {{ errMsg }}
+    <div class="wrapper">
+        <StatusBar
+            class="top-bar"
+            :show-account="false"
+            :show-theme-picker="true"
+            page-title=""
+            logo-click-target="/"
+        />
+        <div class="content">
+            <h1>Generating login credentials</h1>
+            <p v-if="errMsg !== ''" class="err">
+                {{ errMsg }}
+            </p>
+            <i v-else class="fa-xl fa-solid fa-circle-notch loading-spinner"></i>
         </div>
     </div>
 </template>
+
+<style scoped lang="scss">
+
+.wrapper {
+    >.top-bar {
+        height: 8vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-color: var( --theme-bg-2 );
+        box-shadow: 10px 10px 30px var(--theme-bg-1-shade);
+    }
+    >.content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-top: 8vh;
+
+        >h1 {
+            padding-top: 2rem;
+        }
+
+        >p.err {
+            color: var(--theme-warning);
+            background-color: var(--theme-bg-1-shade);
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        @keyframes rotating {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        >i.loading-spinner {
+            color: var(--theme-bg-4);
+            animation: rotating 2s linear infinite;
+            margin-top: 2rem;
+        }
+    }
+}
+</style>
