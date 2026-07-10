@@ -90,7 +90,7 @@ const startAnnotationManager = ( renderer: Renderer ): AnnotationManager => {
                 document.dispatchEvent( new CustomEvent( 'eyetap:annotation-done', {
                     'detail': {
                         'current': session.sessionIds[ session.sessionIdx ]!.sessionId,
-                        'next': session.sessionIds[ session.sessionIdx + 1 ]!.sessionId
+                        'next': session.sessionIds[ ( session.sessionIdx + 1 ) % session.sessionIds.length ]!.sessionId
                     }
                 } ) );
                 selectedFixation.value = -1;
