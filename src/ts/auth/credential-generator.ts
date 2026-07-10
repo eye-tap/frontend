@@ -22,11 +22,13 @@ export const generateCredentials = async (): Promise<UserData> => {
     if ( studies.length < 1 ) {
         return Promise.reject( 'ERR_NO_STUDIES' );
     } else if ( studies.length === 1 ) {
+        console.log( '[USER GEN] Creating account for survey ID', studies[0]!.studyId, 'with sids', studies[0]?.readingSessionIds );
+
         return await getCreds( studies[0]! );
     } else {
         const ridx = Math.round( Math.random() * ( studies.length - 1 ) );
 
-        console.log( '[USER GEN] Assigned user to survey index', ridx, `(id = ${ studies[ridx]!.studyId })` );
+        console.log( '[USER GEN] Assigned user to survey index', ridx, `(id = ${ studies[ridx]!.studyId }, sids = ${ studies[ridx]!.readingSessionIds })` );
 
         return await getCreds( studies[ridx]! );
     }
