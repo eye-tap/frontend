@@ -5,6 +5,12 @@
         onMounted,
         ref
     } from 'vue';
+    import {
+        type SessionProgress,
+        type StatsElement,
+        getStats,
+        preprocessProgress
+    } from '@/ts/stats/loader';
     import type {
         OverallProgressStatisticsDto
     } from '@/types/dtos/OverallProgressStatisticsDto';
@@ -15,68 +21,13 @@
         addStatsCharts
     } from '@/ts/stats/charts';
     import {
-        getStats
-    } from '@/ts/stats/loader';
-    import {
         useStatusStore
     } from '@/ts/stores/status';
-
-    interface SessionProgress {
-        'averageAnnPerFix': number;
-        'annotators': number;
-        'text': string;
-        'sortDescriptor': number;
-        'reader': number;
-    }
-
-    interface StatsElement {
-        'display': string;
-        'value': number;
-        'prefix'?: string;
-    }
 
     const completion: Ref<HTMLCanvasElement | null> = ref( null );
     const stats: Ref<StatsElement[]> = ref( [] );
     const progress: Ref<SessionProgress[]> = ref( [] );
 
-    const preprocessProgress = ( data: Record<string, ReadingSessionProgressDto> ) => {
-        const progressList: SessionProgress[] = [];
-        const texts: {
-            [key: string]: number
-        } = {};
-
-        for ( const key in data ) {
-            const el = {
-                ...data[key]!
-            };
-            const textDto = key.substring( key.indexOf( 'ShallowTextDto' ) + 18 );
-            const reader = parseInt( key.slice( key.indexOf( 'readerId' ) + 9, key.indexOf( ',' ) ) );
-            const text = textDto.slice( textDto.indexOf( 'title' ) + 6, textDto.indexOf( ']' ) );
-            const textId = parseInt( textDto.slice( 0, textDto.indexOf( ',' ) ) );
-
-            progressList.push( {
-                'averageAnnPerFix': el.averageAnnotationsPerFixation ?? 0,
-                'annotators': el.numberOfUniqueAnnotators ?? 0,
-                'text': text,
-                'sortDescriptor': ( textId * 10000 ) + reader,
-                'reader': reader
-            } );
-            texts[ text ] = textId;
-        }
-
-        progress.value = progressList
-            .sort( ( a, b ) => a.sortDescriptor - b.sortDescriptor );
-        textList.value = Object.keys( texts )
-            .map( val => {
-                return {
-                    'text': val,
-                    'sort': texts[ val ]!
-                };
-            } )
-            .sort( ( a, b ) => a.sort - b.sort )
-            .map( val => val.text );
-        filterQuery.value = textList.value[0]!;
-    };
 
     const preprocessStats = ( data: OverallProgressStatisticsDto ) => {
         const statsList: StatsElement[] = [
@@ -174,7 +125,11 @@
 
         stats.value = preprocessStats( data.statisticsDto! );
 
-        preprocessProgress( data.progress! as Record<string, ReadingSessionProgressDto> );
+        const res = preprocessProgress( data.progress! as Record<string, ReadingSessionProgressDto> );
+
+        filterQuery.value = res.firstText;
+        progress.value = res.progress;
+        textList.value = res.textList;
 
         addStatsCharts( data.statisticsDto!.progressUntilEverythingIsAnnotatedOnce!, completion.value! );
     } );
